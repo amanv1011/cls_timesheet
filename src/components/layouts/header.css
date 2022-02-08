@@ -1,0 +1,23 @@
+
+.searchbar{
+    display: flex;
+}
+.searchInput{
+    border:none;
+    width:70%;
+}
+.searchInput:focus{
+    outline: none;
+}
+
+.profileImage{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.name{
+    align-self: center;
+}

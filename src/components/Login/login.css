@@ -1,0 +1,13 @@
+
+.loginBtn{
+    width:100%;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 1em;
+}
+
+.title{
+    font-size: 14px;
+    color: #006EA9;
+    margin: 1.2em 0 1em 0;
+}
