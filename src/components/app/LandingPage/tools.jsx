@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import { getTools } from "../../../actions/asyncActions"
-import { Jeera } from "../../../assets/images"
+import {   jeera,
+  basecamp,
+  gmail,
+  greyhr,
+  hubspot,
+  notion,
+  slack,
+  zoho, } from "../../../assets/images"
 import {
   Link
 } from "react-router-dom";
@@ -22,6 +29,10 @@ display:flex;
 flex-wrap:wrap;
 row-gap:1.2em;
 padding-top:1.5em;
+div:nth-child(4n) {
+  border-right:unset;
+}
+
 `;
 const ToolIcon = styled.div`
 padding:1em 1em;
@@ -62,7 +73,9 @@ class Tools extends React.Component {
             return <div/>
         }
 
-        const Data = this.props.userTools? this.props.userTools.map(d => {
+        const Data = this.props.userTools ? this.props.userTools.map(d => {
+            const Image = d.name
+            console.log('Image', Image)
             return (
 
                 <ToolsWrapper onClick={() => this.props.history.push({
@@ -70,7 +83,7 @@ class Tools extends React.Component {
                     state: { details: d }
                 })}>
                     <ToolIcon>
-                        <img src={Jeera} alt="" style={{ width: '35px', height: '35px', maxWidth: '35px', alignSelf: 'center' }} />
+                        <img src={require(`../../../assets/images/icons/${Image? Image : hubspot}.png`)} alt="" style={{ width: '35px', maxWidth: '40px', alignSelf: 'center' }} />
                     </ToolIcon>
                     <ToolBar>
                         <ToolTitle>{d.name}</ToolTitle>

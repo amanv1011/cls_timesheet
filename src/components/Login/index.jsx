@@ -40,11 +40,6 @@ const LoginButton = styled.div`
 
 class Login extends Component {
 
-  state = {
-    email: "snow.white@classicinformatics.com",
-    load: false
-  }
-
   responseGoogleSuccess = (response) => {
 
     console.log("response ",response);

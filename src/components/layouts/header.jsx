@@ -93,7 +93,6 @@ class Header extends React.Component {
                             <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
                                 <Option value="jack">{ name}</Option>
                                 <Option value="lucy">Log Out</Option>
-                                <Option value="Yiminghe">Settings</Option>
                             </Select>
                         </Profile>
                     </RightContainer>

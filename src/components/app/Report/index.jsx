@@ -5,7 +5,7 @@ import { withRouter} from 'react-router'
 
 class Dashboard extends React.Component {
   render() {
-    console.log("dashboard", this.props)
+    // console.log("dashboard", this.props)
     return <div>Report</div>;
   }
 }
