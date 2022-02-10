@@ -11,6 +11,7 @@ const Wrapper = styled.div``;
 const Header = styled.h5`
   padding: 0 0 1em 0;
   color: #1f4173;
+  display:flex;
 `;
 class LandingPage extends Component {
   componentDidMount = () => {
@@ -21,7 +22,7 @@ class LandingPage extends Component {
     const { name } = this.props.user.userDetails;
     return (
       <Wrapper>
-        <Header className="header">
+        <Header>
           Welcome, <b>{name}</b>
         </Header>
         <Tools {...this.props.user} {...this.props} />
