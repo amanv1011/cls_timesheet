@@ -1,15 +1,15 @@
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
-    UserOutlined,
-    UpSquareOutlined,
-    TeamOutlined,
-    SettingOutlined,
-    HourglassOutlined,
-    CalendarOutlined,
-    PieChartOutlined
-} from '@ant-design/icons';
+  UserOutlined,
+  UpSquareOutlined,
+  TeamOutlined,
+  SettingOutlined,
+  HourglassOutlined,
+  CalendarOutlined,
+  PieChartOutlined,
+} from "@ant-design/icons";
 import TopHeader from "./header";
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 import {
   storeUserProfile,
@@ -21,12 +21,14 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 const Wrapper = styled.div`
-width:100%;
-height: 100vh;
+  width: 100%;
+  height: 100vh;
 `;
-const withDashboardTemplate = WrappedComponent => {
-    
-    return class Template extends React.Component {
+const withDashboardTemplate = (WrappedComponent) => {
+  return class Template extends React.Component {
+    state = {
+      collapsible: true,
+    };
 
         state = {
             collapsible: false
@@ -99,6 +101,7 @@ const withDashboardTemplate = WrappedComponent => {
             );
         }
     }
-}
- 
+  };
+
+
 export default withDashboardTemplate;
