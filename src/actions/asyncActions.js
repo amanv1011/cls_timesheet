@@ -27,3 +27,16 @@ export const getTools = (req, res) => {
     })
     .catch((err) => {});
 };
+
+export const getWeeklyStatus = (req, res) => {
+  const data = {
+    id: req,
+  };
+  http
+    .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
+    .then((response) => {
+      // console.log(response, "zzzzzzzzzzzz");
+      Store.dispatch(syncActions.getWeeklyStatus(response.data));
+    })
+    .catch((err) => {});
+};

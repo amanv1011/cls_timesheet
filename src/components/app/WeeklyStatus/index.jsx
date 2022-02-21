@@ -1,65 +1,63 @@
-import React, { useState } from "react";
-import { Table, Radio } from "antd";
+import React from "react";
+import { Table, Radio, Input } from "antd";
 import { connect } from "react-redux";
 import DashboardTemplate from '../../layouts/template'
 import { withRouter } from 'react-router'
 import { IoIosArrowBack, IoIosSquare } from "react-icons/io";
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
-import { DatePicker, Space } from "antd";
-import { RangePickerProps } from "antd/lib/date-picker";
-
 import "./weeklystatus.css"
+import { getWeeklyStatus } from "../../../actions/asyncActions";
+import { AiOutlineEdit } from "react-icons/ai"
+
 
 const columns = [
     {
         title: 'Project',
-        dataIndex: 'name',
+        dataIndex: 'project_name',
         render: (text) => <a>{text}</a>,
     },
     {
         title: 'Engagement Type',
-        dataIndex: 'type',
+        dataIndex: 'engagement_type',
     },
     {
         title: 'Week Status',
-        dataIndex: 'status',
+        dataIndex: 'weekly_status_description',
+        render: weekly_status_description => (
+            <Input className="textarea" value={weekly_status_description} suffix={<AiOutlineEdit />} />
+        )
+
+
     },
     {
         title: 'Project Health',
-        dataIndex: 'health',
+        dataIndex: 'weekly_project_heatlh',
+        render: weekly_project_heatlh => (
+            <span>
+                <IoIosSquare style={{ color: `${weekly_project_heatlh.toLowerCase() == "poor" ? "red" : weekly_project_heatlh.toLowerCase() == "good" ? "lightGreen" : weekly_project_heatlh.toLowerCase() == "average" ? "yellow" : ""}` }} />
+                {weekly_project_heatlh}
+
+            </span>
+        )
 
     },
 ];
 const data = [
     {
         key: '1',
-        name: 'Studio a+i Digital Marketing',
-        type: "Fixed",
-        status: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        // status: 'But i Must explain you how all this things works',
-        health: <div>< IoIosSquare style={{ color: "#09db09", fontSize: "20px" }} /> GOOD</div>
+        project_name: 'Studio a+i Digital Marketing',
+        engagement_type: "Fixed",
+        weekly_status_description: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
+        weekly_project_heatlh: "GOOD"
     },
     {
         key: '2',
-        name: 'Clock store Marketing',
-        type: "Fixed",
-        status: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        health: <div>< IoIosSquare style={{ color: "#09db09", fontSize: "20px" }} /> GOOD</div>
+        project_name: 'Clock store Marketing',
+        engagement_type: "Fixed",
+        weekly_status_description: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
+        weekly_project_heatlh: "good"
     },
-    {
-        key: '3',
-        name: 'Allied Global Marketing',
-        type: "Fixed",
-        status: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        health: <div>< IoIosSquare style={{ color: "red", fontSize: "20px" }} /> Poor</div>
-    },
-    {
-        key: '4',
-        name: 'Timesheet',
-        type: "Dedicated",
-        status: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        health: <div>< IoIosSquare style={{ color: "#09db09", fontSize: "20px" }} /> GOOD</div>
-    },
+
 ];
 
 const rowSelection = {
@@ -74,14 +72,18 @@ const rowSelection = {
 };
 
 class WeeklyStatus extends React.Component {
+    componentDidMount = () => {
+        getWeeklyStatus();
+        this.setState({ data_: this.props.week_status.weeklyStatus.projects })
+    };
     constructor() {
         super();
         this.state = {
-            selectionType: "checkbox"
+            selectionType: "checkbox",
+            data_: data
         }
     }
     render() {
-        console.log("dashboard", this.props)
         return <>
 
             <div className="backBtn">
@@ -105,7 +107,7 @@ class WeeklyStatus extends React.Component {
 
                 </div>
             </div>
-            <Table className="weekTable" columns={columns} dataSource={data} rowSelection={{
+            <Table className="weekTable" columns={columns} dataSource={this.state.data_} rowSelection={{
                 type: this.state.selectionType,
                 ...rowSelection,
             }} />
@@ -113,7 +115,10 @@ class WeeklyStatus extends React.Component {
     }
 }
 
+// this.props.week_status.weeklyStatus.projects
+
 const mapStateToProps = (store) => {
+    console.log(store, "STORE");
     return {
         ...store,
     };
@@ -124,3 +129,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default DashboardTemplate(connect(mapStateToProps, mapDispatchToProps)(withRouter(WeeklyStatus)));
+

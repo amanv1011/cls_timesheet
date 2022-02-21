@@ -5,4 +5,5 @@ export default keyMirror({
   SPINNER: null,
   USER_DETAILS: null,
   GET_USER_TOOLS: null,
+  GET_WEEKLY_STATUS: null,
 });
