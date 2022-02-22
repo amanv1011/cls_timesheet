@@ -57,3 +57,14 @@
 .styleDataTable Table {
   border-radius: 1rem;
 }
+
+/* resource modal */
+.modalHeading {
+  width: 470px;
+  color: #656f76;
+  background-color: #f8f9fb;
+}
+
+.StyleModalTable {
+  width: 40rem;
+}
