@@ -51,3 +51,11 @@
 .ant-input-affix-wrapper > input.ant-input {
   background: transparent;
 }
+
+.weekBtn {
+  margin: 5px;
+  border-radius: 9px;
+  font-weight: 700;
+  width: 90px;
+  padding: 5px;
+}

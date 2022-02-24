@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Radio, Input } from "antd";
+import { Table, Button, Input } from "antd";
 import { connect } from "react-redux";
 import DashboardTemplate from '../../layouts/template'
 import { withRouter } from 'react-router'
@@ -8,6 +8,7 @@ import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
 import "./weeklystatus.css"
 import { getWeeklyStatus } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai"
+import moment from 'moment';
 
 
 const columns = [
@@ -42,23 +43,6 @@ const columns = [
 
     },
 ];
-const data = [
-    {
-        key: '1',
-        project_name: 'Studio a+i Digital Marketing',
-        engagement_type: "Fixed",
-        weekly_status_description: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        weekly_project_heatlh: "GOOD"
-    },
-    {
-        key: '2',
-        project_name: 'Clock store Marketing',
-        engagement_type: "Fixed",
-        weekly_status_description: <textarea className="textarea" cols="40" rows="1" placeholder="textarea"></textarea>,
-        weekly_project_heatlh: "good"
-    },
-
-];
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -66,22 +50,31 @@ const rowSelection = {
     },
     getCheckboxProps: (record) => ({
         disabled: record.name === 'Disabled User',
-        // Column configuration not to be checked
         name: record.name,
     }),
 };
 
+
 class WeeklyStatus extends React.Component {
     componentDidMount = () => {
         getWeeklyStatus();
-        this.setState({ data_: this.props.week_status.weeklyStatus.projects })
+        // 
     };
+
     constructor() {
         super();
         this.state = {
             selectionType: "checkbox",
-            data_: data
+            startDt: null,
+            endDt: null,
         }
+    }
+    dateHandler = (e) => {
+        let a = e.target.value
+        // console.log(a);
+        this.setState({ startDt: moment(a[0]).format("YYYY-MM-DD"), endDt: moment(a[1]).format("YYYY-MM-DD") })
+        console.log(this.state.startDt);
+        getWeeklyStatus(this.state.startDt, this.state.endDt);
     }
     render() {
         return <>
@@ -95,7 +88,13 @@ class WeeklyStatus extends React.Component {
                 <div className="filter">
                     <div >
                         <p style={{ display: "contents" }}>Stauts Logged</p>
-                        <DateRangePickerComponent format={'dd MMM yy'} placeholder="Select Date Range" />
+                        <DateRangePickerComponent
+                            format={'dd MMM yy'}
+                            placeholder="Select Date Range"
+                            startDate={this.state.startDt}
+                            endDate={this.state.endDt}
+                            onChange={this.dateHandler}
+                        />
                     </div>
                     <label htmlFor="options" className="optLabel">Filter by: </label>
                     <select className="select" name="options" id="options">
@@ -107,15 +106,26 @@ class WeeklyStatus extends React.Component {
 
                 </div>
             </div>
-            <Table className="weekTable" columns={columns} dataSource={this.state.data_} rowSelection={{
-                type: this.state.selectionType,
-                ...rowSelection,
-            }} />
+            <div className="weekTable">
+                <Table
+                    pagination={false}
+                    // footer={()=>{<p>This is Footer</p>}}
+                    columns={columns} dataSource={this.props.week_status.weeklyStatus ? this.props.week_status.weeklyStatus.projects : []}
+                    rowSelection={{
+                        type: this.state.selectionType,
+                        ...rowSelection,
+
+
+                    }} />
+                <div className="button_wrap" style={{ float: "right", margin: "20px" }}>
+                    <Button className="weekBtn" style={{ background: "#8D9DB7" }} ghost>Cancel</Button>
+                    <Button className="weekBtn" type="primary">Save</Button>
+                </div>
+            </div>
         </>;
     }
 }
 
-// this.props.week_status.weeklyStatus.projects
 
 const mapStateToProps = (store) => {
     console.log(store, "STORE");
@@ -123,6 +133,7 @@ const mapStateToProps = (store) => {
         ...store,
     };
 };
+
 
 const mapDispatchToProps = (dispatch) => {
     return {};
