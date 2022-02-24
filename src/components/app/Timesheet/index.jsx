@@ -10,10 +10,8 @@ import Form from "antd/lib/form/Form";
 import { Button } from "antd";
 import { Switch } from "antd";
 import { Table } from "antd";
-import { Collapse } from "antd";
-import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
-import "./timeSheet.css";
-
+import { Modal } from "antd";
+import Classes from "./timeSheet.module.css";
 const monthFormat = "MMM YYYY";
 
 const columns = [
@@ -101,6 +99,8 @@ const data = [
   {
     key: "1",
     projects: "Studio a+i Digital Marketing",
+    resources: "5",
+    extra: "timesheet records of resources",
     projectowner: "Rajesh Chandra",
     projectcode: "PC101",
     accountcode: "PAC101",
@@ -111,6 +111,8 @@ const data = [
   {
     key: "2",
     projects: "MDA Development & Marketing",
+    resources: "10",
+    extra: "timesheet records of resources",
     projectowner: "Rahul Mehra",
     projectcode: "PC102",
     accountcode: "PAC102",
@@ -121,6 +123,8 @@ const data = [
   {
     key: "3",
     projects: "HIRED Development & Marketing",
+    resources: "2",
+    extra: "timesheet records of resources",
     projectowner: "Himanshu Jindal",
     projectcode: "PC103",
     accountcode: "PAC103",
@@ -131,6 +135,8 @@ const data = [
   {
     key: "4",
     projects: "Clock Store Marketing",
+    resources: "7",
+    extra: "timesheet records of resources",
     projectowner: "Amit chaudhary",
     projectcode: "PC104",
     accountcode: "PAC104",
@@ -141,6 +147,8 @@ const data = [
   {
     key: "5",
     projects: "Upright HC - Digital Marketing",
+    resources: "3",
+    extra: "timesheet records of resources",
     projectowner: "Gagandeep Singh",
     projectcode: "PC105",
     accountcode: "PAC105",
@@ -151,33 +159,149 @@ const data = [
 ];
 
 class Timesheet extends React.Component {
-  handleOnOff() {
-    console.log(this.state.show);
-    this.setState({ show: !this.state.show });
-  }
   constructor(props) {
     super(props);
     this.state = {
       show: false,
+      isModalVisible: false,
+      divContent: "",
+      calenderValue: null,
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
+
+  handleOnOff() {
+    console.log(this.state.show);
+    this.setState({ show: !this.state.show });
+  }
+
+  handleUpdateCalenderValue = (e) => {
+    let data = e.target.value;
+    this.setState({
+      calenderValue: data,
+    });
+    console.log(this.state.calenderValue);
+  };
+
+  handleModal = (event) => {
+    this.setState({
+      isModalVisible: true,
+      divContent: event.currentTarget.textContent,
+    });
+  };
+
+  handleOk = () => {
+    this.setState({
+      isModalVisible: false,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      isModalVisible: false,
+    });
+  };
+
+  expandedRowRender = () => {
+    const columns = [
+      {
+        title: "Resources",
+        key: "resource",
+        render: () => (
+          <>
+            <div
+              style={{ color: "#3463DA", fontWeight: "bold" }}
+              onClick={this.handleModal}
+            >
+              Rahul Mehra
+            </div>
+            <span style={{ color: "#B9C4D3" }}>Time Log: 20h 15m</span>
+          </>
+        ),
+      },
+      {
+        key: "resource",
+        render: () => (
+          <>
+            <div
+              style={{ color: "#3463DA", fontWeight: "bold" }}
+              onClick={this.handleModal}
+            >
+              Himanshu Jindal
+            </div>
+            <span style={{ color: "#B9C4D3" }}>Time Log: 30h 00m</span>
+          </>
+        ),
+      },
+      {
+        key: "resource",
+        render: () => (
+          <>
+            <div
+              style={{ color: "#3463DA", fontWeight: "bold" }}
+              onClick={this.handleModal}
+            >
+              Vineet Jain
+            </div>
+            <span style={{ color: "#B9C4D3" }}>Time Log: 15h 10m</span>
+          </>
+        ),
+      },
+      {
+        key: "resource",
+        render: () => (
+          <>
+            <div
+              style={{ color: "#3463DA", fontWeight: "bold" }}
+              onClick={this.handleModal}
+            >
+              Amit Chaudhary
+            </div>
+            <span style={{ color: "#B9C4D3" }}>Time Log: 25h 20m</span>
+          </>
+        ),
+      },
+      {
+        key: "resource",
+        render: () => (
+          <>
+            <div
+              style={{ color: "#3463DA", fontWeight: "bold" }}
+              onClick={this.handleModal}
+            >
+              Gagandeep Singh
+            </div>
+            <span style={{ color: "#B9C4D3" }}>Time Log: 19h 30m</span>
+          </>
+        ),
+      },
+    ];
+
+    const data = [];
+    for (let i = 0; i < 1; ++i) {
+      data.push({
+        key: i,
+      });
+    }
+    return <Table columns={columns} dataSource={data} pagination={false} />;
+  };
+
   render() {
     // console.log("dashboard", this.props)
 
     return (
       <div>
-        <div className="backBtn">
+        <div className={Classes.backBtn}>
           <IoIosArrowBack />
           Back Dashboard
         </div>
-        <div className="header">
+        <div className={Classes.header}>
           <h3>Timesheet</h3>
           <Space>
             <DatePicker
               picker="month"
               suffixIcon={
-                <span className="styleDateIcons">
+                <span className={Classes.styleDateIcons}>
                   <RiCalendar2Line />
                   <IoIosArrowDown />
                 </span>
@@ -192,28 +316,32 @@ class Timesheet extends React.Component {
         </div>
         <div style={{ marginTop: "1rem" }}>
           <h6>Filter by:</h6>
-          <div className="filterForm">
-            <Form className="formStyle">
+          <div className={Classes.filterForm}>
+            <Form className={Classes.formStyle}>
               <Input placeholder="Project Name" />
               <Input placeholder="Project Owner" />
               <Input placeholder="Engagement Type" />
               <Input placeholder="Status" />
               <Button>Go</Button>
             </Form>
-            <div className="styleRes">
+            <div className={Classes.styleRes}>
               <span>
                 <Switch onChange={this.handleOnOff} />
                 Resources
-                <Button className="ExportBtn">Export to Excel</Button>
+                <Button className={Classes.ExportBtn}>Export to Excel</Button>
               </span>
             </div>
           </div>
         </div>
-        <div className="styleDataTable">
+        <div className={Classes.styleDataTable}>
           {this.state.show ? (
             <Table
               columns={columns}
               dataSource={data}
+              expandedRowRender={this.expandedRowRender}
+              expandable={{
+                rowExpandable: (record) => record.extra !== "Not expandable",
+              }}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
@@ -236,6 +364,68 @@ class Timesheet extends React.Component {
             />
           )}
         </div>
+
+        <Modal
+          title={`${this.state.divContent} - Monthly TimeSheet Stats`}
+          visible={this.state.isModalVisible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          style={{ width: "70%" }}
+        >
+          <div className={Classes.modalHeading}>Worked Hours</div>
+          <table className={Classes.StyleModalTable}>
+            <tr>
+              <th> </th>
+              <th>Hours</th>
+              <th>Task Memo</th>
+            </tr>
+            <tr>
+              <td>2 Dec, Thursday</td>
+              <td>0:50</td>
+              <td>lorem ipsum</td>
+            </tr>
+            <tr>
+              <td>10 Dec, Friday</td>
+              <td>2:10</td>
+              <td>Lorem ipsum dolor.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>0:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>3:45</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>3:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>2:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>2:15</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>4:15</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>Total Hours: </td>
+              <td>20:15</td>
+              <td> </td>
+            </tr>
+          </table>
+        </Modal>
       </div>
     );
   }

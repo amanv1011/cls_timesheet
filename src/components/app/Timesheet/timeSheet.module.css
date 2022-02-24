@@ -20,7 +20,8 @@
 
 .filterForm {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  width: max-content;
 }
 
 .formStyle Input {
@@ -33,20 +34,18 @@
   background-color: blue;
   color: white;
   border-radius: 0.7rem;
-}
-.styleRes {
-  margin-left: 30px;
+  margin-right: 5px;
 }
 
 .styleRes span {
   display: flex;
+  gap: 5px;
   align-items: center;
-  gap: 10px;
   color: #b5c1d3;
 }
 
 .ExportBtn {
-  margin-left: 55px;
+  margin-left: 10px;
   border-radius: 0.5rem;
   background-color: #8b9cb8;
   color: #fff;
@@ -57,4 +56,15 @@
 }
 .styleDataTable Table {
   border-radius: 1rem;
+}
+
+/* resource modal */
+.modalHeading {
+  width: 470px;
+  color: #656f76;
+  background-color: #f8f9fb;
+}
+
+.StyleModalTable {
+  width: 40rem;
 }

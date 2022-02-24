@@ -14,6 +14,13 @@ export const getUserTools = (data) => ({
   type: actionTypes.GET_USER_TOOLS,
   payload: data,
 });
+export const getWeeklyStatus = (data) => {
+  console.log(data, "SYNC ACTION");
+  return {
+    type: actionTypes.GET_WEEKLY_STATUS,
+    payload: data,
+  };
+};
 
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,

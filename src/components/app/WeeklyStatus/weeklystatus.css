@@ -43,8 +43,11 @@
 
 .textarea {
   background-color: rgb(230, 236, 255);
-  border-radius: 5px;
+  border-radius: 7px;
   padding: 5px;
   border: none;
   resize: none;
+}
+.ant-input-affix-wrapper > input.ant-input {
+  background: transparent;
 }

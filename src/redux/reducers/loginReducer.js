@@ -1,11 +1,4 @@
 import ActionTypes from "../actionTypes";
-import initialState from "../initialstate";
-import {
-  storeUserProfile,
-  getUserProfile,
-  deleteUserProfile,
-} from "../../actions/user";
-
 export default (state = {}, action) => {
   //   console.log("action in spinner reducer", action, "initial state", state);
   switch (action.type) {
