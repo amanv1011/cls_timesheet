@@ -27,24 +27,3 @@ export const getTools = (req, res) => {
     })
     .catch((err) => {});
 };
-
-// export const getTrips = (req, res) => {
-//   let params = {
-//     adults: 1,
-//     children: 0,
-//     departDate: "2022-02-12",
-//     destination: "MEL",
-//     destinationCity: "Melbourne",
-//     infants: 0,
-//     origin: "NYC",
-//     originCity: "New York",
-//     returnDate: "2022-02-15",
-//     trip_class: "Y",
-//   };
-//   axios
-//     .post("http://localhost:3003/api/travelpayoutsApi", params)
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch((err) => {});
-// };

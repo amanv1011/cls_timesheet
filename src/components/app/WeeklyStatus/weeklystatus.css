@@ -1,0 +1,50 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+.backBtn {
+  display: flex;
+  align-items: center;
+  color: #2a84b5;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.upperRow {
+  display: flex;
+  justify-content: space-between;
+}
+.weekTable {
+  margin-top: 30px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 1px 4px 12px grey;
+}
+
+.select {
+  padding: 5px 10px;
+  width: 200px;
+  color: gray;
+  background-color: #e6e9f0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.optLabel {
+  font-weight: 600;
+  color: #305d9f;
+  font-size: 17px;
+  margin: 0 10px;
+  padding-left: 20px;
+  border-left: 2px solid rgb(170, 169, 169);
+}
+
+.textarea {
+  background-color: rgb(230, 236, 255);
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  resize: none;
+}

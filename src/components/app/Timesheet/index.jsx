@@ -10,6 +10,8 @@ import Form from "antd/lib/form/Form";
 import { Button } from "antd";
 import { Switch } from "antd";
 import { Table } from "antd";
+import { Collapse } from "antd";
+import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
 import "./timeSheet.css";
 
 const monthFormat = "MMM YYYY";
@@ -24,6 +26,44 @@ const columns = [
     title: "Resources",
     dataIndex: "resources",
     key: "resources",
+  },
+  {
+    title: "Project Owner",
+    dataIndex: "projectowner",
+    key: "projectowner",
+  },
+  {
+    title: "Project Code",
+    dataIndex: "projectcode",
+    key: "projectcode",
+  },
+  {
+    title: "Account Code",
+    dataIndex: "accountcode",
+    key: "accountcode",
+  },
+  {
+    title: "Engagement Type",
+    dataIndex: "engagementtype",
+    key: "engagementtype",
+  },
+  {
+    title: "Hours Logged",
+    dataIndex: "hourslogged",
+    key: "hourslogged",
+  },
+  {
+    title: "Biled Hours",
+    dataIndex: "biledhours",
+    key: "biledhours",
+  },
+];
+
+const columns1 = [
+  {
+    title: "Projects",
+    dataIndex: "projects",
+    key: "projects",
   },
   {
     title: "Project Owner",
@@ -111,6 +151,17 @@ const data = [
 ];
 
 class Timesheet extends React.Component {
+  handleOnOff() {
+    console.log(this.state.show);
+    this.setState({ show: !this.state.show });
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+    };
+    this.handleOnOff = this.handleOnOff.bind(this);
+  }
   render() {
     // console.log("dashboard", this.props)
 
@@ -151,7 +202,7 @@ class Timesheet extends React.Component {
             </Form>
             <div className="styleRes">
               <span>
-                <Switch />
+                <Switch onChange={this.handleOnOff} />
                 Resources
                 <Button className="ExportBtn">Export to Excel</Button>
               </span>
@@ -159,17 +210,31 @@ class Timesheet extends React.Component {
           </div>
         </div>
         <div className="styleDataTable">
-          <Table
-            columns={columns}
-            dataSource={data}
-            style={{
-              borderRadius: "1rem",
-              overflow: "hidden",
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-            }}
-            pagination={{ pageSize: 50 }}
-            scroll={{ y: 240 }}
-          />
+          {this.state.show ? (
+            <Table
+              columns={columns}
+              dataSource={data}
+              style={{
+                borderRadius: "1rem",
+                overflow: "hidden",
+                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              }}
+              pagination={{ pageSize: 50 }}
+              scroll={{ y: 240 }}
+            />
+          ) : (
+            <Table
+              columns={columns1}
+              dataSource={data}
+              style={{
+                borderRadius: "1rem",
+                overflow: "hidden",
+                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+              }}
+              pagination={{ pageSize: 50 }}
+              scroll={{ y: 240 }}
+            />
+          )}
         </div>
       </div>
     );
