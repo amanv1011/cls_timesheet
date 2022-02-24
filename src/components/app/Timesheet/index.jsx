@@ -12,7 +12,6 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Modal } from "antd";
 import Classes from "./timeSheet.module.css";
-
 const monthFormat = "MMM YYYY";
 
 const columns = [
@@ -165,6 +164,8 @@ class Timesheet extends React.Component {
     this.state = {
       show: false,
       isModalVisible: false,
+      divContent: "",
+      calenderValue: null,
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
@@ -174,9 +175,18 @@ class Timesheet extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  handleModal = () => {
+  handleUpdateCalenderValue = (e) => {
+    let data = e.target.value;
+    this.setState({
+      calenderValue: data,
+    });
+    console.log(this.state.calenderValue);
+  };
+
+  handleModal = (event) => {
     this.setState({
       isModalVisible: true,
+      divContent: event.currentTarget.textContent,
     });
   };
 
@@ -356,14 +366,65 @@ class Timesheet extends React.Component {
         </div>
 
         <Modal
-          title="Basic Modal"
+          title={`${this.state.divContent} - Monthly TimeSheet Stats`}
           visible={this.state.isModalVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          style={{ width: "70%" }}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <div className={Classes.modalHeading}>Worked Hours</div>
+          <table className={Classes.StyleModalTable}>
+            <tr>
+              <th> </th>
+              <th>Hours</th>
+              <th>Task Memo</th>
+            </tr>
+            <tr>
+              <td>2 Dec, Thursday</td>
+              <td>0:50</td>
+              <td>lorem ipsum</td>
+            </tr>
+            <tr>
+              <td>10 Dec, Friday</td>
+              <td>2:10</td>
+              <td>Lorem ipsum dolor.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>0:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>3:45</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>3:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>2:40</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>2:15</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>21 Dec, Tuesday</td>
+              <td>4:15</td>
+              <td>Lorem ipsum dolor sit.</td>
+            </tr>
+            <tr>
+              <td>Total Hours: </td>
+              <td>20:15</td>
+              <td> </td>
+            </tr>
+          </table>
         </Modal>
       </div>
     );
