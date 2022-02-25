@@ -25,16 +25,16 @@ const columns = [
         title: 'Week Status',
         dataIndex: 'weekly_status_description',
         render: weekly_status_description => (
-            <Input className="textarea" title={weekly_status_description} value={weekly_status_description.slice(0, 40)} suffix={<AiOutlineEdit />} />
+            <Input className="textarea" title={weekly_status_description} value={weekly_status_description} suffix={<AiOutlineEdit />} />
         )
     },
     {
         title: 'Project Health',
-        dataIndex: 'weekly_project_heatlh',
-        render: weekly_project_heatlh => (
+        dataIndex: 'weekly_project_health',
+        render: weekly_project_health => (
             <span>
-                <IoIosSquare style={{ color: `${weekly_project_heatlh.toLowerCase() == "poor" ? "red" : weekly_project_heatlh.toLowerCase() == "good" ? "lightGreen" : weekly_project_heatlh.toLowerCase() == "average" ? "yellow" : ""}` }} />
-                {weekly_project_heatlh}
+                <IoIosSquare style={{ color: `${weekly_project_health.toLowerCase() == "poor" ? "red" : weekly_project_health.toLowerCase() == "good" ? "lightGreen" : weekly_project_health.toLowerCase() == "average" ? "yellow" : ""}` }} />
+                {weekly_project_health}
 
             </span>
         )
