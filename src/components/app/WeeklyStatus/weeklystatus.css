@@ -31,9 +31,40 @@
   display: flex;
   justify-content: space-between;
 }
+.dateFilter {
+  display: flex;
+  align-items: self-end;
+}
+
+.datepicker {
+  border: none;
+  outline: none;
+  text-decoration: none;
+}
+
+.e-input-group:not(.e-float-icon-left),
+.e-input-group.e-success:not(.e-float-icon-left),
+.e-input-group.e-warning:not(.e-float-icon-left),
+.e-input-group.e-error:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-success:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-warning:not(.e-float-icon-left),
+.e-input-group.e-control-wrapper.e-error:not(.e-float-icon-left) {
+  border: none;
+  color: #305d9f;
+  font-weight: 500;
+  width: 290px;
+}
+
+.e-input-group-icon.e-range-icon::before,
+*.e-control-wrapper .e-input-group-icon.e-range-icon::before {
+  color: #305d9f;
+}
 
 .optLabel {
   font-weight: 600;
+  display: flex;
+  align-items: center;
   color: #305d9f;
   font-size: 17px;
   margin: 0 10px;
@@ -48,6 +79,7 @@
   border: none;
   resize: none;
 }
+
 .ant-input-affix-wrapper > input.ant-input {
   background: transparent;
 }
