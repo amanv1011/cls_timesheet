@@ -25,18 +25,18 @@ const columns = [
         title: 'Week Status',
         dataIndex: 'weekly_status_description',
         render: weekly_status_description => (
-            <Input className="textarea" title={weekly_status_description} value={weekly_status_description.slice(0, 40)} suffix={<AiOutlineEdit />} />
+            <Input className="textarea" title="weekly_status_description" value={weekly_status_description} suffix={<AiOutlineEdit />} />
         )
 
 
     },
     {
         title: 'Project Health',
-        dataIndex: 'weekly_project_heatlh',
-        render: weekly_project_heatlh => (
+        dataIndex: 'project_health',
+        render: project_health => (
             <span>
-                <IoIosSquare style={{ color: `${weekly_project_heatlh.toLowerCase() == "poor" ? "red" : weekly_project_heatlh.toLowerCase() == "good" ? "lightGreen" : weekly_project_heatlh.toLowerCase() == "average" ? "yellow" : ""}` }} />
-                {weekly_project_heatlh}
+                <IoIosSquare style={{ color: `${project_health.toLowerCase() == "poor" ? "red" : project_health.toLowerCase() == "good" ? "lightGreen" : project_health.toLowerCase() == "average" ? "yellow" : ""}` }} />
+                {project_health}
 
             </span>
         )
@@ -57,21 +57,19 @@ const rowSelection = {
 
 class WeeklyStatus extends React.Component {
     componentDidMount = () => {
-        getWeeklyStatus();
+        getWeeklyStatus(this.state.startDt, this.state.endDt);
         // 
     };
-
-    constructor() {
-        super();
-        this.state = {
-            selectionType: "checkbox",
-            startDt: null,
-            endDt: null,
-        }
+    state = {
+        selectionType: "checkbox",
+        startDt: new Date(2022, 1, 5),
+        endDt: new Date(2022, 1, 12)
     }
+
     dateHandler = (e) => {
         let a = e.target.value
         // console.log(a);
+
         this.setState({ startDt: moment(a[0]).format("YYYY-MM-DD"), endDt: moment(a[1]).format("YYYY-MM-DD") })
         console.log(this.state.startDt);
         getWeeklyStatus(this.state.startDt, this.state.endDt);
@@ -96,6 +94,7 @@ class WeeklyStatus extends React.Component {
                             startDate={this.state.startDt}
                             endDate={this.state.endDt}
                             onChange={this.dateHandler}
+
                         />
                     </div>
                     <label htmlFor="options" className="optLabel">Filter by: </label>
@@ -110,7 +109,7 @@ class WeeklyStatus extends React.Component {
             </div>
 
             <Table className="weekTable"
-                pagination={false}
+                // pagination={false}
                 // footer={()=>{<p>This is Footer</p>}}
                 columns={columns} dataSource={this.props.week_status.weeklyStatus ? this.props.week_status.weeklyStatus.projects : []}
                 rowSelection={{
