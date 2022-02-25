@@ -34,8 +34,9 @@ export const getWeeklyStatus = (req, res) => {
   };
   http
     .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
+    // .get(`/api/projects/status?startDate=${req}&endDate=${res}`)
     .then((response) => {
-      // console.log(response, "zzzzzzzzzzzz");
+      // console.log(req, res, "zzzzzzzzzzzz");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});

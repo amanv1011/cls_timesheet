@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Radio, Input } from "antd";
+import { Table, Button, Input } from "antd";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
@@ -99,10 +99,11 @@ const rowSelection = {
   }),
 };
 
+
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
     getWeeklyStatus();
-    this.setState({ data_: this.props.week_status.weeklyStatus.projects });
+    // this.setState({ data_: this.props.week_status.weeklyStatus.projects });
   };
   constructor() {
     super();
@@ -141,7 +142,7 @@ class WeeklyStatus extends React.Component {
         <Table
           className="weekTable"
           columns={columns}
-          dataSource={this.state.data_}
+          dataSource={this.props.week_status.weeklyStatus? this.props.week_status.weeklyStatus.projects:[]}
           rowSelection={{
             type: this.state.selectionType,
             ...rowSelection,
@@ -152,7 +153,6 @@ class WeeklyStatus extends React.Component {
   }
 }
 
-// this.props.week_status.weeklyStatus.projects
 
 const mapStateToProps = (store) => {
   console.log(store, "STORE");
@@ -160,6 +160,7 @@ const mapStateToProps = (store) => {
     ...store,
   };
 };
+
 
 const mapDispatchToProps = (dispatch) => {
   return {};
