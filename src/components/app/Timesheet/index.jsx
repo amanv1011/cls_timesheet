@@ -11,6 +11,7 @@ import { Button } from "antd";
 import { Switch } from "antd";
 import { Table } from "antd";
 import { Modal } from "antd";
+import moment from "moment";
 import Classes from "./timeSheet.module.css";
 const monthFormat = "MMM YYYY";
 
@@ -165,7 +166,9 @@ class Timesheet extends React.Component {
       show: false,
       isModalVisible: false,
       divContent: "",
-      calenderValue: null,
+      calenderValue: "",
+      firstDay: "",
+      lastDay: "",
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
@@ -175,20 +178,43 @@ class Timesheet extends React.Component {
     this.setState({ show: !this.state.show });
   }
 
-  handleUpdateCalenderValue = (e) => {
-    let data = e.target.value;
+  handleUpdateCalenderValue = (date, dateString) => {
     this.setState({
-      calenderValue: data,
+      // calenderValue: moment(date).format("MMM YYYY"),
+      calenderValue: date,
     });
     console.log(this.state.calenderValue);
+    // let d = new Date(this.state.calenderValue);
+    // console.log(d.getMonth());
   };
 
   handleModal = (event) => {
+    let d = new Date(this.state.calenderValue);
     this.setState({
       isModalVisible: true,
       divContent: event.currentTarget.textContent,
+      firstDay: `1  ${d.getMonth() + 1}`,
+      lastDay: `31  ${(d.getMonth() + 1, d.getFullYear())}`,
     });
   };
+
+  // handleDaysInMonth = (month, year) => {
+  //   return new Date(0, month, year).getDate();
+  // };
+
+  // handleFirstLastDate = () => {
+  //   let date = new Date(this.state.calenderValue);
+  //   this.setState({
+  //     firstDay: new Date(1, date.getMonth(), date.getFullYear()),
+  //     lastDay: new Date(
+  //       this.handleDaysInMonth(date.getMonth() + 1, date.getFullYear()),
+  //       date.getMonth(),
+  //       date.getFullYear()
+  //     ),
+  //   });
+  //   console.log(this.state.firstDay);
+  //   console.log(this.state.lastDay);
+  // };
 
   handleOk = () => {
     this.setState({
@@ -210,7 +236,11 @@ class Timesheet extends React.Component {
         render: () => (
           <>
             <div
-              style={{ color: "#3463DA", fontWeight: "bold" }}
+              style={{
+                color: "#3463DA",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
               onClick={this.handleModal}
             >
               Rahul Mehra
@@ -224,7 +254,11 @@ class Timesheet extends React.Component {
         render: () => (
           <>
             <div
-              style={{ color: "#3463DA", fontWeight: "bold" }}
+              style={{
+                color: "#3463DA",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
               onClick={this.handleModal}
             >
               Himanshu Jindal
@@ -238,7 +272,11 @@ class Timesheet extends React.Component {
         render: () => (
           <>
             <div
-              style={{ color: "#3463DA", fontWeight: "bold" }}
+              style={{
+                color: "#3463DA",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
               onClick={this.handleModal}
             >
               Vineet Jain
@@ -252,7 +290,11 @@ class Timesheet extends React.Component {
         render: () => (
           <>
             <div
-              style={{ color: "#3463DA", fontWeight: "bold" }}
+              style={{
+                color: "#3463DA",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
               onClick={this.handleModal}
             >
               Amit Chaudhary
@@ -266,7 +308,11 @@ class Timesheet extends React.Component {
         render: () => (
           <>
             <div
-              style={{ color: "#3463DA", fontWeight: "bold" }}
+              style={{
+                color: "#3463DA",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
               onClick={this.handleModal}
             >
               Gagandeep Singh
@@ -311,6 +357,7 @@ class Timesheet extends React.Component {
                 borderRadius: "5px",
               }}
               format={monthFormat}
+              onChange={this.handleUpdateCalenderValue}
             />
           </Space>
         </div>
@@ -372,7 +419,9 @@ class Timesheet extends React.Component {
           onCancel={this.handleCancel}
           style={{ width: "70%" }}
         >
-          <div className={Classes.modalHeading}>Worked Hours</div>
+          <div className={Classes.modalHeading}>
+            {this.state.firstDay} Worked Hours
+          </div>
           <table className={Classes.StyleModalTable}>
             <tr>
               <th> </th>
