@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 import { getTools } from "../../../actions/asyncActions";
 import Tools from "./tools";
 import { withRouter } from "react-router";
-
+import './index.css'
 const Wrapper = styled.div``;
 
-const Header = styled.h5`
+const Header = styled.div`
   padding: 0 0 1em 0;
   color: #1f4173;
   display:flex;
+  font-size:26x;
 `;
 class LandingPage extends Component {
   componentDidMount = () => {

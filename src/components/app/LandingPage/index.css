@@ -1,0 +1,9 @@
+
+.ant-layout{
+        padding: none;
+    }
+@media screen and (max-width: 990px) and (min-width: 280px)  {
+.ant-layout{
+        padding: unset;
+    }
+}

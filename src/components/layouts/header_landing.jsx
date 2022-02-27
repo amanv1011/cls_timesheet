@@ -28,6 +28,7 @@ padding: 1em;
 const Container = styled.div`
 display:flex;
 justify-content:space-between;
+align-items:center;
 `;
 const Searchbar = styled.div`
 width:380px;
@@ -56,10 +57,12 @@ flex:2
 `
 const RightContainer = styled.div`
 display:flex;
-justify-content:space-between;
+justify-content:right;
 flex:1.8;
+align-items: center;
 `;
 const Notification = styled.div`
+margin-right:2em;
 @media only screen and (max-width: 414px) {
     display:none
 }
