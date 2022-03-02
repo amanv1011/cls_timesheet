@@ -1,7 +1,7 @@
 import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
-
+import axios from "axios";
 export const Authenticate = (req) => {
   //   console.log("in authenicate", req);
   //   const data = {
@@ -33,10 +33,10 @@ export const getWeeklyStatus = (req, res) => {
     id: req,
   };
   http
-    .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
-    // .get(`/api/projects/status?startDate=${req}&endDate=${res}`)
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
+    .get(`/api/projects/status?startDate=${req}&endDate=${res}`)
     .then((response) => {
-      // console.log(req, res, "zzzzzzzzzzzz");
+      console.log(req, res, "zzzzzzzzzzzz");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});

@@ -11,6 +11,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
 
 const columns = [
+<<<<<<< HEAD
   {
     title: "Project",
     dataIndex: "project_name",
@@ -54,6 +55,36 @@ const columns = [
       </span>
     ),
   },
+=======
+    {
+        title: 'Project',
+        dataIndex: 'project_name',
+        render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Engagement Type',
+        dataIndex: 'engagement_type',
+    },
+    {
+        title: 'Week Status',
+        dataIndex: 'weekly_status_description',
+        render: weekly_status_description => (
+            <Input className="textarea" title="weekly_status_description" value={weekly_status_description} suffix={<AiOutlineEdit />} />
+        )
+    },
+    {
+        title: 'Project Health',
+        dataIndex: 'project_health',
+        render: project_health => (
+            <span>
+                <IoIosSquare style={{ color: `${project_health.toLowerCase() == "poor" ? "red" : project_health.toLowerCase() == "good" ? "lightGreen" : project_health.toLowerCase() == "average" ? "yellow" : ""}` }} />
+                {project_health}
+
+            </span>
+        )
+
+    },
+>>>>>>> 92ee48651674212c20df509c8a385f52bbe5ba40
 ];
 
 const rowSelection = {
@@ -71,6 +102,7 @@ const rowSelection = {
 };
 
 class WeeklyStatus extends React.Component {
+<<<<<<< HEAD
   componentDidMount = () => {
     getWeeklyStatus();
     //
@@ -155,6 +187,73 @@ class WeeklyStatus extends React.Component {
       </>
     );
   }
+=======
+    componentDidMount = () => {
+        getWeeklyStatus(this.state.startDt, this.state.endDt);
+        // 
+    };
+    state = {
+        selectionType: "checkbox",
+        startDt: new Date(2022, 1, 5),
+        endDt: new Date(2022, 1, 12)
+    }
+
+    dateHandler = (e) => {
+        let a = e.target.value
+        // console.log(a);
+
+        this.setState({ startDt: moment(a[0]).format("YYYY-MM-DD"), endDt: moment(a[1]).format("YYYY-MM-DD") })
+        console.log(this.state.startDt);
+        getWeeklyStatus(this.state.startDt, this.state.endDt);
+    }
+    render() {
+        return <>
+
+            <div className="backBtn">
+                <IoIosArrowBack />
+                Back
+            </div>
+            <div className="upperRow">
+                <h3>Weekly Stauts</h3>
+                <div className="filter">
+                    <div className="dateFilter">
+                        <p style={{ color: "#305d9f", fontWeight: "600", width: "-webkit-fill-available", margin: '0 5px 9px 0', textAlign: "end" }}>Stauts Logged</p>
+                        <DateRangePickerComponent
+                            className="datepicker"
+                            allowEdit={false}
+                            format={'dd MMM yy'}
+                            placeholder="Select Date Range"
+                            startDate={this.state.startDt}
+                            endDate={this.state.endDt}
+                            onChange={this.dateHandler}
+
+                        />
+                    </div>
+                    <label htmlFor="options" className="optLabel">Filter by: </label>
+                    <select className="select" name="options" id="options">
+                        <option value="engagement">Engagement Type</option>
+                        <option value="health">Health Type</option>
+                        <option value="status">Status Type</option>
+
+                    </select>
+
+                </div>
+            </div>
+
+            <Table className="weekTable"
+                // pagination={false}
+                // footer={()=>{<p>This is Footer</p>}}
+                columns={columns} dataSource={this.props.week_status.weeklyStatus ? this.props.week_status.weeklyStatus.projects : []}
+                rowSelection={{
+                    type: this.state.selectionType,
+                    ...rowSelection,
+
+
+                }} />
+
+        </>;
+    }
+>>>>>>> 92ee48651674212c20df509c8a385f52bbe5ba40
 }
 
 const mapStateToProps = (store) => {
