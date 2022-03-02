@@ -167,7 +167,9 @@ class Timesheet extends React.Component {
       isModalVisible: false,
       divContent: "",
       calenderValue: "",
-      firstDay: "",
+      month: "",
+      year: "",
+      firstDay: 1,
       lastDay: "",
     };
     this.handleOnOff = this.handleOnOff.bind(this);
@@ -180,21 +182,25 @@ class Timesheet extends React.Component {
 
   handleUpdateCalenderValue = (date, dateString) => {
     this.setState({
-      // calenderValue: moment(date).format("MMM YYYY"),
+      // calenderValue: moment(date).format("M YYYY"),
       calenderValue: date,
     });
     console.log(this.state.calenderValue);
-    // let d = new Date(this.state.calenderValue);
-    // console.log(d.getMonth());
   };
 
   handleModal = (event) => {
     let d = new Date(this.state.calenderValue);
+    let vv = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
+    let mm = new Date(d.getFullYear(), d.getMonth() + 1, 0).getMonth(); //for current month
+    let yy = new Date(d.getFullYear(), d.getMonth() + 1, 0).getFullYear();
+    console.log("new date is : ", vv);
+    console.log("current month : ", mm);
     this.setState({
       isModalVisible: true,
       divContent: event.currentTarget.textContent,
-      firstDay: `1  ${d.getMonth() + 1}`,
-      lastDay: `31  ${(d.getMonth() + 1, d.getFullYear())}`,
+      lastDay: vv,
+      month: moment(mm).format("MMM"),
+      year: yy,
     });
   };
 
@@ -394,7 +400,7 @@ class Timesheet extends React.Component {
                 overflow: "hidden",
                 boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
               }}
-              pagination={{ pageSize: 50 }}
+              pagination={{ position: 50 }}
               scroll={{ y: 240 }}
             />
           ) : (
@@ -420,7 +426,8 @@ class Timesheet extends React.Component {
           style={{ width: "70%" }}
         >
           <div className={Classes.modalHeading}>
-            {this.state.firstDay} Worked Hours
+            1 {this.state.month} - {this.state.lastDay} {this.state.month}{" "}
+            {this.state.year} Worked Hours
           </div>
           <table className={Classes.StyleModalTable}>
             <tr>
