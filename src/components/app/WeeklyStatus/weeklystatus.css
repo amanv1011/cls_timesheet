@@ -11,10 +11,22 @@
   justify-content: space-between;
 }
 .weekTable {
+  color: #305d9f;
   margin-top: 30px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 1px 4px 12px grey;
+  background-color: white;
+}
+
+.headRow {
+  background-color: rgb(243, 243, 243);
+  border-bottom: 1px solid grey;
+  padding: 10px;
+}
+.thead {
+  padding: 20px;
+  width: 29%;
 }
 
 .select {
@@ -90,4 +102,78 @@
   font-weight: 700;
   width: 90px;
   padding: 5px;
+}
+
+.textareaEdit {
+  position: absolute;
+  z-index: 3;
+  width: 200px;
+  border-radius: 10px;
+  resize: none;
+}
+
+.healthSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 4px 12px grey;
+  background: #fff;
+  position: absolute;
+  height: 132px;
+  width: 107px;
+  border-radius: 12px;
+}
+
+.healthbtn {
+  width: 87%;
+  border-radius: 10px;
+  border: none;
+  padding: 5px 7px;
+  margin: 2px 0;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+}
+.status {
+  color: #305d9f;
+  font-weight: 600;
+  width: -webkit-fill-available;
+  margin: 0 5px 9px 0;
+  text-align: end;
+}
+
+/* responsive layout  */
+@media screen and (max-width: 971px) {
+  .upperRow {
+    display: inherit;
+  }
+}
+
+@media screen and (max-width: 855px) {
+  .dateFilter {
+    display: flex;
+    align-items: self-end;
+    justify-content: left;
+    width: 60%;
+  }
+  .filter {
+    display: inherit;
+  }
+  .status {
+    text-align: left;
+  }
+
+  .optLabel {
+    display: inline;
+    margin: 0;
+    padding-left: 0;
+    border-left: none;
+  }
+
+  thead {
+    padding: 2px;
+    width: 29%;
+  }
 }

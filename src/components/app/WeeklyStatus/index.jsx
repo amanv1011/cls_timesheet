@@ -1,140 +1,259 @@
 import React from "react";
-import { Table, Button, Input } from "antd";
+import { Tooltip, Input } from "antd";
 import { connect } from "react-redux";
-import DashboardTemplate from '../../layouts/template'
-import { withRouter } from 'react-router'
+import DashboardTemplate from "../../layouts/template";
+import { withRouter } from "react-router";
 import { IoIosArrowBack, IoIosSquare } from "react-icons/io";
-import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
-import "./weeklystatus.css"
-import { getWeeklyStatus } from "../../../actions/asyncActions";
-import { AiOutlineEdit } from "react-icons/ai"
-import moment from 'moment';
-
-
-const columns = [
-    {
-        title: 'Project',
-        dataIndex: 'project_name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Engagement Type',
-        dataIndex: 'engagement_type',
-    },
-    {
-        title: 'Week Status',
-        dataIndex: 'weekly_status_description',
-        render: weekly_status_description => (
-            <Input className="textarea" title="weekly_status_description" value={weekly_status_description} suffix={<AiOutlineEdit />} />
-        )
-
-
-    },
-    {
-        title: 'Project Health',
-        dataIndex: 'project_health',
-        render: project_health => (
-            <span>
-                <IoIosSquare style={{ color: `${project_health.toLowerCase() == "poor" ? "red" : project_health.toLowerCase() == "good" ? "lightGreen" : project_health.toLowerCase() == "average" ? "yellow" : ""}` }} />
-                {project_health}
-
-            </span>
-        )
-
-    },
-];
-
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: (record) => ({
-        disabled: record.name === 'Disabled User',
-        name: record.name,
-    }),
-};
-
+import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+import "./weeklystatus.css";
+import {
+  getWeeklyStatus,
+  updateWeeklyStatus,
+} from "../../../actions/asyncActions";
+import { AiOutlineEdit } from "react-icons/ai";
+import moment from "moment";
+const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
-    componentDidMount = () => {
-        getWeeklyStatus(this.state.startDt, this.state.endDt);
-        // 
+  componentDidMount = () => {
+    getWeeklyStatus(this.state.startDt, this.state.endDt);
+  };
+
+  state = {
+    selectionType: "checkbox",
+    startDt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+    endDt: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+    description: "",
+    projectId: "",
+    statusId: "",
+    selectorRow: null,
+    showHealthOption: null,
+    healthOption: "",
+  };
+
+  dateHandler = (e) => {
+    let a = e.target.value;
+    // console.log(a);
+    this.setState({
+      startDt: moment(a[0]).format("YYYY-MM-DD"),
+      endDt: moment(a[1]).format("YYYY-MM-DD"),
+    });
+    // console.log(this.state.startDt);
+    getWeeklyStatus(this.state.startDt, this.state.endDt);
+  };
+
+  update = () => {
+    this.setState({ selectorRow: null });
+
+    let data = {
+      project_health_status_id: this.state.statusId,
+      description: this.state.description,
+      project_id: this.state.projectId,
     };
-    state = {
-        selectionType: "checkbox",
-        startDt: new Date(2022, 1, 5),
-        endDt: new Date(2022, 1, 12)
+    let date_range = { strt: this.state.startDt, end: this.state.endDt };
+    updateWeeklyStatus(data, date_range);
+  };
+
+  updateHealth = (e) => {
+    let data = {
+      project_health_status_id: this.state.healthOption,
+      description: this.state.description,
+      project_id: this.state.projectId,
+    };
+    this.setState({
+      showHealthOption: null,
+      healthOption: e.target.value,
+    });
+    if (data.description) {
+      // console.log(this.state.healthOption, "healthc");
+      console.log(data, "HEALTHHH");
+      updateWeeklyStatus(data);
+    } else {
+      alert("Please Update the description firse");
     }
-
-    dateHandler = (e) => {
-        let a = e.target.value
-        // console.log(a);
-
-        this.setState({ startDt: moment(a[0]).format("YYYY-MM-DD"), endDt: moment(a[1]).format("YYYY-MM-DD") })
-        console.log(this.state.startDt);
-        getWeeklyStatus(this.state.startDt, this.state.endDt);
-    }
-    render() {
-        return <>
-
-            <div className="backBtn">
-                <IoIosArrowBack />
-                Back
+  };
+  render() {
+    return (
+      <>
+        <div className="backBtn">
+          <IoIosArrowBack />
+          Back
+        </div>
+        <div className="upperRow">
+          <h3>Weekly Status</h3>
+          <div className="filter">
+            <div className="dateFilter">
+              <p className="status">Status Logged</p>
+              <DateRangePickerComponent
+                className="datepicker"
+                allowEdit={false}
+                format={"dd MMM yy"}
+                placeholder="Select Date Range"
+                startDate={this.state.startDt}
+                endDate={this.state.endDt}
+                onChange={this.dateHandler}
+              />
             </div>
-            <div className="upperRow">
-                <h3>Weekly Stauts</h3>
-                <div className="filter">
-                    <div className="dateFilter">
-                        <p style={{ color: "#305d9f", fontWeight: "600", width: "-webkit-fill-available", margin: '0 5px 9px 0', textAlign: "end" }}>Stauts Logged</p>
-                        <DateRangePickerComponent
-                            className="datepicker"
-                            allowEdit={false}
-                            format={'dd MMM yy'}
-                            placeholder="Select Date Range"
-                            startDate={this.state.startDt}
-                            endDate={this.state.endDt}
-                            onChange={this.dateHandler}
+            <label htmlFor="options" className="optLabel">
+              Filter by:{" "}
+            </label>
+            <select className="select" name="options" id="options">
+              <option value="engagement">Engagement Type</option>
+              <option value="health">Health Type</option>
+              <option value="status">Status Type</option>
+            </select>
+          </div>
+        </div>
+        <table className="weekTable">
+          <tbody>
+            <tr className="headRow">
+              <th className="thead">Project</th>
+              <th className="thead">Engagement type</th>
+              <th className="thead">Weekly Status</th>
+              <th className="thead">Health</th>
+            </tr>
 
-                        />
-                    </div>
-                    <label htmlFor="options" className="optLabel">Filter by: </label>
-                    <select className="select" name="options" id="options">
-                        <option value="engagement">Engagement Type</option>
-                        <option value="health">Health Type</option>
-                        <option value="status">Status Type</option>
-
-                    </select>
-
-                </div>
-            </div>
-
-            <Table className="weekTable"
-                // pagination={false}
-                // footer={()=>{<p>This is Footer</p>}}
-                columns={columns} dataSource={this.props.week_status.weeklyStatus ? this.props.week_status.weeklyStatus.projects : []}
-                rowSelection={{
-                    type: this.state.selectionType,
-                    ...rowSelection,
-
-
-                }} />
-
-        </>;
-    }
+            {this.props.week_status.weeklyStatus
+              ? this.props.week_status.weeklyStatus.projects.map((ele, i) => {
+                  return (
+                    <tr key={i} className="">
+                      <td style={{ fontWeight: "500" }} className="thead">
+                        {" "}
+                        {ele.project_name}
+                      </td>
+                      <td className="thead">{ele.engagement_type}</td>
+                      <td className="thead">
+                        <>
+                          {this.state.selectorRow == i ? (
+                            <TextArea
+                              className="textareaEdit"
+                              rows={3}
+                              value={this.state.description}
+                              onChange={(e) => {
+                                this.setState({
+                                  description: e.target.value,
+                                });
+                                // console.log(this.state.description);
+                              }}
+                              onBlur={this.update}
+                            />
+                          ) : (
+                            <Tooltip
+                              placement="top"
+                              title={ele.weekly_status_description}
+                            >
+                              <Input
+                                className="textarea"
+                                readOnly
+                                value={ele.weekly_status_description}
+                                suffix={
+                                  <AiOutlineEdit
+                                    style={{ cursor: "pointer" }}
+                                    id={ele.project_owner_id}
+                                    onClick={() => {
+                                      this.setState({
+                                        selectorRow: i,
+                                        description:
+                                          ele.weekly_status_description,
+                                        projectId: ele.project_id,
+                                        statusId:
+                                          ele.weekly_project_health_status_id,
+                                      });
+                                      // console.log("Edit called", i);
+                                      // console.log(
+                                      //     "description update : ",
+                                      //     this.state.description,
+                                      //     this.state.statusId,
+                                      //   this.state.projectId
+                                      // );
+                                    }}
+                                  />
+                                }
+                              />
+                            </Tooltip>
+                          )}
+                        </>
+                      </td>
+                      <td className="thead">
+                        {this.state.showHealthOption == i ? (
+                          <section className="healthSection">
+                            <button
+                              className="healthbtn"
+                              onClick={this.updateHealth}
+                              style={{ background: "#c8f3e3" }}
+                              value={2}
+                            >
+                              <IoIosSquare style={{ color: "#09ed09" }} /> Good
+                            </button>
+                            <button
+                              className="healthbtn"
+                              onClick={this.updateHealth}
+                              style={{ background: "#ffd2d2" }}
+                              value={4}
+                            >
+                              <IoIosSquare style={{ color: "red" }} /> Poor
+                            </button>
+                            <button
+                              className="healthbtn"
+                              onClick={this.updateHealth}
+                              style={{ background: "#fff7bd" }}
+                              value={3}
+                            >
+                              <IoIosSquare style={{ color: "#ffde00" }} />{" "}
+                              Average
+                            </button>
+                          </section>
+                        ) : (
+                          <span
+                            style={{ fontWeight: "600", cursor: "pointer" }}
+                            onClick={(e) => {
+                              this.setState({
+                                description: ele.weekly_status_description,
+                                showHealthOption: i,
+                                projectId: ele.project_id,
+                              });
+                            }}
+                          >
+                            <IoIosSquare
+                              style={{
+                                color: `${
+                                  ele.project_health.toLowerCase() == "poor"
+                                    ? "red"
+                                    : ele.project_health.toLowerCase() == "good"
+                                    ? "#09ed09"
+                                    : ele.project_health.toLowerCase() ==
+                                      "average"
+                                    ? "yellow"
+                                    : ""
+                                }`,
+                              }}
+                            />
+                            {ele.project_health}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              : []}
+          </tbody>
+        </table>
+      </>
+    );
+  }
 }
 
-
 const mapStateToProps = (store) => {
-    console.log(store, "STORE");
-    return {
-        ...store,
-    };
+  console.log(store, "STORE");
+  return {
+    ...store,
+  };
 };
-
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+  return {};
 };
 
-export default DashboardTemplate(connect(mapStateToProps, mapDispatchToProps)(withRouter(WeeklyStatus)));
-
+export default DashboardTemplate(
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(WeeklyStatus))
+);

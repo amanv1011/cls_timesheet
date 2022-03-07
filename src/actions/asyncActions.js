@@ -34,10 +34,24 @@ export const getWeeklyStatus = (req, res) => {
   };
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
-    .get(`/api/projects/status?startDate=${req}&endDate=${res}`)
+    .get(`/api/projects/status/weekly?startDate=${req}&endDate=${res}`)
     .then((response) => {
-      console.log(req, res, "zzzzzzzzzzzz");
+      // console.log(req, res, "zzzzzzzzzzzz");
+      console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
+    })
+    .catch((err) => {});
+};
+
+export const updateWeeklyStatus = (req, res) => {
+  // console.log(responsez, "updatinggggggggggggg", req);
+  http
+    .put(
+      `/api/projects/${req.project_id}/status/weekly?startDate=${res.strt}&endDate=${res.end}`,
+      req
+    )
+    .then((response) => {
+      getWeeklyStatus(res.strt, res.end);
     })
     .catch((err) => {});
 };

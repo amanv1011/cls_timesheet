@@ -6,7 +6,8 @@ const http = axios.create({
   baseURL: "http://localhost:3500/",
 });
 http.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
+  // "application/x-www-form-urlencoded";
+  "application/json";
 
 http.interceptors.request.use(
   function (config) {
