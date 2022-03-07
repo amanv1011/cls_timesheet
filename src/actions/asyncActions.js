@@ -1,7 +1,7 @@
 import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
-
+import axios from "axios";
 export const Authenticate = (req) => {
   //   console.log("in authenicate", req);
   //   const data = {

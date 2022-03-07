@@ -10,7 +10,7 @@ import ProtectedRoute from "./ProtectectedRoute";
 import Dashboard from "../app/Dashboard";
 import LandingPage from "../app/LandingPage";
 import HoursLogged from "../app/HoursLogged";
-import Project from "../app/Project";
+import Projects from "../app/Projects";
 import Report from "../app/Report";
 import Resource from "../app/Resource";
 import Settings from "../app/Settings";
@@ -27,7 +27,7 @@ function App() {
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         <ProtectedRoute path="/" exact component={LandingPage} />
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
-        <ProtectedRoute path="/projects" exact component={Project} />
+        <ProtectedRoute path="/projects" exact component={Projects} />
         <ProtectedRoute path="/reports" exact component={Report} />
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />

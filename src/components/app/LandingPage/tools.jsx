@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import { getTools } from "../../../actions/asyncActions"
-import {   jeera,
-  basecamp,
-  gmail,
-  greyhr,
-  hubspot,
-  notion,
-  slack,
-  zoho, } from "../../../assets/images"
+import { hubspot} from "../../../assets/images"
 import {
   Link
 } from "react-router-dom";
@@ -16,14 +9,25 @@ const Wrapper = styled.div`
 background:#fff;
 padding:2em;
 border-radius:1em;
+font-family: Proxima Nova;
 `;
 const ToolsWrapper = styled.div`
 display:flex;
-width:25%;
+flex-basis:25%;
 border-right:1px solid #eee;
 gap:10px;
 cursor:pointer;
 `;
+const Title = styled.div`
+
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+letter-spacing: -0.02em;
+
+color: #000000;
+`
 const ToolBox = styled.div`
 display:flex;
 flex-wrap:wrap;
@@ -32,7 +36,10 @@ padding-top:1.5em;
 div:nth-child(4n) {
   border-right:unset;
 }
-
+@media screen and (max-width: 990px) and (min-width: 280px)  {
+>div{
+    border-right:none;
+}
 `;
 const ToolIcon = styled.div`
 padding:1em 1em;
@@ -43,18 +50,17 @@ cursor:pointer;
 
 `;
 const ToolTitle = styled.div`
-font-family: Proxima Nova;
 font-style: normal;
 font-weight: 600;
-font-size: 16px;
+font-size: 18px;
 line-height: 22px;
 text-transform: capitalize;
+color: #1F4173;
 `;
 const ToolDesc = styled.div`
-font-family: Proxima Nova;
 font-style: normal;
 font-weight: 600;
-font-size: 12px;
+font-size: 14px;
 line-height: 20px;
 letter-spacing: -0.02em;
 color: #1F4173;
@@ -98,7 +104,7 @@ class Tools extends React.Component {
 
         return (
             <Wrapper>
-                <h5>Tools and Platforms</h5>
+                <Title>Tools and Platforms</Title>
                  <ToolBox>{Data}</ToolBox>
             </Wrapper>
         );
