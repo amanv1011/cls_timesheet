@@ -38,7 +38,6 @@ const LoginButton = styled.div`
 `;
 
 class Login extends Component {
-
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
     const data = {
@@ -80,7 +79,7 @@ class Login extends Component {
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin
-              clientId="838623674904-gj1foj9lmr5g1prd0t1bsphn6aooopl5.apps.googleusercontent.com"
+              clientId="313128475788-hi6lpvp7al05id85v0uku2ujbuurf3f1.apps.googleusercontent.com"
               buttonText="Log In with Google"
               // render={(renderProps) => (
               //   <GoogleButton
