@@ -17,6 +17,7 @@ import { Select } from 'antd';
 import Store from "../../redux/store";
 
 import * as syncActions from "../../actions/syncActions";
+import {LoginStorageUserDetails} from "../../assets/text"
 
 const { Option } = Select;
 
@@ -71,7 +72,11 @@ class Header extends React.Component {
 
     state = {}
 
-
+    logoutHandler =() =>{
+        console.log("logout")
+        deleteUserProfile(LoginStorageUserDetails)
+        this.props.history.push("/login");
+    }
     render() {
         const { name,image} = this.props.user.userDetails
 
@@ -100,7 +105,7 @@ class Header extends React.Component {
                             {/* <div style={{ alignSelf: 'center' }}>{name}</div> */}
                             <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
                                 <Option value="jack">{ name}</Option>
-                                <Option value="lucy">Log Out</Option>
+                                <Option  value="logout" onClick ={this.logoutHandler}>Log Out</Option>
                             </Select>
 
                         </Profile>

@@ -14,6 +14,7 @@ import {
   getUserProfile,
   deleteUserProfile,
 } from "../../actions/user";
+import {LoginStorageUserDetails} from "../../assets/text"
 
 const { Option } = Select;
 
@@ -55,7 +56,7 @@ flex:2
 `
 const RightContainer = styled.div`
 display:flex;
-justify-content:space-between;
+justify-content:flex-end;
 flex:2;
 `;
 const Notification = styled.div`
@@ -67,6 +68,13 @@ const Notification = styled.div`
 class Header extends React.Component {
 
     state = {}
+
+    logoutHandler =() =>{
+        console.log("logout")
+        deleteUserProfile(LoginStorageUserDetails)
+        this.props.history.push("/login");
+    }
+
     render() {
         const { name,image} = this.props.user.userDetails
         return (
@@ -92,7 +100,7 @@ class Header extends React.Component {
                             <img src={image} alt="" style={{ width: '100%', maxWidth: '38px', borderRadius: '50%',objectFit: 'cover' }} className="profileImage"/>
                             <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
                                 <Option value="jack">{ name}</Option>
-                                <Option value="lucy">Log Out</Option>
+                                <Option value="logout" onClick ={this.logoutHandler}>Log Out</Option>
                             </Select>
                         </Profile>
                     </RightContainer>
