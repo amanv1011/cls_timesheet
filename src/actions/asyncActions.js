@@ -16,11 +16,12 @@ export const Authenticate = (req) => {
   //     .catch((err) => {});
 };
 export const getTools = (req, res) => {
+  console.log("req", req)
   const data = {
     id: req,
   };
   http
-    .post(`/api/auth/getusertools`, data)
+    .get(`/api/auth/getusertools?id=${req}`)
     .then((response) => {
       // console.log(response);
       Store.dispatch(syncActions.getUserTools(response.data));

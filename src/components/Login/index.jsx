@@ -70,6 +70,7 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
+    console.error("login page");
     return (
       <Wrapper>
         <Container>
@@ -105,6 +106,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
+  console.log('store in login', store)
   return {
     ...store.spin,
   };

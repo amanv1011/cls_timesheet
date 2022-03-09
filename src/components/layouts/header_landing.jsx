@@ -86,14 +86,14 @@ class Header extends React.Component {
 
                     </LeftContainer>
                     <RightContainer>
-                        <Searchbar className="searchbar">
+                        {/* <Searchbar className="searchbar">
                             <SearchInput type="text" placeholder="Search" className="searchInput" />
                             <img src={Images.Search} alt="" className="searchIcon" style={{ width: '100%', maxWidth: '20px',float:'right', marginRight:'10px', alignSelf:'center' , cursor:'pointer'}} />
                         </Searchbar>
 
                         <Notification className="notification">
                             <img src={Images.Notification} alt="" style={{ width: '100%', maxWidth: '30px' }} />
-                        </Notification>
+                        </Notification> */}
 
                         <Profile>
                             <img src={image} alt="" style={{ width: '100%', maxWidth: '38px', borderRadius: '50%',objectFit: 'cover' }} className="profileImage"/>
