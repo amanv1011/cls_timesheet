@@ -79,7 +79,7 @@ class Login extends Component {
             <img src={logo} style={{ width: "100%", maxWidth: "300px" }} />
           </MockImageContainer>
           <LoginButton>
-            <div className="title">Login into your Account</div>
+            <div className="title">Login into your</div>
             <GoogleLogin
               clientId="838623674904-gj1foj9lmr5g1prd0t1bsphn6aooopl5.apps.googleusercontent.com"
               buttonText="Log In with Google"
