@@ -16,7 +16,11 @@ const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
-    getWeeklyStatus(this.state.startDt, this.state.endDt);
+    let dates = {
+      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
+      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+    };
+    getWeeklyStatus(dates, "");
   };
 
   state = {
@@ -38,8 +42,12 @@ class WeeklyStatus extends React.Component {
       startDt: moment(a[0]).format("YYYY-MM-DD"),
       endDt: moment(a[1]).format("YYYY-MM-DD"),
     });
-    // console.log(this.state.startDt);
-    getWeeklyStatus(this.state.startDt, this.state.endDt);
+    let dates = {
+      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
+      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+    };
+    getWeeklyStatus(dates, "");
+    // getWeeklyStatus(this.state.startDt, this.state.endDt);
   };
 
   update = () => {
@@ -72,6 +80,14 @@ class WeeklyStatus extends React.Component {
       alert("Please Update the description firse");
     }
   };
+
+  filter_by = (e) => {
+    let dates = {
+      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
+      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+    };
+    getWeeklyStatus(dates, e.target.value);
+  };
   render() {
     return (
       <>
@@ -97,10 +113,17 @@ class WeeklyStatus extends React.Component {
             <label htmlFor="options" className="optLabel">
               Filter by:{" "}
             </label>
-            <select className="select" name="options" id="options">
-              <option value="engagement">Engagement Type</option>
-              <option value="health">Health Type</option>
-              <option value="status">Status Type</option>
+            <select
+              placeholder="Apply Filter"
+              className="select"
+              onClick={this.filter_by}
+              name="options"
+              id="options"
+            >
+              <option value=" " disabled selected>
+                Apply Filter
+              </option>
+              <option value="Dedicated">Dedicated</option>
             </select>
           </div>
         </div>

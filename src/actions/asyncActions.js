@@ -28,13 +28,15 @@ export const getTools = (req, res) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatus = (req, res) => {
+export const getWeeklyStatus = (date, filter) => {
   const data = {
-    id: req,
+    // id: req,
   };
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
-    .get(`/api/projects/status/weekly?startDate=${req}&endDate=${res}`)
+    .get(
+      `/api/projects/status/weekly?startDate=${date.strt}&endDate=${date.end}&engagement_type=${filter}`
+    )
     .then((response) => {
       // console.log(req, res, "zzzzzzzzzzzz");
       console.log("UPDATES");
@@ -51,7 +53,11 @@ export const updateWeeklyStatus = (req, res) => {
       req
     )
     .then((response) => {
-      getWeeklyStatus(res.strt, res.end);
+      let date = {
+        strt: res.strt,
+        end: res.end,
+      };
+      getWeeklyStatus(date, "");
     })
     .catch((err) => {});
 };
