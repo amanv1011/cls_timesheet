@@ -15,6 +15,7 @@ import {
 } from "../../actions/user";
 import { Select } from 'antd';
 import Store from "../../redux/store";
+import { withRouter } from "react-router";
 
 import * as syncActions from "../../actions/syncActions";
 import {LoginStorageUserDetails} from "../../assets/text"
@@ -70,16 +71,19 @@ margin-right:2em;
 `
 class Header extends React.Component {
 
-    state = {}
+    state = {
+        optionSelected:this.props.user.userDetails.name
+    }
 
-    logoutHandler =() =>{
-        console.log("logout")
-        deleteUserProfile(LoginStorageUserDetails)
+    changeHandler =(e) =>{
+        console.log("logout",e)
         this.props.history.push("/login");
+        deleteUserProfile(LoginStorageUserDetails)
+       
     }
     render() {
         const { name,image} = this.props.user.userDetails
-
+        console.log(this.props)
         return (
             <Wrapper>
                 <Container>
@@ -103,11 +107,14 @@ class Header extends React.Component {
                         <Profile>
                             <img src={image} alt="" style={{ width: '100%', maxWidth: '38px', borderRadius: '50%',objectFit: 'cover' }} className="profileImage"/>
                             {/* <div style={{ alignSelf: 'center' }}>{name}</div> */}
-                            <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
-                                <Option value="jack">{ name}</Option>
-                                <Option  value="logout" onClick ={this.logoutHandler}>Log Out</Option>
+                            <Select value={ this.state.optionSelected} style={{ width: 120 }} bordered={false} onChange={e => this.changeHandler(e)}>
+                                <Option value={name}>{ name}</Option>
+                                <Option  value="logout">Log Out</Option>
                             </Select>
-
+                            {/* <select name="cars">
+                            <option value={name}>{name}</option>
+                            <option value="logout " onClick ={() =>alert("hello")}>Log Out</option>
+                            </select> */}
                         </Profile>
                     </RightContainer>
 
@@ -129,4 +136,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

@@ -15,6 +15,7 @@ import {
   deleteUserProfile,
 } from "../../actions/user";
 import {LoginStorageUserDetails} from "../../assets/text"
+import { withRouter } from "react-router";
 
 const { Option } = Select;
 
@@ -67,14 +68,16 @@ const Notification = styled.div`
 
 class Header extends React.Component {
 
-    state = {}
-
-    logoutHandler =() =>{
-        console.log("logout")
-        deleteUserProfile(LoginStorageUserDetails)
-        this.props.history.push("/login");
+state = {
+        optionSelected:this.props.user.userDetails.name
     }
 
+    changeHandler =(e) =>{
+        console.log("logout",e)
+        this.props.history.push("/login");
+        deleteUserProfile(LoginStorageUserDetails)
+       
+    }    
     render() {
         const { name,image} = this.props.user.userDetails
         return (
@@ -98,9 +101,9 @@ class Header extends React.Component {
 
                         <Profile>
                             <img src={image} alt="" style={{ width: '100%', maxWidth: '38px', borderRadius: '50%',objectFit: 'cover' }} className="profileImage"/>
-                            <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
-                                <Option value="jack">{ name}</Option>
-                                <Option value="logout" onClick ={this.logoutHandler}>Log Out</Option>
+                            <Select value={ this.state.optionSelected} style={{ width: 120 }} bordered={false} onChange={e => this.changeHandler(e)}>
+                                <Option value={name}>{ name}</Option>
+                                <Option  value="logout">Log Out</Option>
                             </Select>
                         </Profile>
                     </RightContainer>
@@ -123,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
