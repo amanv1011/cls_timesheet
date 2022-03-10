@@ -14,6 +14,8 @@ import {
   getUserProfile,
   deleteUserProfile,
 } from "../../actions/user";
+import {LoginStorageUserDetails} from "../../assets/text"
+import { withRouter } from "react-router";
 
 const { Option } = Select;
 
@@ -46,7 +48,7 @@ padding:5px;
 
 `;
 const Profile = styled.div`
-display:flex;
+
 
 
 `;
@@ -55,7 +57,7 @@ flex:2
 `
 const RightContainer = styled.div`
 display:flex;
-justify-content:space-between;
+justify-content:flex-end;
 flex:2;
 `;
 const Notification = styled.div`
@@ -66,7 +68,16 @@ const Notification = styled.div`
 
 class Header extends React.Component {
 
-    state = {}
+state = {
+        optionSelected:this.props.user.userDetails.name
+    }
+
+    changeHandler =(e) =>{
+        console.log("logout",e)
+        this.props.history.push("/login");
+        deleteUserProfile(LoginStorageUserDetails)
+       
+    }    
     render() {
         const { name,image} = this.props.user.userDetails
         return (
@@ -79,20 +90,20 @@ class Header extends React.Component {
                         </Link>
                     </LeftContainer>
                     <RightContainer>
-                        <Searchbar className="searchbar">
+                        {/* <Searchbar className="searchbar">
                             <SearchInput type="text" placeholder="Search" className="searchInput" />
                             <img src={Images.Search} alt="" className="searchIcon" style={{ width: '100%', maxWidth: '20px',float:'right', marginRight:'10px', alignSelf:'center' , cursor:'pointer'}} />
                         </Searchbar>
 
                         <Notification className="notification">
                             <img src={Images.Notification} alt="" style={{ width: '100%', maxWidth: '30px' }} />
-                        </Notification>
+                        </Notification> */}
 
                         <Profile>
                             <img src={image} alt="" style={{ width: '100%', maxWidth: '38px', borderRadius: '50%',objectFit: 'cover' }} className="profileImage"/>
-                            <Select defaultValue={ name} style={{ width: 120 }} bordered={false}>
-                                <Option value="jack">{ name}</Option>
-                                <Option value="lucy">Log Out</Option>
+                            <Select value={ this.state.optionSelected} style={{ width: 120 }} bordered={false} onChange={e => this.changeHandler(e)}>
+                                <Option value={name}>{ name}</Option>
+                                <Option  value="logout">Log Out</Option>
                             </Select>
                         </Profile>
                     </RightContainer>
@@ -115,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

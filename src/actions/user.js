@@ -56,5 +56,6 @@ export const getUserProfile = (data) => {
 };
 
 export const deleteUserProfile = (key) => {
+  console.log("delete user,key")
   return localStorage.removeItem(key);
 };

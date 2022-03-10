@@ -5,12 +5,13 @@ import {
   getUserProfile,
   deleteUserProfile,
 } from "../../actions/user";
+import {LoginStorageUserDetails} from "../../assets/text"
 
 import * as syncActions from "../../actions/syncActions";
 import Store from "../../redux/store";
 let bool = true;
 function ProtectedRoute({ component: Component, ...restOfProps }) {
-  const isAuthenticated = getUserProfile("user");
+  const isAuthenticated = getUserProfile(LoginStorageUserDetails);
 
   if (bool) {
     Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));

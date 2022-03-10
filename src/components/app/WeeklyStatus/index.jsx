@@ -240,13 +240,16 @@ class WeeklyStatus extends React.Component {
                             <IoIosSquare
                               style={{
                                 color: `${
-                                  ele.project_health.toLowerCase() == "poor"
-                                    ? "red"
-                                    : ele.project_health.toLowerCase() == "good"
-                                    ? "#09ed09"
-                                    : ele.project_health.toLowerCase() ==
-                                      "average"
-                                    ? "yellow"
+                                  ele.project_health != null
+                                    ? ele.project_health.toLowerCase() == "poor"
+                                      ? "red"
+                                      : ele.project_health.toLowerCase() ==
+                                        "good"
+                                      ? "#09ed09"
+                                      : ele.project_health.toLowerCase() ==
+                                        "average"
+                                      ? "yellow"
+                                      : ""
                                     : ""
                                 }`,
                               }}

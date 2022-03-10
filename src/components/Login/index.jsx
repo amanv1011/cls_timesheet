@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
-
+import {LoginStorageUserDetails} from "../../assets/text";
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -55,7 +55,7 @@ class Login extends Component {
           token: response.tokenObj.id_token,
           id: res.data.id,
         };
-        storeUserProfile("user", JSON.stringify(UserDetails));
+        storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
         this.props.history.push("/");
       })
@@ -69,6 +69,7 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
+    console.error("login page");
     return (
       <Wrapper>
         <Container>
@@ -77,7 +78,7 @@ class Login extends Component {
             <img src={logo} style={{ width: "100%", maxWidth: "300px" }} />
           </MockImageContainer>
           <LoginButton>
-            <div className="title">Login into your Account</div>
+            <div className="title">Login into your</div>
             <GoogleLogin
               clientId="313128475788-hi6lpvp7al05id85v0uku2ujbuurf3f1.apps.googleusercontent.com"
               buttonText="Log In with Google"
@@ -104,6 +105,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
+  console.log('store in login', store)
   return {
     ...store.spin,
   };

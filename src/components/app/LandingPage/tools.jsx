@@ -71,17 +71,19 @@ class Tools extends React.Component {
 
 
     componentDidMount = () => {
-        getTools()
+        
+        // getTools(this.props.id)
     }
 
     render() {
+        // console.log("props in tools",this.props.userTools)
         if (!this.props.userTools) {
             return <div/>
         }
 
         const Data = this.props.userTools ? this.props.userTools.map(d => {
             const Image = d.name
-            console.log('Image', Image)
+            // console.log('Image', Image)
             return (
 
                 <ToolsWrapper onClick={() => this.props.history.push({
@@ -100,7 +102,7 @@ class Tools extends React.Component {
 
 
             )
-        }): null
+        }): []
 
         return (
             <Wrapper>
