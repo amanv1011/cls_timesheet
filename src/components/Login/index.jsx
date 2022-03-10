@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
-import {LoginStorageUserDetails} from "../../assets/text";
+import { LoginStorageUserDetails } from "../../assets/text";
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -78,13 +78,9 @@ class Login extends Component {
             <img src={logo} style={{ width: "100%", maxWidth: "300px" }} />
           </MockImageContainer>
           <LoginButton>
-            <div className="title">Login into your Account</div>
+            <div className="title">Login into test</div>
             <GoogleLogin
-<<<<<<< HEAD
-              clientId="313128475788-hi6lpvp7al05id85v0uku2ujbuurf3f1.apps.googleusercontent.com"
-=======
               clientId="547036388960-1kdtvd93grr1lf1c58hrlsqbv1d44gri.apps.googleusercontent.com"
->>>>>>> fa469c42f7d2d108e84780b7211f77cefc8f8413
               buttonText="Log In with Google"
               // render={(renderProps) => (
               //   <GoogleButton
@@ -109,7 +105,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log('store in login', store)
+  console.log("store in login", store);
   return {
     ...store.spin,
   };
