@@ -2,6 +2,8 @@ import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
 import axios from "axios";
+
+import moment from "moment";
 export const Authenticate = (req) => {
   //   console.log("in authenicate", req);
   //   const data = {
@@ -16,7 +18,7 @@ export const Authenticate = (req) => {
   //     .catch((err) => {});
 };
 export const getTools = (req, res) => {
-  console.log("req", req)
+  console.log("req", req);
   const data = {
     id: req,
   };
@@ -34,12 +36,20 @@ export const getWeeklyStatus = (date, filter) => {
     // id: req,
   };
   http
-    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
     .get(
-      `/api/projects/status/weekly?startDate=${date.strt}&endDate=${date.end}&engagement_type=${filter}`
+      `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+        "YYYY-MM-DD"
+      )}&endDate=${moment(date.end).format(
+        "YYYY-MM-DD"
+      )}&engagement_type=${filter}`
     )
     .then((response) => {
-      // console.log(req, res, "zzzzzzzzzzzz");
+      console.log(
+        moment(date.strt).format("YYYY-MM-DD"),
+        moment(date.end).format("YYYY-MM-DD"),
+        "zzzzzzzzzzzz"
+      );
       console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
@@ -47,10 +57,12 @@ export const getWeeklyStatus = (date, filter) => {
 };
 
 export const updateWeeklyStatus = (req, res) => {
-  // console.log(responsez, "updatinggggggggggggg", req);
+  // console.log(responsez, "updatinggggggggggggg", req);res.strt res.end
   http
     .put(
-      `/api/projects/${req.project_id}/status/weekly?startDate=${res.strt}&endDate=${res.end}`,
+      `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
+        res.strt
+      ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format("YYYY-MM-DD")}`,
       req
     )
     .then((response) => {

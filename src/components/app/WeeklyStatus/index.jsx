@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
 import { IoIosArrowBack, IoIosSquare } from "react-icons/io";
+import { FaAngleLeft } from "react-icons/fa";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "./weeklystatus.css";
 import {
@@ -11,14 +12,14 @@ import {
   updateWeeklyStatus,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
-import moment from "moment";
+// import moment from "moment";
 const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
     let dates = {
-      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
-      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+      strt: this.state.startDt,
+      end: this.state.endDt,
     };
     getWeeklyStatus(dates, "");
   };
@@ -39,12 +40,12 @@ class WeeklyStatus extends React.Component {
     let a = e.target.value;
     // console.log(a);
     this.setState({
-      startDt: moment(a[0]).format("YYYY-MM-DD"),
-      endDt: moment(a[1]).format("YYYY-MM-DD"),
+      startDt: a[0],
+      endDt: a[1],
     });
     let dates = {
-      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
-      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+      strt: this.state.startDt,
+      end: this.state.endDt,
     };
     getWeeklyStatus(dates, "");
     // getWeeklyStatus(this.state.startDt, this.state.endDt);
@@ -83,10 +84,24 @@ class WeeklyStatus extends React.Component {
 
   filter_by = (e) => {
     let dates = {
-      strt: moment(this.state.startDt).format("YYYY-MM-DD"),
-      end: moment(this.state.endDt).format("YYYY-MM-DD"),
+      strt: this.state.startDt,
+      end: this.state.endDt,
     };
+    // console.log(e.target.value);
     getWeeklyStatus(dates, e.target.value);
+  };
+
+  weekback = () => {
+    this.setState({
+      startDt: new Date(this.state.startDt - 7 * 24 * 60 * 60 * 1000),
+      endDt: new Date(this.state.endDt - 7 * 24 * 60 * 60 * 1000),
+    });
+    let dates = {
+      strt: this.state.startDt,
+      end: this.state.endDt,
+    };
+    console.log(this.state.startDt, this.state.endDt);
+    getWeeklyStatus(dates, "");
   };
   render() {
     return (
@@ -99,7 +114,13 @@ class WeeklyStatus extends React.Component {
           <h3>Weekly Status</h3>
           <div className="filter">
             <div className="dateFilter">
-              <p className="status">Status Logged</p>
+              <p className="status">
+                <FaAngleLeft
+                  onClick={this.weekback}
+                  style={{ fontSize: "20px", cursor: "pointer" }}
+                />
+                Status Logged
+              </p>
               <DateRangePickerComponent
                 className="datepicker"
                 allowEdit={false}
@@ -116,14 +137,15 @@ class WeeklyStatus extends React.Component {
             <select
               placeholder="Apply Filter"
               className="select"
-              onClick={this.filter_by}
+              onChange={this.filter_by}
               name="options"
               id="options"
             >
-              <option value=" " disabled selected>
+              <option value="" disabled selected>
                 Apply Filter
               </option>
               <option value="Dedicated">Dedicated</option>
+              <option value="">Clear Filter</option>
             </select>
           </div>
         </div>
@@ -168,29 +190,42 @@ class WeeklyStatus extends React.Component {
                               <Input
                                 className="textarea"
                                 readOnly
+                                onFocus={() => {
+                                  this.setState({
+                                    selectorRow: i,
+                                    description: ele.weekly_status_description,
+                                    projectId: ele.project_id,
+                                    statusId:
+                                      ele.weekly_project_health_status_id,
+                                  });
+                                }}
                                 value={ele.weekly_status_description}
                                 suffix={
-                                  <AiOutlineEdit
-                                    style={{ cursor: "pointer" }}
-                                    id={ele.project_owner_id}
-                                    onClick={() => {
-                                      this.setState({
-                                        selectorRow: i,
-                                        description:
-                                          ele.weekly_status_description,
-                                        projectId: ele.project_id,
-                                        statusId:
-                                          ele.weekly_project_health_status_id,
-                                      });
-                                      // console.log("Edit called", i);
-                                      // console.log(
-                                      //     "description update : ",
-                                      //     this.state.description,
-                                      //     this.state.statusId,
-                                      //   this.state.projectId
-                                      // );
-                                    }}
-                                  />
+                                  ele.weekly_status_description != null ? (
+                                    <AiOutlineEdit
+                                      style={{ cursor: "pointer" }}
+                                      id={ele.project_owner_id}
+                                      onClick={() => {
+                                        this.setState({
+                                          selectorRow: i,
+                                          description:
+                                            ele.weekly_status_description,
+                                          projectId: ele.project_id,
+                                          statusId:
+                                            ele.weekly_project_health_status_id,
+                                        });
+                                        // console.log("Edit called", i);
+                                        // console.log(
+                                        //     "description update : ",
+                                        //     this.state.description,
+                                        //     this.state.statusId,
+                                        //   this.state.projectId
+                                        // );
+                                      }}
+                                    />
+                                  ) : (
+                                    ""
+                                  )
                                 }
                               />
                             </Tooltip>
@@ -240,21 +275,21 @@ class WeeklyStatus extends React.Component {
                             <IoIosSquare
                               style={{
                                 color: `${
-                                  ele.project_health != null
-                                    ? ele.project_health.toLowerCase() == "poor"
-                                      ? "red"
-                                      : ele.project_health.toLowerCase() ==
-                                        "good"
-                                      ? "#09ed09"
-                                      : ele.project_health.toLowerCase() ==
-                                        "average"
-                                      ? "yellow"
-                                      : ""
+                                  // ele.weekly_project_health != null
+                                  ele.weekly_project_health == "poor"
+                                    ? "red"
+                                    : ele.weekly_project_health == "good"
+                                    ? "#09ed09"
+                                    : ele.weekly_project_health == "average"
+                                    ? "yellow"
                                     : ""
+                                  // : ""
                                 }`,
                               }}
                             />
-                            {ele.project_health}
+                            {ele.weekly_project_health == null
+                              ? "NONE"
+                              : ele.weekly_project_health}
                           </span>
                         )}
                       </td>
