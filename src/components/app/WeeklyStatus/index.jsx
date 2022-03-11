@@ -64,19 +64,23 @@ class WeeklyStatus extends React.Component {
   };
 
   updateHealth = (e) => {
+    this.setState({
+      showHealthOption: null,
+      healthOption: e.target.value,
+    });
     let data = {
       project_health_status_id: this.state.healthOption,
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    this.setState({
-      showHealthOption: null,
-      healthOption: e.target.value,
-    });
+    // console.log(data);
+    let dates = {
+      strt: this.state.startDt,
+      end: this.state.endDt,
+    };
     if (data.description) {
-      // console.log(this.state.healthOption, "healthc");
-      console.log(data, "HEALTHHH");
-      updateWeeklyStatus(data);
+      console.log(data, dates);
+      updateWeeklyStatus(data, dates);
     } else {
       alert("Please Update the description firse");
     }
@@ -104,6 +108,9 @@ class WeeklyStatus extends React.Component {
     getWeeklyStatus(dates, "");
   };
   render() {
+    if (!this.props.week_status.weeklyStatus) {
+      return <div></div>;
+    }
     return (
       <>
         <div className="backBtn">
@@ -276,11 +283,11 @@ class WeeklyStatus extends React.Component {
                               style={{
                                 color: `${
                                   // ele.weekly_project_health != null
-                                  ele.weekly_project_health == "poor"
+                                  ele.weekly_project_health == "Poor"
                                     ? "red"
-                                    : ele.weekly_project_health == "good"
+                                    : ele.weekly_project_health == "Good"
                                     ? "#09ed09"
-                                    : ele.weekly_project_health == "average"
+                                    : ele.weekly_project_health == "Average"
                                     ? "yellow"
                                     : ""
                                   // : ""

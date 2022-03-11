@@ -46,9 +46,11 @@ export const getWeeklyStatus = (date, filter) => {
     )
     .then((response) => {
       console.log(
-        moment(date.strt).format("YYYY-MM-DD"),
-        moment(date.end).format("YYYY-MM-DD"),
-        "zzzzzzzzzzzz"
+        `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+          "YYYY-MM-DD"
+        )}&endDate=${moment(date.end).format(
+          "YYYY-MM-DD"
+        )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
       );
       console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
@@ -57,7 +59,14 @@ export const getWeeklyStatus = (date, filter) => {
 };
 
 export const updateWeeklyStatus = (req, res) => {
-  // console.log(responsez, "updatinggggggggggggg", req);res.strt res.end
+  console.log(
+    `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
+      res.strt
+    ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format(
+      "YYYY-MM-DD"
+    )}   reeeeeeeeeeeeeeeeeeeee`,
+    req
+  );
   http
     .put(
       `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
