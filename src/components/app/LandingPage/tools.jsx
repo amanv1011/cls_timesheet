@@ -111,7 +111,7 @@ class Tools extends React.Component {
 
     return (
       <Wrapper>
-          {this.props.userTools && <Title>Tools and Platforms</Title>}
+          {this.props.userTools? <Title>Tools and Platforms</Title> : null}
         
         <ToolBox>{Data}</ToolBox>
       </Wrapper>
