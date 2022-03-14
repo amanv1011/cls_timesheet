@@ -69,9 +69,9 @@ class Tools extends React.Component {
   };
 
   render() {
-    // console.log("props in tools",this.props.userTools)
-    if (this.props.userTools) {
-      return <div></div>;
+    console.log("props in tools",this.props.userTools)
+    if (!this.props.userTools) {
+      return <div/>;
     }
 
     const Data = this.props.userTools
@@ -109,9 +109,10 @@ class Tools extends React.Component {
         })
       : [];
 
-    return (
+    return ( 
       <Wrapper>
-        <Title>Tools and Platforms</Title>
+          {this.props.userTools? <Title>Tools and Platforms</Title> : <div>Data not available</div>}
+        
         <ToolBox>{Data}</ToolBox>
       </Wrapper>
     );

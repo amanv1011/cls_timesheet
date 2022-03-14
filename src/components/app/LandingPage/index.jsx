@@ -14,6 +14,9 @@ const Header = styled.div`
   display:flex;
   font-size:26x;
 `;
+const Name= styled.div`
+margin-left:0.5em;
+`;
 class LandingPage extends Component {
   componentDidMount = () => {
     console.log("here ",this.props.user.userDetails.id)
@@ -25,13 +28,13 @@ class LandingPage extends Component {
     return (
       <Wrapper>
         <Header>
-          Welcome, <b>{name}</b>
+        Welcome, <Name><b>{name}</b></Name>
         </Header>
         <Tools {...this.props.user} {...this.props} />
       </Wrapper>
     );
   }
-}
+} 
 
 const mapStateToProps = (store) => {
   console.log("store", store)
