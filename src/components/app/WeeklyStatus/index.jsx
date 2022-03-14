@@ -12,6 +12,7 @@ import {
   updateWeeklyStatus,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
+import moment from "moment";
 // import moment from "moment";
 const { TextArea } = Input;
 
@@ -34,6 +35,7 @@ class WeeklyStatus extends React.Component {
     selectorRow: null,
     showHealthOption: null,
     healthOption: "",
+    filter_type: "",
   };
 
   dateHandler = (e) => {
@@ -47,7 +49,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    getWeeklyStatus(dates, "");
+    getWeeklyStatus(dates, this.state.filter_type);
     // getWeeklyStatus(this.state.startDt, this.state.endDt);
   };
 
@@ -92,19 +94,46 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     // console.log(e.target.value);
+    this.setState({ filter_by: e.target.value });
     getWeeklyStatus(dates, e.target.value);
   };
 
   weekback = () => {
+    // this.setState({
+    //   startDt: new Date(this.state.startDt - 7 * 24 * 60 * 60 * 1000),
+    //   endDt: new Date(this.state.endDt - 7 * 24 * 60 * 60 * 1000),
+    // });
     this.setState({
-      startDt: new Date(this.state.startDt - 7 * 24 * 60 * 60 * 1000),
-      endDt: new Date(this.state.endDt - 7 * 24 * 60 * 60 * 1000),
+      startDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 1
+        ) -
+          7 * 24 * 60 * 60 * 1000
+      ),
+      endDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+        ) -
+          7 * 24 * 60 * 60 * 1000
+      ),
     });
+    // var firstday = new Date(
+    //   this.state.startDt.setDate(
+    //     this.state.startDt.getDate() - this.state.startDt.getDay()
+    //   )
+    // );
+    // var lastday = new Date(
+    //   this.state.startDt.setDate(
+    //     this.state.startDt.getDate() - this.state.startDt.getDay() + 6
+    //   )
+    // );
+
     let dates = {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    console.log(this.state.startDt, this.state.endDt);
+    console.log(this.state.startDt, this.state.endDt, "STATE DATES");
+    // console.log(firstday, lastday, "CHECK");
     getWeeklyStatus(dates, "");
   };
   render() {
@@ -168,7 +197,7 @@ class WeeklyStatus extends React.Component {
             {this.props.week_status.weeklyStatus
               ? this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                   return (
-                    <tr key={i} className="">
+                    <tr key={i} className="tableRow">
                       <td style={{ fontWeight: "500" }} className="thead">
                         {" "}
                         {ele.project_name}
