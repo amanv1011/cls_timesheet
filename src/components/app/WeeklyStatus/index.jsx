@@ -246,7 +246,7 @@ class WeeklyStatus extends React.Component {
                               className="healthbtn"
                               onClick={this.updateHealth}
                               style={{ background: "#c8f3e3" }}
-                              value={2}
+                              value="2"
                             >
                               <IoIosSquare style={{ color: "#09ed09" }} /> Good
                             </button>
@@ -254,7 +254,7 @@ class WeeklyStatus extends React.Component {
                               className="healthbtn"
                               onClick={this.updateHealth}
                               style={{ background: "#ffd2d2" }}
-                              value={4}
+                              value="4"
                             >
                               <IoIosSquare style={{ color: "red" }} /> Poor
                             </button>
@@ -262,7 +262,7 @@ class WeeklyStatus extends React.Component {
                               className="healthbtn"
                               onClick={this.updateHealth}
                               style={{ background: "#fff7bd" }}
-                              value={3}
+                              value="3"
                             >
                               <IoIosSquare style={{ color: "#ffde00" }} />{" "}
                               Average
