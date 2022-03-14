@@ -109,9 +109,9 @@ class Tools extends React.Component {
         })
       : [];
 
-    return (
+    return ( 
       <Wrapper>
-          {this.props.userTools? <Title>Tools and Platforms</Title> : null}
+          {this.props.userTools? <Title>Tools and Platforms</Title> : <div>Data not available</div>}
         
         <ToolBox>{Data}</ToolBox>
       </Wrapper>
