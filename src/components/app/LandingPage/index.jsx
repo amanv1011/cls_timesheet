@@ -34,7 +34,7 @@ class LandingPage extends Component {
       </Wrapper>
     );
   }
-}
+} 
 
 const mapStateToProps = (store) => {
   console.log("store", store)
