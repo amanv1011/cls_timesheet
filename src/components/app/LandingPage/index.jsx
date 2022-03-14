@@ -28,7 +28,7 @@ class LandingPage extends Component {
     return (
       <Wrapper>
         <Header>
-          Welcome, <Name><b>{name}</b></Name>
+        Welcome, <Name><b>{name}</b></Name>
         </Header>
         <Tools {...this.props.user} {...this.props} />
       </Wrapper>
