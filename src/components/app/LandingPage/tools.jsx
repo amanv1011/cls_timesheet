@@ -70,7 +70,7 @@ class Tools extends React.Component {
 
   render() {
     console.log("props in tools",this.props.userTools)
-    if (!this.props.userTools) {
+    if (this.props.userTools.length == 0) {
       return <div/>;
     }
 
