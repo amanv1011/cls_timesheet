@@ -18,6 +18,18 @@ const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
+    this.setState({
+      startDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 1
+        )
+      ),
+      endDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+        )
+      ),
+    });
     let dates = {
       strt: this.state.startDt,
       end: this.state.endDt,
@@ -61,8 +73,9 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    let date_range = { strt: this.state.startDt, end: this.state.endDt };
-    updateWeeklyStatus(data, date_range);
+    console.log(data);
+    // let date_range = { strt: this.state.startDt, end: this.state.endDt };
+    // updateWeeklyStatus(data, date_range);
   };
 
   updateHealth = (e) => {
@@ -71,7 +84,7 @@ class WeeklyStatus extends React.Component {
       healthOption: e.target.value,
     });
     let data = {
-      project_health_status_id: this.state.healthOption,
+      project_health_status_id: e.target.value,
       description: this.state.description,
       project_id: this.state.projectId,
     };
@@ -81,10 +94,10 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     if (data.description) {
-      console.log(data, dates);
+      // console.log(data, dates);
       updateWeeklyStatus(data, dates);
     } else {
-      alert("Please Update the description firse");
+      alert("Please Update the week status first.");
     }
   };
 
@@ -132,7 +145,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    console.log(this.state.startDt, this.state.endDt, "STATE DATES");
+    // console.log(this.state.startDt, this.state.endDt, "STATE DATES");
     // console.log(firstday, lastday, "CHECK");
     getWeeklyStatus(dates, "");
   };
@@ -142,10 +155,6 @@ class WeeklyStatus extends React.Component {
     }
     return (
       <>
-        <div className="backBtn">
-          <IoIosArrowBack />
-          Back
-        </div>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -162,6 +171,8 @@ class WeeklyStatus extends React.Component {
                 allowEdit={false}
                 format={"dd MMM yy"}
                 placeholder="Select Date Range"
+                minDays={7}
+                maxDays={7}
                 startDate={this.state.startDt}
                 endDate={this.state.endDt}
                 onChange={this.dateHandler}
@@ -181,6 +192,8 @@ class WeeklyStatus extends React.Component {
                 Apply Filter
               </option>
               <option value="Dedicated">Dedicated</option>
+              <option value="T%26M">T&M</option>
+              <option value="Fixed">Fixed</option>
               <option value="">Clear Filter</option>
             </select>
           </div>
@@ -202,7 +215,16 @@ class WeeklyStatus extends React.Component {
                         {" "}
                         {ele.project_name}
                       </td>
-                      <td className="thead">{ele.engagement_type}</td>
+                      <td
+                        className="thead"
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "13px",
+                          color: "grey",
+                        }}
+                      >
+                        {ele.engagement_type}
+                      </td>
                       <td className="thead">
                         <>
                           {this.state.selectorRow == i ? (
@@ -308,23 +330,22 @@ class WeeklyStatus extends React.Component {
                               });
                             }}
                           >
-                            <IoIosSquare
+                            <div
                               style={{
-                                color: `${
-                                  // ele.weekly_project_health != null
+                                background: `${
                                   ele.weekly_project_health == "Poor"
-                                    ? "red"
+                                    ? "linear-gradient(180deg, #FF5B5D 0%, #F2383A 100%)"
                                     : ele.weekly_project_health == "Good"
-                                    ? "#09ed09"
+                                    ? "linear-gradient(180deg, #24d6a5 0%, #17c293 100%)"
                                     : ele.weekly_project_health == "Average"
-                                    ? "yellow"
+                                    ? "linear-gradient(180deg, #FFDA70 0%, #FFBD00 100%)"
                                     : ""
-                                  // : ""
                                 }`,
                               }}
-                            />
+                              className="square"
+                            ></div>
                             {ele.weekly_project_health == null
-                              ? "NONE"
+                              ? "None"
                               : ele.weekly_project_health}
                           </span>
                         )}
@@ -341,7 +362,7 @@ class WeeklyStatus extends React.Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log(store, "STORE");
+  // console.log(store, "STORE");
   return {
     ...store,
   };
