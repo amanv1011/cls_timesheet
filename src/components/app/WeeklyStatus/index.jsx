@@ -74,8 +74,8 @@ class WeeklyStatus extends React.Component {
       project_id: this.state.projectId,
     };
     console.log(data);
-    // let date_range = { strt: this.state.startDt, end: this.state.endDt };
-    // updateWeeklyStatus(data, date_range);
+    let date_range = { strt: this.state.startDt, end: this.state.endDt };
+    updateWeeklyStatus(data, date_range);
   };
 
   updateHealth = (e) => {
@@ -112,10 +112,6 @@ class WeeklyStatus extends React.Component {
   };
 
   weekback = () => {
-    // this.setState({
-    //   startDt: new Date(this.state.startDt - 7 * 24 * 60 * 60 * 1000),
-    //   endDt: new Date(this.state.endDt - 7 * 24 * 60 * 60 * 1000),
-    // });
     this.setState({
       startDt: new Date(
         this.state.startDt.setDate(
