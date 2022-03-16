@@ -79,7 +79,7 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     if (data.description) {
-      console.log(data, dates);
+      // console.log(data, dates);
       updateWeeklyStatus(data, dates);
     } else {
       alert("Please Update the description firse");
@@ -104,7 +104,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    console.log(this.state.startDt, this.state.endDt);
+    // console.log(this.state.startDt, this.state.endDt);
     getWeeklyStatus(dates, "");
   };
   render() {
@@ -312,7 +312,7 @@ class WeeklyStatus extends React.Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log(store, "STORE");
+  // console.log(store, "STORE");
   return {
     ...store,
   };

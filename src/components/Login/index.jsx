@@ -21,14 +21,14 @@ const Wrapper = styled.div`
 const Container = styled.div`
   background: #fff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  padding: 1em;
+  
   border-radius: 20px;
+  padding:2em 4em 2em 4em;
 `;
 const MockImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 0.5em;
-  border-bottom: 1px solid #eee;
 `;
 const LoginButton = styled.div`
   display: flex;
@@ -36,7 +36,17 @@ const LoginButton = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
+const Error = styled.div`
+color: tomato;
+font-size: 14px;
+margin-top: 10px;
+`
+const GoogleButton = styled.div`
+width:100%;
+border:1px solid black;
+border-radius: 10px;
+padding:3px;
+`
 class Login extends Component {
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
@@ -57,9 +67,13 @@ class Login extends Component {
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
+        Store.dispatch(syncActions.clearError());
         this.props.history.push("/");
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log("error", err)
+        Store.dispatch(syncActions.Error(err.response.data));
+      });
   };
 
   responseGoogleFail = (response) => {
@@ -69,7 +83,7 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
-    console.error("login page");
+    console.error("login page", this.props);
     return (
       <Wrapper>
         <Container>
@@ -77,19 +91,20 @@ class Login extends Component {
             <img src={mockImage} style={{ marginBottom: "0.5em" }} />
             <img src={logo} style={{ width: "100%", maxWidth: "300px" }} />
           </MockImageContainer>
+          <div className="border"></div>
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin
               clientId="547036388960-1kdtvd93grr1lf1c58hrlsqbv1d44gri.apps.googleusercontent.com"
               buttonText="Log In with Google"
-              // render={(renderProps) => (
-              //   <GoogleButton
-              //     onClick={renderProps.onClick}
-              //     disabled={renderProps.disabled}
-              //   >
-              //     Sign in
-              //   </GoogleButton>
-              // )}
+              render={(renderProps) => (
+                <div class="google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <div class="google-icon-wrapper">
+                  <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                </div>
+                <p class="btn-text"><b>Sign in with Google</b></p>
+              </div>
+              )}
               className="loginBtn loginBtn--google"
               onSuccess={this.responseGoogleSuccess}
               onFailure={this.responseGoogleFail}
@@ -97,6 +112,8 @@ class Login extends Component {
               scope={"email"}
               getBasicProfile={true}
             />
+            {this.props.err.error? <Error>Unauthourised User</Error>: <div/>}
+            {/* <div></div> */}
           </LoginButton>
         </Container>
       </Wrapper>
@@ -105,9 +122,10 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log("store in login", store);
+  console.log("in login store", store);
   return {
     ...store.spin,
+    err:store.error
   };
 };
 
