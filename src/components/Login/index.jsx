@@ -28,13 +28,15 @@ const Container = styled.div`
 const MockImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 0.5em;
+  padding-bottom: 2em ;
+  border-bottom:1px solid #eee;
 `;
 const LoginButton = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top:1em;
 `;
 const Error = styled.div`
 color: tomato;
@@ -91,7 +93,7 @@ class Login extends Component {
             <img src={mockImage} style={{ marginBottom: "0.5em" }} />
             <img src={logo} style={{ width: "100%", maxWidth: "300px" }} />
           </MockImageContainer>
-          <div className="border"></div>
+          {/* <div className="border"></div> */}
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin

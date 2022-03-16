@@ -11,11 +11,11 @@
   justify-content: space-between;
 }
 .weekTable {
-  color: #305d9f;
+  color: #1f4173;
   margin-top: 30px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 1px 4px 12px grey;
+  box-shadow: 0px 4px 8px #d9ebf2;
   background-color: white;
   width: 100%;
 }
@@ -89,8 +89,13 @@
   border-left: 2px solid rgb(170, 169, 169);
 }
 
+.tableRow {
+  border-bottom: 1px solid rgba(201, 201, 201, 0.4);
+}
 .textarea {
   background-color: rgb(230, 236, 255);
+  /* background: #1f4173;
+  opacity: 0.05; */
   border-radius: 7px;
   padding: 5px;
   border: none;
@@ -145,6 +150,16 @@ textarea.ant-input {
   align-items: center;
   display: flex;
   font-weight: 600;
+}
+
+.square {
+  width: 12px;
+  height: 12px;
+  left: 1251px;
+  top: 469px;
+  display: inline-block;
+  margin: 0 5px 0 0;
+  border-radius: 3px;
 }
 .status {
   color: #305d9f;

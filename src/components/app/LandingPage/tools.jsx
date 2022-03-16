@@ -81,10 +81,11 @@ class Tools extends React.Component {
           return (
             <ToolsWrapper
               onClick={() =>
-                this.props.history.push({
-                  pathname: "/dashboard",
-                  state: { details: d },
-                })
+                // this.props.history.push({
+                //   pathname: "/dashboard",
+                //   state: { details: d },
+                // })
+                window.open(d.url)
               }
             >
               <ToolIcon>

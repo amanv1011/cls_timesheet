@@ -12,11 +12,24 @@ import {
   updateWeeklyStatus,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
+import moment from "moment";
 // import moment from "moment";
 const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
+    this.setState({
+      startDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 1
+        )
+      ),
+      endDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+        )
+      ),
+    });
     let dates = {
       strt: this.state.startDt,
       end: this.state.endDt,
@@ -34,6 +47,7 @@ class WeeklyStatus extends React.Component {
     selectorRow: null,
     showHealthOption: null,
     healthOption: "",
+    filter_type: "",
   };
 
   dateHandler = (e) => {
@@ -47,7 +61,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    getWeeklyStatus(dates, "");
+    getWeeklyStatus(dates, this.state.filter_type);
     // getWeeklyStatus(this.state.startDt, this.state.endDt);
   };
 
@@ -59,6 +73,7 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
+    console.log(data);
     let date_range = { strt: this.state.startDt, end: this.state.endDt };
     updateWeeklyStatus(data, date_range);
   };
@@ -69,7 +84,7 @@ class WeeklyStatus extends React.Component {
       healthOption: e.target.value,
     });
     let data = {
-      project_health_status_id: this.state.healthOption,
+      project_health_status_id: e.target.value,
       description: this.state.description,
       project_id: this.state.projectId,
     };
@@ -82,7 +97,7 @@ class WeeklyStatus extends React.Component {
       // console.log(data, dates);
       updateWeeklyStatus(data, dates);
     } else {
-      alert("Please Update the description firse");
+      alert("Please Update the week status first.");
     }
   };
 
@@ -92,19 +107,42 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     // console.log(e.target.value);
+    this.setState({ filter_by: e.target.value });
     getWeeklyStatus(dates, e.target.value);
   };
 
   weekback = () => {
     this.setState({
-      startDt: new Date(this.state.startDt - 7 * 24 * 60 * 60 * 1000),
-      endDt: new Date(this.state.endDt - 7 * 24 * 60 * 60 * 1000),
+      startDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 1
+        ) -
+          7 * 24 * 60 * 60 * 1000
+      ),
+      endDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+        ) -
+          7 * 24 * 60 * 60 * 1000
+      ),
     });
+    // var firstday = new Date(
+    //   this.state.startDt.setDate(
+    //     this.state.startDt.getDate() - this.state.startDt.getDay()
+    //   )
+    // );
+    // var lastday = new Date(
+    //   this.state.startDt.setDate(
+    //     this.state.startDt.getDate() - this.state.startDt.getDay() + 6
+    //   )
+    // );
+
     let dates = {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    // console.log(this.state.startDt, this.state.endDt);
+    // console.log(this.state.startDt, this.state.endDt, "STATE DATES");
+    // console.log(firstday, lastday, "CHECK");
     getWeeklyStatus(dates, "");
   };
   render() {
@@ -113,10 +151,6 @@ class WeeklyStatus extends React.Component {
     }
     return (
       <>
-        <div className="backBtn">
-          <IoIosArrowBack />
-          Back
-        </div>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -133,6 +167,8 @@ class WeeklyStatus extends React.Component {
                 allowEdit={false}
                 format={"dd MMM yy"}
                 placeholder="Select Date Range"
+                minDays={7}
+                maxDays={7}
                 startDate={this.state.startDt}
                 endDate={this.state.endDt}
                 onChange={this.dateHandler}
@@ -152,6 +188,8 @@ class WeeklyStatus extends React.Component {
                 Apply Filter
               </option>
               <option value="Dedicated">Dedicated</option>
+              <option value="T%26M">T&M</option>
+              <option value="Fixed">Fixed</option>
               <option value="">Clear Filter</option>
             </select>
           </div>
@@ -168,12 +206,21 @@ class WeeklyStatus extends React.Component {
             {this.props.week_status.weeklyStatus
               ? this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                   return (
-                    <tr key={i} className="">
+                    <tr key={i} className="tableRow">
                       <td style={{ fontWeight: "500" }} className="thead">
                         {" "}
                         {ele.project_name}
                       </td>
-                      <td className="thead">{ele.engagement_type}</td>
+                      <td
+                        className="thead"
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "13px",
+                          color: "grey",
+                        }}
+                      >
+                        {ele.engagement_type}
+                      </td>
                       <td className="thead">
                         <>
                           {this.state.selectorRow == i ? (
@@ -279,23 +326,22 @@ class WeeklyStatus extends React.Component {
                               });
                             }}
                           >
-                            <IoIosSquare
+                            <div
                               style={{
-                                color: `${
-                                  // ele.weekly_project_health != null
+                                background: `${
                                   ele.weekly_project_health == "Poor"
-                                    ? "red"
+                                    ? "linear-gradient(180deg, #FF5B5D 0%, #F2383A 100%)"
                                     : ele.weekly_project_health == "Good"
-                                    ? "#09ed09"
+                                    ? "linear-gradient(180deg, #24d6a5 0%, #17c293 100%)"
                                     : ele.weekly_project_health == "Average"
-                                    ? "yellow"
+                                    ? "linear-gradient(180deg, #FFDA70 0%, #FFBD00 100%)"
                                     : ""
-                                  // : ""
                                 }`,
                               }}
-                            />
+                              className="square"
+                            ></div>
                             {ele.weekly_project_health == null
-                              ? "NONE"
+                              ? "None"
                               : ele.weekly_project_health}
                           </span>
                         )}
