@@ -43,12 +43,6 @@ color: tomato;
 font-size: 14px;
 margin-top: 10px;
 `
-const GoogleButton = styled.div`
-width:100%;
-border:1px solid black;
-border-radius: 10px;
-padding:3px;
-`
 class Login extends Component {
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
