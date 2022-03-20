@@ -8,6 +8,12 @@ export default (state = {}, action) => {
         weeklyStatus: action.payload,
       };
     }
+    case ActionTypes.GET_HEALTH_STATUS: {
+      return {
+        ...state,
+        healthStatus: action.payload,
+      };
+    }
     default:
       return state;
   }

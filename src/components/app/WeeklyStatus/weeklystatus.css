@@ -26,7 +26,7 @@
   padding: 10px;
 }
 .thead {
-  padding: 20px;
+  padding: 20px 10px;
   width: 29%;
 }
 
@@ -135,7 +135,9 @@ textarea.ant-input {
   box-shadow: 1px 4px 12px grey;
   background: #fff;
   position: absolute;
-  height: 132px;
+  top: 21px;
+  z-index: 9;
+  padding: 5px 0;
   width: 107px;
   border-radius: 12px;
 }
@@ -195,10 +197,5 @@ textarea.ant-input {
     margin: 0;
     padding-left: 0;
     border-left: none;
-  }
-
-  thead {
-    padding: 2px;
-    width: 29%;
   }
 }
