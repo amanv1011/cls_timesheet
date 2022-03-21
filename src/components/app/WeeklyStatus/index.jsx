@@ -136,7 +136,7 @@ class WeeklyStatus extends React.Component {
       strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
       end: this.state.endDt,
     };
-    console.log(dates, "DATES");
+    // console.log(dates, "DATES");
     getWeeklyStatus(dates, "");
   };
 
@@ -157,10 +157,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: this.state.startDt,
+      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
       end: this.state.endDt,
     };
-    console.log(dates, "DATES");
+    // console.log(dates, "DATES");
     getWeeklyStatus(dates, "");
   };
 

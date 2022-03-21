@@ -45,13 +45,13 @@ export const getWeeklyStatus = (date, filter) => {
       )}&engagement_type=${filter}`
     )
     .then((response) => {
-      console.log(
-        `/api/projects/status/weekly?startDate=${moment(date.strt).format(
-          "YYYY-MM-DD"
-        )}&endDate=${moment(date.end).format(
-          "YYYY-MM-DD"
-        )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
-      );
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
       // console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
