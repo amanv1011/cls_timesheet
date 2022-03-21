@@ -12,6 +12,7 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Modal } from "antd";
 import moment from "moment";
+import { getTimeSheet } from "../../../actions/asyncActions";
 import Classes from "./timeSheet.module.css";
 const monthFormat = "MMM YYYY";
 
@@ -159,6 +160,8 @@ const data = [
   },
 ];
 
+let currDate = new Date();
+
 class Timesheet extends React.Component {
   constructor(props) {
     super(props);
@@ -166,7 +169,7 @@ class Timesheet extends React.Component {
       show: false,
       isModalVisible: false,
       divContent: "",
-      calenderValue: "",
+      calenderValue: currDate.getMonth() + 1 + "-" + currDate.getFullYear(),
       month: "",
       year: "",
       firstDay: 1,
@@ -175,32 +178,38 @@ class Timesheet extends React.Component {
     this.handleOnOff = this.handleOnOff.bind(this);
   }
 
+  componentDidMount = () => {
+    getTimeSheet();
+    console.log("calling API's function :", this.state.calenderValue);
+  };
+
   handleOnOff() {
     console.log(this.state.show);
     this.setState({ show: !this.state.show });
   }
 
   handleUpdateCalenderValue = (date, dateString) => {
+    let d = new Date(date);
+    let LD = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
+    console.log("last date is : ", LD);
     this.setState({
-      // calenderValue: moment(date).format("M YYYY"),
-      calenderValue: date,
+      calenderValue: moment(date).format("MM-YYYY"), //data for API
+      month: moment(date).format("MMM"),
+      year: moment(date).format("YYYY"),
+      lastDay: LD,
+      // calenderValue: date,
     });
-    console.log(this.state.calenderValue);
+    getTimeSheet(this.state.calenderValue);
+    console.log("date from calender : ", this.state.calenderValue);
+    console.log("curr month value : ", this.state.month);
+    console.log("current year value: ", this.state.year);
+    console.log("updated lastdate is : ", this.state.lastDay);
   };
 
   handleModal = (event) => {
-    let d = new Date(this.state.calenderValue);
-    let vv = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
-    let mm = new Date(d.getFullYear(), d.getMonth() + 1, 0).getMonth(); //for current month
-    let yy = new Date(d.getFullYear(), d.getMonth() + 1, 0).getFullYear();
-    console.log("new date is : ", vv);
-    console.log("current month : ", mm);
     this.setState({
       isModalVisible: true,
       divContent: event.currentTarget.textContent,
-      lastDay: vv,
-      month: moment(mm).format("MMM"),
-      year: yy,
     });
   };
 
@@ -358,10 +367,7 @@ class Timesheet extends React.Component {
                   <IoIosArrowDown />
                 </span>
               }
-              style={{
-                width: "9rem",
-                borderRadius: "5px",
-              }}
+              className={Classes.styleCalender}
               format={monthFormat}
               onChange={this.handleUpdateCalenderValue}
             />

@@ -83,3 +83,16 @@ export const updateWeeklyStatus = (req, res) => {
     })
     .catch((err) => {});
 };
+
+export const getTimeSheet = (date) => {
+  const data = {
+    // id: req,
+  };
+  http
+    .get(`http://localhost:3500/api/projects/timesheet/?monthYear=${date}`)
+    .then((response) => {
+      console.log("got the response : ", date);
+      Store.dispatch(syncActions.getTimeSheet(response.data));
+    })
+    .catch((err) => {});
+};

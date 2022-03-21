@@ -19,6 +19,11 @@ export const getWeeklyStatus = (data) => ({
   payload: data,
 });
 
+export const getTimeSheet = (data) => ({
+  type: actionTypes.GET_TIME_SHEET,
+  payload: data,
+});
+
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,
   payload: data,
