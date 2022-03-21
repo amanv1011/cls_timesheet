@@ -45,28 +45,28 @@ export const getWeeklyStatus = (date, filter) => {
       )}&engagement_type=${filter}`
     )
     .then((response) => {
-      console.log(
-        `/api/projects/status/weekly?startDate=${moment(date.strt).format(
-          "YYYY-MM-DD"
-        )}&endDate=${moment(date.end).format(
-          "YYYY-MM-DD"
-        )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
-      );
-      console.log("UPDATES");
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      // console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
 };
 
 export const updateWeeklyStatus = (req, res) => {
-  console.log(
-    `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
-      res.strt
-    ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format(
-      "YYYY-MM-DD"
-    )}   reeeeeeeeeeeeeeeeeeeee`,
-    req
-  );
+  // console.log(
+  //   `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
+  //     res.strt
+  //   ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format(
+  //     "YYYY-MM-DD"
+  //   )}   reeeeeeeeeeeeeeeeeeeee`,
+  //   req
+  // );
   http
     .put(
       `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
@@ -85,9 +85,6 @@ export const updateWeeklyStatus = (req, res) => {
 };
 
 export const getTimeSheet = (date) => {
-  const data = {
-    // id: req,
-  };
   http
     .get(`http://localhost:3500/api/projects/timesheet/?monthYear=${date}`)
     .then((response) => {
