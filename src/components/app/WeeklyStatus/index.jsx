@@ -30,18 +30,23 @@ class WeeklyStatus extends React.Component {
         )
       ),
     });
+
+    // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
+      strt: this.state.endDt,
+      end: this.state.startDt,
     };
+    // console.log(dates, "DATESSSSSSSSSSSSS");
     getWeeklyStatus(dates, "");
     get_health_status();
   };
 
+  // - 7 * 24 * 60 * 60 * 1000
+
   state = {
     selectionType: "checkbox",
-    startDt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-    endDt: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+    startDt: new Date(Date.now()),
+    endDt: new Date(Date.now()),
     description: "",
     projectId: "",
     statusId: "",
@@ -53,7 +58,6 @@ class WeeklyStatus extends React.Component {
 
   dateHandler = (e) => {
     let a = e.target.value;
-    // console.log(a);
     this.setState({
       startDt: a[0],
       endDt: a[1],
@@ -74,7 +78,7 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    console.log(data);
+    // console.log(data);
     let date_range = { strt: this.state.startDt, end: this.state.endDt };
     updateWeeklyStatus(data, date_range);
   };
@@ -89,14 +93,14 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    console.log(data);
+    // console.log(data);
     let dates = {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
     if (data.description) {
       console.log(data, dates);
-      // updateWeeklyStatus(data, dates);
+      updateWeeklyStatus(data, dates);
     } else {
       alert("Please Update the week status first.");
     }
@@ -129,11 +133,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: this.state.startDt,
+      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
       end: this.state.endDt,
     };
-    // console.log(this.state.startDt, this.state.endDt, "STATE DATES");
-    // console.log(firstday, lastday, "CHECK");
+    console.log(dates, "DATES");
     getWeeklyStatus(dates, "");
   };
 
@@ -157,8 +160,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    // console.log(this.state.startDt, this.state.endDt, "STATE DATES");
-    // console.log(firstday, lastday, "CHECK");
+    console.log(dates, "DATES");
     getWeeklyStatus(dates, "");
   };
 
@@ -219,7 +221,6 @@ class WeeklyStatus extends React.Component {
               </option>
               <option value="Dedicated">Dedicated</option>
               <option value="T%26M">T&M</option>
-              <option value="Fixed">Fixed</option>
               <option value="">Clear Filter</option>
             </select>
           </div>
