@@ -130,6 +130,7 @@ class WeeklyStatus extends React.Component {
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
+      //new changes
     });
 
     let dates = {
@@ -180,9 +181,12 @@ class WeeklyStatus extends React.Component {
                   onClick={this.weekback}
                   style={{ fontSize: "20px", cursor: "pointer" }}
                 />
-                Status Logged
+                {/* Status Logged */}
+                {moment(this.state.startDt).format("DD-MMM-YYYY")}
+                {"   "}-{"   "}
+                {moment(this.state.endDt).format("DD-MMM-YYYY")}
               </p>
-              <DateRangePickerComponent
+              {/* <DateRangePickerComponent
                 className="datepicker"
                 allowEdit={false}
                 format={"dd MMM yy"}
@@ -192,7 +196,7 @@ class WeeklyStatus extends React.Component {
                 startDate={this.state.startDt}
                 endDate={this.state.endDt}
                 onChange={this.dateHandler}
-              />
+              /> */}
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}

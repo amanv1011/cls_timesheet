@@ -85,11 +85,42 @@ export const updateWeeklyStatus = (req, res) => {
 };
 
 export const getTimeSheet = (date) => {
+  const data = {
+    // id: req,
+  };
   http
-    .get(`http://localhost:3500/api/projects/timesheet/?monthYear=${date}`)
+    .get(`/api/projects/timesheet/?monthYear=${date}`)
     .then((response) => {
-      console.log("got the response : ", date);
+      console.log(
+        "got the response : ",
+        date,
+        "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+        response
+      );
       Store.dispatch(syncActions.getTimeSheet(response.data));
+    })
+    .catch((err) => {});
+};
+
+export const get_health_status = () => {
+  const data = {
+    // id: req,
+  };
+  http
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
+    .get(
+      `https://app.api.classicinformatics.net/api/table/project_health_status`
+    )
+    .then((response) => {
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      console.log(response.data, "HEALTH TYPE");
+      Store.dispatch(syncActions.get_health_status(response.data));
     })
     .catch((err) => {});
 };
