@@ -3,9 +3,10 @@ import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
 const http = axios.create({
   // baseURL: "http://localhost:3500/",
-  baseURL: process.env.REACT_APP_API_URL_HOSTED,
-
+  baseURL:"https://app.api.classicinformatics.net/"
+  // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
+
 http.defaults.headers.post["Content-Type"] =
   // "application/x-www-form-urlencoded";
   "application/json";

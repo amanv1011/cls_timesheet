@@ -79,7 +79,7 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
-    console.error("login page", this.props);
+    console.error("process.env",process.env);
     return (
       <Wrapper>
         <Container>
@@ -90,7 +90,7 @@ class Login extends Component {
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+              clientId="547036388960-1kdtvd93grr1lf1c58hrlsqbv1d44gri.apps.googleusercontent.com"
               buttonText="Log In with Google"
               render={(renderProps) => (
                 <div
