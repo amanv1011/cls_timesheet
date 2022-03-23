@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip, Input } from "antd";
+import { Tooltip, Input, Modal } from "antd";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
@@ -33,10 +33,10 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: this.state.endDt,
+      strt: new Date(this.state.endDt - 2 * 24 * 60 * 60 * 1000),
       end: this.state.startDt,
     };
-    // console.log(dates, "DATESSSSSSSSSSSSS");
+    console.log(dates, "DATESSSSSSSSSSSSS");
     getWeeklyStatus(dates, "");
     get_health_status();
   };
@@ -52,6 +52,7 @@ class WeeklyStatus extends React.Component {
     statusId: "",
     selectorRow: null,
     showHealthOption: null,
+    showHealthBox: false,
     healthOption: "",
     filter_type: "",
   };
@@ -86,6 +87,7 @@ class WeeklyStatus extends React.Component {
   updateHealth = (e) => {
     this.setState({
       showHealthOption: null,
+      showHealthBox: !this.state.showHealthBox,
       // healthOption: e.target.value,
     });
     let data = {
@@ -165,8 +167,28 @@ class WeeklyStatus extends React.Component {
     getWeeklyStatus(dates, "");
   };
 
+  handleOk = () => {
+    this.setState({
+      showHealthBox: false,
+      showHealthOption: null,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      showHealthBox: false,
+      showHealthOption: null,
+    });
+  };
+
   render() {
     console.log(this.props);
+    console.log(
+      this.state.startDt,
+      "dadddddddddddddddddddddddddd",
+      this.state.endDt
+    );
+
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -260,8 +282,8 @@ class WeeklyStatus extends React.Component {
                         <>
                           {this.state.selectorRow == i ? (
                             <TextArea
-                              sele
                               className="textareaEdit"
+                              autoFocus
                               rows={3}
                               value={this.state.description}
                               onChange={(e) => {
@@ -317,7 +339,12 @@ class WeeklyStatus extends React.Component {
                       </td>
                       <td className="thead" style={{ position: "relative" }}>
                         {this.state.showHealthOption == i ? (
-                          <section className="healthSection">
+                          <Modal
+                            className="healthSection"
+                            visible={this.state.showHealthBox}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                          >
                             {this.props.week_status.healthStatus.results.map(
                               (ele, i) => {
                                 return (
@@ -338,7 +365,7 @@ class WeeklyStatus extends React.Component {
                                 );
                               }
                             )}
-                          </section>
+                          </Modal>
                         ) : (
                           <span
                             style={{ fontWeight: "600", cursor: "pointer" }}
@@ -364,9 +391,17 @@ class WeeklyStatus extends React.Component {
                               }}
                               className="square"
                             ></div>
-                            {ele.weekly_project_health == null
-                              ? "None"
-                              : ele.weekly_project_health}
+                            <p
+                              onClick={() => {
+                                this.setState({
+                                  showHealthBox: true,
+                                });
+                              }}
+                            >
+                              {ele.weekly_project_health == null
+                                ? "None"
+                                : ele.weekly_project_health}
+                            </p>
                           </span>
                         )}
                       </td>
