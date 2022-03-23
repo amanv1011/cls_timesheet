@@ -182,7 +182,6 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-<<<<<<< HEAD
     console.log(this.props);
     console.log(
       this.state.startDt,
@@ -190,9 +189,7 @@ class WeeklyStatus extends React.Component {
       this.state.endDt
     );
 
-=======
     console.log(this.props, "PROPSSSSSSS");
->>>>>>> a70296c5b215528284ede97f6240bcf1a9cb2f96
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -286,12 +283,8 @@ class WeeklyStatus extends React.Component {
                         <>
                           {this.state.selectorRow == i ? (
                             <TextArea
-<<<<<<< HEAD
-=======
                               autoFocus
->>>>>>> a70296c5b215528284ede97f6240bcf1a9cb2f96
                               className="textareaEdit"
-                              autoFocus
                               rows={3}
                               value={this.state.description}
                               onChange={(e) => {
