@@ -237,7 +237,7 @@ class WeeklyStatus extends React.Component {
               id="options"
             >
               <option value="" disabled selected>
-                Apply Filter
+                Engagement Type
               </option>
               <option value="Dedicated">Dedicated</option>
               <option value="T%26M">T&M</option>
