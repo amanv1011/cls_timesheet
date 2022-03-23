@@ -91,7 +91,7 @@ class Login extends Component {
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin
-              clientId="547036388960-1kdtvd93grr1lf1c58hrlsqbv1d44gri.apps.googleusercontent.com"
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
               buttonText="Log In with Google"
               render={(renderProps) => (
                 <div class="google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}>
