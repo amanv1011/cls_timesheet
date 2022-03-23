@@ -182,6 +182,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
+<<<<<<< HEAD
     console.log(this.props);
     console.log(
       this.state.startDt,
@@ -189,6 +190,9 @@ class WeeklyStatus extends React.Component {
       this.state.endDt
     );
 
+=======
+    console.log(this.props, "PROPSSSSSSS");
+>>>>>>> a70296c5b215528284ede97f6240bcf1a9cb2f96
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -282,6 +286,10 @@ class WeeklyStatus extends React.Component {
                         <>
                           {this.state.selectorRow == i ? (
                             <TextArea
+<<<<<<< HEAD
+=======
+                              autoFocus
+>>>>>>> a70296c5b215528284ede97f6240bcf1a9cb2f96
                               className="textareaEdit"
                               autoFocus
                               rows={3}
@@ -302,18 +310,18 @@ class WeeklyStatus extends React.Component {
                               <Input
                                 className="textarea"
                                 readOnly
-                                onFocus={() => {
-                                  this.setState({
-                                    selectorRow: i,
-                                    description: ele.weekly_status_description,
-                                    projectId: ele.project_id,
-                                    statusId:
-                                      ele.weekly_project_health_status_id,
-                                  });
-                                }}
+                                // onFocus={() => {
+                                //   this.setState({
+                                //     selectorRow: i,
+                                //     description: ele.weekly_status_description,
+                                //     projectId: ele.project_id,
+                                //     statusId:
+                                //       ele.weekly_project_health_status_id,
+                                //   });
+                                // }}
                                 value={ele.weekly_status_description}
                                 suffix={
-                                  ele.weekly_status_description != null ? (
+                                  ele.is_email_sent === false ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -349,9 +357,9 @@ class WeeklyStatus extends React.Component {
                               (ele, i) => {
                                 return (
                                   <button
+                                    type="button"
                                     className="healthbtn"
                                     onClick={this.updateHealth}
-                                    // style={{ background: "#c8f3e3" }}
                                     value={ele.id}
                                   >
                                     <div
@@ -381,11 +389,13 @@ class WeeklyStatus extends React.Component {
                               style={{
                                 background: `${
                                   ele.weekly_project_health == "Poor"
-                                    ? "linear-gradient(180deg, #FF5B5D 0%, #F2383A 100%)"
+                                    ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
                                     : ele.weekly_project_health == "Good"
-                                    ? "linear-gradient(180deg, #24d6a5 0%, #17c293 100%)"
+                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
                                     : ele.weekly_project_health == "Average"
-                                    ? "linear-gradient(180deg, #FFDA70 0%, #FFBD00 100%)"
+                                    ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
+                                    : ele.weekly_project_health == "Excellent"
+                                    ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
                                     : ""
                                 }`,
                               }}
