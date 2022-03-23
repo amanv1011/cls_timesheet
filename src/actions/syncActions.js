@@ -18,6 +18,15 @@ export const getWeeklyStatus = (data) => ({
   type: actionTypes.GET_WEEKLY_STATUS,
   payload: data,
 });
+export const get_health_status = (data) => ({
+  type: actionTypes.GET_HEALTH_STATUS,
+  payload: data,
+});
+
+export const getTimeSheet = (data) => ({
+  type: actionTypes.GET_TIME_SHEET,
+  payload: data,
+});
 
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,

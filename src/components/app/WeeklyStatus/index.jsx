@@ -3,13 +3,13 @@ import { Tooltip, Input } from "antd";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
-import { IoIosArrowBack, IoIosSquare } from "react-icons/io";
-import { FaAngleLeft } from "react-icons/fa";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "./weeklystatus.css";
 import {
   getWeeklyStatus,
   updateWeeklyStatus,
+  get_health_status,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
@@ -30,17 +30,23 @@ class WeeklyStatus extends React.Component {
         )
       ),
     });
+
+    // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
+      strt: this.state.endDt,
+      end: this.state.startDt,
     };
+    // console.log(dates, "DATESSSSSSSSSSSSS");
     getWeeklyStatus(dates, "");
+    get_health_status();
   };
+
+  // - 7 * 24 * 60 * 60 * 1000
 
   state = {
     selectionType: "checkbox",
-    startDt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-    endDt: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+    startDt: new Date(Date.now()),
+    endDt: new Date(Date.now()),
     description: "",
     projectId: "",
     statusId: "",
@@ -52,7 +58,6 @@ class WeeklyStatus extends React.Component {
 
   dateHandler = (e) => {
     let a = e.target.value;
-    // console.log(a);
     this.setState({
       startDt: a[0],
       endDt: a[1],
@@ -73,7 +78,7 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    console.log(data);
+    // console.log(data);
     let date_range = { strt: this.state.startDt, end: this.state.endDt };
     updateWeeklyStatus(data, date_range);
   };
@@ -81,7 +86,7 @@ class WeeklyStatus extends React.Component {
   updateHealth = (e) => {
     this.setState({
       showHealthOption: null,
-      healthOption: e.target.value,
+      // healthOption: e.target.value,
     });
     let data = {
       project_health_status_id: e.target.value,
@@ -94,7 +99,7 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     if (data.description) {
-      // console.log(data, dates);
+      console.log(data, dates);
       updateWeeklyStatus(data, dates);
     } else {
       alert("Please Update the week status first.");
@@ -125,27 +130,43 @@ class WeeklyStatus extends React.Component {
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
+      //new changes
     });
-    // var firstday = new Date(
-    //   this.state.startDt.setDate(
-    //     this.state.startDt.getDate() - this.state.startDt.getDay()
-    //   )
-    // );
-    // var lastday = new Date(
-    //   this.state.startDt.setDate(
-    //     this.state.startDt.getDate() - this.state.startDt.getDay() + 6
-    //   )
-    // );
 
     let dates = {
-      strt: this.state.startDt,
+      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
       end: this.state.endDt,
     };
-    // console.log(this.state.startDt, this.state.endDt, "STATE DATES");
-    // console.log(firstday, lastday, "CHECK");
+    // console.log(dates, "DATES");
     getWeeklyStatus(dates, "");
   };
+
+  weekForword = () => {
+    this.setState({
+      startDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 1
+        ) +
+          7 * 24 * 60 * 60 * 1000
+      ),
+      endDt: new Date(
+        this.state.startDt.setDate(
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+        ) +
+          7 * 24 * 60 * 60 * 1000
+      ),
+    });
+
+    let dates = {
+      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
+      end: this.state.endDt,
+    };
+    // console.log(dates, "DATES");
+    getWeeklyStatus(dates, "");
+  };
+
   render() {
+    console.log(this.props);
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -160,9 +181,12 @@ class WeeklyStatus extends React.Component {
                   onClick={this.weekback}
                   style={{ fontSize: "20px", cursor: "pointer" }}
                 />
-                Status Logged
+                {/* Status Logged */}
+                {moment(this.state.startDt).format("DD-MMM-YYYY")}
+                {"   "}-{"   "}
+                {moment(this.state.endDt).format("DD-MMM-YYYY")}
               </p>
-              <DateRangePickerComponent
+              {/* <DateRangePickerComponent
                 className="datepicker"
                 allowEdit={false}
                 format={"dd MMM yy"}
@@ -172,6 +196,18 @@ class WeeklyStatus extends React.Component {
                 startDate={this.state.startDt}
                 endDate={this.state.endDt}
                 onChange={this.dateHandler}
+              /> */}
+              <FaAngleRight
+                className=""
+                onClick={this.weekForword}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  position: "relative",
+                  top: "-10px",
+                  right: "-3px",
+                  color: "#305d9f",
+                }}
               />
             </div>
             <label htmlFor="options" className="optLabel">
@@ -189,7 +225,6 @@ class WeeklyStatus extends React.Component {
               </option>
               <option value="Dedicated">Dedicated</option>
               <option value="T%26M">T&M</option>
-              <option value="Fixed">Fixed</option>
               <option value="">Clear Filter</option>
             </select>
           </div>
@@ -199,8 +234,8 @@ class WeeklyStatus extends React.Component {
             <tr className="headRow">
               <th className="thead">Project</th>
               <th className="thead">Engagement type</th>
-              <th className="thead">Weekly Status</th>
-              <th className="thead">Health</th>
+              <th className="thead">Week Status</th>
+              <th className="thead">Project Health</th>
             </tr>
 
             {this.props.week_status.weeklyStatus
@@ -225,6 +260,7 @@ class WeeklyStatus extends React.Component {
                         <>
                           {this.state.selectorRow == i ? (
                             <TextArea
+                              sele
                               className="textareaEdit"
                               rows={3}
                               value={this.state.description}
@@ -268,13 +304,6 @@ class WeeklyStatus extends React.Component {
                                           statusId:
                                             ele.weekly_project_health_status_id,
                                         });
-                                        // console.log("Edit called", i);
-                                        // console.log(
-                                        //     "description update : ",
-                                        //     this.state.description,
-                                        //     this.state.statusId,
-                                        //   this.state.projectId
-                                        // );
                                       }}
                                     />
                                   ) : (
@@ -286,34 +315,29 @@ class WeeklyStatus extends React.Component {
                           )}
                         </>
                       </td>
-                      <td className="thead">
+                      <td className="thead" style={{ position: "relative" }}>
                         {this.state.showHealthOption == i ? (
                           <section className="healthSection">
-                            <button
-                              className="healthbtn"
-                              onClick={this.updateHealth}
-                              style={{ background: "#c8f3e3" }}
-                              value="2"
-                            >
-                              <IoIosSquare style={{ color: "#09ed09" }} /> Good
-                            </button>
-                            <button
-                              className="healthbtn"
-                              onClick={this.updateHealth}
-                              style={{ background: "#ffd2d2" }}
-                              value="4"
-                            >
-                              <IoIosSquare style={{ color: "red" }} /> Poor
-                            </button>
-                            <button
-                              className="healthbtn"
-                              onClick={this.updateHealth}
-                              style={{ background: "#fff7bd" }}
-                              value="3"
-                            >
-                              <IoIosSquare style={{ color: "#ffde00" }} />{" "}
-                              Average
-                            </button>
+                            {this.props.week_status.healthStatus.results.map(
+                              (ele, i) => {
+                                return (
+                                  <button
+                                    className="healthbtn"
+                                    onClick={this.updateHealth}
+                                    // style={{ background: "#c8f3e3" }}
+                                    value={ele.id}
+                                  >
+                                    <div
+                                      style={{
+                                        background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
+                                      }}
+                                      className="square"
+                                    ></div>
+                                    {ele.name}
+                                  </button>
+                                );
+                              }
+                            )}
                           </section>
                         ) : (
                           <span

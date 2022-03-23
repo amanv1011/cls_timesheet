@@ -21,28 +21,28 @@ const Wrapper = styled.div`
 const Container = styled.div`
   background: #fff;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  
+
   border-radius: 20px;
-  padding:2em 4em 2em 4em;
+  padding: 2em 4em 2em 4em;
 `;
 const MockImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 2em ;
-  border-bottom:1px solid #eee;
+  padding-bottom: 2em;
+  border-bottom: 1px solid #eee;
 `;
 const LoginButton = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top:1em;
+  padding-top: 1em;
 `;
 const Error = styled.div`
-color: tomato;
-font-size: 14px;
-margin-top: 10px;
-`
+  color: tomato;
+  font-size: 14px;
+  margin-top: 10px;
+`;
 class Login extends Component {
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
@@ -67,7 +67,7 @@ class Login extends Component {
         this.props.history.push("/");
       })
       .catch((err) => {
-        console.log("error", err)
+        console.log("error", err);
         Store.dispatch(syncActions.Error(err.response.data));
       });
   };
@@ -94,12 +94,21 @@ class Login extends Component {
               clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
               buttonText="Log In with Google"
               render={(renderProps) => (
-                <div class="google-btn" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                <div class="google-icon-wrapper">
-                  <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                <div
+                  class="google-btn"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <div class="google-icon-wrapper">
+                    <img
+                      class="google-icon"
+                      src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    />
+                  </div>
+                  <p class="btn-text">
+                    <b>Log in with Google.</b>
+                  </p>
                 </div>
-                <p class="btn-text"><b>Sign in with Google</b></p>
-              </div>
               )}
               className="loginBtn loginBtn--google"
               onSuccess={this.responseGoogleSuccess}
@@ -108,7 +117,7 @@ class Login extends Component {
               scope={"email"}
               getBasicProfile={true}
             />
-            {this.props.err.error? <Error>Unauthourised User</Error>: <div/>}
+            {this.props.err.error ? <Error>Unauthourised User</Error> : <div />}
             {/* <div></div> */}
           </LoginButton>
         </Container>
@@ -121,7 +130,7 @@ const mapStateToProps = (store) => {
   console.log("in login store", store);
   return {
     ...store.spin,
-    err:store.error
+    err: store.error,
   };
 };
 

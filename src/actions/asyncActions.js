@@ -45,28 +45,28 @@ export const getWeeklyStatus = (date, filter) => {
       )}&engagement_type=${filter}`
     )
     .then((response) => {
-      console.log(
-        `/api/projects/status/weekly?startDate=${moment(date.strt).format(
-          "YYYY-MM-DD"
-        )}&endDate=${moment(date.end).format(
-          "YYYY-MM-DD"
-        )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
-      );
-      console.log("UPDATES");
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      // console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
 };
 
 export const updateWeeklyStatus = (req, res) => {
-  console.log(
-    `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
-      res.strt
-    ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format(
-      "YYYY-MM-DD"
-    )}   reeeeeeeeeeeeeeeeeeeee`,
-    req
-  );
+  // console.log(
+  //   `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
+  //     res.strt
+  //   ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format(
+  //     "YYYY-MM-DD"
+  //   )}   reeeeeeeeeeeeeeeeeeeee`,
+  //   req
+  // );
   http
     .put(
       `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
@@ -80,6 +80,47 @@ export const updateWeeklyStatus = (req, res) => {
         end: res.end,
       };
       getWeeklyStatus(date, "");
+    })
+    .catch((err) => {});
+};
+
+export const getTimeSheet = (date) => {
+  const data = {
+    // id: req,
+  };
+  http
+    .get(`/api/projects/timesheet/?monthYear=${date}`)
+    .then((response) => {
+      console.log(
+        "got the response : ",
+        date,
+        "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+        response
+      );
+      Store.dispatch(syncActions.getTimeSheet(response.data));
+    })
+    .catch((err) => {});
+};
+
+export const get_health_status = () => {
+  const data = {
+    // id: req,
+  };
+  http
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
+    .get(
+      `https://app.api.classicinformatics.net/api/table/project_health_status`
+    )
+    .then((response) => {
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      console.log(response.data, "HEALTH TYPE");
+      Store.dispatch(syncActions.get_health_status(response.data));
     })
     .catch((err) => {});
 };

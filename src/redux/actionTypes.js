@@ -6,6 +6,8 @@ export default keyMirror({
   USER_DETAILS: null,
   GET_USER_TOOLS: null,
   GET_WEEKLY_STATUS: null,
-  ERROR:null,
-  CLEAR_ERROR:null
+  GET_TIME_SHEET: null,
+  GET_HEALTH_STATUS: null,
+  ERROR: null,
+  CLEAR_ERROR: null,
 });

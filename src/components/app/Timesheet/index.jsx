@@ -12,6 +12,7 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Modal } from "antd";
 import moment from "moment";
+import { getTimeSheet } from "../../../actions/asyncActions";
 import Classes from "./timeSheet.module.css";
 const monthFormat = "MMM YYYY";
 
@@ -61,103 +62,105 @@ const columns = [
 const columns1 = [
   {
     title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
+    dataIndex: "project_name",
+    key: "project_name",
   },
   {
     title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
+    dataIndex: "project_owner",
+    key: "project_owner",
   },
   {
     title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
+    dataIndex: "project_code",
+    key: "project_code",
   },
   {
     title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
+    dataIndex: "account_code",
+    key: "account_code",
   },
   {
     title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
+    dataIndex: "engagement_type",
+    key: "engagement_type",
   },
   {
     title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
+    dataIndex: "hours_logged",
+    key: "hours_logged",
   },
   {
     title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
+    dataIndex: "billed_hours",
+    key: "billed_hours",
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    projects: "Studio a+i Digital Marketing",
-    resources: "5",
-    extra: "timesheet records of resources",
-    projectowner: "Rajesh Chandra",
-    projectcode: "PC101",
-    accountcode: "PAC101",
-    engagementtype: "Fixed",
-    hourslogged: "110h 15m",
-    biledhours: "00h",
-  },
-  {
-    key: "2",
-    projects: "MDA Development & Marketing",
-    resources: "10",
-    extra: "timesheet records of resources",
-    projectowner: "Rahul Mehra",
-    projectcode: "PC102",
-    accountcode: "PAC102",
-    engagementtype: "Dedicated",
-    hourslogged: "120h 20m",
-    biledhours: "160h",
-  },
-  {
-    key: "3",
-    projects: "HIRED Development & Marketing",
-    resources: "2",
-    extra: "timesheet records of resources",
-    projectowner: "Himanshu Jindal",
-    projectcode: "PC103",
-    accountcode: "PAC103",
-    engagementtype: "Fixed",
-    hourslogged: "180h 10m",
-    biledhours: "00h",
-  },
-  {
-    key: "4",
-    projects: "Clock Store Marketing",
-    resources: "7",
-    extra: "timesheet records of resources",
-    projectowner: "Amit chaudhary",
-    projectcode: "PC104",
-    accountcode: "PAC104",
-    engagementtype: "Fixed",
-    hourslogged: "75h 30m",
-    biledhours: "190h",
-  },
-  {
-    key: "5",
-    projects: "Upright HC - Digital Marketing",
-    resources: "3",
-    extra: "timesheet records of resources",
-    projectowner: "Gagandeep Singh",
-    projectcode: "PC105",
-    accountcode: "PAC105",
-    engagementtype: "Dedicated",
-    hourslogged: "225h 20m",
-    biledhours: "00h",
-  },
-];
+// const data = [
+//   {
+//     key: "1",
+//     project_name: "first project",
+//     resources: "5",
+//     extra: "timesheet records of resources",
+//     projectowner: "Rajesh Chandra",
+//     projectcode: "PC101",
+//     accountcode: "PAC101",
+//     engagementtype: "Fixed",
+//     hourslogged: "110h 15m",
+//     biledhours: "00h",
+//   },
+//   {
+//     key: "2",
+//     projects: "MDA Development & Marketing",
+//     resources: "10",
+//     extra: "timesheet records of resources",
+//     projectowner: "Rahul Mehra",
+//     projectcode: "PC102",
+//     accountcode: "PAC102",
+//     engagementtype: "Dedicated",
+//     hourslogged: "120h 20m",
+//     biledhours: "160h",
+//   },
+//   {
+//     key: "3",
+//     projects: "HIRED Development & Marketing",
+//     resources: "2",
+//     extra: "timesheet records of resources",
+//     projectowner: "Himanshu Jindal",
+//     projectcode: "PC103",
+//     accountcode: "PAC103",
+//     engagementtype: "Fixed",
+//     hourslogged: "180h 10m",
+//     biledhours: "00h",
+//   },
+//   {
+//     key: "4",
+//     projects: "Clock Store Marketing",
+//     resources: "7",
+//     extra: "timesheet records of resources",
+//     projectowner: "Amit chaudhary",
+//     projectcode: "PC104",
+//     accountcode: "PAC104",
+//     engagementtype: "Fixed",
+//     hourslogged: "75h 30m",
+//     biledhours: "190h",
+//   },
+//   {
+//     key: "5",
+//     projects: "Upright HC - Digital Marketing",
+//     resources: "3",
+//     extra: "timesheet records of resources",
+//     projectowner: "Gagandeep Singh",
+//     projectcode: "PC105",
+//     accountcode: "PAC105",
+//     engagementtype: "Dedicated",
+//     hourslogged: "225h 20m",
+//     biledhours: "00h",
+//   },
+// ];
+
+let currDate = new Date();
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -166,14 +169,33 @@ class Timesheet extends React.Component {
       show: false,
       isModalVisible: false,
       divContent: "",
-      calenderValue: "",
+      calenderValue: currDate.getMonth() + 1 + "-" + currDate.getFullYear(),
       month: "",
       year: "",
       firstDay: 1,
       lastDay: "",
+      data: [],
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
+
+  componentDidMount = () => {
+    console.log("checking response : ", this.props);
+    getTimeSheet(this.state.calenderValue);
+    // getTimeSheetData(this.state.data);
+    console.log("calling API's function :", this.state.calenderValue);
+  };
+
+  // getTimeSheetData() {
+  //   console.log("hii dataaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+  //   this.setState(
+  //     this.props.time_sheet.timesheet.projects((element, index) => ({
+  //       key: index,
+  //       project_name: element.project_name,
+  //       engagement_type: element.engagement_type,
+  //     }))
+  //   );
+  // }
 
   handleOnOff() {
     console.log(this.state.show);
@@ -181,26 +203,27 @@ class Timesheet extends React.Component {
   }
 
   handleUpdateCalenderValue = (date, dateString) => {
+    let d = new Date(date);
+    let LD = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
+    console.log("last date is : ", LD);
     this.setState({
-      // calenderValue: moment(date).format("M YYYY"),
-      calenderValue: date,
+      calenderValue: moment(date).format("MM-YYYY"), //data for API
+      month: moment(date).format("MMM"),
+      year: moment(date).format("YYYY"),
+      lastDay: LD,
+      // calenderValue: date,
     });
-    console.log(this.state.calenderValue);
+    getTimeSheet(this.state.calenderValue);
+    console.log("date from calender : ", this.state.calenderValue);
+    console.log("curr month value : ", this.state.month);
+    console.log("current year value: ", this.state.year);
+    console.log("updated lastdate is : ", this.state.lastDay);
   };
 
   handleModal = (event) => {
-    let d = new Date(this.state.calenderValue);
-    let vv = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
-    let mm = new Date(d.getFullYear(), d.getMonth() + 1, 0).getMonth(); //for current month
-    let yy = new Date(d.getFullYear(), d.getMonth() + 1, 0).getFullYear();
-    console.log("new date is : ", vv);
-    console.log("current month : ", mm);
     this.setState({
       isModalVisible: true,
       divContent: event.currentTarget.textContent,
-      lastDay: vv,
-      month: moment(mm).format("MMM"),
-      year: yy,
     });
   };
 
@@ -329,17 +352,27 @@ class Timesheet extends React.Component {
       },
     ];
 
-    const data = [];
-    for (let i = 0; i < 1; ++i) {
-      data.push({
-        key: i,
-      });
-    }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
+    // for (let i = 0; i < 1; ++i) {
+    //   data.push({
+    //     key: i,
+    //   });
+    // }
+    // console.log(data);
+    return (
+      <Table
+        columns={columns}
+        dataSource={this.state.data}
+        pagination={false}
+      />
+    );
   };
 
   render() {
-    // console.log("dashboard", this.props)
+    console.log("getting api response project data : ", this.state.data);
+    console.log("render api data : ", this.props);
+    if (!this.props.time_sheet.timesheet) {
+      return <div></div>;
+    }
 
     return (
       <div>
@@ -358,10 +391,7 @@ class Timesheet extends React.Component {
                   <IoIosArrowDown />
                 </span>
               }
-              style={{
-                width: "9rem",
-                borderRadius: "5px",
-              }}
+              className={Classes.styleCalender}
               format={monthFormat}
               onChange={this.handleUpdateCalenderValue}
             />
@@ -390,7 +420,7 @@ class Timesheet extends React.Component {
           {this.state.show ? (
             <Table
               columns={columns}
-              dataSource={data}
+              dataSource={this.state.data}
               expandedRowRender={this.expandedRowRender}
               expandable={{
                 rowExpandable: (record) => record.extra !== "Not expandable",
@@ -406,7 +436,7 @@ class Timesheet extends React.Component {
           ) : (
             <Table
               columns={columns1}
-              dataSource={data}
+              dataSource={this.state.data}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
