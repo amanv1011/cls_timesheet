@@ -7,12 +7,13 @@ const Wrapper = styled.div`
   z-index: 9999;
   margin: 0 auto;
   width: -webkit-fill-available;
+  width: -moz-available;
 `;
 const Container = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 25%;
+  margin-top: 23%;
 `;
 const Load = styled.div`
   border: 16px solid #f3f3f3; /* Light grey */

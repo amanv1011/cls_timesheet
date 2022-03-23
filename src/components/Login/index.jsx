@@ -44,6 +44,15 @@ const Error = styled.div`
   margin-top: 10px;
 `;
 class Login extends Component {
+
+
+  componentDidMount() {
+    const imagesToBePreloaded = [logo, mockImage]
+    imagesToBePreloaded.forEach(image => { new Image().src = image })
+  }
+
+
+
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
     const data = {
@@ -80,6 +89,7 @@ class Login extends Component {
 
   render() {
     console.error("process.env",process.env);
+    console.error("this.props.err.error",this.props);
     return (
       <Wrapper>
         <Container>
@@ -94,17 +104,17 @@ class Login extends Component {
               buttonText="Log In with Google"
               render={(renderProps) => (
                 <div
-                  class="google-btn"
+                  className="google-btn"
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
-                  <div class="google-icon-wrapper">
+                  <div className="google-icon-wrapper">
                     <img
-                      class="google-icon"
+                      className="google-icon"
                       src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                     />
                   </div>
-                  <p class="btn-text">
+                  <p className="btn-text">
                     <b>Log in with Google.</b>
                   </p>
                 </div>
@@ -116,6 +126,7 @@ class Login extends Component {
               scope={"email"}
               getBasicProfile={true}
             />
+            
             {this.props.err.error ? <Error>Unauthourised User</Error> : <div />}
             {/* <div></div> */}
           </LoginButton>
