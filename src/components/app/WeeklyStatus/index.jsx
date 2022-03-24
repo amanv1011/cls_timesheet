@@ -329,7 +329,8 @@ class WeeklyStatus extends React.Component {
                                       }}
                                     />
                                   ) : this.state.count != 0 &&
-                                    ele.is_email_sent == false ? (
+                                    ele.is_email_sent == false &&
+                                    ele.weekly_status_description == null ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
