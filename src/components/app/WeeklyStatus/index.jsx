@@ -182,13 +182,6 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log(
-      this.state.startDt,
-      "dadddddddddddddddddddddddddd",
-      this.state.endDt
-    );
-
     console.log(this.props, "PROPSSSSSSS");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
@@ -341,7 +334,13 @@ class WeeklyStatus extends React.Component {
                       <td className="thead" style={{ position: "relative" }}>
                         {this.state.showHealthOption == i ? (
                           <Modal
-                            className="healthSection"
+                            style={{
+                              // width: "164px",
+                              position: "absolute",
+                              top: "257px",
+                              right: "37px",
+                            }}
+                            // className="healthSection"
                             visible={this.state.showHealthBox}
                             onOk={this.handleOk}
                             onCancel={this.handleCancel}
@@ -378,22 +377,6 @@ class WeeklyStatus extends React.Component {
                               });
                             }}
                           >
-                            <div
-                              style={{
-                                background: `${
-                                  ele.weekly_project_health == "Poor"
-                                    ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
-                                    : ele.weekly_project_health == "Good"
-                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
-                                    : ele.weekly_project_health == "Average"
-                                    ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
-                                    : ele.weekly_project_health == "Excellent"
-                                    ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
-                                    : ""
-                                }`,
-                              }}
-                              className="square"
-                            ></div>
                             <p
                               onClick={() => {
                                 this.setState({
@@ -401,6 +384,23 @@ class WeeklyStatus extends React.Component {
                                 });
                               }}
                             >
+                              <div
+                                style={{
+                                  background: `${
+                                    ele.weekly_project_health == "Poor"
+                                      ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
+                                      : ele.weekly_project_health == "Good"
+                                      ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
+                                      : ele.weekly_project_health == "Average"
+                                      ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
+                                      : ele.weekly_project_health == "Excellent"
+                                      ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
+                                      : ""
+                                  }`,
+                                }}
+                                className="square"
+                              ></div>
+
                               {ele.weekly_project_health == null
                                 ? "None"
                                 : ele.weekly_project_health}
