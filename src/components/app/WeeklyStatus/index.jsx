@@ -34,7 +34,7 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: new Date(this.state.endDt - 2 * 24 * 60 * 60 * 1000),
+      strt: new Date(this.state.endDt - 3 * 24 * 60 * 60 * 1000),
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
@@ -57,6 +57,7 @@ class WeeklyStatus extends React.Component {
     showHealthBox: false,
     healthOption: "",
     filter_type: "",
+    count: 0,
   };
 
   dateHandler = (e) => {
@@ -134,6 +135,7 @@ class WeeklyStatus extends React.Component {
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
+      count: this.state.count - 1,
       //new changes
     });
 
@@ -159,6 +161,7 @@ class WeeklyStatus extends React.Component {
         ) +
           7 * 24 * 60 * 60 * 1000
       ),
+      count: this.state.count + 1,
     });
     var startz = new Date().setDate(this.state.startDt.getDate() + 1);
     var endz = new Date().setDate(this.state.endDt.getDate() + 7);
@@ -307,18 +310,25 @@ class WeeklyStatus extends React.Component {
                               <Input
                                 className="textarea"
                                 readOnly
-                                // onFocus={() => {
-                                //   this.setState({
-                                //     selectorRow: i,
-                                //     description: ele.weekly_status_description,
-                                //     projectId: ele.project_id,
-                                //     statusId:
-                                //       ele.weekly_project_health_status_id,
-                                //   });
-                                // }}
                                 value={ele.weekly_status_description}
                                 suffix={
-                                  ele.is_email_sent === false ? (
+                                  this.state.count === 0 ? (
+                                    <AiOutlineEdit
+                                      style={{ cursor: "pointer" }}
+                                      id={ele.project_owner_id}
+                                      onClick={() => {
+                                        this.setState({
+                                          selectorRow: i,
+                                          description:
+                                            ele.weekly_status_description,
+                                          projectId: ele.project_id,
+                                          statusId:
+                                            ele.weekly_project_health_status_id,
+                                        });
+                                      }}
+                                    />
+                                  ) : this.state.count != 0 &&
+                                    ele.is_email_sent === false ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -337,6 +347,26 @@ class WeeklyStatus extends React.Component {
                                     ""
                                   )
                                 }
+                                // suffix={
+                                //   ele.is_email_sent === false ? (
+                                //     <AiOutlineEdit
+                                //       style={{ cursor: "pointer" }}
+                                //       id={ele.project_owner_id}
+                                //       onClick={() => {
+                                //         this.setState({
+                                //           selectorRow: i,
+                                //           description:
+                                //             ele.weekly_status_description,
+                                //           projectId: ele.project_id,
+                                //           statusId:
+                                //             ele.weekly_project_health_status_id,
+                                //         });
+                                //       }}
+                                //     />
+                                //   ) : (
+                                //     ""
+                                //   )
+                                // }
                               />
                             </Tooltip>
                           )}
