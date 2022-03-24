@@ -19,8 +19,8 @@ const monthFormat = "MMM YYYY";
 const columns = [
   {
     title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
+    dataIndex: "project_name",
+    key: "project_name",
   },
   {
     title: "Resources",
@@ -29,33 +29,33 @@ const columns = [
   },
   {
     title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
+    dataIndex: "project_owner",
+    key: "project_owner",
   },
   {
     title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
+    dataIndex: "project_code",
+    key: "project_code",
   },
   {
     title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
+    dataIndex: "account_code",
+    key: "account_code",
   },
   {
     title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
+    dataIndex: "engagement_type",
+    key: "engagement_type",
   },
   {
     title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
+    dataIndex: "hours_logged",
+    key: "hours_logged",
   },
   {
     title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
+    dataIndex: "billed_hours",
+    key: "billed_hours",
   },
 ];
 
@@ -97,70 +97,8 @@ const columns1 = [
   },
 ];
 
-// const data = [
-//   {
-//     key: "1",
-//     project_name: "first project",
-//     resources: "5",
-//     extra: "timesheet records of resources",
-//     projectowner: "Rajesh Chandra",
-//     projectcode: "PC101",
-//     accountcode: "PAC101",
-//     engagementtype: "Fixed",
-//     hourslogged: "110h 15m",
-//     biledhours: "00h",
-//   },
-//   {
-//     key: "2",
-//     projects: "MDA Development & Marketing",
-//     resources: "10",
-//     extra: "timesheet records of resources",
-//     projectowner: "Rahul Mehra",
-//     projectcode: "PC102",
-//     accountcode: "PAC102",
-//     engagementtype: "Dedicated",
-//     hourslogged: "120h 20m",
-//     biledhours: "160h",
-//   },
-//   {
-//     key: "3",
-//     projects: "HIRED Development & Marketing",
-//     resources: "2",
-//     extra: "timesheet records of resources",
-//     projectowner: "Himanshu Jindal",
-//     projectcode: "PC103",
-//     accountcode: "PAC103",
-//     engagementtype: "Fixed",
-//     hourslogged: "180h 10m",
-//     biledhours: "00h",
-//   },
-//   {
-//     key: "4",
-//     projects: "Clock Store Marketing",
-//     resources: "7",
-//     extra: "timesheet records of resources",
-//     projectowner: "Amit chaudhary",
-//     projectcode: "PC104",
-//     accountcode: "PAC104",
-//     engagementtype: "Fixed",
-//     hourslogged: "75h 30m",
-//     biledhours: "190h",
-//   },
-//   {
-//     key: "5",
-//     projects: "Upright HC - Digital Marketing",
-//     resources: "3",
-//     extra: "timesheet records of resources",
-//     projectowner: "Gagandeep Singh",
-//     projectcode: "PC105",
-//     accountcode: "PAC105",
-//     engagementtype: "Dedicated",
-//     hourslogged: "225h 20m",
-//     biledhours: "00h",
-//   },
-// ];
-
 let currDate = new Date();
+let bool = true;
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -174,28 +112,23 @@ class Timesheet extends React.Component {
       year: "",
       firstDay: 1,
       lastDay: "",
-      data: [],
+      APIdata: [],
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
 
   componentDidMount = () => {
     console.log("checking response : ", this.props);
+
     getTimeSheet(this.state.calenderValue);
     // getTimeSheetData(this.state.data);
     console.log("calling API's function :", this.state.calenderValue);
-  };
 
-  // getTimeSheetData() {
-  //   console.log("hii dataaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-  //   this.setState(
-  //     this.props.time_sheet.timesheet.projects((element, index) => ({
-  //       key: index,
-  //       project_name: element.project_name,
-  //       engagement_type: element.engagement_type,
-  //     }))
-  //   );
-  // }
+    console.log(
+      "getting dattttttttttttttttttaaaaaaaaaaa : ",
+      this.state.APIdata
+    );
+  };
 
   handleOnOff() {
     console.log(this.state.show);
@@ -261,7 +194,7 @@ class Timesheet extends React.Component {
     const columns = [
       {
         title: "Resources",
-        key: "resource",
+        key: "resources",
         render: () => (
           <>
             <div
@@ -279,7 +212,7 @@ class Timesheet extends React.Component {
         ),
       },
       {
-        key: "resource",
+        key: "resources",
         render: () => (
           <>
             <div
@@ -297,7 +230,7 @@ class Timesheet extends React.Component {
         ),
       },
       {
-        key: "resource",
+        key: "resources",
         render: () => (
           <>
             <div
@@ -315,7 +248,7 @@ class Timesheet extends React.Component {
         ),
       },
       {
-        key: "resource",
+        key: "resources",
         render: () => (
           <>
             <div
@@ -333,7 +266,7 @@ class Timesheet extends React.Component {
         ),
       },
       {
-        key: "resource",
+        key: "resources",
         render: () => (
           <>
             <div
@@ -361,18 +294,27 @@ class Timesheet extends React.Component {
     return (
       <Table
         columns={columns}
-        dataSource={this.state.data}
-        pagination={false}
+        dataSource={this.state.APIdata}
+        pagination={{ pageSize: 1 }}
+        // scroll={{ y: 240 }}
       />
     );
   };
 
   render() {
-    console.log("getting api response project data : ", this.state.data);
-    console.log("render api data : ", this.props);
     if (!this.props.time_sheet.timesheet) {
       return <div></div>;
     }
+
+    if (this.props.time_sheet.timesheet) {
+      if (bool) {
+        this.setState({ APIdata: this.props.time_sheet.timesheet.projects });
+        bool = false;
+      }
+    }
+
+    console.log("getting api response project data : ", this.state.APIdata);
+    // console.log("render api data : ", this.props);
 
     return (
       <div>
@@ -420,7 +362,7 @@ class Timesheet extends React.Component {
           {this.state.show ? (
             <Table
               columns={columns}
-              dataSource={this.state.data}
+              dataSource={this.state.APIdata}
               expandedRowRender={this.expandedRowRender}
               expandable={{
                 rowExpandable: (record) => record.extra !== "Not expandable",
@@ -430,19 +372,19 @@ class Timesheet extends React.Component {
                 overflow: "hidden",
                 boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
               }}
-              pagination={{ position: 50 }}
+              pagination={{ pageSize: 20 }}
               scroll={{ y: 240 }}
             />
           ) : (
             <Table
               columns={columns1}
-              dataSource={this.state.data}
+              dataSource={this.state.APIdata}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
                 boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
               }}
-              pagination={{ pageSize: 50 }}
+              pagination={{ pageSize: 20 }}
               scroll={{ y: 240 }}
             />
           )}

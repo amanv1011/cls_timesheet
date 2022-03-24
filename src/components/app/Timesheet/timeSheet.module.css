@@ -38,6 +38,10 @@
   border-radius: 10px;
 }
 
+.ant-picker-input > input {
+  color: #1f4173;
+}
+
 .styleDateIcons {
   display: flex;
   justify-content: space-around;
@@ -78,6 +82,7 @@
   gap: 5px;
   align-items: center;
   color: #b5c1d3;
+  margin-left: 5px;
 }
 
 .ExportBtn {
