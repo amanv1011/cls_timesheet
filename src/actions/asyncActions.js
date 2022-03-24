@@ -35,6 +35,8 @@ export const getWeeklyStatus = (date, filter) => {
   const data = {
     // id: req,
   };
+
+  filter = filter.replaceAll("&", "%26");
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
     .get(
@@ -52,7 +54,7 @@ export const getWeeklyStatus = (date, filter) => {
       //     "YYYY-MM-DD"
       //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
       // );
-      // console.log("UPDATES");
+      console.log("Filter", filter);
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
