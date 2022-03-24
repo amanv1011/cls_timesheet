@@ -22,6 +22,10 @@ export const get_health_status = (data) => ({
   type: actionTypes.GET_HEALTH_STATUS,
   payload: data,
 });
+export const get_engagement_types = (data) => ({
+  type: actionTypes.GET_ENGAGEMENT_TYPES,
+  payload: data,
+});
 
 export const getTimeSheet = (data) => ({
   type: actionTypes.GET_TIME_SHEET,

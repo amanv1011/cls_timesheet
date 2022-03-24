@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+// import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "./weeklystatus.css";
 import {
   getWeeklyStatus,
   updateWeeklyStatus,
   get_health_status,
+  get_engagement_types,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
@@ -39,6 +40,7 @@ class WeeklyStatus extends React.Component {
     console.log(dates, "DATESSSSSSSSSSSSS");
     getWeeklyStatus(dates, "");
     get_health_status();
+    get_engagement_types();
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -136,10 +138,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
-      end: this.state.endDt,
+      strt: new Date(this.state.startDt - 13 * 24 * 3600 * 1000),
+      end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
-    // console.log(dates, "DATES");
+    console.log(dates);
     getWeeklyStatus(dates, "");
   };
 
@@ -158,13 +160,14 @@ class WeeklyStatus extends React.Component {
           7 * 24 * 60 * 60 * 1000
       ),
     });
-
-    let dates = {
-      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
-      end: this.state.endDt,
+    var startz = new Date().setDate(this.state.startDt.getDate() + 1);
+    var endz = new Date().setDate(this.state.endDt.getDate() + 7);
+    let dates_ = {
+      strt: new Date(startz),
+      end: new Date(endz),
     };
-    // console.log(dates, "DATES");
-    getWeeklyStatus(dates, "");
+    console.log(dates_);
+    getWeeklyStatus(dates_, "");
   };
 
   handleOk = () => {
@@ -182,7 +185,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props, "PROPSSSSSSS");
+    console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -237,11 +240,15 @@ class WeeklyStatus extends React.Component {
               id="options"
             >
               <option value="" disabled selected>
-                Apply Filter
+                Engagement Type
               </option>
-              <option value="Dedicated">Dedicated</option>
-              <option value="T%26M">T&M</option>
-              <option value="">Clear Filter</option>
+
+              {this.props.week_status.engagementType.engagement_types.map(
+                (ele, i) => {
+                  return <option value={ele}>{ele}</option>;
+                }
+              )}
+              <option value="">Clear Filte</option>
             </select>
           </div>
         </div>
