@@ -136,10 +136,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
-      end: this.state.endDt,
+      strt: new Date(this.state.startDt - 13 * 24 * 3600 * 1000),
+      end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
-    // console.log(dates, "DATES");
+    console.log(dates);
     getWeeklyStatus(dates, "");
   };
 
@@ -158,13 +158,14 @@ class WeeklyStatus extends React.Component {
           7 * 24 * 60 * 60 * 1000
       ),
     });
-
-    let dates = {
-      strt: new Date(this.state.startDt - 6 * 24 * 3600 * 1000),
-      end: this.state.endDt,
+    var startz = new Date().setDate(this.state.startDt.getDate() + 1);
+    var endz = new Date().setDate(this.state.endDt.getDate() + 7);
+    let dates_ = {
+      strt: new Date(startz),
+      end: new Date(endz),
     };
-    // console.log(dates, "DATES");
-    getWeeklyStatus(dates, "");
+    console.log(dates_);
+    getWeeklyStatus(dates_, "");
   };
 
   handleOk = () => {
