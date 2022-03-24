@@ -243,12 +243,16 @@ class WeeklyStatus extends React.Component {
                 Engagement Type
               </option>
 
-              {this.props.week_status.engagementType.engagement_types.map(
-                (ele, i) => {
-                  return <option value={ele}>{ele}</option>;
-                }
-              )}
-              <option value="">Clear Filte</option>
+              {this.props.week_status.engagementType
+                ? this.props.week_status.engagementType.engagement_types.map(
+                    (ele, i) => {
+                      if (ele != null) {
+                        return <option value={ele}>{ele}</option>;
+                      }
+                    }
+                  )
+                : []}
+              <option value="">Clear Filter</option>
             </select>
           </div>
         </div>
