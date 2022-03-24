@@ -312,7 +312,8 @@ class WeeklyStatus extends React.Component {
                                 readOnly
                                 value={ele.weekly_status_description}
                                 suffix={
-                                  this.state.count === 0 ? (
+                                  this.state.count === 0 &&
+                                  ele.is_email_sent == false ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -328,7 +329,7 @@ class WeeklyStatus extends React.Component {
                                       }}
                                     />
                                   ) : this.state.count != 0 &&
-                                    ele.is_email_sent === false ? (
+                                    ele.is_email_sent == false ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -373,7 +374,8 @@ class WeeklyStatus extends React.Component {
                         </>
                       </td>
                       <td className="thead" style={{ position: "relative" }}>
-                        {this.state.showHealthOption == i ? (
+                        {this.state.showHealthOption == i &&
+                        ele.is_email_sent == false ? (
                           <Modal
                             style={{
                               // width: "164px",
