@@ -14,6 +14,12 @@ export default (state = {}, action) => {
         healthStatus: action.payload,
       };
     }
+    case ActionTypes.GET_ENGAGEMENT_TYPES: {
+      return {
+        ...state,
+        engagementType: action.payload,
+      };
+    }
     default:
       return state;
   }

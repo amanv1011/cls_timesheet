@@ -124,3 +124,25 @@ export const get_health_status = () => {
     })
     .catch((err) => {});
 };
+export const get_engagement_types = () => {
+  const data = {
+    // id: req,
+  };
+  http
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
+    .get(
+      `https://app.api.classicinformatics.net/api/table/projects/field/engagement_type`
+    )
+    .then((response) => {
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      console.log(response.data, "Engagement TYPE");
+      Store.dispatch(syncActions.get_engagement_types(response.data));
+    })
+    .catch((err) => {});
+};

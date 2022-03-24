@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+// import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "./weeklystatus.css";
 import {
   getWeeklyStatus,
   updateWeeklyStatus,
   get_health_status,
+  get_engagement_types,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
@@ -39,6 +40,7 @@ class WeeklyStatus extends React.Component {
     console.log(dates, "DATESSSSSSSSSSSSS");
     getWeeklyStatus(dates, "");
     get_health_status();
+    get_engagement_types();
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -183,7 +185,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props, "PROPSSSSSSS");
+    console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -240,8 +242,12 @@ class WeeklyStatus extends React.Component {
               <option value="" disabled selected>
                 Engagement Type
               </option>
-              <option value="Dedicated">Dedicated</option>
-              <option value="T%26M">T&M</option>
+
+              {this.props.week_status.engagementType.engagement_types.map(
+                (ele, i) => {
+                  return <option value={ele}>{ele}</option>;
+                }
+              )}
               <option value="">Clear Filter</option>
             </select>
           </div>
