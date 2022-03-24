@@ -375,9 +375,17 @@ class WeeklyStatus extends React.Component {
                         </>
                       </td>
                       <td className="thead" style={{ position: "relative" }}>
-                        {this.state.showHealthOption == i &&
-                        ele.is_email_sent == false &&
-                        ele.weekly_status_description == null ? (
+                        {(this.state.showHealthOption == i &&
+                          this.state.count === 0 &&
+                          ele.is_email_sent == false) ||
+                        (this.state.showHealthOption == i &&
+                          this.state.count != 0 &&
+                          ele.is_email_sent == false &&
+                          ele.weekly_status_description == null) ? (
+                          // this.state.healthOption == i &&
+                          // this.state.count != 0 &&
+                          // ele.is_email_sent == false &&
+                          // ele.weekly_status_description == null
                           <Modal
                             style={{
                               // width: "164px",
