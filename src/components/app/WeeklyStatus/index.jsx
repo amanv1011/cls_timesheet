@@ -248,7 +248,7 @@ class WeeklyStatus extends React.Component {
                   return <option value={ele}>{ele}</option>;
                 }
               )}
-              <option value="">Clear Filter</option>
+              <option value="">Clear Filte</option>
             </select>
           </div>
         </div>
