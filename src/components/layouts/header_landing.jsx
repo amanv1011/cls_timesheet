@@ -59,7 +59,7 @@ flex:2
 `
 const RightContainer = styled.div`
 display:flex;
-justify-content:right;
+justify-content:flex-end;
 flex:1.8;
 align-items: center;
 `;

@@ -57,7 +57,7 @@ flex:2
 `
 const RightContainer = styled.div`
 display:flex;
-justify-content:flex-end;
+justify-content:end;
 flex:2;
 `;
 const Notification = styled.div`
