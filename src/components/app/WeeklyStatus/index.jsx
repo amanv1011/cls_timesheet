@@ -34,7 +34,7 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: new Date(this.state.endDt - 3 * 24 * 60 * 60 * 1000),
+      strt: new Date(this.state.endDt - 4 * 24 * 60 * 60 * 1000),
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
@@ -313,7 +313,8 @@ class WeeklyStatus extends React.Component {
                                 value={ele.weekly_status_description}
                                 suffix={
                                   this.state.count === 0 &&
-                                  ele.is_email_sent == false ? (
+                                  (ele.is_email_sent == false ||
+                                    ele.is_email_sent == null) ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
