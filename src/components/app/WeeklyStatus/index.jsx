@@ -123,6 +123,7 @@ class WeeklyStatus extends React.Component {
 
   weekback = () => {
     this.setState({
+      showHealthOption: null,
       startDt: new Date(
         this.state.startDt.setDate(
           this.state.startDt.getDate() - this.state.startDt.getDay() + 1
@@ -149,6 +150,7 @@ class WeeklyStatus extends React.Component {
 
   weekForword = () => {
     this.setState({
+      showHealthOption: null,
       startDt: new Date(
         this.state.startDt.setDate(
           this.state.startDt.getDate() - this.state.startDt.getDay() + 1
@@ -331,7 +333,7 @@ class WeeklyStatus extends React.Component {
                                     />
                                   ) : this.state.count != 0 &&
                                     ele.is_email_sent == false &&
-                                    ele.weekly_status_description == null ? (
+                                    ele.weekly_status_description != null ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -382,14 +384,9 @@ class WeeklyStatus extends React.Component {
                         (this.state.showHealthOption == i &&
                           this.state.count != 0 &&
                           ele.is_email_sent == false &&
-                          ele.weekly_status_description == null) ? (
-                          // this.state.healthOption == i &&
-                          // this.state.count != 0 &&
-                          // ele.is_email_sent == false &&
-                          // ele.weekly_status_description == null
+                          ele.weekly_status_description != null) ? (
                           <Modal
                             style={{
-                              // width: "164px",
                               position: "absolute",
                               top: "257px",
                               right: "37px",
