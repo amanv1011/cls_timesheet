@@ -35,6 +35,8 @@ export const getWeeklyStatus = (date, filter) => {
   const data = {
     // id: req,
   };
+
+  filter = filter.replaceAll("&", "%26");
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
     .get(
@@ -52,7 +54,7 @@ export const getWeeklyStatus = (date, filter) => {
       //     "YYYY-MM-DD"
       //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
       // );
-      // console.log("UPDATES");
+      console.log("Filter", filter);
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
@@ -121,6 +123,28 @@ export const get_health_status = () => {
       // );
       console.log(response.data, "HEALTH TYPE");
       Store.dispatch(syncActions.get_health_status(response.data));
+    })
+    .catch((err) => {});
+};
+export const get_engagement_types = () => {
+  const data = {
+    // id: req,
+  };
+  http
+    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
+    .get(
+      `https://app.api.classicinformatics.net/api/table/projects/field/engagement_type`
+    )
+    .then((response) => {
+      // console.log(
+      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      //     "YYYY-MM-DD"
+      //   )}&endDate=${moment(date.end).format(
+      //     "YYYY-MM-DD"
+      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
+      // );
+      console.log(response.data, "Engagement TYPE");
+      Store.dispatch(syncActions.get_engagement_types(response.data));
     })
     .catch((err) => {});
 };

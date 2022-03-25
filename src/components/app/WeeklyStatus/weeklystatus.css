@@ -127,7 +127,7 @@ textarea.ant-input {
   resize: none;
 }
 
-.healthSection {
+/* .healthSection {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,10 +140,10 @@ textarea.ant-input {
   padding: 5px 0;
   width: 107px;
   border-radius: 12px;
-}
+} */
 
 .healthbtn {
-  width: 87%;
+  width: 100%;
   border-radius: 10px;
   border: none;
   padding: 5px 7px;
@@ -152,6 +152,19 @@ textarea.ant-input {
   align-items: center;
   display: flex;
   font-weight: 600;
+}
+
+.ant-modal-close-x,
+.ant-modal-footer {
+  display: none;
+}
+
+.ant-modal-content {
+  width: 141px;
+  border-radius: 20px;
+  position: relative;
+  top: 20px;
+  right: -341px;
 }
 
 .square {

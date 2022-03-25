@@ -8,6 +8,7 @@ export default keyMirror({
   GET_WEEKLY_STATUS: null,
   GET_TIME_SHEET: null,
   GET_HEALTH_STATUS: null,
+  GET_ENGAGEMENT_TYPES: null,
   ERROR: null,
   CLEAR_ERROR: null,
 });
