@@ -27,10 +27,21 @@ export const get_engagement_types = (data) => ({
   payload: data,
 });
 
-export const getTimeSheet = (data) => ({
-  type: actionTypes.GET_TIME_SHEET,
-  payload: data,
-});
+export const getTimeSheet = (data) => (
+  console.log("data from payload in sync: ", data),
+  {
+    type: actionTypes.GET_TIME_SHEET,
+    payload: data,
+  }
+);
+
+export const getTimesheetResources = (data) => (
+  console.log("data from payload in sync: ", data),
+  {
+    type: actionTypes.GET_TIME_SHEET_RESOURCES,
+    payload: data,
+  }
+);
 
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,

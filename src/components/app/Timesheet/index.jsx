@@ -12,9 +12,14 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Modal } from "antd";
 import moment from "moment";
-import { getTimeSheet } from "../../../actions/asyncActions";
+import {
+  getTimeSheet,
+  getTimesheetResources,
+} from "../../../actions/asyncActions";
 import Classes from "./timeSheet.module.css";
 const monthFormat = "MMM YYYY";
+
+// const data = require("./data").data;
 
 const columns = [
   {
@@ -25,32 +30,32 @@ const columns = [
   {
     title: "Resources",
     dataIndex: "resources",
-    key: "resources",
+    // key: "resources",
   },
   {
     title: "Project Owner",
     dataIndex: "project_owner",
-    key: "project_owner",
+    // key: "project_owner",
   },
   {
     title: "Project Code",
     dataIndex: "project_code",
-    key: "project_code",
+    // key: "project_code",
   },
   {
     title: "Account Code",
     dataIndex: "account_code",
-    key: "account_code",
+    // key: "account_code",
   },
   {
     title: "Engagement Type",
     dataIndex: "engagement_type",
-    key: "engagement_type",
+    // key: "engagement_type",
   },
   {
     title: "Hours Logged",
     dataIndex: "hours_logged",
-    key: "hours_logged",
+    // key: "hours_logged",
   },
   {
     title: "Biled Hours",
@@ -68,7 +73,7 @@ const columns1 = [
   {
     title: "Project Owner",
     dataIndex: "project_owner",
-    key: "project_owner",
+    // key: "project_owner",
   },
   {
     title: "Project Code",
@@ -78,43 +83,52 @@ const columns1 = [
   {
     title: "Account Code",
     dataIndex: "account_code",
-    key: "account_code",
+    // key: "account_code",
   },
   {
     title: "Engagement Type",
     dataIndex: "engagement_type",
-    key: "engagement_type",
+    // key: "engagement_type",
   },
   {
     title: "Hours Logged",
     dataIndex: "hours_logged",
-    key: "hours_logged",
+    // key: "hours_logged",
   },
   {
     title: "Biled Hours",
     dataIndex: "billed_hours",
-    key: "billed_hours",
+    // key: "billed_hours",
   },
 ];
 
 const data = [
   {
-    key: 1,
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    description:
-      "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
-    expandable: false,
+    project_id: "251",
+    webtracker_project_id: 27360,
+    project_name: "Toni & Guy",
+    project_owner_id: null,
+    project_owner: " ",
+    project_code: "Marketing",
+    account_code: null,
+    engagement_type: null,
+    resources: null,
+    hours_logged: "0",
+    billed_hours: "0",
   },
   {
     key: 2,
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    description:
-      "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
-    expandable: false,
+    project_id: "106",
+    webtracker_project_id: 27202,
+    project_name: "Carkh",
+    project_owner_id: null,
+    project_owner: " ",
+    project_code: null,
+    account_code: null,
+    engagement_type: null,
+    resources: null,
+    hours_logged: "0",
+    billed_hours: "0",
   },
   {
     key: 3,
@@ -122,7 +136,6 @@ const data = [
     age: 29,
     address: "Jiangsu No. 1 Lake Park",
     description: "This not expandable",
-    expandable: false,
   },
   {
     key: 4,
@@ -131,7 +144,6 @@ const data = [
     address: "Sidney No. 1 Lake Park",
     description:
       "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake India.",
-    expandable: false,
   },
 ];
 
@@ -152,6 +164,7 @@ class Timesheet extends React.Component {
       lastDay: "",
       APIdata: [],
       expandedRowKeys: [],
+      webTracker_id: "",
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
@@ -167,6 +180,8 @@ class Timesheet extends React.Component {
       "getting dattttttttttttttttttaaaaaaaaaaa : ",
       this.state.APIdata
     );
+
+    getTimesheetResources(this.state.webTracker_id);
   };
 
   handleOnOff() {
@@ -199,24 +214,6 @@ class Timesheet extends React.Component {
     });
   };
 
-  // handleDaysInMonth = (month, year) => {
-  //   return new Date(0, month, year).getDate();
-  // };
-
-  // handleFirstLastDate = () => {
-  //   let date = new Date(this.state.calenderValue);
-  //   this.setState({
-  //     firstDay: new Date(1, date.getMonth(), date.getFullYear()),
-  //     lastDay: new Date(
-  //       this.handleDaysInMonth(date.getMonth() + 1, date.getFullYear()),
-  //       date.getMonth(),
-  //       date.getFullYear()
-  //     ),
-  //   });
-  //   console.log(this.state.firstDay);
-  //   console.log(this.state.lastDay);
-  // };
-
   handleOk = () => {
     this.setState({
       isModalVisible: false,
@@ -229,7 +226,7 @@ class Timesheet extends React.Component {
     });
   };
 
-  expandedRowRender = () => {
+  RowRender = () => {
     const columns = [
       {
         title: "Resources",
@@ -340,20 +337,6 @@ class Timesheet extends React.Component {
     );
   };
 
-  onTableRowExpand(expanded, record) {
-    // let keys = [];
-    // if (expanded) {
-    //   keys.push(record.webtracker_project_id); // I have set my record.id as row key. Check the documentation for more details.
-    // }
-    // this.setState({ expandedRowKeys: keys });
-    console.log("record  : ", record);
-    console.log("expanded : ", expanded);
-  }
-
-  // tableExpand = (abc) => {
-  //   console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq", abc);
-  // };
-
   render() {
     if (!this.props.time_sheet.timesheet) {
       return <div></div>;
@@ -361,20 +344,16 @@ class Timesheet extends React.Component {
 
     if (this.props.time_sheet.timesheet) {
       if (bool) {
-        this.setState({ APIdata: this.props.time_sheet.timesheet.projects });
+        this.setState({ APIdata: this.props.time_sheet.timesheet });
         bool = false;
         console.log(
           "dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : ",
-          this.state.APIdata
+          this.props
         );
       }
     }
 
     console.log("getting api response project data : ", this.state.APIdata);
-    // console.log(
-    //   "render api data nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ",
-    //   this.state.APIdata.project_name
-    // );
 
     return (
       <div>
@@ -422,20 +401,12 @@ class Timesheet extends React.Component {
           {this.state.show ? (
             <Table
               columns={columns}
-              rowKey={this.state.APIdata.webtracker_project_id}
+              // dataSource={data}
               dataSource={this.state.APIdata}
-              expandedRowRender={this.expandedRowRender}
-              // expandable={{
-              //   rowExpandable: (record) => record.project_id !== "project_id",
-              //   onExpand: (expanded, record) => {
-              //     console.log("onExpand record: ", record);
-              //     console.log("onExpand expanded: ", expanded);
-              //     this.tableExapand(record);
-              //   },
-              // }}
-              // expandedRowKeys={this.state.expandedRowKeys}
-              expand
-              onExpand={this.onTableRowExpand}
+              expandable={{
+                expandedRowRender: this.RowRender,
+              }}
+              onClick={this.updateId}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
@@ -447,6 +418,7 @@ class Timesheet extends React.Component {
           ) : (
             <Table
               columns={columns1}
+              // dataSource={data}
               dataSource={this.state.APIdata}
               style={{
                 borderRadius: "1rem",

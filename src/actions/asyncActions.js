@@ -35,24 +35,21 @@ export const getWeeklyStatus = (date, filter) => {
   const data = {
     // id: req,
   };
+  console.log(
+    "Filterzzzzzzzzzzzzzzzzzz",
+    encodeURIComponent(filter),
+    decodeURIComponent(filter)
+  );
+  // filter = filter.replaceAll("&", "%26");
   http
-    // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
     .get(
       `/api/projects/status/weekly?startDate=${moment(date.strt).format(
         "YYYY-MM-DD"
       )}&endDate=${moment(date.end).format(
         "YYYY-MM-DD"
-      )}&engagement_type=${filter}`
+      )}&engagement_type=${encodeURIComponent(filter)}`
     )
     .then((response) => {
-      // console.log(
-      //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
-      //     "YYYY-MM-DD"
-      //   )}&endDate=${moment(date.end).format(
-      //     "YYYY-MM-DD"
-      //   )}&engagement_type=${filter}zzzzzzzzzzzzzzzzzzzzzzzzzzzzz`
-      // );
-      // console.log("UPDATES");
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
@@ -95,8 +92,31 @@ export const getTimeSheet = (date) => {
         "got the response : ",
         date,
         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-        response
+        response.data.projects
       );
+      const resp = response.data.projects.map((doc, index) => {
+        return {
+          ...doc,
+          key: index,
+        };
+      });
+      console.log("resp data ; ", resp);
+      Store.dispatch(syncActions.getTimeSheet(resp));
+    })
+    .catch((err) => {});
+};
+
+export const getTimesheetResources = () => {
+  const data = {
+    // id: req,
+  };
+  http
+    .get(
+      `/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620`
+    )
+    .then((response) => {
+      console.log("data of resources : ", response);
+
       Store.dispatch(syncActions.getTimeSheet(response.data));
     })
     .catch((err) => {});

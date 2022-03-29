@@ -8,6 +8,12 @@ export default (state = {}, action) => {
         timesheet: action.payload,
       };
     }
+    case ActionTypes.GET_TIME_SHEET_RESOURCES: {
+      return {
+        ...state,
+        resources: action.payload,
+      };
+    }
     default:
       return state;
   }

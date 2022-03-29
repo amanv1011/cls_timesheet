@@ -7,6 +7,7 @@ export default keyMirror({
   GET_USER_TOOLS: null,
   GET_WEEKLY_STATUS: null,
   GET_TIME_SHEET: null,
+  GET_TIME_SHEET_RESOURCES: null,
   GET_HEALTH_STATUS: null,
   GET_ENGAGEMENT_TYPES: null,
   ERROR: null,

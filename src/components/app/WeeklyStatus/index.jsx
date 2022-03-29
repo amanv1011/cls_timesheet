@@ -34,7 +34,7 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: new Date(this.state.endDt - 2 * 24 * 60 * 60 * 1000),
+      strt: new Date(this.state.endDt - 1 * 24 * 60 * 60 * 1000),
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
@@ -57,6 +57,7 @@ class WeeklyStatus extends React.Component {
     showHealthBox: false,
     healthOption: "",
     filter_type: "",
+    count: 0,
   };
 
   dateHandler = (e) => {
@@ -122,6 +123,7 @@ class WeeklyStatus extends React.Component {
 
   weekback = () => {
     this.setState({
+      showHealthOption: null,
       startDt: new Date(
         this.state.startDt.setDate(
           this.state.startDt.getDate() - this.state.startDt.getDay() + 1
@@ -134,6 +136,7 @@ class WeeklyStatus extends React.Component {
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
+      count: this.state.count - 1,
       //new changes
     });
 
@@ -147,6 +150,7 @@ class WeeklyStatus extends React.Component {
 
   weekForword = () => {
     this.setState({
+      showHealthOption: null,
       startDt: new Date(
         this.state.startDt.setDate(
           this.state.startDt.getDate() - this.state.startDt.getDay() + 1
@@ -159,6 +163,7 @@ class WeeklyStatus extends React.Component {
         ) +
           7 * 24 * 60 * 60 * 1000
       ),
+      count: this.state.count + 1,
     });
     var startz = new Date().setDate(this.state.startDt.getDate() + 1);
     var endz = new Date().setDate(this.state.endDt.getDate() + 7);
@@ -243,12 +248,16 @@ class WeeklyStatus extends React.Component {
                 Engagement Type
               </option>
 
-              {this.props.week_status.engagementType.engagement_types.map(
-                (ele, i) => {
-                  return <option value={ele}>{ele}</option>;
-                }
-              )}
-              <option value="">Clear Filte</option>
+              {this.props.week_status.engagementType
+                ? this.props.week_status.engagementType.engagement_types.map(
+                    (ele, i) => {
+                      if (ele != null) {
+                        return <option value={ele}>{ele}</option>;
+                      }
+                    }
+                  )
+                : []}
+              <option value="">Clear Filter</option>
             </select>
           </div>
         </div>
@@ -303,18 +312,28 @@ class WeeklyStatus extends React.Component {
                               <Input
                                 className="textarea"
                                 readOnly
-                                // onFocus={() => {
-                                //   this.setState({
-                                //     selectorRow: i,
-                                //     description: ele.weekly_status_description,
-                                //     projectId: ele.project_id,
-                                //     statusId:
-                                //       ele.weekly_project_health_status_id,
-                                //   });
-                                // }}
                                 value={ele.weekly_status_description}
                                 suffix={
-                                  ele.is_email_sent === false ? (
+                                  this.state.count === 0 &&
+                                  (ele.is_email_sent == false ||
+                                    ele.is_email_sent == null) ? (
+                                    <AiOutlineEdit
+                                      style={{ cursor: "pointer" }}
+                                      id={ele.project_owner_id}
+                                      onClick={() => {
+                                        this.setState({
+                                          selectorRow: i,
+                                          description:
+                                            ele.weekly_status_description,
+                                          projectId: ele.project_id,
+                                          statusId:
+                                            ele.weekly_project_health_status_id,
+                                        });
+                                      }}
+                                    />
+                                  ) : this.state.count != 0 &&
+                                    ele.is_email_sent == false &&
+                                    ele.weekly_status_description != null ? (
                                     <AiOutlineEdit
                                       style={{ cursor: "pointer" }}
                                       id={ele.project_owner_id}
@@ -333,16 +352,41 @@ class WeeklyStatus extends React.Component {
                                     ""
                                   )
                                 }
+                                // suffix={
+                                //   ele.is_email_sent === false ? (
+                                //     <AiOutlineEdit
+                                //       style={{ cursor: "pointer" }}
+                                //       id={ele.project_owner_id}
+                                //       onClick={() => {
+                                //         this.setState({
+                                //           selectorRow: i,
+                                //           description:
+                                //             ele.weekly_status_description,
+                                //           projectId: ele.project_id,
+                                //           statusId:
+                                //             ele.weekly_project_health_status_id,
+                                //         });
+                                //       }}
+                                //     />
+                                //   ) : (
+                                //     ""
+                                //   )
+                                // }
                               />
                             </Tooltip>
                           )}
                         </>
                       </td>
                       <td className="thead" style={{ position: "relative" }}>
-                        {this.state.showHealthOption == i ? (
+                        {(this.state.showHealthOption == i &&
+                          this.state.count === 0 &&
+                          ele.is_email_sent == false) ||
+                        (this.state.showHealthOption == i &&
+                          this.state.count != 0 &&
+                          ele.is_email_sent == false &&
+                          ele.weekly_status_description != null) ? (
                           <Modal
                             style={{
-                              // width: "164px",
                               position: "absolute",
                               top: "257px",
                               right: "37px",

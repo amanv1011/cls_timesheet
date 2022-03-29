@@ -44,14 +44,10 @@ const Error = styled.div`
   margin-top: 10px;
 `;
 class Login extends Component {
-
-
   componentDidMount() {
     const imagesToBePreloaded = [logo, mockImage]
     imagesToBePreloaded.forEach(image => { new Image().src = image })
   }
-
-
 
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
