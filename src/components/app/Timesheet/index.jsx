@@ -18,44 +18,44 @@ const monthFormat = "MMM YYYY";
 
 const columns = [
   {
-    title: "Projects",
-    dataIndex: "project_name",
-    key: "project_name",
-  },
-  {
     title: "Resources",
     dataIndex: "resources",
-    key: "resources",
+    // key: "resources",
   },
   {
     title: "Project Owner",
     dataIndex: "project_owner",
-    key: "project_owner",
+    // key: "project_owner",
   },
   {
     title: "Project Code",
     dataIndex: "project_code",
-    key: "project_code",
+    // key: "project_code",
   },
   {
     title: "Account Code",
     dataIndex: "account_code",
-    key: "account_code",
+    // key: "account_code",
   },
   {
     title: "Engagement Type",
     dataIndex: "engagement_type",
-    key: "engagement_type",
+    // key: "engagement_type",
   },
   {
     title: "Hours Logged",
     dataIndex: "hours_logged",
-    key: "hours_logged",
+    // key: "hours_logged",
   },
   {
     title: "Biled Hours",
     dataIndex: "billed_hours",
     key: "billed_hours",
+  },
+  {
+    key: "project_id",
+    title: "Id Hours",
+    dataIndex: "project_id",
   },
 ];
 
@@ -68,7 +68,7 @@ const columns1 = [
   {
     title: "Project Owner",
     dataIndex: "project_owner",
-    key: "project_owner",
+    // key: "project_owner",
   },
   {
     title: "Project Code",
@@ -78,22 +78,56 @@ const columns1 = [
   {
     title: "Account Code",
     dataIndex: "account_code",
-    key: "account_code",
+    // key: "account_code",
   },
   {
     title: "Engagement Type",
     dataIndex: "engagement_type",
-    key: "engagement_type",
+    // key: "engagement_type",
   },
   {
     title: "Hours Logged",
     dataIndex: "hours_logged",
-    key: "hours_logged",
+    // key: "hours_logged",
   },
   {
     title: "Biled Hours",
     dataIndex: "billed_hours",
-    key: "billed_hours",
+    // key: "billed_hours",
+  },
+];
+
+const data = [
+  {
+    key: 1,
+    name: "John Brown",
+    age: 32,
+    address: "New York No. 1 Lake Park",
+    description:
+      "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+  },
+  {
+    key: 2,
+    name: "Jim Green",
+    age: 42,
+    address: "London No. 1 Lake Park",
+    description:
+      "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+  },
+  {
+    key: 3,
+    name: "Not Expandable",
+    age: 29,
+    address: "Jiangsu No. 1 Lake Park",
+    description: "This not expandable",
+  },
+  {
+    key: 4,
+    name: "Joe Black",
+    age: 32,
+    address: "Sidney No. 1 Lake Park",
+    description:
+      "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.",
   },
 ];
 
@@ -362,6 +396,7 @@ class Timesheet extends React.Component {
           {this.state.show ? (
             <Table
               columns={columns}
+              // dataSource={data}
               dataSource={this.state.APIdata}
               expandedRowRender={this.expandedRowRender}
               expandable={{
@@ -377,7 +412,8 @@ class Timesheet extends React.Component {
             />
           ) : (
             <Table
-              columns={columns1}
+              columns={columns}
+              // dataSource={data}
               dataSource={this.state.APIdata}
               style={{
                 borderRadius: "1rem",
