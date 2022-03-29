@@ -97,6 +97,44 @@ const columns1 = [
   },
 ];
 
+const data = [
+  {
+    key: 1,
+    name: "John Brown",
+    age: 32,
+    address: "New York No. 1 Lake Park",
+    description:
+      "My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.",
+    expandable: false,
+  },
+  {
+    key: 2,
+    name: "Jim Green",
+    age: 42,
+    address: "London No. 1 Lake Park",
+    description:
+      "My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.",
+    expandable: false,
+  },
+  {
+    key: 3,
+    name: "Not Expandable",
+    age: 29,
+    address: "Jiangsu No. 1 Lake Park",
+    description: "This not expandable",
+    expandable: false,
+  },
+  {
+    key: 4,
+    name: "Joe Black",
+    age: 32,
+    address: "Sidney No. 1 Lake Park",
+    description:
+      "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake India.",
+    expandable: false,
+  },
+];
+
 let currDate = new Date();
 let bool = true;
 
@@ -113,6 +151,7 @@ class Timesheet extends React.Component {
       firstDay: 1,
       lastDay: "",
       APIdata: [],
+      expandedRowKeys: [],
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
@@ -286,7 +325,7 @@ class Timesheet extends React.Component {
     ];
 
     // for (let i = 0; i < 1; ++i) {
-    //   data.push({
+    //   this.state.APIdata.push({
     //     key: i,
     //   });
     // }
@@ -296,10 +335,24 @@ class Timesheet extends React.Component {
         columns={columns}
         dataSource={this.state.APIdata}
         pagination={{ pageSize: 1 }}
-        // scroll={{ y: 240 }}
+        scroll={{ y: 240 }}
       />
     );
   };
+
+  onTableRowExpand(expanded, record) {
+    // let keys = [];
+    // if (expanded) {
+    //   keys.push(record.webtracker_project_id); // I have set my record.id as row key. Check the documentation for more details.
+    // }
+    // this.setState({ expandedRowKeys: keys });
+    console.log("record  : ", record);
+    console.log("expanded : ", expanded);
+  }
+
+  // tableExpand = (abc) => {
+  //   console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq", abc);
+  // };
 
   render() {
     if (!this.props.time_sheet.timesheet) {
@@ -310,11 +363,18 @@ class Timesheet extends React.Component {
       if (bool) {
         this.setState({ APIdata: this.props.time_sheet.timesheet.projects });
         bool = false;
+        console.log(
+          "dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : ",
+          this.state.APIdata
+        );
       }
     }
 
     console.log("getting api response project data : ", this.state.APIdata);
-    // console.log("render api data : ", this.props);
+    // console.log(
+    //   "render api data nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee: ",
+    //   this.state.APIdata.project_name
+    // );
 
     return (
       <div>
@@ -362,11 +422,20 @@ class Timesheet extends React.Component {
           {this.state.show ? (
             <Table
               columns={columns}
+              rowKey={this.state.APIdata.webtracker_project_id}
               dataSource={this.state.APIdata}
               expandedRowRender={this.expandedRowRender}
-              expandable={{
-                rowExpandable: (record) => record.extra !== "Not expandable",
-              }}
+              // expandable={{
+              //   rowExpandable: (record) => record.project_id !== "project_id",
+              //   onExpand: (expanded, record) => {
+              //     console.log("onExpand record: ", record);
+              //     console.log("onExpand expanded: ", expanded);
+              //     this.tableExapand(record);
+              //   },
+              // }}
+              // expandedRowKeys={this.state.expandedRowKeys}
+              expand
+              onExpand={this.onTableRowExpand}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
@@ -395,7 +464,6 @@ class Timesheet extends React.Component {
           visible={this.state.isModalVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          style={{ width: "70%" }}
         >
           <div className={Classes.modalHeading}>
             1 {this.state.month} - {this.state.lastDay} {this.state.month}{" "}
