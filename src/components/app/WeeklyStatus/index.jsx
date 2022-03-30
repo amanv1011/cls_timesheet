@@ -34,7 +34,7 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: new Date(this.state.endDt - 1 * 24 * 60 * 60 * 1000),
+      strt: new Date(this.state.endDt - 2 * 24 * 60 * 60 * 1000),
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
