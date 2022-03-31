@@ -35,7 +35,11 @@ export const getWeeklyStatus = (date, filter) => {
   const data = {
     // id: req,
   };
-  console.log("Filterzzzzzzzzzzzzzzzzzz", encodeURIComponent(filter));
+  console.log(
+    "Filterzzzzzzzzzzzzzzzzzz",
+    encodeURIComponent(filter),
+    decodeURIComponent(encodeURIComponent(filter))
+  );
   // filter = filter.replaceAll("&", "%26");
   http
     .get(
