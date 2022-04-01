@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
 `;
+
 const withDashboardTemplate = (WrappedComponent) => {
   return class Template extends React.Component {
     state = {
@@ -41,11 +42,7 @@ const withDashboardTemplate = (WrappedComponent) => {
     render() {
       // console.log(this.props)
       return (
-        <Wrapper
-          style={{
-            position: "fixed",
-          }}
-        >
+        <Wrapper>
           <Layout>
             <TopHeader toggle={this.toggle} />
             <Layout>

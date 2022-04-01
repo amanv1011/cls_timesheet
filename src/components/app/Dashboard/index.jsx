@@ -199,6 +199,7 @@ class Dashboard extends React.Component {
               pagination={false}
               scroll={{ y: 500 }}
             />
+
             <div
               align="center"
               className="footer"
