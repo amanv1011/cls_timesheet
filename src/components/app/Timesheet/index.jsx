@@ -26,6 +26,11 @@ const columns = [
     title: "Projects",
     dataIndex: "project_name",
     key: "project_name",
+    // render: () => (
+    //   <>
+    //     <div onClick={this.updateId}></div>
+    //   </>
+    // ),
   },
   {
     title: "Resources",
@@ -102,53 +107,9 @@ const columns1 = [
   },
 ];
 
-const data = [
-  {
-    project_id: "251",
-    webtracker_project_id: 27360,
-    project_name: "Toni & Guy",
-    project_owner_id: null,
-    project_owner: " ",
-    project_code: "Marketing",
-    account_code: null,
-    engagement_type: null,
-    resources: null,
-    hours_logged: "0",
-    billed_hours: "0",
-  },
-  {
-    key: 2,
-    project_id: "106",
-    webtracker_project_id: 27202,
-    project_name: "Carkh",
-    project_owner_id: null,
-    project_owner: " ",
-    project_code: null,
-    account_code: null,
-    engagement_type: null,
-    resources: null,
-    hours_logged: "0",
-    billed_hours: "0",
-  },
-  {
-    key: 3,
-    name: "Not Expandable",
-    age: 29,
-    address: "Jiangsu No. 1 Lake Park",
-    description: "This not expandable",
-  },
-  {
-    key: 4,
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    description:
-      "My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake India.",
-  },
-];
-
 let currDate = new Date();
 let bool = true;
+const IdData = [];
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -176,10 +137,7 @@ class Timesheet extends React.Component {
     // getTimeSheetData(this.state.data);
     console.log("calling API's function :", this.state.calenderValue);
 
-    console.log(
-      "getting dattttttttttttttttttaaaaaaaaaaa : ",
-      this.state.APIdata
-    );
+    console.log("getting data : ", this.state.APIdata);
 
     getTimesheetResources(this.state.webTracker_id);
   };
@@ -226,7 +184,19 @@ class Timesheet extends React.Component {
     });
   };
 
-  RowRender = () => {
+  expandedRowRender = (rowIndex) => {
+    console.log("rowIndex : ", rowIndex.webtracker_project_id);
+    if (
+      !this.state.webTracker_id ||
+      this.state.webTracker_id ||
+      this.state.webTracker_id !== rowIndex.webtracker_project_id
+    ) {
+      this.setState({
+        webTracker_id: rowIndex.webtracker_project_id,
+      });
+    }
+    console.log("webtracker id is  : ", this.state.webTracker_id);
+
     const columns = [
       {
         title: "Resources",
@@ -338,18 +308,19 @@ class Timesheet extends React.Component {
   };
 
   render() {
+    console.log("getting resources  data : ", this.props.time_sheet.resources);
+    console.log("show the id : ", this.state.webTracker_id);
+
     if (!this.props.time_sheet.timesheet) {
       return <div></div>;
     }
 
     if (this.props.time_sheet.timesheet) {
       if (bool) {
-        this.setState({ APIdata: this.props.time_sheet.timesheet });
+        this.setState({
+          APIdata: this.props.time_sheet.timesheet,
+        });
         bool = false;
-        console.log(
-          "dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : ",
-          this.props
-        );
       }
     }
 
@@ -404,9 +375,18 @@ class Timesheet extends React.Component {
               // dataSource={data}
               dataSource={this.state.APIdata}
               expandable={{
-                expandedRowRender: this.RowRender,
+                expandedRowRender: this.expandedRowRender,
+
+                onExpand: () => {
+                  console.log("funct called");
+                  console.log(this.state.APIdata);
+                  console.log(this.props.time_sheet.timesheet);
+                  console.log(
+                    "iddddddd",
+                    this.state.APIdata[0].webtracker_project_id
+                  );
+                },
               }}
-              onClick={this.updateId}
               style={{
                 borderRadius: "1rem",
                 overflow: "hidden",
