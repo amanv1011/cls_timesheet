@@ -14,8 +14,11 @@ import {
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
+import Pagination from "./Pagination";
 // import moment from "moment";
 const { TextArea } = Input;
+
+let bool = true;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -38,7 +41,8 @@ class WeeklyStatus extends React.Component {
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
-    getWeeklyStatus(dates, "");
+    // getWeeklyStatus(dates, "");
+    getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
     get_engagement_types();
   };
@@ -58,6 +62,24 @@ class WeeklyStatus extends React.Component {
     healthOption: "",
     filter_type: "",
     count: 0,
+    currentPage: 1,
+    totalPages: 1,
+    pageNumber: 1,
+  };
+
+  onChangePage = (page) => {
+    this.setState(
+      {
+        currentPage: page,
+      },
+      () => {
+        let dates = {
+          strt: this.state.startDt,
+          end: this.state.endDt,
+        };
+        getWeeklyStatus(dates, "", this.state.currentPage);
+      }
+    );
   };
 
   dateHandler = (e) => {
@@ -70,7 +92,7 @@ class WeeklyStatus extends React.Component {
       strt: this.state.startDt,
       end: this.state.endDt,
     };
-    getWeeklyStatus(dates, this.state.filter_type);
+    getWeeklyStatus(dates, this.state.filter_type, this.state.currentPage);
     // getWeeklyStatus(this.state.startDt, this.state.endDt);
   };
 
@@ -118,7 +140,7 @@ class WeeklyStatus extends React.Component {
     };
     // console.log(e.target.value);
     this.setState({ filter_by: e.target.value });
-    getWeeklyStatus(dates, e.target.value);
+    getWeeklyStatus(dates, e.target.value, this.state.currentPage);
   };
 
   weekback = () => {
@@ -145,7 +167,7 @@ class WeeklyStatus extends React.Component {
       end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
     console.log(dates);
-    getWeeklyStatus(dates, "");
+    getWeeklyStatus(dates, "", this.state.currentPage);
   };
 
   weekForword = () => {
@@ -172,7 +194,7 @@ class WeeklyStatus extends React.Component {
       end: new Date(endz),
     };
     console.log(dates_);
-    getWeeklyStatus(dates_, "");
+    getWeeklyStatus(dates_, "", this.state.currentPage);
   };
 
   handleOk = () => {
@@ -194,6 +216,16 @@ class WeeklyStatus extends React.Component {
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
+
+    if (this.props.week_status.weeklyStatus && bool) {
+      this.setState({
+        totalPages: Math.ceil(
+          this.props.week_status.weeklyStatus.paging.total / 10
+        ),
+      });
+      bool = false;
+    }
+
     return (
       <>
         <div className="upperRow">
@@ -262,14 +294,15 @@ class WeeklyStatus extends React.Component {
           </div>
         </div>
         <table className="weekTable">
-          <tbody>
-            <tr className="headRow">
-              <th className="thead">Project</th>
-              <th className="thead">Engagement type</th>
-              <th className="thead">Week Status</th>
-              <th className="thead">Project Health</th>
-            </tr>
-
+          <tr className="headRow" style={{ display: "block" }}>
+            <th className="thead">Project</th>
+            <th className="thead">Engagement type</th>
+            <th className="thead">Week Status</th>
+            <th className="thead">Project Health</th>
+          </tr>
+          <tbody
+            style={{ height: "340px", overflowY: "auto", display: "block" }}
+          >
             {this.props.week_status.weeklyStatus
               ? this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                   return (
@@ -464,6 +497,13 @@ class WeeklyStatus extends React.Component {
                 })
               : []}
           </tbody>
+          <tfoot style={{ backgroundColor: "rgb(243, 243, 243)" }}>
+            <Pagination
+              page={this.state.currentPage}
+              pages={this.state.totalPages}
+              changePage={this.onChangePage}
+            />
+          </tfoot>
         </table>
       </>
     );

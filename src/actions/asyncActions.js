@@ -31,7 +31,7 @@ export const getTools = (req, res) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatus = (date, filter) => {
+export const getWeeklyStatus = (date, filter,pageNumber) => {
   const data = {
     // id: req,
   };
@@ -47,7 +47,7 @@ export const getWeeklyStatus = (date, filter) => {
         "YYYY-MM-DD"
       )}&endDate=${moment(date.end).format(
         "YYYY-MM-DD"
-      )}&engagement_type=${encodeURIComponent(filter)}`
+      )}&engagement_type=${encodeURIComponent(filter)}&limit=10&pageNumber=${pageNumber}`
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
