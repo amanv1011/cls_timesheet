@@ -38,7 +38,7 @@ export const getWeeklyStatus = (date, filter) => {
   console.log(
     "Filterzzzzzzzzzzzzzzzzzz",
     encodeURIComponent(filter),
-    decodeURIComponent(filter)
+    decodeURIComponent(encodeURIComponent(filter))
   );
   // filter = filter.replaceAll("&", "%26");
   http

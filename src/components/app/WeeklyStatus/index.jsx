@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip, Input, Modal } from "antd";
 import { connect } from "react-redux";
-import DashboardTemplate from "../../layouts/template";
+import DashboardTemplate from "../../layouts/landing_temp";
 import { withRouter } from "react-router";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 // import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
@@ -14,7 +14,6 @@ import {
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from "moment";
-// import moment from "moment";
 const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
@@ -34,7 +33,11 @@ class WeeklyStatus extends React.Component {
 
     // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
     let dates = {
-      strt: new Date(this.state.endDt - 1 * 24 * 60 * 60 * 1000),
+      strt: new Date(
+        this.state.endDt.setDate(
+          this.state.endDt.getDate() - this.state.endDt.getDay() + 1
+        )
+      ),
       end: this.state.startDt,
     };
     console.log(dates, "DATESSSSSSSSSSSSS");
@@ -257,6 +260,7 @@ class WeeklyStatus extends React.Component {
                     }
                   )
                 : []}
+              {/* <option value="clear">Clear </option> */}
               <option value="">Clear Filter</option>
             </select>
           </div>
@@ -270,199 +274,204 @@ class WeeklyStatus extends React.Component {
               <th className="thead">Project Health</th>
             </tr>
 
-            {this.props.week_status.weeklyStatus
-              ? this.props.week_status.weeklyStatus.projects.map((ele, i) => {
-                  return (
-                    <tr key={i} className="tableRow">
-                      <td style={{ fontWeight: "500" }} className="thead">
-                        {" "}
-                        {ele.project_name}
-                      </td>
-                      <td
-                        className="thead"
-                        style={{
-                          fontWeight: "600",
-                          fontSize: "13px",
-                          color: "grey",
-                        }}
-                      >
-                        {ele.engagement_type}
-                      </td>
-                      <td className="thead">
-                        <>
-                          {this.state.selectorRow == i ? (
-                            <TextArea
-                              autoFocus
-                              className="textareaEdit"
-                              rows={3}
-                              value={this.state.description}
-                              onChange={(e) => {
-                                this.setState({
-                                  description: e.target.value,
-                                });
-                                // console.log(this.state.description);
-                              }}
-                              onBlur={this.update}
-                            />
-                          ) : (
-                            <Tooltip
-                              placement="top"
-                              title={ele.weekly_status_description}
-                            >
-                              <Input
-                                className="textarea"
-                                readOnly
-                                value={ele.weekly_status_description}
-                                suffix={
-                                  this.state.count === 0 &&
-                                  (ele.is_email_sent == false ||
-                                    ele.is_email_sent == null) ? (
-                                    <AiOutlineEdit
-                                      style={{ cursor: "pointer" }}
-                                      id={ele.project_owner_id}
-                                      onClick={() => {
-                                        this.setState({
-                                          selectorRow: i,
-                                          description:
-                                            ele.weekly_status_description,
-                                          projectId: ele.project_id,
-                                          statusId:
-                                            ele.weekly_project_health_status_id,
-                                        });
-                                      }}
-                                    />
-                                  ) : this.state.count != 0 &&
-                                    ele.is_email_sent == false &&
-                                    ele.weekly_status_description != null ? (
-                                    <AiOutlineEdit
-                                      style={{ cursor: "pointer" }}
-                                      id={ele.project_owner_id}
-                                      onClick={() => {
-                                        this.setState({
-                                          selectorRow: i,
-                                          description:
-                                            ele.weekly_status_description,
-                                          projectId: ele.project_id,
-                                          statusId:
-                                            ele.weekly_project_health_status_id,
-                                        });
-                                      }}
-                                    />
-                                  ) : (
-                                    ""
-                                  )
-                                }
-                                // suffix={
-                                //   ele.is_email_sent === false ? (
-                                //     <AiOutlineEdit
-                                //       style={{ cursor: "pointer" }}
-                                //       id={ele.project_owner_id}
-                                //       onClick={() => {
-                                //         this.setState({
-                                //           selectorRow: i,
-                                //           description:
-                                //             ele.weekly_status_description,
-                                //           projectId: ele.project_id,
-                                //           statusId:
-                                //             ele.weekly_project_health_status_id,
-                                //         });
-                                //       }}
-                                //     />
-                                //   ) : (
-                                //     ""
-                                //   )
-                                // }
-                              />
-                            </Tooltip>
-                          )}
-                        </>
-                      </td>
-                      <td className="thead" style={{ position: "relative" }}>
-                        {(this.state.showHealthOption == i &&
-                          this.state.count === 0 &&
-                          ele.is_email_sent == false) ||
-                        (this.state.showHealthOption == i &&
-                          this.state.count != 0 &&
-                          ele.is_email_sent == false &&
-                          ele.weekly_status_description != null) ? (
-                          <Modal
-                            style={{
-                              position: "absolute",
-                              top: "257px",
-                              right: "37px",
-                            }}
-                            // className="healthSection"
-                            visible={this.state.showHealthBox}
-                            onOk={this.handleOk}
-                            onCancel={this.handleCancel}
-                          >
-                            {this.props.week_status.healthStatus.results.map(
-                              (ele, i) => {
-                                return (
-                                  <button
-                                    type="button"
-                                    className="healthbtn"
-                                    onClick={this.updateHealth}
-                                    value={ele.id}
-                                  >
-                                    <div
-                                      style={{
-                                        background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
-                                      }}
-                                      className="square"
-                                    ></div>
-                                    {ele.name}
-                                  </button>
-                                );
-                              }
-                            )}
-                          </Modal>
-                        ) : (
-                          <span
-                            style={{ fontWeight: "600", cursor: "pointer" }}
-                            onClick={(e) => {
+            {this.props.week_status.weeklyStatus.projects.length != 0 ? (
+              this.props.week_status.weeklyStatus.projects.map((ele, i) => {
+                return (
+                  <tr key={i} className="tableRow">
+                    <td style={{ fontWeight: "500" }} className="thead">
+                      {" "}
+                      {ele.project_name}
+                    </td>
+                    <td
+                      className="thead"
+                      style={{
+                        fontWeight: "600",
+                        fontSize: "13px",
+                        color: "grey",
+                      }}
+                    >
+                      {ele.engagement_type}
+                    </td>
+                    <td className="thead">
+                      <>
+                        {this.state.selectorRow == i ? (
+                          <TextArea
+                            autoFocus
+                            className="textareaEdit"
+                            rows={3}
+                            value={this.state.description}
+                            onChange={(e) => {
                               this.setState({
-                                description: ele.weekly_status_description,
-                                showHealthOption: i,
-                                projectId: ele.project_id,
+                                description: e.target.value,
+                              });
+                              // console.log(this.state.description);
+                            }}
+                            onBlur={this.update}
+                          />
+                        ) : (
+                          <Tooltip
+                            placement="top"
+                            title={ele.weekly_status_description}
+                          >
+                            <Input
+                              className="textarea"
+                              readOnly
+                              value={ele.weekly_status_description}
+                              suffix={
+                                this.state.count === 0 &&
+                                (ele.is_email_sent == false ||
+                                  ele.is_email_sent == null) ? (
+                                  <AiOutlineEdit
+                                    style={{ cursor: "pointer" }}
+                                    id={ele.project_owner_id}
+                                    onClick={() => {
+                                      this.setState({
+                                        selectorRow: i,
+                                        description:
+                                          ele.weekly_status_description,
+                                        projectId: ele.project_id,
+                                        statusId:
+                                          ele.weekly_project_health_status_id,
+                                      });
+                                    }}
+                                  />
+                                ) : this.state.count != 0 &&
+                                  ele.is_email_sent == false &&
+                                  ele.weekly_status_description != null ? (
+                                  <AiOutlineEdit
+                                    style={{ cursor: "pointer" }}
+                                    id={ele.project_owner_id}
+                                    onClick={() => {
+                                      this.setState({
+                                        selectorRow: i,
+                                        description:
+                                          ele.weekly_status_description,
+                                        projectId: ele.project_id,
+                                        statusId:
+                                          ele.weekly_project_health_status_id,
+                                      });
+                                    }}
+                                  />
+                                ) : (
+                                  ""
+                                )
+                              }
+                              // suffix={
+                              //   ele.is_email_sent === false ? (
+                              //     <AiOutlineEdit
+                              //       style={{ cursor: "pointer" }}
+                              //       id={ele.project_owner_id}
+                              //       onClick={() => {
+                              //         this.setState({
+                              //           selectorRow: i,
+                              //           description:
+                              //             ele.weekly_status_description,
+                              //           projectId: ele.project_id,
+                              //           statusId:
+                              //             ele.weekly_project_health_status_id,
+                              //         });
+                              //       }}
+                              //     />
+                              //   ) : (
+                              //     ""
+                              //   )
+                              // }
+                            />
+                          </Tooltip>
+                        )}
+                      </>
+                    </td>
+                    <td className="thead" style={{ position: "relative" }}>
+                      {(this.state.showHealthOption == i &&
+                        this.state.count === 0 &&
+                        ele.is_email_sent == false) ||
+                      (this.state.showHealthOption == i &&
+                        this.state.count != 0 &&
+                        ele.is_email_sent == false &&
+                        ele.weekly_status_description != null) ? (
+                        <Modal
+                          style={{
+                            position: "absolute",
+                            top: "257px",
+                            right: "37px",
+                          }}
+                          // className="healthSection"
+                          visible={this.state.showHealthBox}
+                          onOk={this.handleOk}
+                          onCancel={this.handleCancel}
+                        >
+                          {this.props.week_status.healthStatus.results.map(
+                            (ele, i) => {
+                              return (
+                                <button
+                                  type="button"
+                                  className="healthbtn"
+                                  onClick={this.updateHealth}
+                                  value={ele.id}
+                                >
+                                  <div
+                                    style={{
+                                      background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
+                                    }}
+                                    className="square"
+                                  ></div>
+                                  {ele.name}
+                                </button>
+                              );
+                            }
+                          )}
+                        </Modal>
+                      ) : (
+                        <span
+                          style={{ fontWeight: "600", cursor: "pointer" }}
+                          onClick={(e) => {
+                            this.setState({
+                              description: ele.weekly_status_description,
+                              showHealthOption: i,
+                              projectId: ele.project_id,
+                            });
+                          }}
+                        >
+                          <p
+                            onClick={() => {
+                              this.setState({
+                                showHealthBox: true,
                               });
                             }}
                           >
-                            <p
-                              onClick={() => {
-                                this.setState({
-                                  showHealthBox: true,
-                                });
+                            <div
+                              style={{
+                                background: `${
+                                  ele.weekly_project_health == "Poor"
+                                    ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
+                                    : ele.weekly_project_health == "Good"
+                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
+                                    : ele.weekly_project_health == "Average"
+                                    ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
+                                    : ele.weekly_project_health == "Excellent"
+                                    ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
+                                    : ""
+                                }`,
                               }}
-                            >
-                              <div
-                                style={{
-                                  background: `${
-                                    ele.weekly_project_health == "Poor"
-                                      ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
-                                      : ele.weekly_project_health == "Good"
-                                      ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
-                                      : ele.weekly_project_health == "Average"
-                                      ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
-                                      : ele.weekly_project_health == "Excellent"
-                                      ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
-                                      : ""
-                                  }`,
-                                }}
-                                className="square"
-                              ></div>
+                              className="square"
+                            ></div>
 
-                              {ele.weekly_project_health == null
-                                ? "None"
-                                : ele.weekly_project_health}
-                            </p>
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })
-              : []}
+                            {ele.weekly_project_health == null
+                              ? "None"
+                              : ele.weekly_project_health}
+                          </p>
+                        </span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <center>
+                {" "}
+                <b> No projects found of selected engagement type</b>
+              </center>
+            )}
           </tbody>
         </table>
       </>
