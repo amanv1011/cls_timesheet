@@ -112,12 +112,12 @@ export const getTimesheetResources = () => {
   };
   http
     .get(
-      `/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620`
+      "http://localhost:3500/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620"
     )
     .then((response) => {
-      console.log("data of resources : ", response);
+      console.log("data of resources : ", response.data);
 
-      Store.dispatch(syncActions.getTimeSheet(response.data));
+      Store.dispatch(syncActions.getTimesheetResources(response.data));
     })
     .catch((err) => {});
 };

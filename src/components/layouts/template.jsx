@@ -41,7 +41,11 @@ const withDashboardTemplate = (WrappedComponent) => {
     render() {
       // console.log(this.props)
       return (
-        <Wrapper>
+        <Wrapper
+          style={{
+            position: "fixed",
+          }}
+        >
           <Layout>
             <TopHeader toggle={this.toggle} />
             <Layout>
@@ -52,6 +56,7 @@ const withDashboardTemplate = (WrappedComponent) => {
                 collapsible
                 collapsed={this.state.collapsible}
               >
+                {/* style={{ top: "60px" }} */}
                 <Menu
                   mode="inline"
                   // defaultSelectedKeys={['1']}

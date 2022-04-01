@@ -109,6 +109,7 @@ const columns1 = [
 
 let currDate = new Date();
 let bool = true;
+const IdData = [];
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -183,7 +184,19 @@ class Timesheet extends React.Component {
     });
   };
 
-  expandedRowRender = () => {
+  expandedRowRender = (rowIndex) => {
+    console.log("rowIndex : ", rowIndex.webtracker_project_id);
+    if (
+      !this.state.webTracker_id ||
+      this.state.webTracker_id ||
+      this.state.webTracker_id !== rowIndex.webtracker_project_id
+    ) {
+      this.setState({
+        webTracker_id: rowIndex.webtracker_project_id,
+      });
+    }
+    console.log("webtracker id is  : ", this.state.webTracker_id);
+
     const columns = [
       {
         title: "Resources",
@@ -295,30 +308,24 @@ class Timesheet extends React.Component {
   };
 
   render() {
-    console.log("getting resources response project data : ", this.props);
+    console.log("getting resources  data : ", this.props.time_sheet.resources);
+    console.log("show the id : ", this.state.webTracker_id);
 
     if (!this.props.time_sheet.timesheet) {
       return <div></div>;
     }
 
-    if (
-      this.props.time_sheet.timesheet ||
-      this.props.time_sheet.timesheet.resources
-    ) {
+    if (this.props.time_sheet.timesheet) {
       if (bool) {
         this.setState({
           APIdata: this.props.time_sheet.timesheet,
-          webTracker_id: this.props.time_sheet.timesheet,
         });
         bool = false;
-        console.log(
-          "dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : ",
-          this.props.time_sheet.timesheet.resources
-        );
       }
     }
 
     console.log("getting api response project data : ", this.state.APIdata);
+
     return (
       <div>
         <div className={Classes.backBtn}>
@@ -369,6 +376,16 @@ class Timesheet extends React.Component {
               dataSource={this.state.APIdata}
               expandable={{
                 expandedRowRender: this.expandedRowRender,
+
+                onExpand: () => {
+                  console.log("funct called");
+                  console.log(this.state.APIdata);
+                  console.log(this.props.time_sheet.timesheet);
+                  console.log(
+                    "iddddddd",
+                    this.state.APIdata[0].webtracker_project_id
+                  );
+                },
               }}
               style={{
                 borderRadius: "1rem",
