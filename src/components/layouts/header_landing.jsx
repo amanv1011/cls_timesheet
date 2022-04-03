@@ -23,6 +23,8 @@ const Wrapper = styled.div`
   padding: 1em;
   overflowx: "scroll";
   overflowy: "hidden";
+  position: fixed;
+  width: 100%;
 `;
 
 const Container = styled.div`

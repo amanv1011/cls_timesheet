@@ -231,7 +231,12 @@ class WeeklyStatus extends React.Component {
     }
 
     return (
-      <>
+      <div
+        style={{
+          position: "relative",
+          top: "70px",
+        }}
+      >
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -515,7 +520,7 @@ class WeeklyStatus extends React.Component {
             />
           </tfoot>
         </table>
-      </>
+      </div>
     );
   }
 }

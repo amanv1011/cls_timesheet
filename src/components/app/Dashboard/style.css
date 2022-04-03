@@ -50,5 +50,9 @@ padding: 0 3em 0 3em;
   line-height: 31px;
   /* identical to box height */
   margin-bottom: 2em;
+  /* width: calc(100vw - 200px); */
+  /* left: 500px;
+  position: relative;
+  margin-left: 100px; */
   letter-spacing: -0.02em;
 }

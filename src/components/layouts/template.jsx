@@ -52,6 +52,11 @@ const withDashboardTemplate = (WrappedComponent) => {
                 trigger={null}
                 collapsible
                 collapsed={this.state.collapsible}
+                style={{
+                  top: "70px",
+                  position: "fixed",
+                  height: "100%",
+                }}
               >
                 {/* style={{ top: "60px" }} */}
                 <Menu

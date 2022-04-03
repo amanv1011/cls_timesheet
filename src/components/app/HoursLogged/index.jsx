@@ -166,7 +166,14 @@ class HoursLogged extends React.Component {
     // console.log("dashboard", this.props)
 
     return (
-      <div>
+      <div
+        style={{
+          position: "relative",
+          left: "200px",
+          width: "75vw",
+          top: "70px",
+        }}
+      >
         <div className="header">
           <h3>Hours Logged/Project</h3>
           <Space>
@@ -190,13 +197,13 @@ class HoursLogged extends React.Component {
           <h6>Filter by:</h6>
           <div className="filterForm">
             {/* <Form className="formStyle"> */}
-              <Input placeholder="Project Name" />
-              <Input placeholder="Project Owner" />
-              <Input placeholder="Project Code" />
-              <Input placeholder="Account Code" />
-              <Input placeholder="Engagement Type" />
-              <Input placeholder="Status" />
-              <Button>Go</Button>
+            <Input placeholder="Project Name" />
+            <Input placeholder="Project Owner" />
+            <Input placeholder="Project Code" />
+            <Input placeholder="Account Code" />
+            <Input placeholder="Engagement Type" />
+            <Input placeholder="Status" />
+            <Button>Go</Button>
             {/* </Form> */}
             {/* <div className="styleRes">
               <span>
@@ -206,18 +213,17 @@ class HoursLogged extends React.Component {
           </div>
         </div>
         <div className="styleDataTable">
-
-            <Table
-              columns={columns1}
-              dataSource={data}
-              style={{
-                borderRadius: "1rem",
-                overflow: "hidden",
-                boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-              }}
-              // pagination={{ pageSize: 50 }}
-              scroll={{ y: 240 }}
-            />
+          <Table
+            columns={columns1}
+            dataSource={data}
+            style={{
+              borderRadius: "1rem",
+              overflow: "hidden",
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+            }}
+            // pagination={{ pageSize: 50 }}
+            scroll={{ y: 240 }}
+          />
         </div>
       </div>
     );
