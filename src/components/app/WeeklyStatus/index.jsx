@@ -408,6 +408,7 @@ class WeeklyStatus extends React.Component {
                         ) : (
                           <Tooltip
                             placement="top"
+                            overlayStyle={{ whiteSpace: "pre-line" }}
                             title={ele.weekly_status_description}
                           >
                             <Input
