@@ -224,14 +224,14 @@ class WeeklyStatus extends React.Component {
     if (this.props.week_status.weeklyStatus && bool) {
       this.setState({
         totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 10
+          this.props.week_status.weeklyStatus.paging.total / 20
         ),
       });
       bool = false;
     }
 
     return (
-      <>
+      <div style={{ position: "relative", top: "50px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -263,7 +263,7 @@ class WeeklyStatus extends React.Component {
                 style={{
                   fontSize: "20px",
                   cursor: "pointer",
-                  position: "relative",
+                  // position: "relative",
                   top: "-10px",
                   right: "-3px",
                   color: "#305d9f",
@@ -299,20 +299,77 @@ class WeeklyStatus extends React.Component {
           </div>
         </div>
         <table className="weekTable">
-          <tr className="headRow" style={{ display: "block" }}>
-            <th className="thead">Project</th>
-            <th className="thead">Engagement type</th>
-            <th className="thead">Week Status</th>
-            <th className="thead">Project Health</th>
+          <tr className="headRow">
+            <th
+              className="thead"
+              style={{
+                width: "30%",
+                display: "inline-block",
+                padding: "20px 10px",
+                textAlign: "left",
+              }}
+            >
+              Project
+            </th>
+            <th
+              className="thead"
+              style={{
+                width: "20%",
+                display: "inline-block",
+                padding: "20px 10px",
+              }}
+            >
+              Engagement type
+            </th>
+            <th
+              className="thead"
+              style={{
+                width: "30%",
+                display: "inline-block",
+                padding: "20px 10px",
+              }}
+            >
+              Week Status
+            </th>
+            <th
+              className="thead"
+              style={{
+                width: "20%",
+                display: "inline-block",
+                padding: "20px 10px",
+              }}
+            >
+              Project Health
+            </th>
           </tr>
           <tbody
-            style={{ overflowY: "auto", height: "344px", display: "block" }}
+            style={{
+              overflowY: "auto",
+              height: "344px",
+              display: "block",
+            }}
           >
             {this.props.week_status.weeklyStatus.projects.length != 0 ? (
               this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                 return (
-                  <tr key={i} className="tableRow">
-                    <td style={{ fontWeight: "500" }} className="thead">
+                  <tr
+                    key={i}
+                    className="tableRow"
+                    style={{
+                      textAlign: "center",
+                      display: "table",
+                      width: "100%",
+                    }}
+                  >
+                    <td
+                      style={{
+                        fontWeight: "500",
+                        padding: "20px 10px",
+                        width: "30%",
+                        textAlign: "left",
+                      }}
+                      className="thead"
+                    >
                       {" "}
                       {ele.project_name}
                     </td>
@@ -322,11 +379,17 @@ class WeeklyStatus extends React.Component {
                         fontWeight: "600",
                         fontSize: "13px",
                         color: "grey",
+                        width: "20%",
+                        padding: "20px 10px",
+                        // border: "1px solid green",
                       }}
                     >
                       {ele.engagement_type}
                     </td>
-                    <td className="thead">
+                    <td
+                      className="thead"
+                      style={{ width: "30% ", padding: "20px 10px" }}
+                    >
                       <>
                         {this.state.selectorRow == i ? (
                           <TextArea
@@ -415,7 +478,13 @@ class WeeklyStatus extends React.Component {
                         )}
                       </>
                     </td>
-                    <td className="thead" style={{ position: "relative" }}>
+                    <td
+                      className="thead"
+                      style={{
+                        width: "20%",
+                        padding: "20px 10px",
+                      }}
+                    >
                       {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
                         ele.is_email_sent == false) ||
@@ -507,7 +576,12 @@ class WeeklyStatus extends React.Component {
               </center>
             )}
           </tbody>
-          <tfoot style={{ backgroundColor: "rgb(243, 243, 243)" }}>
+          <tfoot
+            style={{
+              backgroundColor: "rgb(243, 243, 243)",
+              // border: "1px solid black",
+            }}
+          >
             <Pagination
               page={this.state.currentPage}
               pages={this.state.totalPages}
@@ -515,7 +589,7 @@ class WeeklyStatus extends React.Component {
             />
           </tfoot>
         </table>
-      </>
+      </div>
     );
   }
 }

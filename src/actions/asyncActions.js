@@ -47,7 +47,7 @@ export const getWeeklyStatus = (date, filter,pageNumber) => {
         "YYYY-MM-DD"
       )}&endDate=${moment(date.end).format(
         "YYYY-MM-DD"
-      )}&engagement_type=${encodeURIComponent(filter)}&limit=10&pageNumber=${pageNumber}`
+      )}&engagement_type=${encodeURIComponent(filter)}&limit=20&pageNumber=${pageNumber}`
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
