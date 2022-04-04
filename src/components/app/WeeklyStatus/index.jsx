@@ -231,7 +231,7 @@ class WeeklyStatus extends React.Component {
     }
 
     return (
-      <div style={{ position: "relative", top: "50px" }}>
+      <div style={{ position: "relative", top: "70px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -263,7 +263,7 @@ class WeeklyStatus extends React.Component {
                 style={{
                   fontSize: "20px",
                   cursor: "pointer",
-                  // position: "relative",
+                  position: "relative",
                   top: "-10px",
                   right: "-3px",
                   color: "#305d9f",

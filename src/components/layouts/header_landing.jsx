@@ -21,12 +21,18 @@ const { Option } = Select;
 const Wrapper = styled.div`
   background: #fff;
   padding: 1em;
+  overflowx: "scroll";
+  overflowy: "hidden";
+  position: fixed;
+  width: 100%;
 `;
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 const Searchbar = styled.div`
   width: 380px;
   border: 1px solid #eee;
@@ -75,7 +81,7 @@ class Header extends React.Component {
     const { name, image } = this.props.user.userDetails;
     console.log(this.props);
     return (
-      <Wrapper style={{ position: "fixed", width: "100%", zIndex: 1 }}>
+      <Wrapper>
         <Container>
           <LeftContainer>
             {/* <MenuUnfoldOutlined onClick={() => this.props.toggle()} style={{fontSize: '23px', color: '#003AD2'} }/> */}

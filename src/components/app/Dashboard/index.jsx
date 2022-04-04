@@ -7,7 +7,12 @@ import { Table, Tag, Space } from "antd";
 import { time, calender, group, bag, arrow } from "../../../assets/images";
 import "./style.css";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: relative;
+  left: 200px;
+  width: 75vw;
+  top: 70px;
+`;
 const Container = styled.div``;
 const TimeContainer = styled.div`
   display: flex;
@@ -199,6 +204,7 @@ class Dashboard extends React.Component {
               pagination={false}
               scroll={{ y: 500 }}
             />
+
             <div
               align="center"
               className="footer"

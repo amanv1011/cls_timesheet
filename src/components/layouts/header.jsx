@@ -25,8 +25,6 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  position: "fixed";
-  z-index: 1;
 `;
 const Searchbar = styled.div`
   width: 380px;
@@ -71,8 +69,7 @@ class Header extends React.Component {
   render() {
     const { name, image } = this.props.user.userDetails;
     return (
-      <Wrapper>
-        {/* style={{ position: "fixed", width: "100%", zIndex: 1 }} */}
+      <Wrapper style={{ position: "fixed", width: "100%", zIndex: "1" }}>
         <Container>
           <LeftContainer>
             <MenuUnfoldOutlined

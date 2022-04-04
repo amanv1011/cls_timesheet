@@ -6,7 +6,9 @@ import { getTools } from "../../../actions/asyncActions";
 import Tools from "./tools";
 import { withRouter } from "react-router";
 import "./index.css";
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-top: 70px;
+`;
 
 const Header = styled.div`
   padding: 0 0 1em 0;
