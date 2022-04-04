@@ -12,12 +12,13 @@
 }
 .weekTable {
   color: #1f4173;
-  margin-top: 30px;
-  border-radius: 0px !important;
-  /* overflow: hidden; */
+  overflow: hidden;
   box-shadow: 0px 4px 8px #d9ebf2;
   background-color: white;
   width: 100%;
+  position: relative;
+  top: 30px;
+  border-radius: 1em;
 }
 
 .headRow {
@@ -26,7 +27,6 @@
   padding: 10px;
   text-align: center;
 }
-
 
 .select {
   padding: 5px 10px;
