@@ -55,7 +55,7 @@ export const getWeeklyStatus = (date, filter,pageNumber) => {
     .catch((err) => {});
 };
 
-export const updateWeeklyStatus = (req, res) => {
+export const updateWeeklyStatus = (req, res,pageNumber) => {
   // console.log(
   //   `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
   //     res.strt
@@ -76,7 +76,7 @@ export const updateWeeklyStatus = (req, res) => {
         strt: res.strt,
         end: res.end,
       };
-      getWeeklyStatus(date, "");
+      getWeeklyStatus(date, "",pageNumber);
     })
     .catch((err) => {});
 };
