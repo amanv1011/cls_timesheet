@@ -582,7 +582,7 @@ class WeeklyStatus extends React.Component {
           <tfoot
             style={{
               backgroundColor: "rgb(243, 243, 243)",
-              // border: "1px solid black",
+              borderTop:"20px solid rgb(233, 238, 243)"
             }}
           >
             <Pagination
