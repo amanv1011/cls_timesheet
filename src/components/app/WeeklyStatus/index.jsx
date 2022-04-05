@@ -306,7 +306,7 @@ class WeeklyStatus extends React.Component {
               style={{
                 width: "30%",
                 display: "inline-block",
-                padding: "20px 10px",
+                padding: "16px 10px",
                 textAlign: "left",
               }}
             >
@@ -317,7 +317,7 @@ class WeeklyStatus extends React.Component {
               style={{
                 width: "20%",
                 display: "inline-block",
-                padding: "20px 10px",
+                padding: "16px 10px",
               }}
             >
               Engagement type
@@ -327,7 +327,7 @@ class WeeklyStatus extends React.Component {
               style={{
                 width: "30%",
                 display: "inline-block",
-                padding: "20px 10px",
+                padding: "16px 10px",
               }}
             >
               Week Status
@@ -337,7 +337,7 @@ class WeeklyStatus extends React.Component {
               style={{
                 width: "20%",
                 display: "inline-block",
-                padding: "20px 10px",
+                padding: "16px 10px",
               }}
             >
               Project Health
@@ -346,7 +346,7 @@ class WeeklyStatus extends React.Component {
           <tbody
             style={{
               overflowY: "auto",
-              height: "344px",
+              height: "406px",
               display: "block",
             }}
           >
@@ -365,7 +365,7 @@ class WeeklyStatus extends React.Component {
                     <td
                       style={{
                         fontWeight: "500",
-                        padding: "20px 10px",
+                        padding: "13px 10px",
                         width: "30%",
                         textAlign: "left",
                       }}
@@ -381,7 +381,7 @@ class WeeklyStatus extends React.Component {
                         fontSize: "13px",
                         color: "grey",
                         width: "20%",
-                        padding: "20px 10px",
+                        padding: "13px 10px",
                         // border: "1px solid green",
                       }}
                     >
@@ -389,7 +389,7 @@ class WeeklyStatus extends React.Component {
                     </td>
                     <td
                       className="thead"
-                      style={{ width: "30% ", padding: "20px 10px" }}
+                      style={{ width: "30% ", padding: "13px 10px" }}
                     >
                       <>
                         {this.state.selectorRow == i ? (
@@ -484,12 +484,13 @@ class WeeklyStatus extends React.Component {
                       className="thead"
                       style={{
                         width: "20%",
-                        padding: "20px 10px",
+                        padding: "13px 10px",
                       }}
                     >
                       {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
-                        ele.is_email_sent == false) ||
+                        (ele.is_email_sent == false ||
+                          ele.is_email_sent == null)) ||
                       (this.state.showHealthOption == i &&
                         this.state.count != 0 &&
                         ele.is_email_sent == false &&
@@ -581,7 +582,7 @@ class WeeklyStatus extends React.Component {
           <tfoot
             style={{
               backgroundColor: "rgb(243, 243, 243)",
-              // border: "1px solid black",
+              // borderTop:"20px solid rgb(233, 238, 243)"
             }}
           >
             <Pagination
