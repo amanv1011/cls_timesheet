@@ -87,7 +87,7 @@ class WeeklyStatus extends React.Component {
     };
     // console.log(data);
     let date_range = { strt: this.state.startDt, end: this.state.endDt };
-    updateWeeklyStatus(data, date_range);
+    updateWeeklyStatus(data, date_range,this.state.pageNumber);
   };
 
   updateHealth = (e) => {
@@ -108,7 +108,7 @@ class WeeklyStatus extends React.Component {
     };
     if (data.description) {
       console.log(data, dates);
-      updateWeeklyStatus(data, dates);
+      updateWeeklyStatus(data, dates,this.state.pageNumber);
     } else {
       alert("Please Update the week status first.");
     }
