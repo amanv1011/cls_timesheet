@@ -489,7 +489,8 @@ class WeeklyStatus extends React.Component {
                     >
                       {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
-                        ele.is_email_sent == false) ||
+                        (ele.is_email_sent == false ||
+                          ele.is_email_sent == null)) ||
                       (this.state.showHealthOption == i &&
                         this.state.count != 0 &&
                         ele.is_email_sent == false &&
