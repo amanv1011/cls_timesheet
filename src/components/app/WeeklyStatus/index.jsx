@@ -261,6 +261,7 @@ class WeeklyStatus extends React.Component {
                   )
                 : []}
               {/* <option value="clear">Clear </option> */}
+              <option value="xyzxyz">XyzXyz</option>
               <option value="">Clear Filter</option>
             </select>
           </div>
@@ -273,7 +274,6 @@ class WeeklyStatus extends React.Component {
               <th className="thead">Week Status</th>
               <th className="thead">Project Health</th>
             </tr>
-
             {this.props.week_status.weeklyStatus.projects.length != 0 ? (
               this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                 return (
@@ -312,6 +312,7 @@ class WeeklyStatus extends React.Component {
                           <Tooltip
                             placement="top"
                             title={ele.weekly_status_description}
+                            overlayStyle={{ whiteSpace: "pre-line" }}
                           >
                             <Input
                               className="textarea"
