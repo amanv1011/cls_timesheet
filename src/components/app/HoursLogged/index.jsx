@@ -181,35 +181,43 @@ class HoursLogged extends React.Component {
               picker="month"
               suffixIcon={
                 <span className="styleDateIcons">
-                  <RiCalendar2Line />
+                  <RiCalendar2Line
+                    style={{
+                      right: "8.33%",
+                      top: "4.17%",
+                      bottom: "12.5%",
+                    }}
+                  />
                   <IoIosArrowDown />
                 </span>
               }
               style={{
-                width: "9rem",
-                borderRadius: "5px",
+                width: " 140px",
+                height: "40px",
+                borderRadius: "10px",
+                // background: "#1F4173",
+                // opacity: "0.05",
+                color: "#1f4173",
               }}
               format={monthFormat}
             />
           </Space>
         </div>
         <div style={{ marginTop: "1rem" }}>
-          <h6>Filter by:</h6>
+          <h6 className="filterStyle">Filter by:</h6>
           <div className="filterForm">
             {/* <Form className="formStyle"> */}
             <Input placeholder="Project Name" />
             <Input placeholder="Project Owner" />
-            <Input placeholder="Project Code" />
-            <Input placeholder="Account Code" />
             <Input placeholder="Engagement Type" />
-            <Input placeholder="Status" />
-            <Button>Go</Button>
+            <Input placeholder="Status" style={{ width: "130px" }} />
+            <Button className="filterFormBtn">Go</Button>
             {/* </Form> */}
-            {/* <div className="styleRes">
+            <div className="styleRes">
               <span>
                 <Button className="ExportBtn">Export to Excel</Button>
               </span>
-            </div> */}
+            </div>
           </div>
         </div>
         <div className="styleDataTable">
@@ -221,7 +229,7 @@ class HoursLogged extends React.Component {
               overflow: "hidden",
               boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
             }}
-            // pagination={{ pageSize: 50 }}
+            pagination={{ pageSize: 20 }}
             scroll={{ y: 240 }}
           />
         </div>
