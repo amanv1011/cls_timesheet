@@ -346,7 +346,7 @@ class WeeklyStatus extends React.Component {
           <tbody
             style={{
               overflowY: "auto",
-              height: "400px",
+              height: "406px",
               display: "block",
             }}
           >
