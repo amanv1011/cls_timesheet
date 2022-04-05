@@ -31,7 +31,7 @@ export const getTools = (req, res) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatus = (date, filter) => {
+export const getWeeklyStatus = (date, filter, pageNumber) => {
   const data = {
     // id: req,
   };
@@ -47,7 +47,9 @@ export const getWeeklyStatus = (date, filter) => {
         "YYYY-MM-DD"
       )}&endDate=${moment(date.end).format(
         "YYYY-MM-DD"
-      )}&engagement_type=${encodeURIComponent(filter)}`
+      )}&engagement_type=${encodeURIComponent(
+        filter
+      )}&limit=20&pageNumber=${pageNumber}`
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
@@ -76,7 +78,7 @@ export const updateWeeklyStatus = (req, res) => {
         strt: res.strt,
         end: res.end,
       };
-      getWeeklyStatus(date, "");
+      getWeeklyStatus(date, "", 1);
     })
     .catch((err) => {});
 };
@@ -112,12 +114,12 @@ export const getTimesheetResources = () => {
   };
   http
     .get(
-      `/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620`
+      "http://localhost:3500/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620"
     )
     .then((response) => {
-      console.log("data of resources : ", response);
+      console.log("data of resources : ", response.data);
 
-      Store.dispatch(syncActions.getTimeSheet(response.data));
+      Store.dispatch(syncActions.getTimesheetResources(response.data));
     })
     .catch((err) => {});
 };

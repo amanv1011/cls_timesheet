@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
 `;
+
 const withDashboardTemplate = (WrappedComponent) => {
   return class Template extends React.Component {
     state = {
@@ -51,7 +52,13 @@ const withDashboardTemplate = (WrappedComponent) => {
                 trigger={null}
                 collapsible
                 collapsed={this.state.collapsible}
+                style={{
+                  top: "70px",
+                  position: "fixed",
+                  height: "100%",
+                }}
               >
+                {/* style={{ top: "60px" }} */}
                 <Menu
                   mode="inline"
                   // defaultSelectedKeys={['1']}

@@ -12,22 +12,20 @@
 }
 .weekTable {
   color: #1f4173;
-  margin-top: 30px;
-  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0px 4px 8px #d9ebf2;
   background-color: white;
   width: 100%;
+  position: relative;
+  top: 30px;
+  border-radius: 1em;
 }
 
 .headRow {
   background-color: rgb(243, 243, 243);
   border-bottom: 1px solid grey;
   padding: 10px;
-}
-.thead {
-  padding: 20px 10px;
-  width: 29%;
+  text-align: center;
 }
 
 .select {
@@ -92,10 +90,10 @@
 .tableRow {
   border-bottom: 1px solid rgba(201, 201, 201, 0.4);
 }
+
 .textarea {
   background-color: rgb(230, 236, 255);
-  /* background: #1f4173;
-  opacity: 0.05; */
+
   border-radius: 7px;
   padding: 5px;
   border: none;
@@ -120,7 +118,6 @@ textarea.ant-input {
 }
 
 .textareaEdit {
-  position: absolute;
   z-index: 3;
   width: 200px;
   border-radius: 10px;
@@ -183,6 +180,47 @@ textarea.ant-input {
   margin: 0 5px 9px 0;
   text-align: end;
 }
+
+/*---------------- PAGINATION BY ARJIT--------------------------*/
+
+.pagination {
+  border: 1px solid rgb(192, 191, 240);
+  float: right;
+  margin-top: 10px;
+  margin-right: 16px;
+  margin-bottom: 6px;
+  background-color: rgb(213, 212, 236);
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  /* border: 1px solid red; */
+}
+
+.pagination button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  box-sizing: border-box !important;
+  line-height: 20px;
+  text-align: center;
+  padding-bottom: 8px;
+  transition-duration: 0.3s;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(213, 212, 236) !important;
+  box-shadow: none !important;
+  border-radius: 5px;
+}
+
+.pagination button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1);
+  border-radius: 5px;
+}
+
+/*---------------- PAGINATION DONE------------------------------*/
 
 /* responsive layout  */
 @media screen and (max-width: 971px) {
