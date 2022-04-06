@@ -231,6 +231,17 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
+    if (
+      this.state.totalPages !==
+      Math.ceil(this.props.week_status.weeklyStatus.paging.total / 20)
+    ) {
+      this.setState({
+        totalPages: Math.ceil(
+          this.props.week_status.weeklyStatus.paging.total / 20
+        ),
+      });
+    }
+
     return (
       <div style={{ position: "relative", top: "70px" }}>
         <div className="upperRow">
