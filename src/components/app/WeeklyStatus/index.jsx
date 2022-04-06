@@ -145,7 +145,6 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     // console.log(e.target.value);
-    // console.log("first", this.state.engagementVal);
     this.setState({ filter_by: e.target.value });
     getWeeklyStatus(dates, e.target.value, this.state.currentPage);
   };
@@ -219,6 +218,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
+    // console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -240,8 +240,6 @@ class WeeklyStatus extends React.Component {
     //     totalPages: Math.ceil(
     //       this.props.week_status.weeklyStatus.paging.total / 20
     //     ),
-    //     engagementVal:
-    //       this.props.week_status.weeklyStatus.projects[0].engagement_type,
     //   });
     // }
 
@@ -256,11 +254,8 @@ class WeeklyStatus extends React.Component {
         engagementVal:
           this.props.week_status.weeklyStatus.projects[0].engagement_type,
       });
-
-      // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAa", this.state.engagementVal);
-      // console.log("BBBBBBBBBBBBBBBBBBBBBBBBBB", this.props.week_status.weeklyStatus.projects[0].engagement_type);
     }
-    // console.log("first", this.state.engagementVal);
+
     return (
       <div style={{ position: "relative", top: "70px" }}>
         <div className="upperRow">
