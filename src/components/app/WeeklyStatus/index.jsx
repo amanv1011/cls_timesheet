@@ -140,13 +140,13 @@ class WeeklyStatus extends React.Component {
   };
 
   filter_by = (e) => {
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
-    // console.log(e.target.value);
-    this.setState({ filter_by: e.target.value });
-    getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+    this.setState({ filter_by: e.target.value, currentPage: 1 }, () => {
+      let dates = {
+        strt: this.state.startDt,
+        end: this.state.endDt,
+      };
+      getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+    });
   };
 
   weekback = () => {
