@@ -25,7 +25,7 @@ const TimeBoxes = styled.div`
   border-radius: 15px;
   display: flex;
   justify-content: space-between;
-  padding: 1.5em;
+  padding: 1em;
   align-items: center;
 `;
 const TableContainer = styled.div`
@@ -203,6 +203,7 @@ class Dashboard extends React.Component {
               dataSource={data}
               pagination={false}
               scroll={{ y: 500 }}
+              className="styleDashboardTable"
             />
 
             <div

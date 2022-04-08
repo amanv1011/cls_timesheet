@@ -34,7 +34,7 @@ const withHeader = (WrappedComponent) => {
           <Layout>
             <TopHeader toggle={this.toggle} />
             <Layout>
-              <Layout style={{ padding: "0 24px 0" }}>
+              <Layout style={{ padding: "0 24px 0px" }}>
                 <Content
                   className="site-layout-background"
                   style={{
