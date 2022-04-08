@@ -70,6 +70,7 @@ class WeeklyStatus extends React.Component {
     currentPage: 1,
     totalPages: 1,
     pageNumber: 1,
+    engagementVal: null,
   };
 
   onChangePage = (page) => {
@@ -139,13 +140,13 @@ class WeeklyStatus extends React.Component {
   };
 
   filter_by = (e) => {
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
-    // console.log(e.target.value);
-    this.setState({ filter_by: e.target.value });
-    getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+    this.setState({ filter_by: e.target.value, currentPage: 1 }, () => {
+      let dates = {
+        strt: this.state.startDt,
+        end: this.state.endDt,
+      };
+      getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+    });
   };
 
   weekback = () => {
@@ -217,7 +218,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props, "opopopopopopopopopop");
+    // console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -229,6 +230,30 @@ class WeeklyStatus extends React.Component {
         ),
       });
       bool = false;
+    }
+
+    // if (
+    //   this.state.totalPages !==
+    //   Math.ceil(this.props.week_status.weeklyStatus.paging.total / 20)
+    // ) {
+    //   this.setState({
+    //     totalPages: Math.ceil(
+    //       this.props.week_status.weeklyStatus.paging.total / 20
+    //     ),
+    //   });
+    // }
+
+    if (
+      this.state.engagementVal !==
+      this.props.week_status.weeklyStatus.projects[0].engagement_type
+    ) {
+      this.setState({
+        totalPages: Math.ceil(
+          this.props.week_status.weeklyStatus.paging.total / 20
+        ),
+        engagementVal:
+          this.props.week_status.weeklyStatus.projects[0].engagement_type,
+      });
     }
 
     return (
@@ -344,10 +369,15 @@ class WeeklyStatus extends React.Component {
             </th>
           </tr>
           <tbody
+            // "406px"
             style={{
               overflowY: "auto",
-              height: "406px",
               display: "block",
+              height: `${
+                this.props.week_status.weeklyStatus.projects.length < 6
+                  ? ""
+                  : "406px"
+              }`,
             }}
           >
             {this.props.week_status.weeklyStatus.projects.length != 0 ? (

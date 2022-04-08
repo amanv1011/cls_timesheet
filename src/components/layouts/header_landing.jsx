@@ -73,13 +73,13 @@ class Header extends React.Component {
   };
 
   changeHandler = (e) => {
-    console.log("logout", e);
+    // console.log("logout", e);
     this.props.history.push("/login");
     deleteUserProfile(LoginStorageUserDetails);
   };
   render() {
     const { name, image } = this.props.user.userDetails;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <Wrapper>
         <Container>
