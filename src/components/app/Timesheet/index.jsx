@@ -186,11 +186,7 @@ class Timesheet extends React.Component {
 
   expandedRowRender = (rowIndex) => {
     console.log("rowIndex : ", rowIndex.webtracker_project_id);
-    if (
-      !this.state.webTracker_id ||
-      this.state.webTracker_id ||
-      this.state.webTracker_id !== rowIndex.webtracker_project_id
-    ) {
+    if (!this.state.webTracker_id) {
       this.setState({
         webTracker_id: rowIndex.webtracker_project_id,
       });
