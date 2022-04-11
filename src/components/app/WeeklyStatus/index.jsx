@@ -110,6 +110,7 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
+
     // console.log(data);
     let date_range = { strt: this.state.startDt, end: this.state.endDt };
     updateWeeklyStatus(data, date_range, this.state.pageNumber);
@@ -261,67 +262,51 @@ class WeeklyStatus extends React.Component {
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
-            <div className="dateFilter">
-              <p className="status">
-                <FaAngleLeft
-                  onClick={this.weekback}
-                  style={{ fontSize: "20px", cursor: "pointer" }}
-                />
-                {/* Status Logged */}
-                {moment(this.state.startDt).format("DD-MMM-YYYY")}
-                {"   "}-{"   "}
-                {moment(this.state.endDt).format("DD-MMM-YYYY")}
-              </p>
-              {/* <DateRangePickerComponent
-                className="datepicker"
-                allowEdit={false}
-                format={"dd MMM yy"}
-                placeholder="Select Date Range"
-                minDays={7}
-                maxDays={7}
-                startDate={this.state.startDt}
-                endDate={this.state.endDt}
-                onChange={this.dateHandler}
-              /> */}
+            {/* <div className="dateFilter"> */}
+            <p className="status">
+              <FaAngleLeft
+                onClick={this.weekback}
+                style={{ fontSize: "20px", cursor: "pointer" }}
+              />
+              {/* Status Logged */}
+              {moment(this.state.startDt).format("DD-MMM-YYYY")}
+              {"   "}-{"   "}
+              {moment(this.state.endDt).format("DD-MMM-YYYY")}
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}
-                style={{
-                  fontSize: "20px",
-                  cursor: "pointer",
-                  position: "relative",
-                  top: "-10px",
-                  right: "-3px",
-                  color: "#305d9f",
-                }}
+                style={{ fontSize: "20px", cursor: "pointer" }}
               />
-            </div>
-            <label htmlFor="options" className="optLabel">
-              Filter by:{" "}
-            </label>
-            <select
-              placeholder="Apply Filter"
-              className="select"
-              onChange={this.filter_by}
-              name="options"
-              id="options"
-            >
-              <option value="" disabled selected>
-                Engagement Type
-              </option>
+            </p>
+            {/* </div> */}
+            <div className="engagement">
+              <label htmlFor="options" className="optLabel">
+                Filter by:{" "}
+              </label>
+              <select
+                placeholder="Apply Filter"
+                className="select"
+                onChange={this.filter_by}
+                name="options"
+                id="options"
+              >
+                <option value="" disabled selected>
+                  Engagement Type
+                </option>
 
-              {this.props.week_status.engagementType
-                ? this.props.week_status.engagementType.engagement_types.map(
-                    (ele, i) => {
-                      if (ele != null) {
-                        return <option value={ele}>{ele}</option>;
+                {this.props.week_status.engagementType
+                  ? this.props.week_status.engagementType.engagement_types.map(
+                      (ele, i) => {
+                        if (ele != null) {
+                          return <option value={ele}>{ele}</option>;
+                        }
                       }
-                    }
-                  )
-                : []}
-              {/* <option value="clear">Clear </option> */}
-              <option value="">Clear Filter</option>
-            </select>
+                    )
+                  : []}
+                {/* <option value="clear">Clear </option> */}
+                <option value="">Clear Filter</option>
+              </select>
+            </div>
           </div>
         </div>
         <table className="weekTable">

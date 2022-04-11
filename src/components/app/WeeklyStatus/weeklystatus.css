@@ -83,7 +83,8 @@
   color: #305d9f;
   font-size: 17px;
   margin: 0 10px;
-  padding-left: 20px;
+  /* padding-left: 20px; */
+  padding: 0 0 12px 20px;
   border-left: 2px solid rgb(170, 169, 169);
 }
 
@@ -124,20 +125,9 @@ textarea.ant-input {
   resize: none;
 }
 
-/* .healthSection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 1px 4px 12px grey;
-  background: #fff;
-  position: absolute;
-  top: 21px;
-  z-index: 9;
-  padding: 5px 0;
-  width: 107px;
-  border-radius: 12px;
-} */
+.engagement {
+  display: -webkit-inline-box;
+}
 
 .healthbtn {
   width: 100%;
@@ -248,5 +238,13 @@ textarea.ant-input {
     margin: 0;
     padding-left: 0;
     border-left: none;
+  }
+}
+
+@media screen and (max-width: 511px) {
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
