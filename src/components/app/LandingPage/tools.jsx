@@ -76,8 +76,8 @@ class Tools extends React.Component {
 
     const Data = this.props.userTools
       ? this.props.userTools.map((d) => {
-          const Image = d.name;
-          // console.log('Image', Image)
+          const Image = d.image_name;
+          // console.log('Image', d)
           return (
             <ToolsWrapper
               onClick={() =>
