@@ -357,6 +357,7 @@ class WeeklyStatus extends React.Component {
             // "406px"
             style={{
               overflowY: "auto",
+              // overflowX: "auto",
               display: "block",
               height: `${
                 this.props.week_status.weeklyStatus.projects.length < 5

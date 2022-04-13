@@ -26,7 +26,9 @@ export const getTools = (req, res) => {
     .get(`/api/auth/getusertools?id=${req}`)
     .then((response) => {
       // console.log(response);
-      Store.dispatch(syncActions.getUserTools(response.data));
+      Store.dispatch(
+        syncActions.getUserTools(response.data.sort((a, b) => a.id - b.id))
+      );
     })
     .catch((err) => {});
 };
