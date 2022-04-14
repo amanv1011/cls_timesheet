@@ -25,7 +25,8 @@ export const getTools = (req, res) => {
   http
     .get(`/api/auth/getusertools?id=${req}`)
     .then((response) => {
-      // console.log(response);
+      console.log("hiiiiiiiiiii dataaaaaaaaaaa", response.data);
+
       Store.dispatch(syncActions.getUserTools(response.data));
     })
     .catch((err) => {});

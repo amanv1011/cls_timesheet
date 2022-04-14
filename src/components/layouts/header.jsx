@@ -12,6 +12,7 @@ import {
 } from "../../actions/user";
 import { LoginStorageUserDetails } from "../../assets/text";
 import { withRouter } from "react-router";
+import "./header.css";
 
 const { Option } = Select;
 
@@ -49,6 +50,9 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: end;
   flex: 2;
+  @media only screen and (max-width: 576px) {
+    flex: 1;
+  }
 `;
 const Notification = styled.div`
   @media only screen and (max-width: 414px) {
@@ -94,17 +98,7 @@ class Header extends React.Component {
                         </Notification> */}
 
             <Profile>
-              <img
-                src={image}
-                alt=""
-                style={{
-                  width: "100%",
-                  maxWidth: "38px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-                className="profileImage"
-              />
+              <img src={image} alt="" className="profileImage" />
               <Select
                 value={this.state.optionSelected}
                 style={{ width: 120 }}

@@ -359,7 +359,7 @@ class Timesheet extends React.Component {
               <Input placeholder="Project Name" />
               <Input placeholder="Project Owner" />
               <Input placeholder="Engagement Type" />
-              <Input placeholder="Status" />
+              <Input placeholder="Status" style={{ width: "130px" }} />
               <Button>Go</Button>
             </Form>
             <div className={Classes.styleRes}>

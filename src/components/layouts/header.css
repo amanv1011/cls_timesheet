@@ -1,23 +1,34 @@
-
-.searchbar{
-    display: flex;
+.searchbar {
+  display: flex;
 }
-.searchInput{
-    border:none;
-    width:70%;
+.searchInput {
+  border: none;
+  width: 70%;
 }
-.searchInput:focus{
-    outline: none;
-}
-
-.profileImage{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+.searchInput:focus {
+  outline: none;
 }
 
-.name{
-    align-self: center;
+/* .profileImage {
+  width: 100%;
+  max-width: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media screen and(max-width: "576px") {
+  .profileImage {
+    width: 50%;
+    max-width: 28px;
+  }
+} */
+
+.name {
+  align-self: center;
+}
+
+.bJnsSk {
+  @media screen and(max-width: "480px") {
+    flex: 1;
+  }
 }
