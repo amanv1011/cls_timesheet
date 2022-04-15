@@ -405,7 +405,11 @@ class WeeklyStatus extends React.Component {
                     </td>
                     <td
                       className="thead"
-                      style={{ width: "30% ", padding: "13px 10px" }}
+                      style={{
+                        width: "30% ",
+                        padding: "13px 10px",
+                        background: "#F9FAFD",
+                      }}
                     >
                       <>
                         {this.state.selectorRow == i ? (
@@ -501,6 +505,7 @@ class WeeklyStatus extends React.Component {
                       style={{
                         width: "20%",
                         padding: "13px 10px",
+                        background: "#F9FAFD",
                       }}
                     >
                       {(this.state.showHealthOption == i &&

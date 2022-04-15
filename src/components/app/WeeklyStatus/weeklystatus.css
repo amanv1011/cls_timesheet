@@ -25,7 +25,11 @@
   background-color: rgb(243, 243, 243);
   border-bottom: 1px solid grey;
   padding: 10px;
-  text-align: center;
+  text-align: left;
+}
+
+.thead {
+  text-align: left;
 }
 
 .select {

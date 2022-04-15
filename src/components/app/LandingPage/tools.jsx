@@ -26,7 +26,7 @@ const Title = styled.div`
 `;
 const ToolBox = styled.div`
 display:flex;
-flex-wrap:wrap;
+flex-wrap:wrap; 
 row-gap:1.2em;
 padding-top:1.5em;
 div:nth-child(4n) {
@@ -77,7 +77,7 @@ class Tools extends React.Component {
       ? this.props.userTools.map((d) => {
           const Image = d.image_name;
           // console.log('Image', d)
-          if (d.is_active == true) {
+          if (d.is_active == true && d.users_tool_is_active == true) {
             return (
               <ToolsWrapper
                 onClick={() =>
