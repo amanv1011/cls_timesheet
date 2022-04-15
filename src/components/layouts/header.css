@@ -8,27 +8,20 @@
 .searchInput:focus {
   outline: none;
 }
-
-/* .profileImage {
-  width: 100%;
+.profileImage {
+  width: 100vw;
   max-width: 38px;
   border-radius: 50%;
   object-fit: cover;
+  margin: 0 auto;
 }
-
-@media screen and(max-width: "576px") {
-  .profileImage {
-    width: 50%;
-    max-width: 28px;
-  }
-} */
 
 .name {
   align-self: center;
 }
 
-.bJnsSk {
+/* .bJnsSk {
   @media screen and(max-width: "480px") {
     flex: 1;
   }
-}
+} */

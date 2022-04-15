@@ -12,10 +12,7 @@ import {
 } from "../../actions/user";
 import { LoginStorageUserDetails } from "../../assets/text";
 import { withRouter } from "react-router";
-import "./header.css";
-
 const { Option } = Select;
-
 const Wrapper = styled.div`
   background: #fff;
   padding: 1em;
@@ -50,21 +47,16 @@ const RightContainer = styled.div`
   display: flex;
   justify-content: end;
   flex: 2;
-  @media only screen and (max-width: 576px) {
-    flex: 1;
-  }
 `;
 const Notification = styled.div`
   @media only screen and (max-width: 414px) {
     display: none;
   }
 `;
-
 class Header extends React.Component {
   state = {
     optionSelected: this.props.user.userDetails.name,
   };
-
   changeHandler = (e) => {
     console.log("logout", e);
     this.props.history.push("/login");
@@ -92,13 +84,21 @@ class Header extends React.Component {
                             <SearchInput type="text" placeholder="Search" className="searchInput" />
                             <img src={Images.Search} alt="" className="searchIcon" style={{ width: '100%', maxWidth: '20px',float:'right', marginRight:'10px', alignSelf:'center' , cursor:'pointer'}} />
                         </Searchbar>
-
                         <Notification className="notification">
                             <img src={Images.Notification} alt="" style={{ width: '100%', maxWidth: '30px' }} />
                         </Notification> */}
-
             <Profile>
-              <img src={image} alt="" className="profileImage" />
+              <img
+                src={image}
+                alt=""
+                style={{
+                  width: "100%",
+                  maxWidth: "38px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+                className="profileImage"
+              />
               <Select
                 value={this.state.optionSelected}
                 style={{ width: 120 }}
@@ -115,16 +115,13 @@ class Header extends React.Component {
     );
   }
 }
-
 const mapStateToProps = (store) => {
   // console.log(store)
   return {
     ...store,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {};
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

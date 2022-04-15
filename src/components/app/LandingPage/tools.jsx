@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   background: #fff;
   padding: 2em;
   border-radius: 1em;
-  font-family: Proxima Nova;
 `;
 const ToolsWrapper = styled.div`
   display: flex;
@@ -69,51 +68,57 @@ class Tools extends React.Component {
   };
 
   render() {
-    console.log("props in tools",this.props.userTools)
+    console.log("props in tools", this.props.userTools);
     if (!this.props.userTools) {
-      return <div/>;
+      return <div />;
     }
 
     const Data = this.props.userTools
       ? this.props.userTools.map((d) => {
           const Image = d.image_name;
           // console.log('Image', d)
-          return (
-            <ToolsWrapper
-              onClick={() =>
-                // this.props.history.push({
-                //   pathname: "/dashboard",
-                //   state: { details: d },
-                // })
-                window.open(d.url)
-              }
-            >
-              <ToolIcon>
-                <img
-                  src={require(`../../../assets/images/icons/${
-                    Image ? Image : hubspot
-                  }.png`)}
-                  alt=""
-                  style={{
-                    width: "35px",
-                    maxWidth: "40px",
-                    alignSelf: "center",
-                  }}
-                />
-              </ToolIcon>
-              <ToolBar>
-                <ToolTitle>{d.name}</ToolTitle>
-                <ToolDesc>{d.description}</ToolDesc>
-              </ToolBar>
-            </ToolsWrapper>
-          );
+          if (d.is_active == true) {
+            return (
+              <ToolsWrapper
+                onClick={() =>
+                  // this.props.history.push({
+                  //   pathname: "/dashboard",
+                  //   state: { details: d },
+                  // })
+                  window.open(d.url)
+                }
+              >
+                <ToolIcon>
+                  <img
+                    src={require(`../../../assets/images/icons/${
+                      Image ? Image : hubspot
+                    }.png`)}
+                    alt=""
+                    style={{
+                      width: "35px",
+                      maxWidth: "40px",
+                      alignSelf: "center",
+                    }}
+                  />
+                </ToolIcon>
+                <ToolBar>
+                  <ToolTitle>{d.name}</ToolTitle>
+                  <ToolDesc>{d.description}</ToolDesc>
+                </ToolBar>
+              </ToolsWrapper>
+            );
+          }
         })
       : [];
 
-    return ( 
+    return (
       <Wrapper>
-          {this.props.userTools? <Title>Tools and Platforms</Title> : <div>Data not available</div>}
-        
+        {this.props.userTools ? (
+          <Title>Tools and Platforms</Title>
+        ) : (
+          <div>Data not available</div>
+        )}
+
         <ToolBox>{Data}</ToolBox>
       </Wrapper>
     );

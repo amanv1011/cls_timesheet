@@ -25,9 +25,10 @@ export const getTools = (req, res) => {
   http
     .get(`/api/auth/getusertools?id=${req}`)
     .then((response) => {
-      console.log("hiiiiiiiiiii dataaaaaaaaaaa", response.data);
-
-      Store.dispatch(syncActions.getUserTools(response.data));
+      // console.log(response);
+      Store.dispatch(
+        syncActions.getUserTools(response.data.sort((a, b) => a.id - b.id))
+      );
     })
     .catch((err) => {});
 };
