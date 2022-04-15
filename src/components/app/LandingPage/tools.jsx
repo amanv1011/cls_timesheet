@@ -77,7 +77,7 @@ class Tools extends React.Component {
       ? this.props.userTools.map((d) => {
           const Image = d.image_name;
           // console.log('Image', d)
-          if (d.is_active == true && d.users_tool_is_active == true) {
+          if (d.type == 1) {
             return (
               <ToolsWrapper
                 onClick={() =>

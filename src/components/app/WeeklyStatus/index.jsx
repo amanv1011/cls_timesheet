@@ -269,9 +269,9 @@ class WeeklyStatus extends React.Component {
                 style={{ fontSize: "20px", cursor: "pointer" }}
               />
               {/* Status Logged */}
-              {moment(this.state.startDt).format("DD-MMM-YYYY")}
+              {moment(this.state.startDt).format("DD-MMM")}
               {"   "}-{"   "}
-              {moment(this.state.endDt).format("DD-MMM-YYYY")}
+              {moment(this.state.endDt).format("DD-MMM")}
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}
