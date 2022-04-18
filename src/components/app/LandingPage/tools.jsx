@@ -77,37 +77,37 @@ class Tools extends React.Component {
       ? this.props.userTools.map((d) => {
           const Image = d.image_name;
           // console.log('Image', d)
-          if (d.type == 1) {
-            return (
-              <ToolsWrapper
-                onClick={() =>
-                  // this.props.history.push({
-                  //   pathname: "/dashboard",
-                  //   state: { details: d },
-                  // })
-                  window.open(d.url)
-                }
-              >
-                <ToolIcon>
-                  <img
-                    src={require(`../../../assets/images/icons/${
-                      Image ? Image : hubspot
-                    }.png`)}
-                    alt=""
-                    style={{
-                      width: "35px",
-                      maxWidth: "40px",
-                      alignSelf: "center",
-                    }}
-                  />
-                </ToolIcon>
-                <ToolBar>
-                  <ToolTitle>{d.name}</ToolTitle>
-                  <ToolDesc>{d.description}</ToolDesc>
-                </ToolBar>
-              </ToolsWrapper>
-            );
-          }
+          // if (d.type == 1) {
+          return (
+            <ToolsWrapper
+              onClick={() =>
+                // this.props.history.push({
+                //   pathname: "/dashboard",
+                //   state: { details: d },
+                // })
+                window.open(d.url)
+              }
+            >
+              <ToolIcon>
+                <img
+                  src={require(`../../../assets/images/icons/${
+                    Image ? Image : hubspot
+                  }.png`)}
+                  alt=""
+                  style={{
+                    width: "35px",
+                    maxWidth: "40px",
+                    alignSelf: "center",
+                  }}
+                />
+              </ToolIcon>
+              <ToolBar>
+                <ToolTitle>{d.name}</ToolTitle>
+                <ToolDesc>{d.description}</ToolDesc>
+              </ToolBar>
+            </ToolsWrapper>
+          );
+          // }
         })
       : [];
 
