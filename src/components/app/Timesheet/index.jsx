@@ -366,7 +366,12 @@ class Timesheet extends React.Component {
               <span>
                 <Switch onChange={this.handleOnOff} />
                 Resources
-                <Button className={Classes.ExportBtn}>Export to Excel</Button>
+                <Button
+                  className={Classes.ExportBtn}
+                  style={{ color: "#FFFFFF" }}
+                >
+                  Export to Excel
+                </Button>
               </span>
             </div>
           </div>
