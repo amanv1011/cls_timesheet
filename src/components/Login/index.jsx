@@ -45,14 +45,17 @@ const Error = styled.div`
 `;
 class Login extends Component {
   componentDidMount() {
-    const imagesToBePreloaded = [logo, mockImage]
-    imagesToBePreloaded.forEach(image => { new Image().src = image })
+    const imagesToBePreloaded = [logo, mockImage];
+    imagesToBePreloaded.forEach((image) => {
+      new Image().src = image;
+    });
   }
 
   responseGoogleSuccess = (response) => {
     console.log("response ", response);
     const data = {
       email: response.profileObj.email,
+      idToken: response.profileObj.tokenId,
     };
 
     http
@@ -84,8 +87,8 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
-    console.error("process.env",process.env);
-    console.error("this.props.err.error",this.props);
+    console.error("process.env", process.env);
+    console.error("this.props.err.error", this.props);
     return (
       <Wrapper>
         <Container>
@@ -122,7 +125,7 @@ class Login extends Component {
               scope={"email"}
               getBasicProfile={true}
             />
-            
+
             {this.props.err.error ? <Error>Unauthourised User</Error> : <div />}
             {/* <div></div> */}
           </LoginButton>
