@@ -25,7 +25,11 @@
   background-color: rgb(243, 243, 243);
   border-bottom: 1px solid grey;
   padding: 10px;
-  text-align: center;
+  text-align: left;
+}
+
+.thead {
+  text-align: left;
 }
 
 .select {
@@ -135,7 +139,7 @@ textarea.ant-input {
   border: none;
   padding: 5px 7px;
   margin: 2px 0;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   display: flex;
   font-weight: 600;
