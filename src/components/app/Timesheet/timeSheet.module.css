@@ -35,6 +35,11 @@
   width: 140px;
   height: 40px;
   background: #f0f2f5;
+  /* left: 1260px; */
+  /* top: 136px; */
+
+  /* background: #1F4173; */
+  /* opacity: 0.05; */
   border-radius: 10px;
 }
 
@@ -81,7 +86,9 @@
   display: flex;
   gap: 5px;
   align-items: center;
-  color: #b5c1d3;
+  color: #1f4173;
+  font-weight: 600;
+  font-size: 14px;
   margin-left: 5px;
 }
 
@@ -89,7 +96,7 @@
   margin-left: 10px;
   border-radius: 0.5rem;
   background-color: #8b9cb8;
-  color: #fff;
+  color: #ffffff;
 }
 
 .styleDataTable {

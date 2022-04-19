@@ -11,8 +11,10 @@ import {
   updateWeeklyStatus,
   get_health_status,
   get_engagement_types,
+  getWeeklyStatusProjects,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
@@ -71,6 +73,7 @@ class WeeklyStatus extends React.Component {
     totalPages: 1,
     pageNumber: 1,
     engagementVal: null,
+    projectName: "",
   };
 
   onChangePage = (page) => {
@@ -257,6 +260,8 @@ class WeeklyStatus extends React.Component {
       });
     }
 
+    console.log("project name ", this.state.projectName);
+
     return (
       <div style={{ position: "relative", top: "70px" }}>
         <div className="upperRow">
@@ -266,7 +271,12 @@ class WeeklyStatus extends React.Component {
             <p className="status">
               <FaAngleLeft
                 onClick={this.weekback}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
               {/* Status Logged */}
               {moment(this.state.startDt).format("DD-MMM")}
@@ -275,10 +285,59 @@ class WeeklyStatus extends React.Component {
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
             </p>
             {/* </div> */}
+            <div>
+              <label className="styleSearch">
+                <span
+                  style={{
+                    borderLeft: "2px solid #1f4173",
+                    height: "24px",
+                    opacity: 0.15,
+                    marginRight: "20px",
+                  }}
+                ></span>
+                <span className="searchLabel">Project</span>
+                <Input
+                  type="search"
+                  className="searchBox"
+                  name={this.state.projectName}
+                  value={this.state.projectName}
+                  onChange={(e) => {
+                    this.setState({
+                      ...this.state.projectName,
+                      projectName: e.target.value,
+                    });
+                  }}
+                  placeholder="Search"
+                  bordered={false}
+                  suffix={
+                    <BiSearch
+                      style={{
+                        width: "16.93px",
+                        height: "16.93px",
+                        color: "#1F4173",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        console.log(
+                          "searched name ",
+                          getWeeklyStatusProjects(this.state.projectName)
+                        );
+                        // getWeeklyStatusProjects(this.state.projectName)
+                      }}
+                    />
+                  }
+                />
+              </label>
+            </div>
             <div className="engagement">
               <label htmlFor="options" className="optLabel">
                 Filter by:{" "}
@@ -377,6 +436,7 @@ class WeeklyStatus extends React.Component {
                       display: "table",
                       width: "100%",
                     }}
+                    id="row"
                   >
                     <td
                       style={{

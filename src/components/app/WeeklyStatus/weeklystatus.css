@@ -8,7 +8,15 @@
 }
 .upperRow {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.upperRow h3 {
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 31px;
+  letter-spacing: -0.02em;
+  color: #000000;
 }
 .weekTable {
   color: #1f4173;
@@ -34,18 +42,46 @@
 
 .select {
   padding: 5px 10px;
-  width: 200px;
+  width: 210px;
+  height: 40px;
   color: gray;
   background-color: #e6e9f0;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .filter {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  margin-left: 300px;
 }
+.styleSearch {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 15px;
+}
+.searchLabel {
+  color: #1f4173;
+  width: 44px;
+  height: 17px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+}
+.searchBox {
+  margin-left: 15px;
+  width: 210px;
+  height: 40px;
+  color: #1f4173;
+  background-color: rgb(230, 236, 255);
+  border-radius: 10px;
+}
+
 .dateFilter {
   display: flex;
   align-items: self-end;
@@ -85,11 +121,11 @@
   display: flex;
   align-items: center;
   color: #305d9f;
-  font-size: 17px;
+  font-size: 14px;
   margin: 0 10px;
   /* padding-left: 20px; */
   padding: 0 0 12px 20px;
-  border-left: 2px solid rgb(170, 169, 169);
+  /* border-left: 2px solid rgb(170, 169, 169); */
 }
 
 .tableRow {
@@ -168,9 +204,13 @@ textarea.ant-input {
   border-radius: 3px;
 }
 .status {
-  color: #305d9f;
+  color: #1f4173;
   font-weight: 600;
   width: -webkit-fill-available;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
   margin: 0 5px 9px 0;
   text-align: end;
 }
