@@ -75,8 +75,8 @@ class Tools extends React.Component {
 
     const Data = this.props.userTools
       ? this.props.userTools.map((d) => {
-          const Image = d.image_name;
-          console.log("Image", d);
+          const Image = d.active_image_icon;
+          // console.log('Image', d)
           // if (d.type == 1) {
           return (
             <ToolsWrapper
@@ -92,7 +92,7 @@ class Tools extends React.Component {
                 <img
                   src={require(`../../../assets/images/icons/${
                     Image ? Image : hubspot
-                  }.png`)}
+                  }`)}
                   alt=""
                   style={{
                     width: "35px",
