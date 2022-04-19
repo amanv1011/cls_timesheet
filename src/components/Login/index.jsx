@@ -55,18 +55,18 @@ class Login extends Component {
     console.log("1response", response);
     const data = {
       email: response.profileObj.email,
-      idToken: response.profileObj.tokenId,
+      idToken: response.tokenId,
     };
 
     http
-      .post(`/api/auth/checkUser`, data)
+      .post(`/api/auth/google`, data)
       .then((res) => {
         console.log("2response from", res);
         const UserDetails = {
-          email: response.profileObj.email,
-          name: response.profileObj.name,
-          image: response.profileObj.imageUrl,
-          token: response.tokenObj.id_token,
+          email: res.data.email,
+          name: res.data.name,
+          image: res.data.picture,
+          token: res.data.token,
           id: res.data.id,
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
