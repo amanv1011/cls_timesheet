@@ -59,7 +59,7 @@ class Login extends Component {
     };
 
     http
-      .post(`/api/auth/google`, data)
+      .post(`/api/auth/checkUser`, data)
       .then((res) => {
         console.log("2response from", res);
         const UserDetails = {

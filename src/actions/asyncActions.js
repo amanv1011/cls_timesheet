@@ -23,7 +23,9 @@ export const getTools = (req, res) => {
     id: req,
   };
   http
-    .get(`/api/auth/getusertools?id=${req}`)
+    .get(
+      `https://app.api.classicinformatics.net/api/auth/getusertools?id=${req}`
+    )
     .then((response) => {
       // console.log(response);
       Store.dispatch(
