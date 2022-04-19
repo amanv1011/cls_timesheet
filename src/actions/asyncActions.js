@@ -132,9 +132,7 @@ export const get_health_status = () => {
   };
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
-    .get(
-      `https://app.api.classicinformatics.net/api/table/project_health_status`
-    )
+    .get(`/api/table/project_health_status`)
     .then((response) => {
       // console.log(
       //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(
@@ -154,9 +152,7 @@ export const get_engagement_types = () => {
   };
   http
     // .get(`/api/projects/status?startDate=2022-02-05&endDate=2022-02-12`)date.end
-    .get(
-      `https://app.api.classicinformatics.net/api/table/projects/field/engagement_type`
-    )
+    .get(`/api/table/projects/field/engagement_type`)
     .then((response) => {
       // console.log(
       //   `/api/projects/status/weekly?startDate=${moment(date.strt).format(

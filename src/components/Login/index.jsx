@@ -52,16 +52,16 @@ class Login extends Component {
   }
 
   responseGoogleSuccess = (response) => {
-    console.log("response ", response);
+    console.log("1response", response);
     const data = {
       email: response.profileObj.email,
       idToken: response.profileObj.tokenId,
     };
 
     http
-      .post(`/api/auth/checkUser`, data)
+      .post(`/api/auth/google`, data)
       .then((res) => {
-        console.log("response from", res);
+        console.log("2response from", res);
         const UserDetails = {
           email: response.profileObj.email,
           name: response.profileObj.name,
@@ -70,6 +70,7 @@ class Login extends Component {
           id: res.data.id,
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
+        sessionStorage.setItem("token", UserDetails.token);
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
         this.props.history.push("/");
@@ -89,6 +90,8 @@ class Login extends Component {
   render() {
     console.error("process.env", process.env);
     console.error("this.props.err.error", this.props);
+    console.log("Strore state", Store.getState());
+
     return (
       <Wrapper>
         <Container>

@@ -4,12 +4,33 @@ import * as syncActions from "../actions/syncActions";
 const http = axios.create({
   // baseURL: "http://localhost:3500/",
   baseURL: "https://app.api.classicinformatics.net/",
+  // headers: {
+  //   Authorization:
+  //     "Bearer " + Object.keys(Store.getState().user).length > 0
+  //       ? Store.getState().user.userDetails.token
+  //       : "",
+  // },
   // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
+console.log(Store.getState());
+if (sessionStorage.getItem("token")) {
+  http.defaults.headers.common = {
+    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+  };
+}
 
-http.defaults.headers.post["Content-Type"] =
-  // "application/x-www-form-urlencoded";
-  "application/json";
+// console.log("token@@@", Store.getState().user.userDetails.token.toString());
+// console.log(Object.keys(Store.getState().user).length > 0);
+// http.defaults.headers.post["Content-Type"] =
+//   // "application/x-www-form-urlencoded";
+//   "application/json";
+// console.log("before headers$$$");
+// if (Object.keys(Store.getState().user).length > 0) {
+//   console.log("state log%%%");
+//   axios.defaults.headers = {
+//     Authorization: "Bearer " + Store.getState().user.userDetails.token,
+//   };
+// }
 
 http.interceptors.request.use(
   function (config) {
