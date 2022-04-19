@@ -13,6 +13,7 @@ import {
   get_engagement_types,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
@@ -266,7 +267,12 @@ class WeeklyStatus extends React.Component {
             <p className="status">
               <FaAngleLeft
                 onClick={this.weekback}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
               {/* Status Logged */}
               {moment(this.state.startDt).format("DD-MMM")}
@@ -275,10 +281,43 @@ class WeeklyStatus extends React.Component {
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
             </p>
             {/* </div> */}
+            <div>
+              <label className="styleSearch">
+                <span
+                  style={{
+                    borderLeft: "2px solid #1f4173",
+                    height: "24px",
+                    opacity: 0.15,
+                    marginRight: "20px",
+                  }}
+                ></span>
+                <span className="searchLabel">Project</span>
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  bordered={false}
+                  suffix={
+                    <BiSearch
+                      style={{
+                        width: "16.93px",
+                        height: "16.93px",
+                        color: "#1F4173",
+                      }}
+                    />
+                  }
+                  className="searchBox"
+                />
+              </label>
+            </div>
             <div className="engagement">
               <label htmlFor="options" className="optLabel">
                 Filter by:{" "}

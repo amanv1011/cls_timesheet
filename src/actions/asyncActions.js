@@ -110,16 +110,16 @@ export const getTimeSheet = (date) => {
     .catch((err) => {});
 };
 
-export const getTimesheetResources = (id) => {
+export const getTimesheetResources = (date, id) => {
   const data = {
     // id: req,
   };
   http
     .get(
-      `api/projects/25/resources?monthYear=02-2022&webtracker_project_id=${id}`
+      `/api/projects/25/resources?monthYear=${date}&webtracker_project_id=${id}`
     )
     .then((response) => {
-      console.log("data of resources : ", response.data);
+      console.log("data of resources : ", response.data, date, id);
 
       Store.dispatch(syncActions.getTimesheetResources(response.data));
     })
