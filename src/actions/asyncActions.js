@@ -2,6 +2,7 @@ import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
 import axios from "axios";
+// const rowData = document.getElementById("row");
 
 import moment from "moment";
 export const Authenticate = (req) => {
@@ -124,6 +125,41 @@ export const getTimesheetResources = (date, id) => {
       console.log("data of resources : ", response.data, date, id);
 
       Store.dispatch(syncActions.getTimesheetResources(response.data));
+    })
+    .catch((err) => {});
+};
+
+export const getWeeklyStatusProjects = (name) => {
+  console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name);
+  const data = {
+    // id: req,
+  };
+  let html = "";
+  http
+    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}`)
+
+    .then((response) => {
+      console.log("data of projects : ", response.data.response);
+      // if (response.data.response) {
+      //   response.data.response.forEach((element) => {
+      //     html += `
+      //     <td
+      //     style={{
+      //       fontWeight: "500",
+      //       padding: "13px 10px",
+      //       width: "30%",
+      //       textAlign: "left",
+      //     }}
+      //     className="thead"
+      //   >
+      //     {" "}
+      //     ${element.project_name}
+      //   </td>
+      //     `;
+      //   });
+      // }
+
+      Store.dispatch(syncActions.getWeeklyStatusProjects(response.data));
     })
     .catch((err) => {});
 };

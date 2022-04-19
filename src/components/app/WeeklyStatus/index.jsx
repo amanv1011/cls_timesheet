@@ -11,6 +11,7 @@ import {
   updateWeeklyStatus,
   get_health_status,
   get_engagement_types,
+  getWeeklyStatusProjects,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
@@ -72,6 +73,7 @@ class WeeklyStatus extends React.Component {
     totalPages: 1,
     pageNumber: 1,
     engagementVal: null,
+    projectName: "",
   };
 
   onChangePage = (page) => {
@@ -258,6 +260,8 @@ class WeeklyStatus extends React.Component {
       });
     }
 
+    console.log("project name ", this.state.projectName);
+
     return (
       <div style={{ position: "relative", top: "70px" }}>
         <div className="upperRow">
@@ -303,6 +307,15 @@ class WeeklyStatus extends React.Component {
                 <span className="searchLabel">Project</span>
                 <Input
                   type="search"
+                  className="searchBox"
+                  name={this.state.projectName}
+                  value={this.state.projectName}
+                  onChange={(e) => {
+                    this.setState({
+                      ...this.state.projectName,
+                      projectName: e.target.value,
+                    });
+                  }}
                   placeholder="Search"
                   bordered={false}
                   suffix={
@@ -311,10 +324,17 @@ class WeeklyStatus extends React.Component {
                         width: "16.93px",
                         height: "16.93px",
                         color: "#1F4173",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        console.log(
+                          "searched name ",
+                          getWeeklyStatusProjects(this.state.projectName)
+                        );
+                        // getWeeklyStatusProjects(this.state.projectName)
                       }}
                     />
                   }
-                  className="searchBox"
                 />
               </label>
             </div>
@@ -416,6 +436,7 @@ class WeeklyStatus extends React.Component {
                       display: "table",
                       width: "100%",
                     }}
+                    id="row"
                   >
                     <td
                       style={{
