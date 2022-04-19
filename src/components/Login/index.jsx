@@ -58,10 +58,11 @@ class Login extends Component {
       idToken: response.tokenId,
     };
 
+    console.log(data, "lllllllllllllllllllls");
     http
       .post(`/api/auth/google`, data)
       .then((res) => {
-        console.log("2response from", res);
+        console.log("2response from", res.data);
         const UserDetails = {
           email: res.data.email,
           name: res.data.name,
