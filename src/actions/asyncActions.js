@@ -110,13 +110,13 @@ export const getTimeSheet = (date) => {
     .catch((err) => {});
 };
 
-export const getTimesheetResources = () => {
+export const getTimesheetResources = (id) => {
   const data = {
     // id: req,
   };
   http
     .get(
-      "http://localhost:3500/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620"
+      `api/projects/25/resources?monthYear=02-2022&webtracker_project_id=${id}`
     )
     .then((response) => {
       console.log("data of resources : ", response.data);

@@ -109,7 +109,7 @@ const columns1 = [
 
 let currDate = new Date();
 let bool = true;
-const IdData = [];
+const IdData = "";
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -139,7 +139,7 @@ class Timesheet extends React.Component {
 
     console.log("getting data : ", this.state.APIdata);
 
-    getTimesheetResources(this.state.webTracker_id);
+    // getTimesheetResources(this.state.webTracker_id);
   };
 
   handleOnOff() {
@@ -184,15 +184,11 @@ class Timesheet extends React.Component {
     });
   };
 
-  expandedRowRender = (rowIndex) => {
-    console.log("rowIndex : ", rowIndex.webtracker_project_id);
-    if (!this.state.webTracker_id) {
-      this.setState({
-        webTracker_id: rowIndex.webtracker_project_id,
-      });
-    }
-    console.log("webtracker id is  : ", this.state.webTracker_id);
+  onRowExpand = (expanded, record) => {
+    getTimesheetResources(record.webtracker_project_id);
+  };
 
+  expandedRowRender = (rowIndex) => {
     const columns = [
       {
         title: "Resources",
@@ -384,15 +380,8 @@ class Timesheet extends React.Component {
               dataSource={this.state.APIdata}
               expandable={{
                 expandedRowRender: this.expandedRowRender,
-
-                onExpand: () => {
-                  console.log("funct called");
-                  console.log(this.state.APIdata);
-                  console.log(this.props.time_sheet.timesheet);
-                  console.log(
-                    "iddddddd",
-                    this.state.APIdata[0].webtracker_project_id
-                  );
+                onExpand: (f, s) => {
+                  this.onRowExpand(f, s);
                 },
               }}
               style={{
