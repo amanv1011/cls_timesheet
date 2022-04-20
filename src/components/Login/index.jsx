@@ -55,7 +55,7 @@ class Login extends Component {
     console.log("1response", response);
     const data = {
       email: response.profileObj.email,
-      idToken: response.tokenObj.id_token,
+      idToken: response.tokenId,
     };
 
     console.log(data, "lllllllllllllllllllls");
@@ -71,7 +71,6 @@ class Login extends Component {
           id: res.data.id,
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
-        sessionStorage.setItem("token", UserDetails.token);
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
         this.props.history.push("/");

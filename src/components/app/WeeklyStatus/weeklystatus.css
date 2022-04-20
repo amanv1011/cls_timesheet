@@ -44,11 +44,22 @@
   padding: 5px 10px;
   width: 210px;
   height: 40px;
-  color: gray;
+  color: #8597b4;
   background-color: #e6e9f0;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+.select ::placeholder {
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .filter {
@@ -78,8 +89,20 @@
   width: 210px;
   height: 40px;
   color: #1f4173;
-  background-color: rgb(230, 236, 255);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #e6e9f0;
   border-radius: 10px;
+}
+
+.searchBox ::placeholder {
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .dateFilter {
@@ -124,7 +147,7 @@
   font-size: 14px;
   margin: 0 10px;
   /* padding-left: 20px; */
-  padding: 0 0 12px 20px;
+  /* padding: 0 0 12px 20px; */
   /* border-left: 2px solid rgb(170, 169, 169); */
 }
 
@@ -211,7 +234,7 @@ textarea.ant-input {
   font-size: 14px;
   line-height: 17px;
   text-align: right;
-  margin: 0 5px 9px 0;
+  margin: 0 5px 0px 0;
   text-align: end;
 }
 
