@@ -14,10 +14,13 @@ export const getUserTools = (data) => ({
   type: actionTypes.GET_USER_TOOLS,
   payload: data,
 });
-export const getWeeklyStatus = (data) => ({
-  type: actionTypes.GET_WEEKLY_STATUS,
-  payload: data,
-});
+export const getWeeklyStatus = (data) => (
+  console.log("%%%%%%%%%%%%%%%%%%%%%", data),
+  {
+    type: actionTypes.GET_WEEKLY_STATUS,
+    payload: data,
+  }
+);
 export const get_health_status = (data) => ({
   type: actionTypes.GET_HEALTH_STATUS,
   payload: data,
@@ -43,13 +46,13 @@ export const getTimesheetResources = (data) => (
   }
 );
 
-export const getWeeklyStatusProjects = (data) => (
-  console.log("data from payload in sync: ", data),
-  {
-    type: actionTypes.GET_WEEKLY_STATUS_PROJECT_NAME,
-    payload: data,
-  }
-);
+// export const getWeeklyStatusProjects = (data) => (
+//   console.log("data from payload in sync: ", data),
+//   {
+//     type: actionTypes.GET_WEEKLY_STATUS_PROJECT_NAME,
+//     payload: data,
+//   }
+// );
 
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,

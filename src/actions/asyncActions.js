@@ -137,29 +137,13 @@ export const getWeeklyStatusProjects = (name) => {
   let html = "";
   http
     .get(`/api/projects/status/weekly/searchtable?searchquery=${name}`)
+    // .get(
+    //   "https://app.api.classicinformatics.net/api/projects/status/weekly/searchtable?searchquery=php"
+    // )
 
     .then((response) => {
-      console.log("data of projects : ", response.data.response);
-      // if (response.data.response) {
-      //   response.data.response.forEach((element) => {
-      //     html += `
-      //     <td
-      //     style={{
-      //       fontWeight: "500",
-      //       padding: "13px 10px",
-      //       width: "30%",
-      //       textAlign: "left",
-      //     }}
-      //     className="thead"
-      //   >
-      //     {" "}
-      //     ${element.project_name}
-      //   </td>
-      //     `;
-      //   });
-      // }
-
-      Store.dispatch(syncActions.getWeeklyStatusProjects(response.data));
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
+      Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
 };
