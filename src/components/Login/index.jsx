@@ -71,7 +71,6 @@ class Login extends Component {
           id: res.data.id,
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
-        sessionStorage.setItem("token", UserDetails.token);
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
         this.props.history.push("/");
