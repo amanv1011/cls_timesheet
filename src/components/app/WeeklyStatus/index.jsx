@@ -33,7 +33,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         )
       ),
     });
@@ -164,7 +164,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
@@ -191,7 +191,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         ) +
           7 * 24 * 60 * 60 * 1000
       ),
