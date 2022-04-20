@@ -663,10 +663,10 @@ class WeeklyStatus extends React.Component {
             ) : (
               <center>
                 {" "}
-                <h1 style={{ fontSize: "20px" }}>
+                <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
                   {" "}
                   No projects assigned, please contact your PM
-                </h1>
+                </p>
               </center>
             )}
           </tbody>
