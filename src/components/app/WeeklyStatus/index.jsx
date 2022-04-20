@@ -377,6 +377,9 @@ class WeeklyStatus extends React.Component {
                 display: "inline-block",
                 padding: "16px 10px",
                 textAlign: "left",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Project
@@ -387,6 +390,9 @@ class WeeklyStatus extends React.Component {
                 width: "20%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Engagement type
@@ -397,6 +403,9 @@ class WeeklyStatus extends React.Component {
                 width: "30%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Week Status
@@ -407,6 +416,9 @@ class WeeklyStatus extends React.Component {
                 width: "20%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Project Health
@@ -440,10 +452,13 @@ class WeeklyStatus extends React.Component {
                   >
                     <td
                       style={{
-                        fontWeight: "500",
+                        fontStyle: "normal",
+                        fontWeight: "600",
+                        fontSize: "14px",
                         padding: "13px 10px",
                         width: "30%",
                         textAlign: "left",
+                        textTransform: "capitalize",
                       }}
                       className="thead"
                     >
@@ -453,6 +468,7 @@ class WeeklyStatus extends React.Component {
                     <td
                       className="thead"
                       style={{
+                        fontStyle: "normal",
                         fontWeight: "600",
                         fontSize: "13px",
                         color: "grey",

@@ -44,11 +44,22 @@
   padding: 5px 10px;
   width: 210px;
   height: 40px;
-  color: #1f4173;
+  color: #8597b4;
   background-color: #e6e9f0;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+.select ::placeholder {
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .filter {
@@ -78,12 +89,20 @@
   width: 210px;
   height: 40px;
   color: #1f4173;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
   background-color: #e6e9f0;
   border-radius: 10px;
 }
 
 .searchBox ::placeholder {
-  color: #1f4173;
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .dateFilter {
