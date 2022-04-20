@@ -1,6 +1,7 @@
 import axios from "axios";
 import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
+import { LoginStorageUserDetails } from "../assets/text";
 const http = axios.create({
   // baseURL: "http://localhost:3500/",
   baseURL: "https://app.api.classicinformatics.net/",
@@ -12,10 +13,9 @@ const http = axios.create({
   // },
   // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
-console.log(Store.getState());
-if (sessionStorage.getItem("token")) {
+if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
   http.defaults.headers.common = {
-    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    Authorization: `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`,
   };
 }
 

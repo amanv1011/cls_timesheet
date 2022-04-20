@@ -47,7 +47,7 @@ class WeeklyStatus extends React.Component {
       ),
       end: this.state.startDt,
     };
-    console.log(dates, "DATESSSSSSSSSSSSS");
+    // console.log(dates, "DATESSSSSSSSSSSSS");
     // getWeeklyStatus(dates, "");
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
@@ -222,7 +222,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    // console.log(this.props, "opopopopopopopopopop");
+    console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -236,31 +236,22 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
-    // if (
-    //   this.state.totalPages !==
-    //   Math.ceil(this.props.week_status.weeklyStatus.paging.total / 20)
-    // ) {
-    //   this.setState({
-    //     totalPages: Math.ceil(
-    //       this.props.week_status.weeklyStatus.paging.total / 20
-    //     ),
-    //   });
-    // }
-
-    if (
-      this.state.engagementVal !==
-      this.props.week_status.weeklyStatus.projects[0].engagement_type
-    ) {
-      this.setState({
-        totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 20
-        ),
-        engagementVal:
-          this.props.week_status.weeklyStatus.projects[0].engagement_type,
-      });
+    if (this.props.week_status.weeklyStatus.projects.length) {
+      if (
+        this.state.engagementVal !=
+        this.props.week_status.weeklyStatus.projects[0].engagement_type
+      ) {
+        this.setState({
+          totalPages: Math.ceil(
+            this.props.week_status.weeklyStatus.paging.total / 20
+          ),
+          engagementVal:
+            this.props.week_status.weeklyStatus.projects[0].engagement_type,
+        });
+      }
     }
 
-    console.log("project name ", this.state.projectName);
+    // console.log("project name ", this.state.projectName);
 
     return (
       <div style={{ position: "relative", top: "70px" }}>
@@ -437,7 +428,7 @@ class WeeklyStatus extends React.Component {
               }`,
             }}
           >
-            {this.props.week_status.weeklyStatus.projects.length != 0 ? (
+            {this.props.week_status.weeklyStatus.projects.length ? (
               this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                 return (
                   <tr
@@ -672,7 +663,10 @@ class WeeklyStatus extends React.Component {
             ) : (
               <center>
                 {" "}
-                <b> No projects found of selected engagement type</b>
+                <h1 style={{ fontSize: "20px" }}>
+                  {" "}
+                  No projects assigned, please contact your PM
+                </h1>
               </center>
             )}
           </tbody>
