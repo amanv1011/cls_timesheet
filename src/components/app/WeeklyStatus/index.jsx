@@ -672,7 +672,7 @@ class WeeklyStatus extends React.Component {
                 {" "}
                 <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
                   {" "}
-                  No data found
+                  No projects assigned, please contact your PM
                 </p>
               </center>
             )}
