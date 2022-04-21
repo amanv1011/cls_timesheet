@@ -665,7 +665,7 @@ class WeeklyStatus extends React.Component {
                 {" "}
                 <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
                   {" "}
-                  No projects assigned, please contact your PM
+                  No data found
                 </p>
               </center>
             )}
@@ -676,11 +676,15 @@ class WeeklyStatus extends React.Component {
               // borderTop:"20px solid rgb(233, 238, 243)"
             }}
           >
-            <Pagination
-              page={this.state.currentPage}
-              pages={this.state.totalPages}
-              changePage={this.onChangePage}
-            />
+            {this.props.week_status.weeklyStatus.projects.length > 20 ? (
+              <Pagination
+                page={this.state.currentPage}
+                pages={this.state.totalPages}
+                changePage={this.onChangePage}
+              />
+            ) : (
+              ""
+            )}
           </tfoot>
         </table>
       </div>

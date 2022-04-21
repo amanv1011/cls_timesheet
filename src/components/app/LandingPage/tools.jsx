@@ -75,21 +75,31 @@ class Tools extends React.Component {
 
     const Data = this.props.userTools
       ? this.props.userTools.map((d) => {
-          const Image = d.active_image_icon;
+          let Image;
+          if (d.is_active === false) {
+            Image = d.disabled_image_icon;
+            console.log("image false& ", Image);
+          } else if (d.is_active === true) {
+            Image = d.active_image_icon;
+            console.log("image true& ", Image);
+          }
+
+          // const Image = d.active_image_icon;
           // console.log('Image', d)
-          // if (d.type == 1) {
           return (
             <ToolsWrapper
-              onClick={() =>
-                // this.props.history.push({
-                //   pathname: "/dashboard",
-                //   state: { details: d },
-                // })
-                window.open(d.url)
-              }
+              style={{
+                cursor: `${d.is_active === false ? "not-allowed" : ""}`,
+              }}
+              onClick={() => {
+                if (d.is_active === true) {
+                  window.open(d.url);
+                }
+              }}
             >
               <ToolIcon>
                 <img
+                  className="imagetool"
                   src={require(`../../../assets/images/icons/${
                     Image ? Image : hubspot
                   }`)}
@@ -101,7 +111,11 @@ class Tools extends React.Component {
                   }}
                 />
               </ToolIcon>
-              <ToolBar>
+              <ToolBar
+                style={{
+                  cursor: `${d.is_active === false ? "not-allowed" : ""}`,
+                }}
+              >
                 <ToolTitle>{d.name}</ToolTitle>
                 <ToolDesc>{d.description}</ToolDesc>
               </ToolBar>
