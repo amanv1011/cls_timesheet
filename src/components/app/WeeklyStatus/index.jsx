@@ -22,6 +22,7 @@ import { border } from "@mui/system";
 const { TextArea } = Input;
 
 let bool = true;
+const searchID = document.getElementById("search");
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -299,6 +300,7 @@ class WeeklyStatus extends React.Component {
                 <Input
                   type="search"
                   className="searchBox"
+                  id="search"
                   name={this.state.projectName}
                   value={this.state.projectName}
                   onChange={(e) => {
@@ -306,6 +308,11 @@ class WeeklyStatus extends React.Component {
                       ...this.state.projectName,
                       projectName: e.target.value,
                     });
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.code === "Enter") {
+                      getWeeklyStatusProjects(this.state.projectName);
+                    }
                   }}
                   placeholder="Search"
                   bordered={false}

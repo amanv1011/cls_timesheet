@@ -145,7 +145,9 @@ export const getWeeklyStatusProjects = (name) => {
       console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
-    .catch((err) => {});
+    .catch((err) => {
+      console.log("error found", err);
+    });
 };
 
 export const get_health_status = () => {
