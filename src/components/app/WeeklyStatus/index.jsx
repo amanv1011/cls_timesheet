@@ -304,14 +304,28 @@ class WeeklyStatus extends React.Component {
                   name={this.state.projectName}
                   value={this.state.projectName}
                   onChange={(e) => {
-                    this.setState({
-                      ...this.state.projectName,
-                      projectName: e.target.value,
-                    });
+                    console.log(e.target.value);
+                    if (e.target.value) {
+                      this.setState({
+                        ...this.state.projectName,
+                        projectName: e.target.value,
+                      });
+                    } else {
+                      this.setState({
+                        ...this.state.projectName,
+                        projectName: "",
+                      });
+                      console.log("No projects");
+                    }
+
+                    console.log(this.state);
                   }}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
-                      getWeeklyStatusProjects(this.state.projectName);
+                      getWeeklyStatusProjects(
+                        this.state.projectName,
+                        this.props.user.userDetails.id
+                      );
                     }
                   }}
                   placeholder="Search"
@@ -327,7 +341,10 @@ class WeeklyStatus extends React.Component {
                       onClick={() => {
                         console.log(
                           "searched name ",
-                          getWeeklyStatusProjects(this.state.projectName)
+                          getWeeklyStatusProjects(
+                            this.state.projectName,
+                            this.props.user.userDetails.id
+                          )
                         );
                         // getWeeklyStatusProjects(this.state.projectName)
                       }}
@@ -695,15 +712,11 @@ class WeeklyStatus extends React.Component {
               // borderTop:"20px solid rgb(233, 238, 243)"
             }}
           >
-            {this.props.week_status.weeklyStatus.projects.length > 20 ? (
-              <Pagination
-                page={this.state.currentPage}
-                pages={this.state.totalPages}
-                changePage={this.onChangePage}
-              />
-            ) : (
-              ""
-            )}
+            <Pagination
+              page={this.state.currentPage}
+              pages={this.state.totalPages}
+              changePage={this.onChangePage}
+            />
           </tfoot>
         </table>
       </div>
