@@ -311,14 +311,9 @@ class WeeklyStatus extends React.Component {
                   }}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
-                      console.log(
-                        this.state.projectName,
-                        this.props.id,
-                        "????????????????????????"
-                      );
                       getWeeklyStatusProjects(
                         this.state.projectName,
-                        this.props.id
+                        this.props.user.userDetails.id
                       );
                     }
                   }}
@@ -333,14 +328,9 @@ class WeeklyStatus extends React.Component {
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        console.log(
-                          "searched name ",
+                          getWeeklyStatusProjects(
                           this.state.projectName,
-                          this.props.id
-                        );
-                        getWeeklyStatusProjects(
-                          this.state.projectName,
-                          this.props.id
+                          this.props.user.userDetails.id
                         );
                       }}
                     />
