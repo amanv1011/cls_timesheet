@@ -343,9 +343,21 @@ class WeeklyStatus extends React.Component {
               <select
                 placeholder="Apply Filter"
                 className="select"
+                style={{
+                  cursor: `${
+                    this.props.week_status.weeklyStatus.projects.length
+                      ? "pointer"
+                      : "not-allowed"
+                  }`,
+                }}
                 onChange={this.filter_by}
                 name="options"
                 id="options"
+                disabled={
+                  this.props.week_status.weeklyStatus.projects.length
+                    ? false
+                    : true
+                }
               >
                 <option value="" disabled selected>
                   Engagement Type
