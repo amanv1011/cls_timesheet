@@ -651,6 +651,8 @@ class WeeklyStatus extends React.Component {
                                     ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
                                     : ele.weekly_project_health == "Excellent"
                                     ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
+                                    : ele.weekly_project_health == null
+                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
                                     : ""
                                 }`,
                               }}
@@ -658,7 +660,7 @@ class WeeklyStatus extends React.Component {
                             ></div>
 
                             {ele.weekly_project_health == null
-                              ? "None"
+                              ? "Good"
                               : ele.weekly_project_health}
                           </p>
                         </span>
