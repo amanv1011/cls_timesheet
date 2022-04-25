@@ -668,7 +668,7 @@ class WeeklyStatus extends React.Component {
                                     : ""
                                 }`,
                               }}
-                              className="square"
+                              className="square mainSquare"
                             ></div>
 
                             {ele.weekly_project_health == null
