@@ -695,11 +695,15 @@ class WeeklyStatus extends React.Component {
               // borderTop:"20px solid rgb(233, 238, 243)"
             }}
           >
-            <Pagination
-              page={this.state.currentPage}
-              pages={this.state.totalPages}
-              changePage={this.onChangePage}
-            />
+            {this.props.week_status.weeklyStatus.projects.length > 20 ? (
+              <Pagination
+                page={this.state.currentPage}
+                pages={this.state.totalPages}
+                changePage={this.onChangePage}
+              />
+            ) : (
+              ""
+            )}
           </tfoot>
         </table>
       </div>

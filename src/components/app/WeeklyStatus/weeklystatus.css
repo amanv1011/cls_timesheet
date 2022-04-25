@@ -165,9 +165,9 @@
   color: grey;
 }
 
-textarea.ant-input {
+/* textarea.ant-input {
   width: 280px;
-}
+} */
 
 .ant-input-affix-wrapper > input.ant-input {
   background: transparent;
@@ -183,7 +183,7 @@ textarea.ant-input {
 
 .textareaEdit {
   z-index: 3;
-  width: 200px;
+  width: 364px;
   border-radius: 10px;
   resize: none;
 }
