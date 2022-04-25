@@ -129,18 +129,16 @@ export const getTimesheetResources = (date, id) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatusProjects = (name) => {
-  console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name);
-  const data = {
-    // id: req,
-  };
-  let html = "";
+export const getWeeklyStatusProjects = (name, id) => {
+  console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name, id);
+  // const data = {
+  //   // id: req,
+  // };
+  // let html = "";
   http
-    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}`)
-    // .get(
-    //   "https://app.api.classicinformatics.net/api/projects/status/weekly/searchtable?searchquery=php"
-    // )
-
+    .get(
+      `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
+    )
     .then((response) => {
       console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
       Store.dispatch(syncActions.getWeeklyStatus(response.data));

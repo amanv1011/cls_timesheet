@@ -311,7 +311,15 @@ class WeeklyStatus extends React.Component {
                   }}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
-                      getWeeklyStatusProjects(this.state.projectName);
+                      console.log(
+                        this.state.projectName,
+                        this.props.id,
+                        "????????????????????????"
+                      );
+                      getWeeklyStatusProjects(
+                        this.state.projectName,
+                        this.props.id
+                      );
                     }
                   }}
                   placeholder="Search"
@@ -327,9 +335,13 @@ class WeeklyStatus extends React.Component {
                       onClick={() => {
                         console.log(
                           "searched name ",
-                          getWeeklyStatusProjects(this.state.projectName)
+                          this.state.projectName,
+                          this.props.id
                         );
-                        // getWeeklyStatusProjects(this.state.projectName)
+                        getWeeklyStatusProjects(
+                          this.state.projectName,
+                          this.props.id
+                        );
                       }}
                     />
                   }

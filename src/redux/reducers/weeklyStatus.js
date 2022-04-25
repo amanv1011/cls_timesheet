@@ -1,6 +1,6 @@
 import ActionTypes from "../actionTypes";
 export default (state = {}, action) => {
-  // console.log("action in weekly reducer", action);
+  // console.log("action in weekly reducer", state);
   switch (action.type) {
     case ActionTypes.GET_WEEKLY_STATUS: {
       return {
