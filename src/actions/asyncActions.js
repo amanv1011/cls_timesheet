@@ -131,15 +131,14 @@ export const getTimesheetResources = (date, id) => {
 
 export const getWeeklyStatusProjects = (name, id) => {
   console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name, id);
-  const data = {
-    // id: req,
-  };
-  let html = "";
+  // const data = {
+  //   // id: req,
+  // };
+  // let html = "";
   http
     .get(
       `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
     )
-
     .then((response) => {
       console.log("$$$$$$$$$$$$$$$$$$$$", response.data[0]);
       Store.dispatch(syncActions.getWeeklyStatus(response.data[0]));

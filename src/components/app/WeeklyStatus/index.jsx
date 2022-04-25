@@ -339,14 +339,10 @@ class WeeklyStatus extends React.Component {
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        console.log(
-                          "searched name ",
-                          getWeeklyStatusProjects(
-                            this.state.projectName,
-                            this.props.user.userDetails.id
-                          )
+                        getWeeklyStatusProjects(
+                          this.state.projectName,
+                          this.props.user.userDetails.id
                         );
-                        // getWeeklyStatusProjects(this.state.projectName)
                       }}
                     />
                   }
@@ -680,14 +676,16 @@ class WeeklyStatus extends React.Component {
                                     ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
                                     : ele.weekly_project_health == "Excellent"
                                     ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
+                                    : ele.weekly_project_health == null
+                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
                                     : ""
                                 }`,
                               }}
-                              className="square"
+                              className="square mainSquare"
                             ></div>
 
                             {ele.weekly_project_health == null
-                              ? "None"
+                              ? "Good"
                               : ele.weekly_project_health}
                           </p>
                         </span>
