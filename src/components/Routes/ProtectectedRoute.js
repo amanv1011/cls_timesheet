@@ -12,9 +12,9 @@ import Store from "../../redux/store";
 let bool = true;
 function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
-
+  console.log("isAuthenticated", isAuthenticated)
   if (bool) {
-    Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
+    Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated).value));
     bool = false;
   }
 
