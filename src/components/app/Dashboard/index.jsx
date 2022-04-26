@@ -11,13 +11,26 @@ const Wrapper = styled.div`
   position: relative;
   left: 200px;
   width: 75vw;
+  height: 80vh;
   top: 70px;
+  @media (max-width: 1200px) {
+    top: 60px;
+  }
 `;
-const Container = styled.div``;
+const Container = styled.div`
+  @media (max-width: 1200px) {
+    height: 200px;
+    width 70vw;
+  }
+`;
 const TimeContainer = styled.div`
   display: flex;
   margin-bottom: 1em;
   gap: 10px;
+
+  @media (max-width: 1200px) {
+    height: 18vh;
+  }
 `;
 const TimeBoxes = styled.div`
   background: #fff;
@@ -143,7 +156,7 @@ class Dashboard extends React.Component {
 
     return (
       <Wrapper>
-        <Container>
+        <Container className="mainDashboard">
           <PageHeader>
             <div className="PageHeader-title">Dashboard</div>
             <div className="calender"></div>

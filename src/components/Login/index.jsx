@@ -58,19 +58,19 @@ class Login extends Component {
       idToken: response.tokenId,
     };
 
+    console.log(data, "lllllllllllllllllllls");
     http
       .post(`/api/auth/google`, data)
       .then((res) => {
-        console.log("2response from", res);
+        console.log("2response from", res.data);
         const UserDetails = {
-          email: response.profileObj.email,
-          name: response.profileObj.name,
-          image: response.profileObj.imageUrl,
-          token: response.tokenObj.id_token,
+          email: res.data.email,
+          name: res.data.name,
+          image: res.data.picture,
+          token: res.data.token,
           id: res.data.id,
         };
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
-        sessionStorage.setItem("token", UserDetails.token);
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
         this.props.history.push("/");

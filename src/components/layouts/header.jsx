@@ -12,9 +12,7 @@ import {
 } from "../../actions/user";
 import { LoginStorageUserDetails } from "../../assets/text";
 import { withRouter } from "react-router";
-
 const { Option } = Select;
-
 const Wrapper = styled.div`
   background: #fff;
   padding: 1em;
@@ -55,12 +53,10 @@ const Notification = styled.div`
     display: none;
   }
 `;
-
 class Header extends React.Component {
   state = {
     optionSelected: this.props.user.userDetails.name,
   };
-
   changeHandler = (e) => {
     console.log("logout", e);
     this.props.history.push("/login");
@@ -88,11 +84,9 @@ class Header extends React.Component {
                             <SearchInput type="text" placeholder="Search" className="searchInput" />
                             <img src={Images.Search} alt="" className="searchIcon" style={{ width: '100%', maxWidth: '20px',float:'right', marginRight:'10px', alignSelf:'center' , cursor:'pointer'}} />
                         </Searchbar>
-
                         <Notification className="notification">
                             <img src={Images.Notification} alt="" style={{ width: '100%', maxWidth: '30px' }} />
                         </Notification> */}
-
             <Profile>
               <img
                 src={image}
@@ -121,16 +115,13 @@ class Header extends React.Component {
     );
   }
 }
-
 const mapStateToProps = (store) => {
   // console.log(store)
   return {
     ...store,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {};
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

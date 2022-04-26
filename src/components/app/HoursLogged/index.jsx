@@ -64,36 +64,43 @@ const columns1 = [
     title: "Projects",
     dataIndex: "projects",
     key: "projects",
+    responsive: ["sm"],
   },
   {
     title: "Project Owner",
     dataIndex: "projectowner",
     key: "projectowner",
+    responsive: ["sm"],
   },
   {
     title: "Project Code",
     dataIndex: "projectcode",
     key: "projectcode",
+    responsive: ["sm"],
   },
   {
     title: "Account Code",
     dataIndex: "accountcode",
     key: "accountcode",
+    responsive: ["sm"],
   },
   {
     title: "Engagement Type",
     dataIndex: "engagementtype",
     key: "engagementtype",
+    responsive: ["sm"],
   },
   {
     title: "Hours Logged",
     dataIndex: "hourslogged",
     key: "hourslogged",
+    responsive: ["sm"],
   },
   {
     title: "Biled Hours",
     dataIndex: "biledhours",
     key: "biledhours",
+    responsive: ["sm"],
   },
 ];
 

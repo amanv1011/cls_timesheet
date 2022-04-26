@@ -109,7 +109,7 @@ const columns1 = [
 
 let currDate = new Date();
 let bool = true;
-const IdData = [];
+const IdData = "";
 
 class Timesheet extends React.Component {
   constructor(props) {
@@ -135,34 +135,25 @@ class Timesheet extends React.Component {
 
     getTimeSheet(this.state.calenderValue);
     // getTimeSheetData(this.state.data);
-    console.log("calling API's function :", this.state.calenderValue);
 
-    console.log("getting data : ", this.state.APIdata);
-
-    getTimesheetResources(this.state.webTracker_id);
+    getTimesheetResources(this.state.calenderValue, this.state.webTracker_id);
   };
 
   handleOnOff() {
-    console.log(this.state.show);
+    // console.log(this.state.show);
     this.setState({ show: !this.state.show });
   }
 
   handleUpdateCalenderValue = (date, dateString) => {
     let d = new Date(date);
     let LD = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate(); //for lastdate of month
-    console.log("last date is : ", LD);
     this.setState({
       calenderValue: moment(date).format("MM-YYYY"), //data for API
       month: moment(date).format("MMM"),
       year: moment(date).format("YYYY"),
       lastDay: LD,
-      // calenderValue: date,
     });
     getTimeSheet(this.state.calenderValue);
-    console.log("date from calender : ", this.state.calenderValue);
-    console.log("curr month value : ", this.state.month);
-    console.log("current year value: ", this.state.year);
-    console.log("updated lastdate is : ", this.state.lastDay);
   };
 
   handleModal = (event) => {
@@ -184,16 +175,22 @@ class Timesheet extends React.Component {
     });
   };
 
-  expandedRowRender = (rowIndex) => {
-    console.log("rowIndex : ", rowIndex.webtracker_project_id);
-    if (!this.state.webTracker_id) {
-      this.setState({
-        webTracker_id: rowIndex.webtracker_project_id,
-      });
-    }
-    console.log("webtracker id is  : ", this.state.webTracker_id);
+  onRowExpand = (expanded, record) => {
+    getTimesheetResources(
+      this.state.calenderValue,
+      record.webtracker_project_id
+    );
 
-    const columns = [
+    console.log(
+      "records fetched ",
+      this.state.calenderValue,
+      record.webtracker_project_id
+    );
+  };
+
+  expandedRowRender = (rowIndex) => {
+    console.log("checking ", rowIndex);
+    const columns3 = [
       {
         title: "Resources",
         key: "resources",
@@ -207,9 +204,11 @@ class Timesheet extends React.Component {
               }}
               onClick={this.handleModal}
             >
-              Rahul Mehra
+              {rowIndex.project_owner}
             </div>
-            <span style={{ color: "#B9C4D3" }}>Time Log: 20h 15m</span>
+            <span style={{ color: "#B9C4D3" }}>
+              Time Log: {rowIndex.hours_logged}
+            </span>
           </>
         ),
       },
@@ -225,9 +224,11 @@ class Timesheet extends React.Component {
               }}
               onClick={this.handleModal}
             >
-              Himanshu Jindal
+              {rowIndex.project_owner}
             </div>
-            <span style={{ color: "#B9C4D3" }}>Time Log: 30h 00m</span>
+            <span style={{ color: "#B9C4D3" }}>
+              Time Log:{rowIndex.hours_logged}
+            </span>
           </>
         ),
       },
@@ -243,9 +244,11 @@ class Timesheet extends React.Component {
               }}
               onClick={this.handleModal}
             >
-              Vineet Jain
+              {rowIndex.project_owner}
             </div>
-            <span style={{ color: "#B9C4D3" }}>Time Log: 15h 10m</span>
+            <span style={{ color: "#B9C4D3" }}>
+              Time Log: {rowIndex.hours_logged}
+            </span>
           </>
         ),
       },
@@ -261,9 +264,11 @@ class Timesheet extends React.Component {
               }}
               onClick={this.handleModal}
             >
-              Amit Chaudhary
+              {rowIndex.project_owner}
             </div>
-            <span style={{ color: "#B9C4D3" }}>Time Log: 25h 20m</span>
+            <span style={{ color: "#B9C4D3" }}>
+              Time Log: {rowIndex.hours_logged}
+            </span>
           </>
         ),
       },
@@ -279,23 +284,19 @@ class Timesheet extends React.Component {
               }}
               onClick={this.handleModal}
             >
-              Gagandeep Singh
+              {rowIndex.project_owner}
             </div>
-            <span style={{ color: "#B9C4D3" }}>Time Log: 19h 30m</span>
+            <span style={{ color: "#B9C4D3" }}>
+              Time Log:{rowIndex.hours_logged}
+            </span>
           </>
         ),
       },
     ];
 
-    // for (let i = 0; i < 1; ++i) {
-    //   this.state.APIdata.push({
-    //     key: i,
-    //   });
-    // }
-    // console.log(data);
     return (
       <Table
-        columns={columns}
+        columns={columns3}
         dataSource={this.state.APIdata}
         pagination={{ pageSize: 1 }}
         scroll={{ y: 240 }}
@@ -319,6 +320,7 @@ class Timesheet extends React.Component {
         bool = false;
       }
     }
+    console.log("getting api response project data : ", this.props);
 
     console.log("getting api response project data : ", this.state.APIdata);
 
@@ -359,14 +361,19 @@ class Timesheet extends React.Component {
               <Input placeholder="Project Name" />
               <Input placeholder="Project Owner" />
               <Input placeholder="Engagement Type" />
-              <Input placeholder="Status" />
+              <Input placeholder="Status" style={{ width: "130px" }} />
               <Button>Go</Button>
             </Form>
             <div className={Classes.styleRes}>
               <span>
                 <Switch onChange={this.handleOnOff} />
                 Resources
-                <Button className={Classes.ExportBtn}>Export to Excel</Button>
+                <Button
+                  className={Classes.ExportBtn}
+                  style={{ color: "#FFFFFF" }}
+                >
+                  Export to Excel
+                </Button>
               </span>
             </div>
           </div>
@@ -379,15 +386,8 @@ class Timesheet extends React.Component {
               dataSource={this.state.APIdata}
               expandable={{
                 expandedRowRender: this.expandedRowRender,
-
-                onExpand: () => {
-                  console.log("funct called");
-                  console.log(this.state.APIdata);
-                  console.log(this.props.time_sheet.timesheet);
-                  console.log(
-                    "iddddddd",
-                    this.state.APIdata[0].webtracker_project_id
-                  );
+                onExpand: (f, s) => {
+                  this.onRowExpand(f, s);
                 },
               }}
               style={{

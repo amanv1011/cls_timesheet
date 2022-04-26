@@ -2,6 +2,7 @@ import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
 import axios from "axios";
+// const rowData = document.getElementById("row");
 
 import moment from "moment";
 export const Authenticate = (req) => {
@@ -23,7 +24,9 @@ export const getTools = (req, res) => {
     id: req,
   };
   http
-    .get(`/api/auth/getusertools?id=${req}`)
+    .get(
+      `https://app.api.classicinformatics.net/api/auth/getusertools?id=${req}`
+    )
     .then((response) => {
       // console.log(response);
       Store.dispatch(
@@ -110,20 +113,39 @@ export const getTimeSheet = (date) => {
     .catch((err) => {});
 };
 
-export const getTimesheetResources = () => {
+export const getTimesheetResources = (date, id) => {
   const data = {
     // id: req,
   };
   http
     .get(
-      "http://localhost:3500/api/projects/25/resources?monthYear=02-2022&webtracker_project_id=21620"
+      `/api/projects/25/resources?monthYear=${date}&webtracker_project_id=${id}`
     )
     .then((response) => {
-      console.log("data of resources : ", response.data);
+      console.log("data of resources : ", response.data, date, id);
 
       Store.dispatch(syncActions.getTimesheetResources(response.data));
     })
     .catch((err) => {});
+};
+
+export const getWeeklyStatusProjects = (name, id) => {
+  console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name, id);
+  // const data = {
+  //   // id: req,
+  // };
+  // let html = "";
+  http
+    .get(
+      `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
+    )
+    .then((response) => {
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data[0]);
+      Store.dispatch(syncActions.getWeeklyStatus(response.data[0]));
+    })
+    .catch((err) => {
+      console.log("error found", err);
+    });
 };
 
 export const get_health_status = () => {

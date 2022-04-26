@@ -1,23 +1,27 @@
-
-.searchbar{
-    display: flex;
+.searchbar {
+  display: flex;
 }
-.searchInput{
-    border:none;
-    width:70%;
+.searchInput {
+  border: none;
+  width: 70%;
 }
-.searchInput:focus{
-    outline: none;
+.searchInput:focus {
+  outline: none;
 }
-
-.profileImage{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
+.profileImage {
+  width: 100vw;
+  max-width: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
 }
 
-.name{
-    align-self: center;
+.name {
+  align-self: center;
 }
+
+/* .bJnsSk {
+  @media screen and(max-width: "480px") {
+    flex: 1;
+  }
+} */

@@ -11,8 +11,10 @@ import {
   updateWeeklyStatus,
   get_health_status,
   get_engagement_types,
+  getWeeklyStatusProjects,
 } from "../../../actions/asyncActions";
 import { AiOutlineEdit } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
@@ -20,6 +22,7 @@ import { border } from "@mui/system";
 const { TextArea } = Input;
 
 let bool = true;
+const searchID = document.getElementById("search");
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -31,7 +34,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         )
       ),
     });
@@ -45,7 +48,7 @@ class WeeklyStatus extends React.Component {
       ),
       end: this.state.startDt,
     };
-    console.log(dates, "DATESSSSSSSSSSSSS");
+    // console.log(dates, "DATESSSSSSSSSSSSS");
     // getWeeklyStatus(dates, "");
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
@@ -71,6 +74,7 @@ class WeeklyStatus extends React.Component {
     totalPages: 1,
     pageNumber: 1,
     engagementVal: null,
+    projectName: "",
   };
 
   onChangePage = (page) => {
@@ -161,7 +165,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         ) -
           7 * 24 * 60 * 60 * 1000
       ),
@@ -188,7 +192,7 @@ class WeeklyStatus extends React.Component {
       ),
       endDt: new Date(
         this.state.startDt.setDate(
-          this.state.startDt.getDate() - this.state.startDt.getDay() + 7
+          this.state.startDt.getDate() - this.state.startDt.getDay() + 5
         ) +
           7 * 24 * 60 * 60 * 1000
       ),
@@ -219,7 +223,7 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    // console.log(this.props, "opopopopopopopopopop");
+    console.log(this.props, "opopopopopopopopopop");
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -233,29 +237,22 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
-    // if (
-    //   this.state.totalPages !==
-    //   Math.ceil(this.props.week_status.weeklyStatus.paging.total / 20)
-    // ) {
-    //   this.setState({
-    //     totalPages: Math.ceil(
-    //       this.props.week_status.weeklyStatus.paging.total / 20
-    //     ),
-    //   });
-    // }
-
-    if (
-      this.state.engagementVal !==
-      this.props.week_status.weeklyStatus.projects[0].engagement_type
-    ) {
-      this.setState({
-        totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 20
-        ),
-        engagementVal:
-          this.props.week_status.weeklyStatus.projects[0].engagement_type,
-      });
+    if (this.props.week_status.weeklyStatus.projects.length) {
+      if (
+        this.state.engagementVal !=
+        this.props.week_status.weeklyStatus.projects[0].engagement_type
+      ) {
+        this.setState({
+          totalPages: Math.ceil(
+            this.props.week_status.weeklyStatus.paging.total / 20
+          ),
+          engagementVal:
+            this.props.week_status.weeklyStatus.projects[0].engagement_type,
+        });
+      }
     }
+
+    // console.log("project name ", this.state.projectName);
 
     return (
       <div style={{ position: "relative", top: "70px" }}>
@@ -266,7 +263,12 @@ class WeeklyStatus extends React.Component {
             <p className="status">
               <FaAngleLeft
                 onClick={this.weekback}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
               {/* Status Logged */}
               {moment(this.state.startDt).format("DD-MMM")}
@@ -275,10 +277,78 @@ class WeeklyStatus extends React.Component {
               <FaAngleRight
                 className=""
                 onClick={this.weekForword}
-                style={{ fontSize: "20px", cursor: "pointer" }}
+                style={{
+                  fontSize: "20px",
+                  cursor: "pointer",
+                  width: "15px",
+                  height: "10px",
+                }}
               />
             </p>
             {/* </div> */}
+            <div>
+              <label className="styleSearch">
+                <span
+                  style={{
+                    borderLeft: "2px solid #1f4173",
+                    height: "24px",
+                    opacity: 0.15,
+                    marginRight: "20px",
+                  }}
+                ></span>
+                <span className="searchLabel">Project</span>
+                <Input
+                  type="search"
+                  className="searchBox"
+                  id="search"
+                  name={this.state.projectName}
+                  value={this.state.projectName}
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value) {
+                      this.setState({
+                        ...this.state.projectName,
+                        projectName: e.target.value,
+                      });
+                    } else {
+                      this.setState({
+                        ...this.state.projectName,
+                        projectName: "",
+                      });
+                      console.log("No projects");
+                    }
+
+                    console.log(this.state);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.code === "Enter") {
+                      getWeeklyStatusProjects(
+                        this.state.projectName,
+                        this.props.user.userDetails.id
+                      );
+                    }
+                  }}
+                  placeholder="Search"
+                  bordered={false}
+                  suffix={
+                    <BiSearch
+                      style={{
+                        width: "16.93px",
+                        height: "16.93px",
+                        color: "#1F4173",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        getWeeklyStatusProjects(
+                          this.state.projectName,
+                          this.props.user.userDetails.id
+                        );
+                      }}
+                    />
+                  }
+                />
+              </label>
+            </div>
             <div className="engagement">
               <label htmlFor="options" className="optLabel">
                 Filter by:{" "}
@@ -286,9 +356,21 @@ class WeeklyStatus extends React.Component {
               <select
                 placeholder="Apply Filter"
                 className="select"
+                style={{
+                  cursor: `${
+                    this.props.week_status.weeklyStatus.projects.length
+                      ? "pointer"
+                      : "not-allowed"
+                  }`,
+                }}
                 onChange={this.filter_by}
                 name="options"
                 id="options"
+                disabled={
+                  this.props.week_status.weeklyStatus.projects.length
+                    ? false
+                    : true
+                }
               >
                 <option value="" disabled selected>
                   Engagement Type
@@ -318,6 +400,9 @@ class WeeklyStatus extends React.Component {
                 display: "inline-block",
                 padding: "16px 10px",
                 textAlign: "left",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Project
@@ -328,6 +413,9 @@ class WeeklyStatus extends React.Component {
                 width: "20%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Engagement type
@@ -338,6 +426,9 @@ class WeeklyStatus extends React.Component {
                 width: "30%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Week Status
@@ -348,6 +439,9 @@ class WeeklyStatus extends React.Component {
                 width: "20%",
                 display: "inline-block",
                 padding: "16px 10px",
+                fontStyle: "normal",
+                fontWeight: "600",
+                fontSize: "14px",
               }}
             >
               Project Health
@@ -366,7 +460,7 @@ class WeeklyStatus extends React.Component {
               }`,
             }}
           >
-            {this.props.week_status.weeklyStatus.projects.length != 0 ? (
+            {this.props.week_status.weeklyStatus.projects.length ? (
               this.props.week_status.weeklyStatus.projects.map((ele, i) => {
                 return (
                   <tr
@@ -377,13 +471,17 @@ class WeeklyStatus extends React.Component {
                       display: "table",
                       width: "100%",
                     }}
+                    id="row"
                   >
                     <td
                       style={{
-                        fontWeight: "500",
+                        fontStyle: "normal",
+                        fontWeight: "600",
+                        fontSize: "14px",
                         padding: "13px 10px",
                         width: "30%",
                         textAlign: "left",
+                        textTransform: "capitalize",
                       }}
                       className="thead"
                     >
@@ -393,6 +491,7 @@ class WeeklyStatus extends React.Component {
                     <td
                       className="thead"
                       style={{
+                        fontStyle: "normal",
                         fontWeight: "600",
                         fontSize: "13px",
                         color: "grey",
@@ -577,14 +676,16 @@ class WeeklyStatus extends React.Component {
                                     ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
                                     : ele.weekly_project_health == "Excellent"
                                     ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
+                                    : ele.weekly_project_health == null
+                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
                                     : ""
                                 }`,
                               }}
-                              className="square"
+                              className="square mainSquare"
                             ></div>
 
                             {ele.weekly_project_health == null
-                              ? "None"
+                              ? "Good"
                               : ele.weekly_project_health}
                           </p>
                         </span>
@@ -596,7 +697,10 @@ class WeeklyStatus extends React.Component {
             ) : (
               <center>
                 {" "}
-                <b> No projects found of selected engagement type</b>
+                <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
+                  {" "}
+                  No projects assigned, please contact your PM
+                </p>
               </center>
             )}
           </tbody>

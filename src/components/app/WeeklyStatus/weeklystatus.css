@@ -8,7 +8,15 @@
 }
 .upperRow {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.upperRow h3 {
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 31px;
+  letter-spacing: -0.02em;
+  color: #000000;
 }
 .weekTable {
   color: #1f4173;
@@ -17,7 +25,7 @@
   background-color: white;
   width: 100%;
   position: relative;
-  top: 13px;
+  top: 30px;
   border-radius: 1em;
 }
 
@@ -34,18 +42,69 @@
 
 .select {
   padding: 5px 10px;
-  width: 200px;
-  color: gray;
+  width: 210px;
+  height: 40px;
+  color: #8597b4;
   background-color: #e6e9f0;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+.select ::placeholder {
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .filter {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  margin-left: 300px;
 }
+.styleSearch {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 15px;
+}
+.searchLabel {
+  color: #1f4173;
+  width: 44px;
+  height: 17px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+}
+.searchBox {
+  margin-left: 15px;
+  width: 210px;
+  height: 40px;
+  color: #1f4173;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  background-color: #e6e9f0;
+  border-radius: 10px;
+}
+
+.searchBox ::placeholder {
+  color: #8597b4;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+}
+
 .dateFilter {
   display: flex;
   align-items: self-end;
@@ -85,11 +144,11 @@
   display: flex;
   align-items: center;
   color: #305d9f;
-  font-size: 17px;
+  font-size: 14px;
   margin: 0 10px;
   /* padding-left: 20px; */
-  padding: 0 0 12px 20px;
-  border-left: 2px solid rgb(170, 169, 169);
+  /* padding: 0 0 12px 20px; */
+  /* border-left: 2px solid rgb(170, 169, 169); */
 }
 
 .tableRow {
@@ -106,9 +165,9 @@
   color: grey;
 }
 
-textarea.ant-input {
+/* textarea.ant-input {
   width: 280px;
-}
+} */
 
 .ant-input-affix-wrapper > input.ant-input {
   background: transparent;
@@ -124,7 +183,7 @@ textarea.ant-input {
 
 .textareaEdit {
   z-index: 3;
-  width: 200px;
+  width: 364px;
   border-radius: 10px;
   resize: none;
 }
@@ -165,13 +224,22 @@ textarea.ant-input {
   top: 469px;
   display: inline-block;
   margin: 0 5px 0 0;
+  /* margin: 0 8px 0 16px; */
   border-radius: 3px;
 }
+
+.mainSquare {
+  margin: 0 8px 0 16px;
+}
 .status {
-  color: #305d9f;
+  color: #1f4173;
   font-weight: 600;
   width: -webkit-fill-available;
-  margin: 0 5px 9px 0;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+  margin: 0 5px 0px 0;
   text-align: end;
 }
 
