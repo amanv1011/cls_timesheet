@@ -55,7 +55,7 @@ class Login extends Component {
     console.log("1response", response);
     const data = {
       email: response.profileObj.email,
-      idToken: response.profileObj.tokenId,
+      idToken: response.tokenId,
     };
 
     http
