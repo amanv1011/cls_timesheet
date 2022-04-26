@@ -102,7 +102,7 @@ class Login extends Component {
           <LoginButton>
             <div className="title">Login into your Account</div>
             <GoogleLogin
-              clientId="547036388960-1kdtvd93grr1lf1c58hrlsqbv1d44gri.apps.googleusercontent.com"
+              clientId="313128475788-hi6lpvp7al05id85v0uku2ujbuurf3f1.apps.googleusercontent.com"
               buttonText="Log In with Google"
               render={(renderProps) => (
                 <div
