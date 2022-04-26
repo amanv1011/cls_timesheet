@@ -140,8 +140,8 @@ export const getWeeklyStatusProjects = (name, id) => {
       `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
     )
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$", response.data[0]);
-      Store.dispatch(syncActions.getWeeklyStatus(response.data[0]));
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
+      Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {
       console.log("error found", err);
