@@ -14,7 +14,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
   console.log("isAuthenticated", isAuthenticated)
   if (bool) {
-    Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated).value));
+    Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
     bool = false;
   }
 
