@@ -25,7 +25,7 @@ export const getTools = (req, res) => {
   };
   http
     .get(
-      `https://app.api.classicinformatics.net/api/auth/getusertools?id=${req}`
+      `/api/auth/getusertools?id=${req}`
     )
     .then((response) => {
       // console.log(response);
