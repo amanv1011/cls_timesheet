@@ -137,7 +137,7 @@ export const getWeeklyStatusProjects = (name, id) => {
   // let html = "";
   http
     .get(
-      `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
+      `/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`
     )
     .then((response) => {
       console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
