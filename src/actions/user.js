@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import {LoginDetilsExpiryTime} from "../assets/text"
 
 /// set cookie
 export const setCookie = (key, value) => {
@@ -48,7 +49,11 @@ export const isAuth = () => {
 
 // LOCAL STORAGE
 export const storeUserProfile = (key, value) => {
-  return localStorage.setItem(key, value);
+  const object = {
+    value: JSON.parse(value),
+    expiry:LoginDetilsExpiryTime
+  }
+  return localStorage.setItem(key, JSON.stringify(object));
 };
 export const getUserProfile = (data) => {
   console.log(data);
