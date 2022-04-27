@@ -78,8 +78,9 @@ class Header extends React.Component {
     deleteUserProfile(LoginStorageUserDetails);
   };
   render() {
-    const { name, image } = this.props.user.userDetails;
-    // console.log(this.props);
+    const {  image } = this.props.user.userDetails.value;
+    const Name= this.props.user.userDetails.value.name;
+    console.log(this.props);
     return (
       <Wrapper>
         <Container>
@@ -121,7 +122,7 @@ class Header extends React.Component {
                 bordered={false}
                 onChange={(e) => this.changeHandler(e)}
               >
-                <Option value={name}>{name}</Option>
+                <Option value={Name}>{Name}</Option>
                 <Option value="logout">Log Out</Option>
               </Select>
               {/* <select name="cars">

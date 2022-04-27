@@ -26,7 +26,7 @@ class LandingPage extends Component {
   };
 
   render() {
-    const { name } = this.props.user.userDetails;
+    const { name } = this.props.user.userDetails.value;
     return (
       <Wrapper>
         <Header>
