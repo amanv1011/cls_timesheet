@@ -9,7 +9,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
-import { LoginStorageUserDetails,LoginDetilsExpiryTime } from "../../assets/text";
+import { LoginStorageUserDetails } from "../../assets/text";
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -70,11 +70,7 @@ class Login extends Component {
           token: res.data.token,
           id: res.data.id,
         };
-        const obj ={
-          value:UserDetails,
-          expiry:LoginDetilsExpiryTime
-        }
-        storeUserProfile(LoginStorageUserDetails, JSON.stringify(obj));
+        storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
         this.props.history.push("/");

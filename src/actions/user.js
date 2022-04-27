@@ -51,6 +51,7 @@ export const storeUserProfile = (key, value) => {
   return localStorage.setItem(key, value);
 };
 export const getUserProfile = (data) => {
+  console.log(data);
   return localStorage.getItem(data);
 };
 
