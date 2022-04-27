@@ -24,9 +24,7 @@ export const getTools = (req, res) => {
     id: req,
   };
   http
-    .get(
-      `https://app.api.classicinformatics.net/api/auth/getusertools?id=${req}`
-    )
+    .get(`/api/auth/getusertools?id=${req}`)
     .then((response) => {
       // console.log(response);
       Store.dispatch(
@@ -136,12 +134,10 @@ export const getWeeklyStatusProjects = (name, id) => {
   // };
   // let html = "";
   http
-    .get(
-      `/api/projects/status/weekly/searchtable?searchquery=${name}&project_owner_id=${id}`
-    )
+    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`)
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$", response.data[0]);
-      Store.dispatch(syncActions.getWeeklyStatus(response.data[0]));
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
+      Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {
       console.log("error found", err);
