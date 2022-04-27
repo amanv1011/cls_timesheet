@@ -21,8 +21,8 @@ const Name = styled.div`
 `;
 class LandingPage extends Component {
   componentDidMount = () => {
-    console.log("here ", this.props.user.userDetails.id);
-    getTools(this.props.user.userDetails.id);
+    console.log("here ", this.props.user.userDetails.value.id);
+    getTools(this.props.user.userDetails.value.id);
   };
 
   render() {
