@@ -22,7 +22,6 @@ import { border } from "@mui/system";
 const { TextArea } = Input;
 
 let bool = true;
-const searchID = document.getElementById("search");
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -75,6 +74,8 @@ class WeeklyStatus extends React.Component {
     pageNumber: 1,
     engagementVal: null,
     projectName: "",
+    showSearchBar: false,
+    resData: false,
   };
 
   onChangePage = (page) => {
@@ -222,10 +223,50 @@ class WeeklyStatus extends React.Component {
     });
   };
 
+  handleUpdateSearchState = (e) => {
+    console.log(e.target.value.length);
+    this.setState(
+      {
+        ...this.state.projectName,
+        projectName: e.target.value,
+      },
+      () => {
+        if (e.target.value === "") {
+          let dates = {
+            strt: this.state.startDt,
+            end: this.state.endDt,
+          };
+          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+        }
+        if (e.target.value.length >= 2) {
+          getWeeklyStatusProjects(
+            this.state.projectName,
+            this.props.user.userDetails.id,
+            this.state.resData
+          );
+          console.log("calling funvtion");
+        }
+      }
+    );
+  };
+
   render() {
     console.log(this.props, "opopopopopopopopopop");
+
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
+    }
+
+    if (this.state.resData) {
+      return (
+        <center>
+          {" "}
+          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
+            {" "}
+            No projects found
+          </p>
+        </center>
+      );
     }
 
     if (this.props.week_status.weeklyStatus && bool) {
@@ -296,35 +337,21 @@ class WeeklyStatus extends React.Component {
                     marginRight: "20px",
                   }}
                 ></span>
-                <span className="searchLabel">Project</span>
+                <span className="searchLabel">Project: </span>
                 <Input
                   type="search"
                   className="searchBox"
                   id="search"
+                  disabled={this.state.showSearchBar}
                   name={this.state.projectName}
                   value={this.state.projectName}
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                    if (e.target.value) {
-                      this.setState({
-                        ...this.state.projectName,
-                        projectName: e.target.value,
-                      });
-                    } else {
-                      this.setState({
-                        ...this.state.projectName,
-                        projectName: "",
-                      });
-                      console.log("No projects");
-                    }
-
-                    console.log(this.state);
-                  }}
+                  onChange={this.handleUpdateSearchState}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
                       getWeeklyStatusProjects(
                         this.state.projectName,
-                        this.props.user.userDetails.id
+                        this.props.user.userDetails.id,
+                        this.state.resData
                       );
                     }
                   }}

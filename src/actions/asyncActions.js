@@ -2,6 +2,7 @@ import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
 import axios from "axios";
+import React from "react";
 // const rowData = document.getElementById("row");
 
 import moment from "moment";
@@ -127,7 +128,7 @@ export const getTimesheetResources = (date, id) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatusProjects = (name, id) => {
+export const getWeeklyStatusProjects = (name, id, resData) => {
   console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name, id);
   // const data = {
   //   // id: req,
@@ -136,7 +137,13 @@ export const getWeeklyStatusProjects = (name, id) => {
   http
     .get(`/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`)
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
+      if (response.data.projects.length === 0) {
+        this.setState({
+          resData: true,
+        });
+        console.log("no record found");
+        console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
+      }
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {
