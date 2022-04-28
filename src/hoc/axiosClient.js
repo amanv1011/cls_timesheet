@@ -3,8 +3,8 @@ import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
 import { LoginStorageUserDetails } from "../assets/text";
 const http = axios.create({
-  baseURL: "http://localhost:3500/",
-  // baseURL: "https://app.api.classicinformatics.net/",
+  // baseURL: "http://localhost:3500/",
+  baseURL: "https://app.api.classicinformatics.net/",
   // headers: {
   //   Authorization:
   //     "Bearer " + Object.keys(Store.getState().user).length > 0
