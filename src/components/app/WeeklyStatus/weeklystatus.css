@@ -1,4 +1,5 @@
 @import url("https://cdn.syncfusion.com/ej2/material.css");
+
 .backBtn {
   display: flex;
   align-items: center;
@@ -6,22 +7,28 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
+
 .upperRow {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 20px;
+  /*Need to be Removed future*/
 }
 
 .upperRow h3 {
   font-weight: 600;
-  font-size: 26px;
+  font-size: 30px;
   line-height: 31px;
-  letter-spacing: -0.02em;
   color: #000000;
+  margin: 0px;
+  letter-spacing: .1px;
 }
+
 .weekTable {
   color: #1f4173;
   overflow: hidden;
-  box-shadow: 0px 4px 8px #d9ebf2;
+  box-shadow: 0px 0px 8px 0px #dddddd;
   background-color: white;
   width: 100%;
   position: relative;
@@ -31,14 +38,60 @@
 
 .headRow {
   background-color: rgb(243, 243, 243);
-  border-bottom: 1px solid grey;
   padding: 10px;
   text-align: left;
+  box-shadow: 0px 0px 5px 0px #afafaf
 }
 
 .thead {
   text-align: left;
+  display: inline-block;
+  padding: 16px 10px;
+  text-align: left;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: .3px;
 }
+
+.tbody {
+  text-align: left;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  padding: 16px 10px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.tfoot {
+  background-color: rgb(243, 243, 243);
+  box-shadow: 0px 0px 5px 1px #e7e7e7;
+}
+
+.dropdown {
+  width: fit-content;
+}
+
+.dropdown-item {
+  padding: 10px 10px !important;
+  background-color: #f0f2f5 !important;
+  border-bottom: 1px solid #c7c3c3 !important;
+}
+
+.tbody .dropdown .dropdown-toggle::after {
+  margin-left: 0.45em;
+  vertical-align: 0.15em;
+}
+
+.dropdown-toggle.projectHealthSelect {
+  cursor: pointer;
+}
+
+.dropdown-menu.show {
+  padding: 0px !important;
+}
+
 
 .select {
   padding: 5px 10px;
@@ -54,6 +107,7 @@
   font-size: 14px;
   line-height: 17px;
 }
+
 .select ::placeholder {
   color: #8597b4;
   font-style: normal;
@@ -65,8 +119,8 @@
 .filter {
   display: flex;
   align-items: center;
-  margin-left: 300px;
 }
+
 .styleSearch {
   display: flex;
   justify-content: center;
@@ -74,6 +128,7 @@
   align-items: center;
   margin-left: 15px;
 }
+
 .searchLabel {
   color: #1f4173;
   width: 44px;
@@ -84,6 +139,7 @@
   line-height: 17px;
   text-align: right;
 }
+
 .searchBox {
   margin-left: 15px;
   width: 210px;
@@ -116,7 +172,7 @@
   text-decoration: none;
 }
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   color: grey;
 }
 
@@ -157,19 +213,19 @@
 
 .textarea {
   background-color: rgb(230, 236, 255);
-
   border-radius: 7px;
-  padding: 5px;
+  /* padding: 5px; */
   border: none;
   resize: none;
   color: grey;
+  height: 50px;
 }
 
 /* textarea.ant-input {
   width: 280px;
 } */
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   background: transparent;
 }
 
@@ -183,7 +239,7 @@
 
 .textareaEdit {
   z-index: 3;
-  width: 364px;
+  width: 100%;
   border-radius: 10px;
   resize: none;
 }
@@ -194,14 +250,13 @@
 
 .healthbtn {
   width: 100%;
-  border-radius: 10px;
   border: none;
-  padding: 5px 7px;
+  padding: 10px 10px;
   margin: 2px 0;
-  /* justify-content: space-between; */
   align-items: center;
   display: flex;
   font-weight: 600;
+  border-bottom: 1px solid #e1dddd;
 }
 
 .ant-modal-close-x,
@@ -218,19 +273,18 @@
 }
 
 .square {
-  width: 12px;
-  height: 12px;
-  left: 1251px;
-  top: 469px;
+  width: 15px;
+  height: 15px;
   display: inline-block;
-  margin: 0 5px 0 0;
-  /* margin: 0 8px 0 16px; */
+  margin: 0 10px 0 0;
   border-radius: 3px;
+  vertical-align: middle;
 }
 
 .mainSquare {
   margin: 0 8px 0 16px;
 }
+
 .status {
   color: #1f4173;
   font-weight: 600;
@@ -298,9 +352,11 @@
     justify-content: left;
     width: 60%;
   }
+
   .filter {
     display: inherit;
   }
+
   .status {
     text-align: left;
   }
