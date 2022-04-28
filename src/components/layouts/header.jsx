@@ -12,6 +12,8 @@ import {
 } from "../../actions/user";
 import { LoginStorageUserDetails } from "../../assets/text";
 import { withRouter } from "react-router";
+import {removeCookie} from "../../actions/user"
+
 const { Option } = Select;
 const Wrapper = styled.div`
   background: #fff;
@@ -58,9 +60,9 @@ class Header extends React.Component {
     optionSelected: this.props.user.userDetails.name,
   };
   changeHandler = (e) => {
-    console.log("logout", e);
-    this.props.history.push("/login");
+    removeCookie("token")
     deleteUserProfile(LoginStorageUserDetails);
+    this.props.history.push("/login");
   };
   render() {
     const { name, image } = this.props.user.userDetails;

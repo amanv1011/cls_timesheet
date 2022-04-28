@@ -21,7 +21,6 @@ const Wrapper = styled.div`
 class Dashboard extends React.Component {
   render() {
  
-
     return (
       <Wrapper>
         Project

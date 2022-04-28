@@ -15,7 +15,9 @@ const http = axios.create({
 });
 if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
   http.defaults.headers.common = {
-    Authorization: `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`,
+    Authorization: `Bearer ${
+      JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
+    }`,
   };
 }
 

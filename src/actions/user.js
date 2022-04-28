@@ -5,27 +5,26 @@ export const setCookie = (key, value) => {
   var date = new Date(value.expiry);
 
   var seconds = date.getTime() / 1000;
-  console.log("is auth", seconds);
-  if (process.browser) {
-    Cookies.set(key, value.token, {
+  // if (process.browser) {
+    Cookies.set(key, value, {
       expires: seconds,
     });
-  }
+  // }
 };
 
 // remove cookie
 export const removeCookie = (key) => {
-  console.log("remove called", key);
-  if (process.browser) {
+  // if (process.browser) {
     Cookies.remove(key);
-  }
+  // }
+  return;
 };
 
 // get cookie
 export const getCookie = (key) => {
-  if (process.browser) {
+  // if (process.browser) {
     return Cookies.get(key);
-  }
+  // }
 };
 
 export const authenticate = (data, next) => {
@@ -51,11 +50,11 @@ export const storeUserProfile = (key, value) => {
   return localStorage.setItem(key, value);
 };
 export const getUserProfile = (data) => {
-  console.log(data);
+  // console.log(data);
   return localStorage.getItem(data);
 };
 
 export const deleteUserProfile = (key) => {
-  console.log("delete user,key")
+  // console.log("delete user,key")
   return localStorage.removeItem(key);
 };

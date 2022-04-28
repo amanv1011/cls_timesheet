@@ -5,18 +5,8 @@ import axios from "axios";
 // const rowData = document.getElementById("row");
 
 import moment from "moment";
-export const Authenticate = (req) => {
-  //   console.log("in authenicate", req);
-  //   const data = {
-  //     email: req.profileObj.email,
-  //   };
-  //   axios
-  //     .post(`http://localhost:3500/api/auth/checkUser`, data)
-  //     .then((response) => {
-  //       console.log(response);
-  //       //   Store.dispatch(syncActions.logout(response.data));
-  //     })
-  //     .catch((err) => {});
+export const Logout = (req,res) => {
+  
 };
 export const getTools = (req, res) => {
   http
@@ -41,7 +31,7 @@ export const getWeeklyStatus = (date, filter, pageNumber) => {
       )}&limit=20&pageNumber=${pageNumber}`
     )
     .then((response) => {
-      console.log("'''''''''''''''''''''''first'''''''''''''''''''''''",response)
+      // console.log("'''''''''''''''''''''''first'''''''''''''''''''''''",response)
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
@@ -94,7 +84,7 @@ export const getTimesheetResources = (date, id) => {
       `/api/projects/25/resources?monthYear=${date}&webtracker_project_id=${id}`
     )
     .then((response) => {
-      console.log("data of resources : ", response.data, date, id);
+      // console.log("data of resources : ", response.data, date, id);
 
       Store.dispatch(syncActions.getTimesheetResources(response.data));
     })
@@ -104,15 +94,13 @@ export const getTimesheetResources = (date, id) => {
 export const getWeeklyStatusProjects = (name, id) => {
   // console.log(name,id,"?????????????????????????????????")
   http
-    .get(
-      `/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`
-    )
+    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`)
     .then((response) => {
-      console.log("//////////////////////////////////",response.data)
+      // console.log("$$$$$$$$$$$$$$$$$$$$", response.data);
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {
-      console.log("error found", err);
+      // console.log("error found", err);
     });
 };
 
