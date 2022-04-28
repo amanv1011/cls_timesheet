@@ -283,10 +283,10 @@ class WeeklyStatus extends React.Component {
               <FaAngleLeft
                 onClick={this.weekback}
                 style={{
-                  fontSize: "20px",
+                  fontSize: "30px",
                   cursor: "pointer",
-                  width: "15px",
-                  height: "10px",
+                  width: "17px",
+                  height: "17px",
                 }}
               />
               {/* Status Logged */}
@@ -299,8 +299,8 @@ class WeeklyStatus extends React.Component {
                 style={{
                   fontSize: "20px",
                   cursor: "pointer",
-                  width: "15px",
-                  height: "10px",
+                  width: "17px",
+                  height: "17px",
                 }}
               />
             </p>
