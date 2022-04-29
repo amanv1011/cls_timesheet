@@ -594,14 +594,14 @@ class WeeklyStatus extends React.Component {
                               background: `linear-gradient(180deg, ${
                                 this.props.week_status.healthStatus.results[
                                   this.props.week_status.healthStatus.results.findIndex(
-                                    (x) => x.name === ele.project_health
+                                    (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
                                   )
                                 ].color_code_1
                               } 10%, 
                               ${
                                 this.props.week_status.healthStatus.results[
                                   this.props.week_status.healthStatus.results.findIndex(
-                                    (x) => x.name === ele.project_health
+                                    (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
                                   )
                                 ].color_code_2
                               } 90%)`,
@@ -611,7 +611,7 @@ class WeeklyStatus extends React.Component {
                           {
                             this.props.week_status.healthStatus.results[
                               this.props.week_status.healthStatus.results.findIndex(
-                                (x) => x.name === ele.project_health
+                                (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
                               )
                             ].name
                           }
