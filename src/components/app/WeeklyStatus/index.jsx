@@ -344,7 +344,7 @@ class WeeklyStatus extends React.Component {
                     if (e.code === "Enter") {
                       getWeeklyStatusProjects(
                         this.state.projectName,
-                        this.props.user.userDetails.id
+                        this.props.user.userDetails.value.id
                       );
                     }
                   }}
@@ -361,7 +361,7 @@ class WeeklyStatus extends React.Component {
                       onClick={() => {
                         getWeeklyStatusProjects(
                           this.state.projectName,
-                          this.props.user.userDetails.id
+                          this.props.user.userDetails.value.id
                         );
                       }}
                     />

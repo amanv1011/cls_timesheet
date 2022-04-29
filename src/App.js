@@ -7,6 +7,7 @@ import Routes from "./components/Routes/";
 import styled from "styled-components";
 const Wrapper = styled.div``;
 function App(state) {
+  
   return (
     <>
       {state.spin.spin && <Spinner />}

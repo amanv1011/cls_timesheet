@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getTools } from "../../../actions/asyncActions";
 import { hubspot } from "../../../assets/images";
 import { Link } from "react-router-dom";
+import {InactiveToolsStorageName} from "../../../assets/text"
 const Wrapper = styled.div`
   background: #fff;
   padding: 2em;
@@ -62,13 +63,14 @@ const ToolDesc = styled.div`
   opacity: 0.5;
 `;
 
+var toolsArr = []
+var bool= true;
 class Tools extends React.Component {
   componentDidMount = () => {
     // getTools(this.props.id)
   };
 
   render() {
-    console.log("props in tools", this.props.userTools);
     if (!this.props.userTools) {
       return <div />;
     }
@@ -78,10 +80,9 @@ class Tools extends React.Component {
           let Image;
           if (d.is_active === false) {
             Image = d.disabled_image_icon;
-            console.log("image false& ", Image);
+            toolsArr.push(RemoveBaseUrl(d.url));
           } else if (d.is_active === true) {
             Image = d.active_image_icon;
-            console.log("image true& ", Image);
           }
 
           // const Image = d.active_image_icon;
@@ -125,6 +126,10 @@ class Tools extends React.Component {
         })
       : [];
 
+      if(bool){
+        localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr))
+        bool= false;
+      }
     return (
       <Wrapper>
         {this.props.userTools ? (
@@ -140,3 +145,26 @@ class Tools extends React.Component {
 }
 
 export default Tools;
+
+
+function RemoveBaseUrl(url) {
+  /*
+   * Replace base URL in given string, if it exists, and return the result.
+   *
+   * e.g. "http://localhost:8000/api/v1/blah/" becomes "/api/v1/blah/"
+   *      "/api/v1/blah/" stays "/api/v1/blah/"
+   */
+  var baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/;
+  var result = "";
+  
+  var match = baseUrlPattern.exec(url);
+  if (match != null) {
+      result = match[0];
+  }
+  
+  if (result.length > 0) {
+      url = url.replace(result, "");
+  }
+  
+  return url;
+  }
