@@ -22,7 +22,6 @@ import { border } from "@mui/system";
 const { TextArea } = Input;
 
 let bool = true;
-const searchID = document.getElementById("search");
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -76,6 +75,8 @@ class WeeklyStatus extends React.Component {
     pageNumber: 1,
     engagementVal: null,
     projectName: "",
+    showSearchBar: false,
+    resData: false,
     projectHealth: [],
   };
 
@@ -241,11 +242,48 @@ class WeeklyStatus extends React.Component {
     // console.log("@@@@#", this.props.week_status.healthStatus.results);
   };
 
+  handleUpdateSearchState = (e) => {
+    console.log(e.target.value.length);
+    this.setState(
+      {
+        ...this.state.projectName,
+        projectName: e.target.value,
+      },
+      () => {
+        if (e.target.value === "") {
+          let dates = {
+            strt: this.state.startDt,
+            end: this.state.endDt,
+          };
+          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+        }
+        if (e.target.value.length >= 2) {
+          getWeeklyStatusProjects(
+            this.state.projectName,
+            this.props.user.userDetails.id
+          );
+          console.log("calling funvtion");
+        }
+      }
+    );
+  };
+
   render() {
     console.log(this.props, "opopopopopopopopopop");
-    let status = this.props.week_status;
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
+    }
+
+    if (this.state.resData) {
+      return (
+        <center>
+          {" "}
+          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
+            {" "}
+            No projects found
+          </p>
+        </center>
+      );
     }
 
     if (this.props.week_status.weeklyStatus && bool) {
@@ -257,22 +295,22 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
-    if (this.props.week_status.weeklyStatus.projects.length) {
-      if (
-        this.state.engagementVal !=
-        this.props.week_status.weeklyStatus.projects[0].engagement_type
-      ) {
-        this.setState({
-          totalPages: Math.ceil(
-            this.props.week_status.weeklyStatus.paging.total / 20
-          ),
-          engagementVal:
-            this.props.week_status.weeklyStatus.projects[0].engagement_type,
-        });
-      }
-    }
-    // console.log(this.props.week_status.healthStatus);
-    // debugger;
+    // if (this.props.week_status.weeklyStatus.projects.length) {
+    //   if (
+    //     this.state.engagementVal !=
+    //     this.props.week_status.weeklyStatus.projects[0].engagement_type
+    //   ) {
+    //     this.setState({
+    //       totalPages: Math.ceil(
+    //         this.props.week_status.weeklyStatus.paging.total / 20
+    //       ),
+    //       engagementVal:
+    //         this.props.week_status.weeklyStatus.projects[0].engagement_type,
+    //     });
+    //   }
+    // }
+
+    // console.log("project name ", this.state.projectName);
 
     return (
       <div style={{ position: "relative", top: "100px" }}>
@@ -316,30 +354,19 @@ class WeeklyStatus extends React.Component {
                     marginRight: "20px",
                   }}
                 ></span>
-                <span className="searchLabel">Project</span>
+                <span className="searchLabel">Project: </span>
                 <Input
                   type="search"
                   className="searchBox"
                   id="search"
+                  disabled={
+                    this.props.week_status.weeklyStatus.projects.length
+                      ? false
+                      : true
+                  }
                   name={this.state.projectName}
                   value={this.state.projectName}
-                  onChange={(e) => {
-                    // console.log(e.target.value);
-                    if (e.target.value) {
-                      this.setState({
-                        ...this.state.projectName,
-                        projectName: e.target.value,
-                      });
-                    } else {
-                      this.setState({
-                        ...this.state.projectName,
-                        projectName: "",
-                      });
-                      // console.log("No projects");
-                    }
-
-                    // console.log(this.state);
-                  }}
+                  onChange={this.handleUpdateSearchState}
                   onKeyDown={(e) => {
                     if (e.code === "Enter") {
                       getWeeklyStatusProjects(
@@ -600,33 +627,35 @@ class WeeklyStatus extends React.Component {
                           <div
                             style={{
                               background: `linear-gradient(180deg, ${
-                                this.props.week_status.healthStatus
-                                  ? this.props.week_status.healthStatus.results[
-                                      this.props.week_status.healthStatus.results.findIndex(
-                                        (x) => x.name === ele.project_health
-                                      )
-                                    ].color_code_1
-                                  : ""
+                                this.props.week_status.healthStatus.results[
+                                  this.props.week_status.healthStatus.results.findIndex(
+                                    (x) =>
+                                      x.name.toLowerCase() ===
+                                      ele.project_health.toLowerCase()
+                                  )
+                                ].color_code_1
                               } 10%,
                               ${
-                                this.props.week_status.healthStatus
-                                  ? this.props.week_status.healthStatus.results[
-                                      this.props.week_status.healthStatus.results.findIndex(
-                                        (x) => x.name === ele.project_health
-                                      )
-                                    ].color_code_2
-                                  : ""
+                                this.props.week_status.healthStatus.results[
+                                  this.props.week_status.healthStatus.results.findIndex(
+                                    (x) =>
+                                      x.name.toLowerCase() ===
+                                      ele.project_health.toLowerCase()
+                                  )
+                                ].color_code_2
                               } 90%)`,
                             }}
                             className="square"
                           ></div>
-                          {this.props.week_status.healthStatus
-                            ? this.props.week_status.healthStatus.results[
-                                this.props.week_status.healthStatus.results.findIndex(
-                                  (x) => x.name === ele.project_health
-                                )
-                              ].name
-                            : []}
+                          {
+                            this.props.week_status.healthStatus.results[
+                              this.props.week_status.healthStatus.results.findIndex(
+                                (x) =>
+                                  x.name.toLowerCase() ===
+                                  ele.project_health.toLowerCase()
+                              )
+                            ].name
+                          }
                         </div>
                         <ul className="dropdown-menu a">
                           {this.props.week_status.healthStatus
@@ -746,7 +775,9 @@ class WeeklyStatus extends React.Component {
                 {" "}
                 <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
                   {" "}
-                  No projects assigned, please contact your PM
+                  {this.state.projectName != ""
+                    ? "No record found"
+                    : "No projects assigned, please contact your PM"}
                 </p>
               </center>
             )}
