@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   position: absolute;
-  z-index: 9999;
+  z-index: 99999;
   margin: 0 auto;
   width: -webkit-fill-available;
   width: -moz-available;
@@ -13,28 +13,32 @@ const Container = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 23%;
+  margin-top: 20%;
 `;
 const Load = styled.div`
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #086caf; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 2s linear infinite;
+border: 16px solid #f3f3f3;
+border-radius: 50%;
+border-top: 16px solid #3498db;
+width: 120px;
+height: 120px;
+-webkit-animation: spin 2s linear infinite; /* Safari */
+animation: spin 1s linear infinite;
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
 `;
 
 const antIcon = (
-  <LoadingOutlined style={{ fontSize: 100, color: "primary" }} spin />
+  <LoadingOutlined style={{ fontSize: 24 }} spin />
 );
 
 function Loader(state) {
@@ -42,8 +46,10 @@ function Loader(state) {
   return (
     <Wrapper>
       <Container>
-        <Spin indicator={antIcon} />
-      </Container>
+      <Load>
+        {/* <Spin size="large"/> */}
+      </Load>
+        </Container>
     </Wrapper>
   );
 }
