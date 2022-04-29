@@ -419,7 +419,7 @@ class WeeklyStatus extends React.Component {
                     : true
                 }
               >
-                <option value="" disabled selected>
+                <option value="" selected>
                   Engagement Type
                 </option>
 
@@ -433,7 +433,7 @@ class WeeklyStatus extends React.Component {
                     )
                   : []}
                 {/* <option value="clear">Clear </option> */}
-                <option value="">Clear Filter</option>
+                {/* <option value="">Clear Filter</option> */}
               </select>
             </div>
           </div>
@@ -616,6 +616,22 @@ class WeeklyStatus extends React.Component {
                         <div
                           className="dropdown-toggle projectHealthSelect"
                           data-bs-toggle="dropdown"
+                          disabled={
+                            this.state.count === 0 &&
+                            (ele.is_email_sent == false ||
+                              ele.is_email_sent == null)
+                              ? false
+                              : true
+                          }
+                          style={{
+                            cursor: `${
+                              this.state.count === 0 &&
+                              (ele.is_email_sent == false ||
+                                ele.is_email_sent == null)
+                                ? "pointer"
+                                : "not-allowed"
+                            }`,
+                          }}
                           onClick={() => {
                             this.setState({
                               description: ele.weekly_status_description,
@@ -657,12 +673,12 @@ class WeeklyStatus extends React.Component {
                             ].name
                           }
                         </div>
-                        <ul className="dropdown-menu a">
+                        <ul className="dropdown-menu">
                           {this.props.week_status.healthStatus
                             ? this.props.week_status.healthStatus.results.map(
                                 (ele, i) => {
                                   return (
-                                    <span
+                                    <button
                                       className="healthbtn"
                                       onClick={this.updateHealth}
                                       value={ele.id}
@@ -675,13 +691,16 @@ class WeeklyStatus extends React.Component {
                                         className="square"
                                       ></div>
                                       {ele.name}
-                                    </span>
+                                    </button>
                                   );
                                 }
                               )
                             : []}
                         </ul>
                       </div>
+
+                      {/* Required in future */}
+
                       {/* {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
                         (ele.is_email_sent == false ||
