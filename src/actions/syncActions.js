@@ -15,7 +15,6 @@ export const getUserTools = (data) => ({
   payload: data,
 });
 export const getWeeklyStatus = (data) => (
-  console.log("%%%%%%%%%%%%%%%%%%%%%", data),
   {
     type: actionTypes.GET_WEEKLY_STATUS,
     payload: data,
@@ -31,7 +30,6 @@ export const get_engagement_types = (data) => ({
 });
 
 export const getTimeSheet = (data) => (
-  console.log("data from payload in sync: ", data),
   {
     type: actionTypes.GET_TIME_SHEET,
     payload: data,
@@ -39,7 +37,6 @@ export const getTimeSheet = (data) => (
 );
 
 export const getTimesheetResources = (data) => (
-  console.log("data from payload in sync: ", data),
   {
     type: actionTypes.GET_TIME_SHEET_RESOURCES,
     payload: data,

@@ -21,7 +21,7 @@ const Name = styled.div`
 `;
 class LandingPage extends Component {
   componentDidMount = () => {
-    console.log("here ", this.props.user.userDetails.id);
+    // console.log("here ", this.props.user.userDetails.id);
     getTools(this.props.user.userDetails.id);
   };
 
@@ -42,7 +42,7 @@ class LandingPage extends Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log("store", store);
+  // console.log("store", store);
   return {
     ...store,
   };

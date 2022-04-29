@@ -127,7 +127,7 @@ class WeeklyStatus extends React.Component {
     this.setState({
       showHealthOption: null,
       showHealthBox: !this.state.showHealthBox,
-      // healthOption: e.target.value,
+      healthOption: e.target.value,
     });
     let data = {
       project_health_status_id: e.target.value,
@@ -140,7 +140,7 @@ class WeeklyStatus extends React.Component {
       end: this.state.endDt,
     };
     if (data.description) {
-      console.log(data, dates);
+      // console.log(data, dates);
       updateWeeklyStatus(data, dates, this.state.pageNumber);
     } else {
       alert("Please Update the week status first.");
@@ -180,7 +180,7 @@ class WeeklyStatus extends React.Component {
       strt: new Date(this.state.startDt - 13 * 24 * 3600 * 1000),
       end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
-    console.log(dates);
+    // console.log(dates);
     getWeeklyStatus(dates, "", this.state.currentPage);
   };
 
@@ -207,7 +207,7 @@ class WeeklyStatus extends React.Component {
       strt: new Date(startz),
       end: new Date(endz),
     };
-    console.log(dates_);
+    // console.log(dates_);
     getWeeklyStatus(dates_, "", this.state.currentPage);
   };
 
@@ -270,7 +270,6 @@ class WeeklyStatus extends React.Component {
 
   render() {
     console.log(this.props, "opopopopopopopopopop");
-
     if (!this.props.week_status.weeklyStatus) {
       return <div></div>;
     }
@@ -372,7 +371,7 @@ class WeeklyStatus extends React.Component {
                     if (e.code === "Enter") {
                       getWeeklyStatusProjects(
                         this.state.projectName,
-                        this.props.user.userDetails.id
+                        this.props.user.userDetails.value.id
                       );
                     }
                   }}
@@ -389,7 +388,7 @@ class WeeklyStatus extends React.Component {
                       onClick={() => {
                         getWeeklyStatusProjects(
                           this.state.projectName,
-                          this.props.user.userDetails.id
+                          this.props.user.userDetails.value.id
                         );
                       }}
                     />
@@ -613,10 +612,17 @@ class WeeklyStatus extends React.Component {
                       </>
                     </td>
                     <td className="tbody" style={{ width: "20%" }}>
-                      <div class="dropdown">
+                      <div className="dropdown">
                         <div
                           className="dropdown-toggle projectHealthSelect"
                           data-bs-toggle="dropdown"
+                          onClick={() => {
+                            this.setState({
+                              description: ele.weekly_status_description,
+                              showHealthOption: i,
+                              projectId: ele.project_id,
+                            });
+                          }}
                         >
                           <div
                             style={{
@@ -651,27 +657,29 @@ class WeeklyStatus extends React.Component {
                             ].name
                           }
                         </div>
-                        <ul className="dropdown-menu">
-                          {this.props.week_status.healthStatus.results.map(
-                            (ele, i) => {
-                              return (
-                                <span
-                                  className="healthbtn"
-                                  onClick={this.updateHealth}
-                                  value={ele.id}
-                                  key={i}
-                                >
-                                  <div
-                                    style={{
-                                      background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
-                                    }}
-                                    className="square"
-                                  ></div>
-                                  {ele.name}
-                                </span>
-                              );
-                            }
-                          )}
+                        <ul className="dropdown-menu a">
+                          {this.props.week_status.healthStatus
+                            ? this.props.week_status.healthStatus.results.map(
+                                (ele, i) => {
+                                  return (
+                                    <span
+                                      className="healthbtn"
+                                      onClick={this.updateHealth}
+                                      value={ele.id}
+                                      key={i}
+                                    >
+                                      <div
+                                        style={{
+                                          background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
+                                        }}
+                                        className="square"
+                                      ></div>
+                                      {ele.name}
+                                    </span>
+                                  );
+                                }
+                              )
+                            : []}
                         </ul>
                       </div>
                       {/* {(this.state.showHealthOption == i &&

@@ -3,6 +3,20 @@ import { connect } from "react-redux";
 import DashboardTemplate from '../../layouts/template'
 import { withRouter} from 'react-router'
 
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  position: relative;
+  left: 200px;
+  width: 75vw;
+  height: 80vh;
+  top: 70px;
+  @media (max-width: 1200px) {
+    top: 60px;
+  }
+`;
+
+
 class Dashboard extends React.Component {
   render() {
     // console.log("dashboard", this.props)

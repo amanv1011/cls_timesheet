@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
 import { LoginStorageUserDetails } from "../../assets/text";
+import {setCookie} from "../../actions/user"
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -52,17 +53,17 @@ class Login extends Component {
   }
 
   responseGoogleSuccess = (response) => {
-    console.log("1response", response);
+    // console.log("1response", response);
     const data = {
       email: response.profileObj.email,
       idToken: response.tokenId,
     };
 
-    console.log(data, "lllllllllllllllllllls");
+    // console.log(data, "lllllllllllllllllllls");
     http
       .post(`/api/auth/google`, data)
       .then((res) => {
-        console.log("2response from", res.data);
+        // console.log("2response from", res.data);
         const UserDetails = {
           email: res.data.email,
           name: res.data.name,
@@ -70,6 +71,8 @@ class Login extends Component {
           token: res.data.token,
           id: res.data.id,
         };
+        // setting cookie token
+        setCookie("token",UserDetails.token)
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
@@ -88,9 +91,9 @@ class Login extends Component {
   componentWillReceiveProps = (props) => {};
 
   render() {
-    console.error("process.env", process.env);
-    console.error("this.props.err.error", this.props);
-    console.log("Strore state", Store.getState());
+    // console.error("process.env", process.env);
+    // console.error("this.props.err.error", this.props);
+    // console.log("Strore state", Store.getState());
 
     return (
       <Wrapper>
@@ -139,7 +142,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log("in login store", store);
+  // console.log("in login store", store);
   return {
     ...store.spin,
     err: store.error,

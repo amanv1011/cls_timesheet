@@ -15,7 +15,7 @@ import { withRouter } from "react-router";
 
 import * as syncActions from "../../actions/syncActions";
 import { LoginStorageUserDetails } from "../../assets/text";
-
+import {removeCookie} from "../../actions/user"
 const { Option } = Select;
 
 const Wrapper = styled.div`
@@ -74,8 +74,11 @@ class Header extends React.Component {
 
   changeHandler = (e) => {
     // console.log("logout", e);
-    this.props.history.push("/login");
+   
+    removeCookie("token")
     deleteUserProfile(LoginStorageUserDetails);
+    window.location.reload(true);
+
   };
   render() {
     const { name, image } = this.props.user.userDetails;
