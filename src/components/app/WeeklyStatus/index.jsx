@@ -53,6 +53,7 @@ class WeeklyStatus extends React.Component {
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
     get_engagement_types();
+    this.projectHealthList();
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -75,6 +76,7 @@ class WeeklyStatus extends React.Component {
     pageNumber: 1,
     engagementVal: null,
     projectName: "",
+    projectHealth: [],
   };
 
   onChangePage = (page) => {
@@ -221,6 +223,23 @@ class WeeklyStatus extends React.Component {
       showHealthOption: null,
     });
   };
+  projectHealthList = () => {
+    // let tempArray = [];
+    // if (
+    //   this.props.week_status.healthStatus &&
+    //   this.props.week_status.healthStatus.results
+    // ) {
+    //   this.props.week_status.healthStatus.results.forEach((element) => {
+    //     tempArray.push({
+    //       label: `<div><div className='square mainSquare' style={{'backgroundImage': 'linear-gradient(180deg, ${element.color_code_1} 0%, ${element.color_code_2} 100%)'}}></div>${element.name}</div>`,
+    //     });
+    //   });
+    // }
+    // this.setState({
+    //   projectHealth: tempArray,
+    // });
+    // console.log("@@@@#", this.props.week_status.healthStatus.results);
+  };
 
   render() {
     console.log(this.props, "opopopopopopopopopop");
@@ -255,7 +274,7 @@ class WeeklyStatus extends React.Component {
     // console.log("project name ", this.state.projectName);
 
     return (
-      <div style={{ position: "relative", top: "70px" }}>
+      <div style={{ position: "relative", top: "100px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -264,10 +283,10 @@ class WeeklyStatus extends React.Component {
               <FaAngleLeft
                 onClick={this.weekback}
                 style={{
-                  fontSize: "20px",
+                  fontSize: "30px",
                   cursor: "pointer",
-                  width: "15px",
-                  height: "10px",
+                  width: "17px",
+                  height: "17px",
                 }}
               />
               {/* Status Logged */}
@@ -280,8 +299,8 @@ class WeeklyStatus extends React.Component {
                 style={{
                   fontSize: "20px",
                   cursor: "pointer",
-                  width: "15px",
-                  height: "10px",
+                  width: "17px",
+                  height: "17px",
                 }}
               />
             </p>
@@ -397,12 +416,6 @@ class WeeklyStatus extends React.Component {
               className="thead"
               style={{
                 width: "30%",
-                display: "inline-block",
-                padding: "16px 10px",
-                textAlign: "left",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Project
@@ -411,11 +424,6 @@ class WeeklyStatus extends React.Component {
               className="thead"
               style={{
                 width: "20%",
-                display: "inline-block",
-                padding: "16px 10px",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Engagement type
@@ -424,11 +432,6 @@ class WeeklyStatus extends React.Component {
               className="thead"
               style={{
                 width: "30%",
-                display: "inline-block",
-                padding: "16px 10px",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Week Status
@@ -437,11 +440,6 @@ class WeeklyStatus extends React.Component {
               className="thead"
               style={{
                 width: "20%",
-                display: "inline-block",
-                padding: "16px 10px",
-                fontStyle: "normal",
-                fontWeight: "600",
-                fontSize: "14px",
               }}
             >
               Project Health
@@ -475,39 +473,25 @@ class WeeklyStatus extends React.Component {
                   >
                     <td
                       style={{
-                        fontStyle: "normal",
-                        fontWeight: "600",
-                        fontSize: "14px",
-                        padding: "13px 10px",
                         width: "30%",
-                        textAlign: "left",
-                        textTransform: "capitalize",
                       }}
-                      className="thead"
+                      className="tbody"
                     >
                       {" "}
                       {ele.project_name}
                     </td>
                     <td
-                      className="thead"
+                      className="tbody"
                       style={{
-                        fontStyle: "normal",
-                        fontWeight: "600",
-                        fontSize: "13px",
-                        color: "grey",
                         width: "20%",
-                        padding: "13px 10px",
-                        // border: "1px solid green",
                       }}
                     >
                       {ele.engagement_type}
                     </td>
                     <td
-                      className="thead"
+                      className="tbody"
                       style={{
                         width: "30% ",
-                        padding: "13px 10px",
-                        background: "#F9FAFD",
                       }}
                     >
                       <>
@@ -515,7 +499,7 @@ class WeeklyStatus extends React.Component {
                           <TextArea
                             autoFocus
                             className="textareaEdit"
-                            rows={3}
+                            rows={2}
                             value={this.state.description}
                             onChange={(e) => {
                               this.setState({
@@ -599,15 +583,63 @@ class WeeklyStatus extends React.Component {
                         )}
                       </>
                     </td>
-                    <td
-                      className="thead"
-                      style={{
-                        width: "20%",
-                        padding: "13px 10px",
-                        background: "#F9FAFD",
-                      }}
-                    >
-                      {(this.state.showHealthOption == i &&
+                    <td className="tbody" style={{ width: "20%" }}>
+                      <div class="dropdown">
+                        <div
+                          className="dropdown-toggle projectHealthSelect"
+                          data-bs-toggle="dropdown"
+                        >
+                          <div
+                            style={{
+                              background: `linear-gradient(180deg, ${
+                                this.props.week_status.healthStatus.results[
+                                  this.props.week_status.healthStatus.results.findIndex(
+                                    (x) => x.name === ele.project_health
+                                  )
+                                ].color_code_1
+                              } 10%, 
+                              ${
+                                this.props.week_status.healthStatus.results[
+                                  this.props.week_status.healthStatus.results.findIndex(
+                                    (x) => x.name === ele.project_health
+                                  )
+                                ].color_code_2
+                              } 90%)`,
+                            }}
+                            className="square"
+                          ></div>
+                          {
+                            this.props.week_status.healthStatus.results[
+                              this.props.week_status.healthStatus.results.findIndex(
+                                (x) => x.name === ele.project_health
+                              )
+                            ].name
+                          }
+                        </div>
+                        <ul className="dropdown-menu">
+                          {this.props.week_status.healthStatus.results.map(
+                            (ele, i) => {
+                              return (
+                                <span
+                                  className="healthbtn"
+                                  onClick={this.updateHealth}
+                                  value={ele.id}
+                                  key={i}
+                                >
+                                  <div
+                                    style={{
+                                      background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
+                                    }}
+                                    className="square"
+                                  ></div>
+                                  {ele.name}
+                                </span>
+                              );
+                            }
+                          )}
+                        </ul>
+                      </div>
+                      {/* {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
                         (ele.is_email_sent == false ||
                           ele.is_email_sent == null)) ||
@@ -649,7 +681,7 @@ class WeeklyStatus extends React.Component {
                         </Modal>
                       ) : (
                         <span
-                          style={{ fontWeight: "600", cursor: "pointer" }}
+                          style={{ fontWeight: "400", cursor: "pointer" }}
                           onClick={(e) => {
                             this.setState({
                               description: ele.weekly_status_description,
@@ -664,19 +696,20 @@ class WeeklyStatus extends React.Component {
                                 showHealthBox: true,
                               });
                             }}
+                            style={{margin: '0px'}}
                           >
                             <div
                               style={{
                                 background: `${
-                                  ele.weekly_project_health == "Poor"
+                                  ele.project_health == "Poor"
                                     ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
-                                    : ele.weekly_project_health == "Good"
+                                    : ele.project_health == "Good"
                                     ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
-                                    : ele.weekly_project_health == "Average"
+                                    : ele.project_health == "Average"
                                     ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
-                                    : ele.weekly_project_health == "Excellent"
+                                    : ele.project_health == "Excellent"
                                     ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
-                                    : ele.weekly_project_health == null
+                                    : ele.project_health == null
                                     ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
                                     : ""
                                 }`,
@@ -684,12 +717,12 @@ class WeeklyStatus extends React.Component {
                               className="square mainSquare"
                             ></div>
 
-                            {ele.weekly_project_health == null
+                            {ele.project_health == null
                               ? "Good"
-                              : ele.weekly_project_health}
+                              : ele.project_health}
                           </p>
                         </span>
-                      )}
+                      )} */}
                     </td>
                   </tr>
                 );
@@ -704,12 +737,7 @@ class WeeklyStatus extends React.Component {
               </center>
             )}
           </tbody>
-          <tfoot
-            style={{
-              backgroundColor: "rgb(243, 243, 243)",
-              // borderTop:"20px solid rgb(233, 238, 243)"
-            }}
-          >
+          <tfoot className="tfoot">
             <Pagination
               page={this.state.currentPage}
               pages={this.state.totalPages}

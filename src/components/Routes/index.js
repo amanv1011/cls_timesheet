@@ -18,10 +18,8 @@ import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
 import {getCookie} from "../../actions/user"
-import {InactiveToolsStorageName} from "../../assets/text"
 function App() {
   var isLoggedIn = getCookie("token");
-  var tools = JSON.parse(localStorage.getItem(InactiveToolsStorageName))
 
   return (
     <>
