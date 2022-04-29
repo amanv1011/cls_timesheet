@@ -128,19 +128,21 @@ export const getTimesheetResources = (date, id) => {
     .catch((err) => {});
 };
 
-export const getWeeklyStatusProjects = (name, id, resData) => {
+export const getWeeklyStatusProjects = (name, id) => {
   console.log("nameeeeeeeeeeeeeeeeeeeeeeeee", name, id);
   // const data = {
   //   // id: req,
   // };
   // let html = "";
   http
-    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`)
+    .get(
+      `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
+        name
+      )}&project_owner_id=${id}`
+    )
     .then((response) => {
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
       if (response.data.projects.length === 0) {
-        this.setState({
-          resData: true,
-        });
         console.log("no record found");
         console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
       }

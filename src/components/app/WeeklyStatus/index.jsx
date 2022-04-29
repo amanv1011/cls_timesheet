@@ -75,12 +75,9 @@ class WeeklyStatus extends React.Component {
     pageNumber: 1,
     engagementVal: null,
     projectName: "",
-<<<<<<< HEAD
     showSearchBar: false,
     resData: false,
-=======
     projectHealth: [],
->>>>>>> 316fc2cd77386b1d39b29fd8505edcf883e36794
   };
 
   onChangePage = (page) => {
@@ -263,8 +260,7 @@ class WeeklyStatus extends React.Component {
         if (e.target.value.length >= 2) {
           getWeeklyStatusProjects(
             this.state.projectName,
-            this.props.user.userDetails.id,
-            this.state.resData
+            this.props.user.userDetails.id
           );
           console.log("calling funvtion");
         }
@@ -300,20 +296,20 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
-    if (this.props.week_status.weeklyStatus.projects.length) {
-      if (
-        this.state.engagementVal !=
-        this.props.week_status.weeklyStatus.projects[0].engagement_type
-      ) {
-        this.setState({
-          totalPages: Math.ceil(
-            this.props.week_status.weeklyStatus.paging.total / 20
-          ),
-          engagementVal:
-            this.props.week_status.weeklyStatus.projects[0].engagement_type,
-        });
-      }
-    }
+    // if (this.props.week_status.weeklyStatus.projects.length) {
+    //   if (
+    //     this.state.engagementVal !=
+    //     this.props.week_status.weeklyStatus.projects[0].engagement_type
+    //   ) {
+    //     this.setState({
+    //       totalPages: Math.ceil(
+    //         this.props.week_status.weeklyStatus.paging.total / 20
+    //       ),
+    //       engagementVal:
+    //         this.props.week_status.weeklyStatus.projects[0].engagement_type,
+    //     });
+    //   }
+    // }
 
     // console.log("project name ", this.state.projectName);
 
@@ -364,7 +360,11 @@ class WeeklyStatus extends React.Component {
                   type="search"
                   className="searchBox"
                   id="search"
-                  disabled={this.state.showSearchBar}
+                  disabled={
+                    this.props.week_status.weeklyStatus.projects.length
+                      ? false
+                      : true
+                  }
                   name={this.state.projectName}
                   value={this.state.projectName}
                   onChange={this.handleUpdateSearchState}
@@ -372,8 +372,7 @@ class WeeklyStatus extends React.Component {
                     if (e.code === "Enter") {
                       getWeeklyStatusProjects(
                         this.state.projectName,
-                        this.props.user.userDetails.id,
-                        this.state.resData
+                        this.props.user.userDetails.id
                       );
                     }
                   }}
@@ -624,14 +623,18 @@ class WeeklyStatus extends React.Component {
                               background: `linear-gradient(180deg, ${
                                 this.props.week_status.healthStatus.results[
                                   this.props.week_status.healthStatus.results.findIndex(
-                                    (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
+                                    (x) =>
+                                      x.name.toLowerCase() ===
+                                      ele.project_health.toLowerCase()
                                   )
                                 ].color_code_1
-                              } 10%, 
+                              } 10%,
                               ${
                                 this.props.week_status.healthStatus.results[
                                   this.props.week_status.healthStatus.results.findIndex(
-                                    (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
+                                    (x) =>
+                                      x.name.toLowerCase() ===
+                                      ele.project_health.toLowerCase()
                                   )
                                 ].color_code_2
                               } 90%)`,
@@ -641,7 +644,9 @@ class WeeklyStatus extends React.Component {
                           {
                             this.props.week_status.healthStatus.results[
                               this.props.week_status.healthStatus.results.findIndex(
-                                (x) => x.name.toLowerCase() === ele.project_health.toLowerCase()
+                                (x) =>
+                                  x.name.toLowerCase() ===
+                                  ele.project_health.toLowerCase()
                               )
                             ].name
                           }
@@ -762,7 +767,9 @@ class WeeklyStatus extends React.Component {
                 {" "}
                 <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
                   {" "}
-                  No projects assigned, please contact your PM
+                  {this.state.projectName != ""
+                    ? "No record found"
+                    : "No projects assigned, please contact your PM"}
                 </p>
               </center>
             )}
