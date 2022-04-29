@@ -633,7 +633,7 @@ class WeeklyStatus extends React.Component {
                             ? this.props.week_status.healthStatus.results.map(
                                 (ele, i) => {
                                   return (
-                                    <button
+                                    <span
                                       className="healthbtn"
                                       onClick={this.updateHealth}
                                       value={ele.id}
@@ -646,7 +646,7 @@ class WeeklyStatus extends React.Component {
                                         className="square"
                                       ></div>
                                       {ele.name}
-                                    </button>
+                                    </span>
                                   );
                                 }
                               )
