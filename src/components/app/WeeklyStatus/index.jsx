@@ -628,7 +628,7 @@ class WeeklyStatus extends React.Component {
                               ].name
                             : []}
                         </div>
-                        <ul className="dropdown-menu">
+                        <ul className="dropdown-menu a">
                           {this.props.week_status.healthStatus
                             ? this.props.week_status.healthStatus.results.map(
                                 (ele, i) => {
