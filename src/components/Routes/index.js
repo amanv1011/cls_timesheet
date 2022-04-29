@@ -17,22 +17,25 @@ import Settings from "../app/Settings";
 import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
-
+import {getCookie} from "../../actions/user"
 function App() {
+  var isLoggedIn = getCookie("token");
+
   return (
     <>
       <Router>
         {/* <Switch> */}
-        <ProtectedRoute path="/weekly-status" exact component={WeeklyStatus} />
+        <ProtectedRoute path="/weekly-status" exact onEnter={() => console.log("Entered weekly status")} component={WeeklyStatus} />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
-        <ProtectedRoute path="/" exact component={LandingPage} />
+        {/* <ProtectedRoute path="/" exact component={LandingPage} /> */}
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
         <ProtectedRoute path="/projects" exact component={Projects} />
         <ProtectedRoute path="/reports" exact component={Report} />
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
-        <Route path="/login" exact component={Login} />
+        <Route path="/" exact component={ isLoggedIn ? LandingPage : Login} />
+
         {/* <Redirect to="/login" /> */}
         {/* </Switch> */}
       </Router>
@@ -41,3 +44,4 @@ function App() {
 }
 
 export default App;
+
