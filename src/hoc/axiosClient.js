@@ -3,6 +3,7 @@ import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
 import { LoginStorageUserDetails } from "../assets/text";
 import {removeCookie, deleteUserProfile} from "../actions/user"
+import history from "./history";
 
 const http = axios.create({
   baseURL: "http://localhost:3501/",
@@ -39,6 +40,7 @@ if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
 http.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    // useHistory().push("/dashboard");
     Store.dispatch(syncActions.Spinner(true));
     return config;
   },
@@ -59,7 +61,7 @@ http.interceptors.response.use(
     if(response.status == 503){
       deleteUserProfile(LoginStorageUserDetails);
       removeCookie('token');
-      window.location.reload(true);
+      history.push("/");
     }
     Store.dispatch(syncActions.Spinner(false));
     return response;
@@ -68,7 +70,6 @@ http.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
   
-
     Store.dispatch(syncActions.Error(error));
     Store.dispatch(syncActions.Spinner(false));
     return Promise.reject(error);
