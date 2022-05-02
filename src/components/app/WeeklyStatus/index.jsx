@@ -51,7 +51,7 @@ class WeeklyStatus extends React.Component {
     // getWeeklyStatus(dates, "");
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
-    get_engagement_types();
+    get_engagement_types(this.props.user.userDetails.id);
     this.projectHealthList();
   };
 
