@@ -2,12 +2,11 @@ import Store from "../redux/store";
 import * as syncActions from "./syncActions";
 import http from "../hoc/axiosClient";
 import axios from "axios";
+import React from "react";
 // const rowData = document.getElementById("row");
 
 import moment from "moment";
-export const Logout = (req,res) => {
-  
-};
+export const Logout = (req, res) => {};
 export const getTools = (req, res) => {
   http
     .get(`/api/auth/getusertools?id=${req}`)
@@ -37,7 +36,6 @@ export const getWeeklyStatus = (date, filter, pageNumber) => {
 };
 
 export const updateWeeklyStatus = (req, res, pageNumber) => {
-
   http
     .put(
       `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
@@ -83,12 +81,20 @@ export const getTimesheetResources = (date, id) => {
 
 export const getWeeklyStatusProjects = (name, id) => {
   http
-    .get(`/api/projects/status/weekly/searchtable?searchquery=${name}&id=${id}`)
+    .get(
+      `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
+        name
+      )}&project_owner_id=${id}`
+    )
     .then((response) => {
+      console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
+      if (response.data.projects.length === 0) {
+        console.log("no record found");
+        console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
+      }
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
-    .catch((err) => {
-    });
+    .catch((err) => {});
 };
 
 export const get_health_status = () => {
@@ -99,9 +105,9 @@ export const get_health_status = () => {
     })
     .catch((err) => {});
 };
-export const get_engagement_types = () => {
+export const get_engagement_types = (id) => {
   http
-    .get(`/api/table/projects/field/engagement_type`)
+    .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })

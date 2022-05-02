@@ -5,13 +5,15 @@ import React, { useState, useEffect } from "react";
 import Spinner from "./components/Loader";
 import Routes from "./components/Routes/";
 import styled from "styled-components";
+import history  from "./hoc/history";
+
 const Wrapper = styled.div``;
 function App(state) {
   
   return (
     <>
       {state.spin.spin && <Spinner />}
-      <Routes />
+      <Routes history={history}/>
     </>
   );
 }
