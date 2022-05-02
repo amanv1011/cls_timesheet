@@ -120,7 +120,7 @@ class Header extends React.Component {
               {/* <div style={{ alignSelf: 'center' }}>{name}</div> */}
               <Select
                 value={this.state.optionSelected}
-                style={{ width: 120 }}
+             //   style={{ width: 120 }}
                 bordered={false}
                 onChange={(e) => this.changeHandler(e)}
               >
