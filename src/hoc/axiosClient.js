@@ -2,12 +2,12 @@ import axios from "axios";
 import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
 import { LoginStorageUserDetails } from "../assets/text";
-import {removeCookie, deleteUserProfile} from "../actions/user"
+import { removeCookie, deleteUserProfile } from "../actions/user";
 import history from "./history";
 
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
-  baseURL: "https://stageapp.api.classicinformatics.net/",
+  baseURL: "http://localhost:3501/",
+  // baseURL: "https://stageapp.api.classicinformatics.net/",
   // headers: {
   //   Authorization:
   //     "Bearer " + Object.keys(Store.getState().user).length > 0
@@ -58,9 +58,9 @@ http.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     //LOGOUT
-    if(response.status == 503){
+    if (response.status == 503) {
       deleteUserProfile(LoginStorageUserDetails);
-      removeCookie('token');
+      removeCookie("token");
       history.push("/");
     }
     Store.dispatch(syncActions.Spinner(false));
@@ -69,7 +69,7 @@ http.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-  
+
     Store.dispatch(syncActions.Error(error));
     Store.dispatch(syncActions.Spinner(false));
     return Promise.reject(error);
