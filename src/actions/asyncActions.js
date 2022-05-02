@@ -105,9 +105,9 @@ export const get_health_status = () => {
     })
     .catch((err) => {});
 };
-export const get_engagement_types = () => {
+export const get_engagement_types = (id) => {
   http
-    .get(`/api/table/projects/field/engagement_type`)
+    .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
