@@ -360,9 +360,15 @@ class WeeklyStatus extends React.Component {
                   className="searchBox"
                   id="search"
                   disabled={
-                    this.props.week_status.weeklyStatus.projects.length
+                    // this.props.week_status.weeklyStatus.projects.length
+                    //   ? false
+                    //   : true
+                    this.state.projectName != ""
                       ? false
-                      : true
+                      : this.props.week_status.weeklyStatus.projects.length ===
+                        0
+                      ? true
+                      : false
                   }
                   name={this.state.projectName}
                   value={this.state.projectName}
@@ -548,26 +554,10 @@ class WeeklyStatus extends React.Component {
                               readOnly
                               value={ele.weekly_status_description}
                               suffix={
-                                this.state.count === 0 &&
-                                (ele.is_email_sent == false ||
-                                  ele.is_email_sent == null) ? (
-                                  <AiOutlineEdit
-                                    style={{ cursor: "pointer" }}
-                                    id={ele.project_owner_id}
-                                    onClick={() => {
-                                      this.setState({
-                                        selectorRow: i,
-                                        description:
-                                          ele.weekly_status_description,
-                                        projectId: ele.project_id,
-                                        statusId:
-                                          ele.weekly_project_health_status_id,
-                                      });
-                                    }}
-                                  />
-                                ) : this.state.count != 0 &&
-                                  ele.is_email_sent == false &&
-                                  ele.weekly_status_description != null ? (
+                                this.state.count === 0 ? (
+                                  //  &&
+                                  // (ele.is_email_sent == false ||
+                                  //   ele.is_email_sent == null)
                                   <AiOutlineEdit
                                     style={{ cursor: "pointer" }}
                                     id={ele.project_owner_id}
@@ -585,6 +575,28 @@ class WeeklyStatus extends React.Component {
                                 ) : (
                                   ""
                                 )
+                                // ) :
+                                //  this.state.count != 0 &&
+                                //   ele.is_email_sent == false &&
+                                //   ele.weekly_status_description != null ? (
+                                //   <AiOutlineEdit
+                                //     style={{ cursor: "pointer" }}
+                                //     id={ele.project_owner_id}
+                                //     onClick={() => {
+                                //       this.setState({
+                                //         selectorRow: i,
+                                //         description:
+                                //           ele.weekly_status_description,
+                                //         projectId: ele.project_id,
+                                //         statusId:
+                                //           ele.weekly_project_health_status_id,
+                                //       });
+                                //     }}
+                                //   />
+                                // )
+                                //  : (
+                                //   ""
+                                // )
                               }
                               // suffix={
                               //   ele.is_email_sent === false ? (
