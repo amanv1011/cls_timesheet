@@ -6,8 +6,8 @@ import {removeCookie, deleteUserProfile} from "../actions/user"
 import history from "./history";
 
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
-  baseURL: "https://stageapp.api.classicinformatics.net/",
+  baseURL: "http://localhost:3501/",
+  // baseURL: "https://stagea/pp.api.classicinformatics.net/",
   // headers: {
   //   Authorization:
   //     "Bearer " + Object.keys(Store.getState().user).length > 0
@@ -18,9 +18,10 @@ const http = axios.create({
 });
 if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
   http.defaults.headers.common = {
-    Authorization: `Bearer ${
-      JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
-    }`,
+    Authorization: "Bearer ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNDc3MzIyLCJleHAiOjE2NTE2NTAxMjJ9.LsYIHrIn2BfvlZ5BQGe5uBG4oqXgDAJaTnKQKEHVGtI"
+    // `Bearer ${
+    //   JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
+    // }`,
   };
 }
 
@@ -58,7 +59,9 @@ http.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     //LOGOUT
+    console.log("response ",response);
     if(response.status == 503){
+      console.log("token error")
       deleteUserProfile(LoginStorageUserDetails);
       removeCookie('token');
       history.push("/");
@@ -69,7 +72,13 @@ http.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-  
+    console.log("response error :",error);
+    if(error.status == 503){
+      console.log("token error")
+      deleteUserProfile(LoginStorageUserDetails);
+      removeCookie('token');
+      history.push("/");
+    }
     Store.dispatch(syncActions.Error(error));
     Store.dispatch(syncActions.Spinner(false));
     return Promise.reject(error);
