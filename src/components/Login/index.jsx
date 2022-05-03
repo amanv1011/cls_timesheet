@@ -92,7 +92,7 @@ class Login extends Component {
 
   render() {
     // console.error("process.env", process.env);
-    // console.error("this.props.err.error", this.props);
+    console.error("this.props.err.error", this.props);
     // console.log("Strore state", Store.getState());
 
     return (

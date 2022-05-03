@@ -5,43 +5,17 @@ import { LoginStorageUserDetails } from "../assets/text";
 import {getCookie,removeCookie, deleteUserProfile} from "../actions/user"
 import history from "./history";
 
+let count = 0;
 const http = axios.create({
   // baseURL: "http://localhost:3501/",
   baseURL: "https://stageapp.api.classicinformatics.net/",
-  // headers: {
-    // Authorization:  `Bearer ${
-    //   getCookie('token')
-    // }`
-
-  // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
-
-// if (getCookie('token')) {
-//   http.defaults.headers.common = {
-//     // Authorization: "Bearer ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNDc3MzIyLCJleHAiOjE2NTE2NTAxMjJ9.LsYIHrIn2BfvlZ5BQGe5uBG4oqXgDAJaTnKQKEHVGtI"
-//     Authorization: `Bearer ${
-//       getCookie('token')
-//     }`,
-//   };
-// }
-// Authorization: "Bearer ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNDc3MzIyLCJleHAiOjE2NTE2NTAxMjJ9.LsYIHrIn2BfvlZ5BQGe5uBG4oqXgDAJaTnKQKEHVGtI"
-
-// console.log("token@@@", Store.getState().user.userDetails.token.toString());
-// console.log(Object.keys(Store.getState().user).length > 0);
-// http.defaults.headers.post["Content-Type"] =
-//   // "application/x-www-form-urlencoded";
-//   "application/json";
-// console.log("before headers$$$");
-// if (Object.keys(Store.getState().user).length > 0) {
-//   console.log("state log%%%");
-//   axios.defaults.headers = {
-//     Authorization: "Bearer " + Store.getState().user.userDetails.token,
-//   };
-// }
 
 http.interceptors.request.use(
   function (config) {
-    console.log(" get cookie in  ",getCookie('token'))
+    if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
+      config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`
+    }
     // Do something before request is sent
     // useHistory().push("/dashboard");
     Store.dispatch(syncActions.Spinner(true));
@@ -60,29 +34,21 @@ http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    //LOGOUT
-    // if(response.status == 503){
-    //   console.log("token error")
-    //   deleteUserProfile(LoginStorageUserDetails);
-    //   removeCookie('token');
-    //   history.push("/");
-    // }
+ 
     Store.dispatch(syncActions.Spinner(false));
     return response;
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    console.log("response error",error.status);
-    if(error.status == 503){
-      console.log("token error")
+    if(error.response.status == 503){
       deleteUserProfile(LoginStorageUserDetails);
       removeCookie('token');
       history.push("/");
     }
     Store.dispatch(syncActions.Error(error));
     Store.dispatch(syncActions.Spinner(false));
-    return Promise.reject(error);
+    return Promise.resolve(error);
   }
 );
 

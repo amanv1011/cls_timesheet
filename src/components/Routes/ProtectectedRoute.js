@@ -22,14 +22,6 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
     bool = false;
   }
-  if (getCookie('token')) {
-  
-    http.defaults.headers.common = {
-      Authorization: `Bearer ${
-        getCookie('token')
-      }`,
-    };
-  }
 
   return (
     <Route

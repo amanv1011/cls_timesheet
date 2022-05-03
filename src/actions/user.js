@@ -2,7 +2,6 @@ import Cookies from "js-cookie";
 
 /// set cookie
 export const setCookie = (key, value) => {
-  console.log("cookie set");
   var date = new Date(value.expiry);
 
   var seconds = date.getTime() / 1000;
@@ -15,7 +14,6 @@ export const setCookie = (key, value) => {
 
 // remove cookie
 export const removeCookie = (key) => {
-  console.log("cookie removed");
   // if (process.browser) {
     Cookies.remove(key);
   // }
@@ -24,7 +22,6 @@ export const removeCookie = (key) => {
 
 // get cookie
 export const getCookie = (key) => {
-  console.log("get cookie",Cookies.get(key));
   // if (process.browser) {
     return Cookies.get(key);
   // }
