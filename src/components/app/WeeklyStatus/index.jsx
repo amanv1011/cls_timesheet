@@ -491,7 +491,7 @@ class WeeklyStatus extends React.Component {
               height: `${
                 this.props.week_status.weeklyStatus.projects.length < 5
                   ? ""
-                  : "365px"
+                  : "400px"
               }`,
             }}
           >
