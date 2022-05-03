@@ -9,7 +9,7 @@ const initialState = {
     paging: {}
   },
   engagementType: {
-    engagement_type: [],
+    engagement_types: [],
     count: 0
   }
 }

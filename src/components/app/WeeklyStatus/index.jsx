@@ -667,35 +667,42 @@ class WeeklyStatus extends React.Component {
                           <div
                             style={{
                               background: `linear-gradient(180deg, ${
-                                this.props.week_status.healthStatus.results[
-                                  this.props.week_status.healthStatus.results.findIndex(
-                                    (x) =>
-                                      x.name.toLowerCase() ===
-                                      ele.project_health.toLowerCase()
-                                  )
-                                ].color_code_1
+                                this.props.week_status.healthStatus.results
+                                  .length > 0
+                                  ? this.props.week_status.healthStatus.results[
+                                      this.props.week_status.healthStatus.results.findIndex(
+                                        (x) =>
+                                          x.name.toLowerCase() ===
+                                          ele.project_health.toLowerCase()
+                                      )
+                                    ].color_code_1
+                                  : null
                               } 10%,
                               ${
-                                this.props.week_status.healthStatus.results[
-                                  this.props.week_status.healthStatus.results.findIndex(
-                                    (x) =>
-                                      x.name.toLowerCase() ===
-                                      ele.project_health.toLowerCase()
-                                  )
-                                ].color_code_2
+                                this.props.week_status.healthStatus.results
+                                  .length > 0
+                                  ? this.props.week_status.healthStatus.results[
+                                      this.props.week_status.healthStatus.results.findIndex(
+                                        (x) =>
+                                          x.name.toLowerCase() ===
+                                          ele.project_health.toLowerCase()
+                                      )
+                                    ].color_code_2
+                                  : null
                               } 90%)`,
                             }}
                             className="square"
                           ></div>
-                          {
-                            this.props.week_status.healthStatus.results[
-                              this.props.week_status.healthStatus.results.findIndex(
-                                (x) =>
-                                  x.name.toLowerCase() ===
-                                  ele.project_health.toLowerCase()
-                              )
-                            ].name
-                          }
+                          {this.props.week_status.healthStatus.results.length >
+                          0
+                            ? this.props.week_status.healthStatus.results[
+                                this.props.week_status.healthStatus.results.findIndex(
+                                  (x) =>
+                                    x.name.toLowerCase() ===
+                                    ele.project_health.toLowerCase()
+                                )
+                              ].name
+                            : null}
                         </div>
                         <ul className="dropdown-menu">
                           {this.props.week_status.healthStatus
