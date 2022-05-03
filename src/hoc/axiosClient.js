@@ -5,6 +5,7 @@ import { LoginStorageUserDetails } from "../assets/text";
 import { removeCookie, deleteUserProfile } from "../actions/user";
 import history from "./history";
 
+let count = 0;
 const http = axios.create({
   // baseURL: "http://localhost:3501/",
   baseURL: "https://stageapp.api.classicinformatics.net/",
@@ -16,13 +17,11 @@ const http = axios.create({
   // },
   // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
-if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
-  http.defaults.headers.common = {
-    Authorization: `Bearer ${
-      JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
-    }`,
-  };
-}
+// if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
+//   http.defaults.headers.common = {
+//     Authorization: `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`,
+//   };
+// }
 
 // console.log("token@@@", Store.getState().user.userDetails.token.toString());
 // console.log(Object.keys(Store.getState().user).length > 0);
@@ -39,6 +38,9 @@ if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
 
 http.interceptors.request.use(
   function (config) {
+    if (JSON.parse(localStorage.getItem('user-classic'))) {
+      config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`
+    }
     // Do something before request is sent
     // useHistory().push("/dashboard");
     Store.dispatch(syncActions.Spinner(true));
