@@ -6,8 +6,8 @@ import {getCookie,removeCookie, deleteUserProfile} from "../actions/user"
 import history from "./history";
 
 const http = axios.create({
-  baseURL: "http://localhost:3501/",
-  // baseURL: "https://stagea/pp.api.classicinformatics.net/",
+  // baseURL: "http://localhost:3501/",
+  baseURL: "https://stageapp.api.classicinformatics.net/",
   // headers: {
     // Authorization:  `Bearer ${
     //   getCookie('token')
