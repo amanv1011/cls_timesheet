@@ -1,11 +1,19 @@
 import ActionTypes from "../actionTypes";
-
-const initialState={
-  weeklyStatus:[],
-  healthStatus:[],
-  engagementType:[]
+const initialState = {
+  healthStatus: {
+    results: [],
+    count: 0
+  },
+  weeklyStatus: {
+    projects: [],
+    paging: {}
+  },
+  engagementType: {
+    engagement_types: [],
+    count: 0
+  }
 }
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
   // console.log("action in weekly reducer", state);
   switch (action.type) {
     case ActionTypes.GET_WEEKLY_STATUS: {
