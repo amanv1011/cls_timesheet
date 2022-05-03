@@ -177,10 +177,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: new Date(this.state.startDt - 13 * 24 * 3600 * 1000),
+      strt: new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
       end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
-    // console.log(dates);
+    console.log(dates);
     getWeeklyStatus(dates, "", this.state.currentPage);
   };
 
@@ -201,12 +201,15 @@ class WeeklyStatus extends React.Component {
       ),
       count: this.state.count + 1,
     });
-    var startz = new Date().setDate(this.state.startDt.getDate() + 1);
-    var endz = new Date().setDate(this.state.endDt.getDate() + 7);
+    // var startz = new Date(this.state.startDt + 3 * 24 * 3600 * 1000);
+    // var endz = new Date(this.state.startDt + 7 * 24 * 3600 * 1000);
+    // console.log(this.state.startDt, "hhhhhhhhhhhhhh");
+    let date = new Date(this.state.startDt);
     let dates_ = {
-      strt: new Date(startz),
-      end: new Date(endz),
+      strt: new Date(date.setDate(date.getDate() + 3)),
+      end: new Date(date.setDate(date.getDate() + 4)),
     };
+    // console.log(date);
     // console.log(dates_);
     getWeeklyStatus(dates_, "", this.state.currentPage);
   };
@@ -550,6 +553,13 @@ class WeeklyStatus extends React.Component {
                             title={ele.weekly_status_description}
                           >
                             <Input
+                              style={{
+                                cursor: `${
+                                  this.state.count === 0
+                                    ? "pointer"
+                                    : "not-allowed"
+                                }`,
+                              }}
                               className="textarea"
                               readOnly
                               value={ele.weekly_status_description}
@@ -628,20 +638,10 @@ class WeeklyStatus extends React.Component {
                         <div
                           className="dropdown-toggle projectHealthSelect"
                           data-bs-toggle="dropdown"
-                          disabled={
-                            this.state.count === 0 &&
-                            (ele.is_email_sent == false ||
-                              ele.is_email_sent == null)
-                              ? false
-                              : true
-                          }
+                          disabled={this.state.count === 0 ? false : true}
                           style={{
                             cursor: `${
-                              this.state.count === 0 &&
-                              (ele.is_email_sent == false ||
-                                ele.is_email_sent == null)
-                                ? "pointer"
-                                : "not-allowed"
+                              this.state.count === 0 ? "pointer" : "not-allowed"
                             }`,
                           }}
                           onClick={() => {
