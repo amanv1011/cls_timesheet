@@ -15,7 +15,9 @@ export const getTools = (req, res) => {
         syncActions.getUserTools(response.data.sort((a, b) => a.id - b.id))
       );
     })
-    .catch((err) => {});
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getWeeklyStatus = (date, filter, pageNumber) => {

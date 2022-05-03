@@ -9,7 +9,7 @@ import {LoginStorageUserDetails} from "../../assets/text"
 import http from "../../hoc/axiosClient"
 import * as syncActions from "../../actions/syncActions";
 import Store from "../../redux/store";
-import {getCookie} from "../../actions/user"
+import {getCookie, removeCookie} from "../../actions/user"
 import {InactiveToolsStorageName} from "../../assets/text"
 
 let bool = true;
@@ -21,13 +21,15 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
   if (bool) {
     Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
     bool = false;
-  
   }
-  // let restrictedTools = [
-  //   "/weekly-status"
-  // ]
-  // console.log("restOfProps",restOfProps)
-  // console.log("path",restOfProps.path)
+  if (getCookie('token')) {
+  
+    http.defaults.headers.common = {
+      Authorization: `Bearer ${
+        getCookie('token')
+      }`,
+    };
+  }
 
   return (
     <Route
