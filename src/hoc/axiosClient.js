@@ -6,15 +6,24 @@ import {getCookie,removeCookie, deleteUserProfile} from "../actions/user"
 import history from "./history";
 
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
-  baseURL: "https://stagea/pp.api.classicinformatics.net/",
+  baseURL: "http://localhost:3501/",
+  // baseURL: "https://stagea/pp.api.classicinformatics.net/",
   // headers: {
     // Authorization:  `Bearer ${
     //   getCookie('token')
     // }`
+
   // baseURL: process.env.REACT_APP_API_URL_HOSTED,
 });
 
+// if (getCookie('token')) {
+//   http.defaults.headers.common = {
+//     // Authorization: "Bearer ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNDc3MzIyLCJleHAiOjE2NTE2NTAxMjJ9.LsYIHrIn2BfvlZ5BQGe5uBG4oqXgDAJaTnKQKEHVGtI"
+//     Authorization: `Bearer ${
+//       getCookie('token')
+//     }`,
+//   };
+// }
 // Authorization: "Bearer ryJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNDc3MzIyLCJleHAiOjE2NTE2NTAxMjJ9.LsYIHrIn2BfvlZ5BQGe5uBG4oqXgDAJaTnKQKEHVGtI"
 
 // console.log("token@@@", Store.getState().user.userDetails.token.toString());
@@ -32,7 +41,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
   function (config) {
-    
+    console.log(" get cookie in  ",getCookie('token'))
     // Do something before request is sent
     // useHistory().push("/dashboard");
     Store.dispatch(syncActions.Spinner(true));
@@ -51,7 +60,13 @@ http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-
+    //LOGOUT
+    // if(response.status == 503){
+    //   console.log("token error")
+    //   deleteUserProfile(LoginStorageUserDetails);
+    //   removeCookie('token');
+    //   history.push("/");
+    // }
     Store.dispatch(syncActions.Spinner(false));
     return response;
   },
