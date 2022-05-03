@@ -272,9 +272,16 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props, "opopopopopopopopopop");
-    if (!this.props.week_status.weeklyStatus) {
-      return <div></div>;
+    if (this.props.week_status.weeklyStatus.projects.length === 0) {
+      return (
+        <center style={{ position: "relative", top: "100px" }}>
+          {" "}
+          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
+            {" "}
+            No projects found
+          </p>
+        </center>
+      );
     }
 
     if (this.state.resData) {
@@ -289,7 +296,12 @@ class WeeklyStatus extends React.Component {
       );
     }
 
-    if (this.props.week_status.weeklyStatus && bool) {
+    if (
+      this.props.week_status.weeklyStatus &&
+      this.props.week_status.weeklyStatus.paging &&
+      this.props.week_status.weeklyStatus.paging.total &&
+      bool
+    ) {
       this.setState({
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 20
