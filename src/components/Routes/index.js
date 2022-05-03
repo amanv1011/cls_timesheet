@@ -22,13 +22,13 @@ import http from "../../hoc/axiosClient";
 // import {InactiveToolsStorageName} from "../../assets/text"
 function App() {
   var isLoggedIn = getCookie("token");
-  if (getCookie('token')) {
-    http.defaults.headers.common = {
-      Authorization: `Bearer ${
-        getCookie('token')
-      }`,
-    };
-  }
+  // if (getCookie('token')) {
+  //   http.defaults.headers.common = {
+  //     Authorization: `Bearer ${
+  //       getCookie('token')
+  //     }`,
+  //   };
+  // }
   return (
     <>
       <Router>
