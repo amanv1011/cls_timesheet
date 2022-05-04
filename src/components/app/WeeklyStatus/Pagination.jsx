@@ -9,12 +9,6 @@ const Pagination = ({ page, pages, changePage }) => {
           className="pagination__prev"
           onClick={() => changePage(page - 1)}
           disabled={page === 1}
-          style={{
-            paddingLeft: "15px",
-            paddingRight: "15px",
-            fontSize: "30px",
-            fontWeight: "bolder",
-          }}
         >
           &#171;
         </button>
@@ -31,12 +25,6 @@ const Pagination = ({ page, pages, changePage }) => {
           className="pagination__next"
           onClick={() => changePage(page + 1)}
           disabled={page === pages}
-          style={{
-            paddingRight: "15px",
-            paddingLeft: "15px",
-            fontSize: "30px",
-            fontWeight: "bolder",
-          }}
         >
           &#187;
         </button>
