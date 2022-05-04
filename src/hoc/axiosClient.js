@@ -7,8 +7,8 @@ import history from "./history";
 
 let count = 0;
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
-  baseURL: "https://stageapp.api.classicinformatics.net/",
+  baseURL: "http://localhost:3501/",
+  // baseURL: "https://stageapp.api.classicinformatics.net/",
   // headers: {
   //   Authorization:
   //     "Bearer " + Object.keys(Store.getState().user).length > 0
@@ -38,8 +38,10 @@ const http = axios.create({
 
 http.interceptors.request.use(
   function (config) {
-    if (JSON.parse(localStorage.getItem('user-classic'))) {
-      config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`
+    if (JSON.parse(localStorage.getItem("user-classic"))) {
+      config.headers.Authorization = `Bearer ${
+        JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
+      }`;
     }
     // Do something before request is sent
     // useHistory().push("/dashboard");
