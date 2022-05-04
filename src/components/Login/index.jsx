@@ -80,7 +80,7 @@ class Login extends Component {
       })
       .catch((err) => {
         console.log("error", err);
-        Store.dispatch(syncActions.Error(err.response));
+        Store.dispatch(syncActions.Error(err));
       });
   };
 
