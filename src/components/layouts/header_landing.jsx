@@ -84,7 +84,7 @@ class Header extends React.Component {
     const { name, image } = this.props.user.userDetails;
     // console.log(this.props);
     return (
-      <Wrapper>
+      <Wrapper style={{'zIndex': '9'}}>
         <Container>
           <LeftContainer>
             {/* <MenuUnfoldOutlined onClick={() => this.props.toggle()} style={{fontSize: '23px', color: '#003AD2'} }/> */}
