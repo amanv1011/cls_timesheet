@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   width: -webkit-fill-available;
   width: -moz-available;
   height: 100%;
-  background: #46464045;
+  background: #b9b9ad;
 `;
 const Container = styled.div`
   position: relative;
