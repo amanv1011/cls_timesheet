@@ -80,6 +80,14 @@ export const getTimesheetResources = (date, id) => {
 };
 
 export const getWeeklyStatusProjects = (name, id) => {
+  // let regax = /[-!$%^&*()_+|~=`{}[:;<>?,.@#\]]/g;
+
+  // if (regax.test(name)) {
+  //   console.log(true);
+  // } else {
+  //   console.log(false);
+  // }
+
   http
     .get(
       `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
@@ -87,7 +95,8 @@ export const getWeeklyStatusProjects = (name, id) => {
       )}&project_owner_id=${id}`
     )
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
+      // console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
+      console.log("@@@@@@@@@@@@@@@", encodeURIComponent(name));
       if (response.data.projects.length === 0) {
         console.log("no record found");
         console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
