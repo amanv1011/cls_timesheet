@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   width: -webkit-fill-available;
   width: -moz-available;
   height: 100%;
-  background: #ffffff;
+  background: #ffffff40;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 const Load = styled.div`
-  border: 16px solid #ededed;
+  border: 16px solid #cfcfcf;
   border-radius: 50%;
   border-top: 17px solid #3498db;
   width: 115px;
