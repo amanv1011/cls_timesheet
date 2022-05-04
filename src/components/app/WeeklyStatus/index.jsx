@@ -278,7 +278,7 @@ class WeeklyStatus extends React.Component {
           {" "}
           <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
             {" "}
-            No projects found
+            No projects assigned, please contact you PM
           </p>
         </center>
       );
@@ -328,7 +328,7 @@ class WeeklyStatus extends React.Component {
     // console.log("project name ", this.state.projectName);
 
     return (
-      <div style={{ 'marginTop': '100px' }}>
+      <div style={{ marginTop: "80px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -503,7 +503,7 @@ class WeeklyStatus extends React.Component {
               height: `${
                 this.props.week_status.weeklyStatus.projects.length < 5
                   ? ""
-                  : "400px"
+                  : "370px"
               }`,
             }}
           >
