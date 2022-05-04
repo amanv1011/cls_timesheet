@@ -7,7 +7,6 @@ import history from "./history";
 
 let spinnerCount = 0;
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
   baseURL: "https://stageapp.api.classicinformatics.net/",
 });
 
@@ -32,7 +31,6 @@ http.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
 http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger

@@ -259,7 +259,7 @@ class WeeklyStatus extends React.Component {
     ) {
       this.setState({
         totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 20
+          this.props.week_status.weeklyStatus.paging.total / 10
         ),
       });
       bool = false;
