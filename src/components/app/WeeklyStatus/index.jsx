@@ -47,12 +47,9 @@ class WeeklyStatus extends React.Component {
       ),
       end: this.state.startDt,
     };
-    // console.log(dates, "DATESSSSSSSSSSSSS");
-    // getWeeklyStatus(dates, "");
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
     get_engagement_types(this.props.user.userDetails.id);
-    this.projectHealthList();
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -77,7 +74,6 @@ class WeeklyStatus extends React.Component {
     projectName: "",
     showSearchBar: false,
     resData: false,
-    projectHealth: [],
   };
 
   onChangePage = (page) => {
@@ -177,10 +173,10 @@ class WeeklyStatus extends React.Component {
     });
 
     let dates = {
-      strt: new Date(this.state.startDt - 13 * 24 * 3600 * 1000),
+      strt: new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
       end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
     };
-    // console.log(dates);
+    console.log(dates);
     getWeeklyStatus(dates, "", this.state.currentPage);
   };
 
@@ -201,12 +197,15 @@ class WeeklyStatus extends React.Component {
       ),
       count: this.state.count + 1,
     });
-    var startz = new Date().setDate(this.state.startDt.getDate() + 1);
-    var endz = new Date().setDate(this.state.endDt.getDate() + 7);
+    // var startz = new Date(this.state.startDt + 3 * 24 * 3600 * 1000);
+    // var endz = new Date(this.state.startDt + 7 * 24 * 3600 * 1000);
+    // console.log(this.state.startDt, "hhhhhhhhhhhhhh");
+    let date = new Date(this.state.startDt);
     let dates_ = {
-      strt: new Date(startz),
-      end: new Date(endz),
+      strt: new Date(date.setDate(date.getDate() + 3)),
+      end: new Date(date.setDate(date.getDate() + 4)),
     };
+    // console.log(date);
     // console.log(dates_);
     getWeeklyStatus(dates_, "", this.state.currentPage);
   };
@@ -223,23 +222,6 @@ class WeeklyStatus extends React.Component {
       showHealthBox: false,
       showHealthOption: null,
     });
-  };
-  projectHealthList = () => {
-    // let tempArray = [];
-    // if (
-    //   this.props.week_status.healthStatus &&
-    //   this.props.week_status.healthStatus.results
-    // ) {
-    //   this.props.week_status.healthStatus.results.forEach((element) => {
-    //     tempArray.push({
-    //       label: `<div><div className='square mainSquare' style={{'backgroundImage': 'linear-gradient(180deg, ${element.color_code_1} 0%, ${element.color_code_2} 100%)'}}></div>${element.name}</div>`,
-    //     });
-    //   });
-    // }
-    // this.setState({
-    //   projectHealth: tempArray,
-    // });
-    // console.log("@@@@#", this.props.week_status.healthStatus.results);
   };
 
   handleUpdateSearchState = (e) => {
@@ -269,27 +251,15 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    console.log(this.props, "opopopopopopopopopop");
-    if (!this.props.week_status.weeklyStatus) {
-      return <div></div>;
-    }
-
-    if (this.state.resData) {
-      return (
-        <center>
-          {" "}
-          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
-            {" "}
-            No projects found
-          </p>
-        </center>
-      );
-    }
-
-    if (this.props.week_status.weeklyStatus && bool) {
+    if (
+      this.props.week_status.weeklyStatus &&
+      this.props.week_status.weeklyStatus.paging &&
+      this.props.week_status.weeklyStatus.paging.total &&
+      bool
+    ) {
       this.setState({
         totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 20
+          this.props.week_status.weeklyStatus.paging.total / 10
         ),
       });
       bool = false;
@@ -313,7 +283,7 @@ class WeeklyStatus extends React.Component {
     // console.log("project name ", this.state.projectName);
 
     return (
-      <div style={{ position: "relative", top: "100px" }}>
+      <div style={{ paddingTop: "80px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -360,9 +330,15 @@ class WeeklyStatus extends React.Component {
                   className="searchBox"
                   id="search"
                   disabled={
-                    this.props.week_status.weeklyStatus.projects.length
+                    // this.props.week_status.weeklyStatus.projects.length
+                    //   ? false
+                    //   : true
+                    this.state.projectName != ""
                       ? false
-                      : true
+                      : this.props.week_status.weeklyStatus.projects.length ===
+                        0
+                      ? true
+                      : false
                   }
                   name={this.state.projectName}
                   value={this.state.projectName}
@@ -418,10 +394,9 @@ class WeeklyStatus extends React.Component {
                     ? false
                     : true
                 }
+                defaultValue=""
               >
-                <option value="" disabled selected>
-                  Engagement Type
-                </option>
+                <option value="">Engagement Type</option>
 
                 {this.props.week_status.engagementType
                   ? this.props.week_status.engagementType.engagement_types.map(
@@ -433,56 +408,61 @@ class WeeklyStatus extends React.Component {
                     )
                   : []}
                 {/* <option value="clear">Clear </option> */}
-                <option value="">Clear Filter</option>
+                {/* <option value="">Clear Filter</option> */}
               </select>
             </div>
           </div>
         </div>
         <table className="weekTable">
-          <tr className="headRow">
-            <th
-              className="thead"
-              style={{
-                width: "30%",
-              }}
-            >
-              Project
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "20%",
-              }}
-            >
-              Engagement type
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "30%",
-              }}
-            >
-              Week Status
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "20%",
-              }}
-            >
-              Project Health
-            </th>
-          </tr>
+          <thead>
+            <tr className="headRow">
+              <th
+                className="thead"
+                style={{
+                  width: "30%",
+                }}
+              >
+                Project
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "20%",
+                }}
+              >
+                Engagement type
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "30%",
+                }}
+              >
+                Week Status
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "20%",
+                }}
+              >
+                Project Health
+              </th>
+            </tr>
+          </thead>
           <tbody
             // "406px"
             style={{
-              overflowY: "auto",
-              // overflowX: "auto",
-              display: "block",
               height: `${
-                this.props.week_status.weeklyStatus.projects.length < 5
-                  ? ""
-                  : "365px"
+                this.props.week_status.weeklyStatus.projects.length === 0
+                  ? "100px"
+                  : "370px"
+              }`,
+              overflowY: "auto",
+              display: `${
+                this.props.week_status.weeklyStatus.projects.length === 0
+                  ? "contents"
+                  : "block"
               }`,
             }}
           >
@@ -544,30 +524,21 @@ class WeeklyStatus extends React.Component {
                             title={ele.weekly_status_description}
                           >
                             <Input
+                              style={{
+                                cursor: `${
+                                  this.state.count === 0
+                                    ? "pointer"
+                                    : "not-allowed"
+                                }`,
+                              }}
                               className="textarea"
                               readOnly
                               value={ele.weekly_status_description}
                               suffix={
-                                this.state.count === 0 &&
-                                (ele.is_email_sent == false ||
-                                  ele.is_email_sent == null) ? (
-                                  <AiOutlineEdit
-                                    style={{ cursor: "pointer" }}
-                                    id={ele.project_owner_id}
-                                    onClick={() => {
-                                      this.setState({
-                                        selectorRow: i,
-                                        description:
-                                          ele.weekly_status_description,
-                                        projectId: ele.project_id,
-                                        statusId:
-                                          ele.weekly_project_health_status_id,
-                                      });
-                                    }}
-                                  />
-                                ) : this.state.count != 0 &&
-                                  ele.is_email_sent == false &&
-                                  ele.weekly_status_description != null ? (
+                                this.state.count === 0 ? (
+                                  //  &&
+                                  // (ele.is_email_sent == false ||
+                                  //   ele.is_email_sent == null)
                                   <AiOutlineEdit
                                     style={{ cursor: "pointer" }}
                                     id={ele.project_owner_id}
@@ -585,6 +556,28 @@ class WeeklyStatus extends React.Component {
                                 ) : (
                                   ""
                                 )
+                                // ) :
+                                //  this.state.count != 0 &&
+                                //   ele.is_email_sent == false &&
+                                //   ele.weekly_status_description != null ? (
+                                //   <AiOutlineEdit
+                                //     style={{ cursor: "pointer" }}
+                                //     id={ele.project_owner_id}
+                                //     onClick={() => {
+                                //       this.setState({
+                                //         selectorRow: i,
+                                //         description:
+                                //           ele.weekly_status_description,
+                                //         projectId: ele.project_id,
+                                //         statusId:
+                                //           ele.weekly_project_health_status_id,
+                                //       });
+                                //     }}
+                                //   />
+                                // )
+                                //  : (
+                                //   ""
+                                // )
                               }
                               // suffix={
                               //   ele.is_email_sent === false ? (
@@ -616,6 +609,12 @@ class WeeklyStatus extends React.Component {
                         <div
                           className="dropdown-toggle projectHealthSelect"
                           data-bs-toggle="dropdown"
+                          disabled={this.state.count === 0 ? false : true}
+                          style={{
+                            cursor: `${
+                              this.state.count === 0 ? "pointer" : "not-allowed"
+                            }`,
+                          }}
                           onClick={() => {
                             this.setState({
                               description: ele.weekly_status_description,
@@ -627,42 +626,49 @@ class WeeklyStatus extends React.Component {
                           <div
                             style={{
                               background: `linear-gradient(180deg, ${
-                                this.props.week_status.healthStatus.results[
-                                  this.props.week_status.healthStatus.results.findIndex(
-                                    (x) =>
-                                      x.name.toLowerCase() ===
-                                      ele.project_health.toLowerCase()
-                                  )
-                                ].color_code_1
+                                this.props.week_status.healthStatus.results
+                                  .length > 0
+                                  ? this.props.week_status.healthStatus.results[
+                                      this.props.week_status.healthStatus.results.findIndex(
+                                        (x) =>
+                                          x.name.toLowerCase() ===
+                                          ele.project_health.toLowerCase()
+                                      )
+                                    ].color_code_1
+                                  : null
                               } 10%,
                               ${
-                                this.props.week_status.healthStatus.results[
-                                  this.props.week_status.healthStatus.results.findIndex(
-                                    (x) =>
-                                      x.name.toLowerCase() ===
-                                      ele.project_health.toLowerCase()
-                                  )
-                                ].color_code_2
+                                this.props.week_status.healthStatus.results
+                                  .length > 0
+                                  ? this.props.week_status.healthStatus.results[
+                                      this.props.week_status.healthStatus.results.findIndex(
+                                        (x) =>
+                                          x.name.toLowerCase() ===
+                                          ele.project_health.toLowerCase()
+                                      )
+                                    ].color_code_2
+                                  : null
                               } 90%)`,
                             }}
                             className="square"
                           ></div>
-                          {
-                            this.props.week_status.healthStatus.results[
-                              this.props.week_status.healthStatus.results.findIndex(
-                                (x) =>
-                                  x.name.toLowerCase() ===
-                                  ele.project_health.toLowerCase()
-                              )
-                            ].name
-                          }
+                          {this.props.week_status.healthStatus.results.length >
+                          0
+                            ? this.props.week_status.healthStatus.results[
+                                this.props.week_status.healthStatus.results.findIndex(
+                                  (x) =>
+                                    x.name.toLowerCase() ===
+                                    ele.project_health.toLowerCase()
+                                )
+                              ].name
+                            : null}
                         </div>
-                        <ul className="dropdown-menu a">
+                        <ul className="dropdown-menu">
                           {this.props.week_status.healthStatus
                             ? this.props.week_status.healthStatus.results.map(
                                 (ele, i) => {
                                   return (
-                                    <span
+                                    <button
                                       className="healthbtn"
                                       onClick={this.updateHealth}
                                       value={ele.id}
@@ -675,13 +681,16 @@ class WeeklyStatus extends React.Component {
                                         className="square"
                                       ></div>
                                       {ele.name}
-                                    </span>
+                                    </button>
                                   );
                                 }
                               )
                             : []}
                         </ul>
                       </div>
+
+                      {/* Required in future */}
+
                       {/* {(this.state.showHealthOption == i &&
                         this.state.count === 0 &&
                         (ele.is_email_sent == false ||
@@ -771,15 +780,13 @@ class WeeklyStatus extends React.Component {
                 );
               })
             ) : (
-              <center>
-                {" "}
-                <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
-                  {" "}
-                  {this.state.projectName != ""
+              <tr>
+                <td colSpan={4} style={{ textAlign: "center", padding: '20px' }}>
+                  {this.state.projectName !== ""
                     ? "No record found"
                     : "No projects assigned, please contact your PM"}
-                </p>
-              </center>
+                </td>
+              </tr>
             )}
           </tbody>
           <tfoot className="tfoot">

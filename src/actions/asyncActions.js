@@ -15,7 +15,9 @@ export const getTools = (req, res) => {
         syncActions.getUserTools(response.data.sort((a, b) => a.id - b.id))
       );
     })
-    .catch((err) => {});
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getWeeklyStatus = (date, filter, pageNumber) => {
@@ -27,7 +29,7 @@ export const getWeeklyStatus = (date, filter, pageNumber) => {
         "YYYY-MM-DD"
       )}&engagement_type=${encodeURIComponent(
         filter
-      )}&limit=20&pageNumber=${pageNumber}`
+      )}&limit=10&pageNumber=${pageNumber}`
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
@@ -106,7 +108,6 @@ export const get_health_status = () => {
     .catch((err) => {});
 };
 export const get_engagement_types = (id) => {
-  console.log(id,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
   http
     .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {

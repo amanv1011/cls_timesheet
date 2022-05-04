@@ -15,7 +15,7 @@ import { withRouter } from "react-router";
 
 import * as syncActions from "../../actions/syncActions";
 import { LoginStorageUserDetails } from "../../assets/text";
-import {removeCookie} from "../../actions/user"
+import { removeCookie } from "../../actions/user";
 const { Option } = Select;
 
 const Wrapper = styled.div`
@@ -74,17 +74,16 @@ class Header extends React.Component {
 
   changeHandler = (e) => {
     // console.log("logout", e);
-   
-    removeCookie("token")
+
+    removeCookie("token");
     deleteUserProfile(LoginStorageUserDetails);
     window.location.reload(true);
-
   };
   render() {
     const { name, image } = this.props.user.userDetails;
     // console.log(this.props);
     return (
-      <Wrapper>
+      <Wrapper style={{ zIndex: "9", boxShadow: "rgb(221 220 220) 0px 0px 8px 0px" }}>
         <Container>
           <LeftContainer>
             {/* <MenuUnfoldOutlined onClick={() => this.props.toggle()} style={{fontSize: '23px', color: '#003AD2'} }/> */}
@@ -92,6 +91,7 @@ class Header extends React.Component {
               <img
                 src={Images.logo}
                 style={{ width: "100%", maxWidth: "247px", marginLeft: "1em" }}
+                alt="classicinformatics_logo"
               />
             </Link>
           </LeftContainer>
@@ -120,7 +120,7 @@ class Header extends React.Component {
               {/* <div style={{ alignSelf: 'center' }}>{name}</div> */}
               <Select
                 value={this.state.optionSelected}
-                style={{ width: 120 }}
+                //   style={{ width: 120 }}
                 bordered={false}
                 onChange={(e) => this.changeHandler(e)}
               >

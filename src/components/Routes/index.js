@@ -18,9 +18,10 @@ import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
 import {getCookie} from "../../actions/user"
+import http from "../../hoc/axiosClient";
+// import {InactiveToolsStorageName} from "../../assets/text"
 function App() {
   var isLoggedIn = getCookie("token");
-
   return (
     <>
       <Router>

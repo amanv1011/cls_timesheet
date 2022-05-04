@@ -2,21 +2,22 @@ import axios from "axios";
 import Store from "../redux/store";
 import * as syncActions from "../actions/syncActions";
 import { LoginStorageUserDetails } from "../assets/text";
+import {getCookie,removeCookie, deleteUserProfile} from "../actions/user"
+import history from "./history";
 
+let count = 0;
 const http = axios.create({
   baseURL: "https://stageapp.api.classicinformatics.net/",
 });
 
-if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
-  http.defaults.headers.common = {
-    Authorization: `Bearer ${
-      JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
-    }`,
-  };
-}
-
 http.interceptors.request.use(
   function (config) {
+    if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
+      // config.headers.Authorization = "Bearer tyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1MCIsImVtYWlsIjoic25vdy53aGl0ZUBjbGFzc2ljaW5mb3JtYXRpY3MuY29tIiwiaWF0IjoxNjUxNTc4Nzc4LCJleHAiOjE2NTE3NTE1Nzh9.wuBxuAdmz4VirMYvUW1vD_OIvk0A9FygOSSVcfEKqfM"
+      config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}`
+    }
+    // Do something before request is sent
+    // useHistory().push("/dashboard");
     Store.dispatch(syncActions.Spinner(true));
     return config;
   },
@@ -29,13 +30,27 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+ 
     Store.dispatch(syncActions.Spinner(false));
     return response;
   },
   function (error) {
-    Store.dispatch(syncActions.Error(error));
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    console.log("error",error)
+    
+
+    if(error.response && error.response.status == 503 ){
+      deleteUserProfile(LoginStorageUserDetails);
+      removeCookie('token');
+      Store.dispatch(syncActions.clearError());
+      history.push("/");
+    }
+   
     Store.dispatch(syncActions.Spinner(false));
-    return Promise.reject(error);
+    return Promise.resolve(error);
   }
 );
 
