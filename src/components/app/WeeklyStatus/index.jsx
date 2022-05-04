@@ -328,7 +328,7 @@ class WeeklyStatus extends React.Component {
     // console.log("project name ", this.state.projectName);
 
     return (
-      <div style={{ position: "relative", top: "100px" }}>
+      <div style={{ 'marginTop': '100px' }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
