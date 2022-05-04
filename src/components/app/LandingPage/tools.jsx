@@ -75,8 +75,7 @@ class Tools extends React.Component {
       return <div />;
     }
 
-    const Data = this.props.userTools
-      ? this.props.userTools.map((d) => {
+    const Data =this.props.userTools.map((d) => {
           let Image;
           if (d.is_active === false) {
             Image = d.disabled_image_icon;
@@ -123,8 +122,7 @@ class Tools extends React.Component {
             </ToolsWrapper>
           );
           // }
-        })
-      : [];
+        });
 
       if(bool){
         localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr))

@@ -42,7 +42,7 @@ class LandingPage extends Component {
 }
 
 const mapStateToProps = (store) => {
-  // console.log("store", store);
+  // console.log("tools store", store);
   return {
     ...store,
   };
