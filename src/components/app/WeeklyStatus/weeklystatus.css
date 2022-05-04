@@ -73,25 +73,62 @@
   align-items: center;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1280px) {
   .upperRow h3 {
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .thead {
     padding: 15px 10px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .tbody {
-    font-size: 15px;
-    padding: 13px 10px;
+    font-size: 13px;
+    padding: 10px 10px;
   }
 
   .tfoot {
     padding: 5px 0px;
   }
+
+  .textarea {
+    height: 40px !important;
+  }
+
+  .ant-input-affix-wrapper>input.ant-input {
+    font-size: 12px;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 15px;
+  }
+
+  .healthbtn {
+    font-size: 14px;
+    font-weight: 500 !important;
+  }
 }
+
+@media screen and (max-width: 1100px) {
+  .upperRow h3 {
+    font-size: 20px;
+  }
+
+  .thead {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+
+  .textarea {
+    height: 40px !important;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 13px;
+  }
+}
+
 
 .dropdown {
   width: fit-content;
@@ -248,7 +285,7 @@
 }
 
 .textarea {
-  background-color: rgb(230, 236, 255);
+  background-color: rgb(230 233 240);
   border-radius: 7px;
   border: none;
   resize: none;
