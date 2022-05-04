@@ -456,6 +456,8 @@ class WeeklyStatus extends React.Component {
               height: `${
                 this.props.week_status.weeklyStatus.projects.length === 0
                   ? "100px"
+                  : this.props.week_status.weeklyStatus.projects.length < 5
+                  ? "auto"
                   : "370px"
               }`,
               overflowY: "auto",
@@ -781,7 +783,10 @@ class WeeklyStatus extends React.Component {
               })
             ) : (
               <tr>
-                <td colSpan={4} style={{ textAlign: "center", padding: '20px' }}>
+                <td
+                  colSpan={4}
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
                   {this.state.projectName !== ""
                     ? "No record found"
                     : "No projects assigned, please contact your PM"}
