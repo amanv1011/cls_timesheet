@@ -47,12 +47,9 @@ class WeeklyStatus extends React.Component {
       ),
       end: this.state.startDt,
     };
-    // console.log(dates, "DATESSSSSSSSSSSSS");
-    // getWeeklyStatus(dates, "");
     getWeeklyStatus(dates, "", this.state.currentPage);
     get_health_status();
     get_engagement_types(this.props.user.userDetails.id);
-    this.projectHealthList();
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -77,7 +74,6 @@ class WeeklyStatus extends React.Component {
     projectName: "",
     showSearchBar: false,
     resData: false,
-    projectHealth: [],
   };
 
   onChangePage = (page) => {
@@ -227,23 +223,6 @@ class WeeklyStatus extends React.Component {
       showHealthOption: null,
     });
   };
-  projectHealthList = () => {
-    // let tempArray = [];
-    // if (
-    //   this.props.week_status.healthStatus &&
-    //   this.props.week_status.healthStatus.results
-    // ) {
-    //   this.props.week_status.healthStatus.results.forEach((element) => {
-    //     tempArray.push({
-    //       label: `<div><div className='square mainSquare' style={{'backgroundImage': 'linear-gradient(180deg, ${element.color_code_1} 0%, ${element.color_code_2} 100%)'}}></div>${element.name}</div>`,
-    //     });
-    //   });
-    // }
-    // this.setState({
-    //   projectHealth: tempArray,
-    // });
-    // console.log("@@@@#", this.props.week_status.healthStatus.results);
-  };
 
   handleUpdateSearchState = (e) => {
     console.log(e.target.value.length);
@@ -272,30 +251,6 @@ class WeeklyStatus extends React.Component {
   };
 
   render() {
-    if (this.props.week_status.weeklyStatus.projects.length === 0) {
-      return (
-        <center style={{ position: "relative", top: "100px" }}>
-          {" "}
-          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
-            {" "}
-            No projects assigned, please contact you PM
-          </p>
-        </center>
-      );
-    }
-
-    if (this.state.resData) {
-      return (
-        <center>
-          {" "}
-          <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
-            {" "}
-            No projects found
-          </p>
-        </center>
-      );
-    }
-
     if (
       this.props.week_status.weeklyStatus &&
       this.props.week_status.weeklyStatus.paging &&
@@ -328,7 +283,7 @@ class WeeklyStatus extends React.Component {
     // console.log("project name ", this.state.projectName);
 
     return (
-      <div style={{ marginTop: "80px" }}>
+      <div style={{ paddingTop: "80px" }}>
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
@@ -439,10 +394,9 @@ class WeeklyStatus extends React.Component {
                     ? false
                     : true
                 }
+                defaultValue=""
               >
-                <option value="" selected>
-                  Engagement Type
-                </option>
+                <option value="">Engagement Type</option>
 
                 {this.props.week_status.engagementType
                   ? this.props.week_status.engagementType.engagement_types.map(
@@ -460,50 +414,55 @@ class WeeklyStatus extends React.Component {
           </div>
         </div>
         <table className="weekTable">
-          <tr className="headRow">
-            <th
-              className="thead"
-              style={{
-                width: "30%",
-              }}
-            >
-              Project
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "20%",
-              }}
-            >
-              Engagement type
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "30%",
-              }}
-            >
-              Week Status
-            </th>
-            <th
-              className="thead"
-              style={{
-                width: "20%",
-              }}
-            >
-              Project Health
-            </th>
-          </tr>
+          <thead>
+            <tr className="headRow">
+              <th
+                className="thead"
+                style={{
+                  width: "30%",
+                }}
+              >
+                Project
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "20%",
+                }}
+              >
+                Engagement type
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "30%",
+                }}
+              >
+                Week Status
+              </th>
+              <th
+                className="thead"
+                style={{
+                  width: "20%",
+                }}
+              >
+                Project Health
+              </th>
+            </tr>
+          </thead>
           <tbody
             // "406px"
             style={{
-              overflowY: "auto",
-              // overflowX: "auto",
-              display: "block",
               height: `${
-                this.props.week_status.weeklyStatus.projects.length < 5
-                  ? ""
+                this.props.week_status.weeklyStatus.projects.length === 0
+                  ? "100px"
                   : "370px"
+              }`,
+              overflowY: "auto",
+              display: `${
+                this.props.week_status.weeklyStatus.projects.length === 0
+                  ? "contents"
+                  : "block"
               }`,
             }}
           >
@@ -821,15 +780,13 @@ class WeeklyStatus extends React.Component {
                 );
               })
             ) : (
-              <center>
-                {" "}
-                <p style={{ fontSize: "13px", padding: "15px 0 5px 0" }}>
-                  {" "}
-                  {this.state.projectName != ""
+              <tr>
+                <td colSpan={4} style={{ textAlign: "center", padding: '20px' }}>
+                  {this.state.projectName !== ""
                     ? "No record found"
                     : "No projects assigned, please contact your PM"}
-                </p>
-              </center>
+                </td>
+              </tr>
             )}
           </tbody>
           <tfoot className="tfoot">
