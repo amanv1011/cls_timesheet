@@ -89,11 +89,6 @@ export const getWeeklyStatusProjects = (name, id) => {
       )}&project_owner_id=${id}`
     )
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
-      if (response.data.projects.length === 0) {
-        console.log("no record found");
-        console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
-      }
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
@@ -111,7 +106,6 @@ export const get_engagement_types = (id) => {
   http
     .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$",response.data)
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
     .catch((err) => {});

@@ -18,10 +18,12 @@ import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
+import store from "../../../redux/store";
 // import moment from "moment";
 const { TextArea } = Input;
 
 let bool = true;
+let Check = false;
 
 class WeeklyStatus extends React.Component {
   componentDidMount = () => {
@@ -65,45 +67,45 @@ class WeeklyStatus extends React.Component {
     showHealthOption: null,
     showHealthBox: false,
     healthOption: "",
-    filter_type: "",
     count: 0,
     currentPage: 1,
     totalPages: 1,
     pageNumber: 1,
-    engagementVal: null,
     projectName: "",
     showSearchBar: false,
     resData: false,
+    engagementType:""
   };
 
   onChangePage = (page) => {
     this.setState(
       {
         currentPage: page,
+        engagementType:this.state.engagementType
       },
       () => {
         let dates = {
           strt: this.state.startDt,
           end: this.state.endDt,
         };
-        getWeeklyStatus(dates, "", this.state.currentPage);
+        getWeeklyStatus(dates,this.state.engagementType, this.state.currentPage);
       }
     );
   };
 
-  dateHandler = (e) => {
-    let a = e.target.value;
-    this.setState({
-      startDt: a[0],
-      endDt: a[1],
-    });
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
-    getWeeklyStatus(dates, this.state.filter_type, this.state.currentPage);
-    // getWeeklyStatus(this.state.startDt, this.state.endDt);
-  };
+  // dateHandler = (e) => {
+  //   let a = e.target.value;
+  //   this.setState({
+  //     startDt: a[0],
+  //     endDt: a[1],
+  //   });
+  //   let dates = {
+  //     strt: this.state.startDt,
+  //     end: this.state.endDt,
+  //   };
+  //   getWeeklyStatus(dates, this.state.filter_type, this.state.currentPage);
+  //   // getWeeklyStatus(this.state.startDt, this.state.endDt);
+  // };
 
   update = () => {
     this.setState({ selectorRow: null });
@@ -144,13 +146,23 @@ class WeeklyStatus extends React.Component {
   };
 
   filter_by = (e) => {
-    this.setState({ filter_by: e.target.value, currentPage: 1 }, () => {
-      let dates = {
-        strt: this.state.startDt,
-        end: this.state.endDt,
-      };
-      getWeeklyStatus(dates, e.target.value, this.state.currentPage);
-    });
+    Check = true;
+    this.setState(
+      {
+        currentPage: 1,
+        engagementType:e.target.value,
+        totalPages: Math.ceil(
+          this.props.week_status.weeklyStatus.paging.total / 10
+        ),
+      },
+      () => {
+        let dates = {
+          strt: this.state.startDt,
+          end: this.state.endDt,
+        };
+        getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+      }
+    );
   };
 
   weekback = () => {
@@ -244,19 +256,15 @@ class WeeklyStatus extends React.Component {
             this.state.projectName,
             this.props.user.userDetails.id
           );
-          console.log("calling funvtion");
+          console.log("calling function");
         }
       }
     );
   };
 
   render() {
-    if (
-      this.props.week_status.weeklyStatus &&
-      this.props.week_status.weeklyStatus.paging &&
-      this.props.week_status.weeklyStatus.paging.total &&
-      bool
-    ) {
+   
+    if (this.props.week_status.weeklyStatus.paging.total && bool) {
       this.setState({
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 10
@@ -265,23 +273,17 @@ class WeeklyStatus extends React.Component {
       bool = false;
     }
 
-    // if (this.props.week_status.weeklyStatus.projects.length) {
-    //   if (
-    //     this.state.engagementVal !=
-    //     this.props.week_status.weeklyStatus.projects[0].engagement_type
-    //   ) {
-    //     this.setState({
-    //       totalPages: Math.ceil(
-    //         this.props.week_status.weeklyStatus.paging.total / 20
-    //       ),
-    //       engagementVal:
-    //         this.props.week_status.weeklyStatus.projects[0].engagement_type,
-    //     });
-    //   }
-    // }
+    if (Check && Math.ceil(this.props.week_status.weeklyStatus.paging.total / 10) !== this.state.totalPages) {
+      this.setState({
+        totalPages: Math.ceil(
+          this.props.week_status.weeklyStatus.paging.total / 10
+        ),
+        engagementType:this.props.week_status.weeklyStatus.projects[0].engagement_type
+      });
+      Check = false;
+    }
 
-    // console.log("project name ", this.state.projectName);
-
+   
     return (
       <div style={{ paddingTop: "80px" }}>
         <div className="upperRow">
