@@ -9,49 +9,54 @@ const Wrapper = styled.div`
   width: -webkit-fill-available;
   width: -moz-available;
   height: 100%;
-  background: #b9b9ad;
+  background: #ffffff40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const Container = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 20%;
 `;
 const Load = styled.div`
-border: 10px solid #f3f3f3;
-border-radius: 50%;
-border-top: 10px solid #3498db;
-width: 100px;
-height: 100px;
--webkit-animation: spin 2s linear infinite; /* Safari */
-animation: spin 1s linear infinite;
+  border: 16px solid #cfcfcf;
+  border-radius: 50%;
+  border-top: 17px solid #3498db;
+  width: 115px;
+  height: 115px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 0.6s linear infinite;
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
 `;
 
-const antIcon = (
-  <LoadingOutlined style={{ fontSize: 24 }} spin />
-);
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function Loader(state) {
   console.log("loader", state);
   return (
     <Wrapper>
       <Container>
-      <Load>
-        {/* <Spin size="large"/> */}
-      </Load>
-        </Container>
+        <Load>{/* <Spin size="large"/> */}</Load>
+      </Container>
     </Wrapper>
   );
 }

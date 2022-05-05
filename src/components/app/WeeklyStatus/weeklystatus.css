@@ -13,7 +13,7 @@
   justify-content: space-between;
   width: 100%;
   padding-right: 20px;
-  /*Need to be Removed future*/
+  align-items: center;
 }
 
 .upperRow h3 {
@@ -67,11 +67,68 @@
 .tfoot {
   background-color: rgb(243, 243, 243);
   /* box-shadow: 0px 0px 5px 1px #e7e7e7; */
-  padding: 8px 0px;
+  padding: 12px 0px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
+@media screen and (max-width: 1280px) {
+  .upperRow h3 {
+    font-size: 22px;
+  }
+
+  .thead {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+
+  .tbody {
+    font-size: 13px;
+    padding: 10px 10px;
+  }
+
+  .tfoot {
+    padding: 5px 0px;
+  }
+
+  .textarea {
+    height: 40px !important;
+  }
+
+  .ant-input-affix-wrapper>input.ant-input {
+    font-size: 12px;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 15px;
+  }
+
+  .healthbtn {
+    font-size: 14px;
+    font-weight: 500 !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .upperRow h3 {
+    font-size: 20px;
+  }
+
+  .thead {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+
+  .textarea {
+    height: 40px !important;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 13px;
+  }
+}
+
 
 .dropdown {
   width: fit-content;
@@ -175,7 +232,7 @@
   text-decoration: none;
 }
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   color: grey;
 }
 
@@ -201,6 +258,7 @@
 .ant-input-affix-wrapper-borderless[disabled] {
   background-color: #e6e9f0;
 }
+
 .e-input-group-icon.e-range-icon::before,
 *.e-control-wrapper .e-input-group-icon.e-range-icon::before {
   color: #305d9f;
@@ -210,7 +268,7 @@
   font-weight: 600;
   display: flex;
   align-items: center;
-  color: #305d9f;
+  color: #1f4173;
   font-size: 14px;
   margin: 0 10px;
   /* padding-left: 20px; */
@@ -227,7 +285,7 @@
 }
 
 .textarea {
-  background-color: rgb(230, 236, 255);
+  background-color: rgb(230 233 240);
   border-radius: 7px;
   border: none;
   resize: none;
@@ -242,7 +300,7 @@
   width: 280px;
 } */
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   background: transparent;
 }
 
@@ -322,15 +380,13 @@
 /*---------------- PAGINATION BY ARJIT--------------------------*/
 
 .pagination {
-  /* border: 1px solid rgb(192, 191, 240); */
-  float: right;
-  margin-top: 10px;
-  margin-right: 16px;
-  margin-bottom: 5px;
-  background-color: rgb(233, 238, 243);
+  border: 1px solid rgb(192, 191, 240);
+  background-color: white;
   font-family: "Roboto", sans-serif;
   border-radius: 5px;
-  /* border: 1px solid red; */
+  box-shadow: 0px 0px 5px 0px #a9a8a8;
+  margin-right: 15px;
+  align-items: center;
 }
 
 .pagination button {
@@ -343,19 +399,21 @@
   text-align: center;
   padding-bottom: 8px;
   transition-duration: 0.3s;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-size: 30px;
+  font-weight: bolder;
 }
 
 .pagination button:disabled {
   cursor: not-allowed;
-  background-color: rgb(233, 238, 243) !important;
+  /* background-color: #ededed !important; */
   box-shadow: none !important;
-  border-radius: 5px;
 }
 
 .pagination button:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transform: scale(1);
-  border-radius: 5px;
 }
 
 /*---------------- PAGINATION DONE------------------------------*/
