@@ -221,6 +221,15 @@
   line-height: 17px;
 }
 
+.ant-input-affix-wrapper-borderless,
+.ant-input-affix-wrapper-borderless:hover,
+.ant-input-affix-wrapper-borderless:focus,
+.ant-input-affix-wrapper-borderless-focused,
+.ant-input-affix-wrapper-borderless-disabled,
+.ant-input-affix-wrapper-borderless[disabled] {
+  background-color: #e6e9f0;
+}
+
 .dateFilter {
   display: flex;
   align-items: self-end;
@@ -232,7 +241,7 @@
   text-decoration: none;
 }
 
-.ant-input-affix-wrapper>input.ant-input {
+.ant-input-affix-wrapper > input.ant-input {
   color: grey;
 }
 
@@ -300,7 +309,7 @@
   width: 280px;
 } */
 
-.ant-input-affix-wrapper>input.ant-input {
+.ant-input-affix-wrapper > input.ant-input {
   background: transparent;
 }
 

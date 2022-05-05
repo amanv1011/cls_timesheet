@@ -225,6 +225,7 @@ class WeeklyStatus extends React.Component {
   };
 
   handleUpdateSearchState = (e) => {
+    console.log("getting value ", e.code);
     console.log(e.target.value.length);
     this.setState(
       {
@@ -232,6 +233,13 @@ class WeeklyStatus extends React.Component {
         projectName: e.target.value,
       },
       () => {
+        if (e.code === "Backspace") {
+          let dates = {
+            strt: this.state.startDt,
+            end: this.state.endDt,
+          };
+          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+        }
         if (e.target.value === "") {
           let dates = {
             strt: this.state.startDt,
