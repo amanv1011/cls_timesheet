@@ -17,6 +17,8 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isLoggedIn = getCookie('token');
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
   var restrictedTools = JSON.parse(localStorage.getItem(InactiveToolsStorageName))
+  var ActiveTools = JSON.parse(localStorage.getItem('ActiveToolsName'))
+
 
   if (bool) {
     Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
@@ -27,7 +29,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     <Route
       {...restOfProps}
       render={(props) =>
-        isLoggedIn && !restrictedTools.includes(restOfProps.path)? (
+        isLoggedIn && !restrictedTools.includes(restOfProps.path) && ActiveTools.includes(restOfProps.path)? (
           <Component {...props} userData={isAuthenticated} />
         ) : (
           <Redirect to="/" />

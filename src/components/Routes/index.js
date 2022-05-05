@@ -36,8 +36,8 @@ function App() {
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
         <Route path="/" exact component={ isLoggedIn ? LandingPage : Login} />
-
-        {/* <Redirect to="/login" /> */}
+        {/* <Route path="*" element={<Report />} /> */}
+        {/* <Route to="/" /> */}
         {/* </Switch> */}
       </Router>
     </>

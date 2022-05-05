@@ -64,6 +64,7 @@ const ToolDesc = styled.div`
 `;
 
 var toolsArr = []
+var activetools=[]
 var bool= true;
 class Tools extends React.Component {
   componentDidMount = () => {
@@ -82,6 +83,7 @@ class Tools extends React.Component {
             toolsArr.push(RemoveBaseUrl(d.url));
           } else if (d.is_active === true) {
             Image = d.active_image_icon;
+            activetools.push(RemoveBaseUrl(d.url));
           }
 
           // const Image = d.active_image_icon;
@@ -125,7 +127,10 @@ class Tools extends React.Component {
         });
 
       if(bool){
+        
         localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr))
+        localStorage.setItem('ActiveToolsName', JSON.stringify(activetools))
+
         bool= false;
       }
     return (
