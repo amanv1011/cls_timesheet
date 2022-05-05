@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -17,8 +18,9 @@ import Settings from "../app/Settings";
 import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
-import {getCookie} from "../../actions/user"
+import { getCookie } from "../../actions/user";
 import http from "../../hoc/axiosClient";
+import Error from "./Error";
 // import {InactiveToolsStorageName} from "../../assets/text"
 function App() {
   var isLoggedIn = getCookie("token");
@@ -26,7 +28,12 @@ function App() {
     <>
       <Router>
         {/* <Switch> */}
-        <ProtectedRoute path="/weekly-status" exact onEnter={() => console.log("Entered weekly status")} component={WeeklyStatus} />
+        <ProtectedRoute
+          path="/weekly-status"
+          exact
+          onEnter={() => console.log("Entered weekly status")}
+          component={WeeklyStatus}
+        />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         {/* <ProtectedRoute path="/" exact component={LandingPage} /> */}
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
@@ -35,14 +42,15 @@ function App() {
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
-        <Route path="/" exact component={ isLoggedIn ? LandingPage : Login} />
-
-        {/* <Redirect to="/login" /> */}
+        <Route path="/" exact component={isLoggedIn ? LandingPage : Login} />
+        {/* <Switch> */}
+        <Route path="**" component={isLoggedIn ? LandingPage : Login} />
         {/* </Switch> */}
+
+        {/* <Redirect path="*" to="/" /> */}
       </Router>
     </>
   );
 }
 
 export default App;
-
