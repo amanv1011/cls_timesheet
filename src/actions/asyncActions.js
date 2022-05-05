@@ -15,7 +15,9 @@ export const getTools = (req, res) => {
         syncActions.getUserTools(response.data.sort((a, b) => a.id - b.id))
       );
     })
-    .catch((err) => {});
+    .catch((err) => {
+      throw err;
+    });
 };
 
 export const getWeeklyStatus = (date, filter, pageNumber) => {
@@ -80,7 +82,7 @@ export const getTimesheetResources = (date, id) => {
 };
 
 export const getWeeklyStatusProjects = (name, id) => {
-  // let regax = /[-!$%^&*()_+|~=`{}[:;<>?,.@#\]]/g;
+  // let regex = '{"^[A-Z0-9]+@[A-Z]+\\.[A-Z]{2,3}$"}';
 
   // if (regax.test(name)) {
   //   console.log(true);
