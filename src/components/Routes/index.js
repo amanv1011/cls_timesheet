@@ -27,7 +27,6 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Switch> */}
         <ProtectedRoute
           path="/weekly-status"
           exact
@@ -35,7 +34,6 @@ function App() {
           component={WeeklyStatus}
         />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
-        {/* <ProtectedRoute path="/" exact component={LandingPage} /> */}
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
         <ProtectedRoute path="/projects" exact component={Projects} />
         <ProtectedRoute path="/reports" exact component={Report} />
