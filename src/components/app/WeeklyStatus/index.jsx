@@ -267,7 +267,7 @@ class WeeklyStatus extends React.Component {
     ) {
       this.setState({
         totalPages: Math.ceil(
-          this.props.week_status.weeklyStatus.paging.total / 20
+          this.props.week_status.weeklyStatus.paging.total / 10
         ),
       });
       bool = false;
@@ -793,7 +793,7 @@ class WeeklyStatus extends React.Component {
               <tr>
                 <td
                   colSpan={4}
-                  style={{ textAlign: "center", padding: "20px" }}
+                  style={{ textAlign: "center", padding: "20px", fontSize: '14px' }}
                 >
                   {this.state.projectName !== ""
                     ? "No record found"

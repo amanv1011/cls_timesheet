@@ -29,7 +29,7 @@ export const getWeeklyStatus = (date, filter, pageNumber) => {
         "YYYY-MM-DD"
       )}&engagement_type=${encodeURIComponent(
         filter
-      )}&limit=20&pageNumber=${pageNumber}`
+      )}&limit=10&pageNumber=${pageNumber}`
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
@@ -120,6 +120,7 @@ export const get_engagement_types = (id) => {
   http
     .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$",response.data)
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
     .catch((err) => {});
