@@ -7,6 +7,7 @@ import history from "./history";
 
 let spinnerCount = 0;
 const http = axios.create({
+  // baseURL: "http://localhost:3501/",
   baseURL: "https://stageapp.api.classicinformatics.net/",
 });
 
@@ -19,12 +20,12 @@ http.interceptors.request.use(
     if (spinnerCount === 0) {
       Store.dispatch(syncActions.Spinner(true));
     }
-    spinnerCount++
+    spinnerCount++;
     return config;
   },
   function (error) {
     // Do something with request error
-    spinnerCount = 0
+    spinnerCount = 0;
     Store.dispatch(syncActions.Error(error));
     Store.dispatch(syncActions.Spinner(false));
     return Promise.reject(error);
@@ -35,7 +36,7 @@ http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    spinnerCount--
+    spinnerCount--;
     if (spinnerCount === 0) {
       Store.dispatch(syncActions.Spinner(false));
     }
@@ -44,7 +45,7 @@ http.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    spinnerCount = 0
+    spinnerCount = 0;
     if (error.response && error.response.status == 503) {
       deleteUserProfile(LoginStorageUserDetails);
       removeCookie("token");

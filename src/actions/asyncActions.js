@@ -82,6 +82,14 @@ export const getTimesheetResources = (date, id) => {
 };
 
 export const getWeeklyStatusProjects = (name, id) => {
+  // let regex = '{"^[A-Z0-9]+@[A-Z]+\\.[A-Z]{2,3}$"}';
+
+  // if (regax.test(name)) {
+  //   console.log(true);
+  // } else {
+  //   console.log(false);
+  // }
+
   http
     .get(
       `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
