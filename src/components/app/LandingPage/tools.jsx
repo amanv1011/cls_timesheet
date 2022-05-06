@@ -63,6 +63,9 @@ const ToolDesc = styled.div`
   opacity: 0.5;
 `;
 
+var toolsArr = []
+var activetools=[]
+var bool= true;
 var toolsArr = [];
 var bool = true;
 
@@ -76,6 +79,15 @@ class Tools extends React.Component {
       return <div />;
     }
 
+    const Data =this.props.userTools.map((d) => {
+          let Image;
+          if (d.is_active === false) {
+            Image = d.disabled_image_icon;
+            toolsArr.push(RemoveBaseUrl(d.url));
+          } else if (d.is_active === true) {
+            Image = d.active_image_icon;
+            activetools.push(RemoveBaseUrl(d.url));
+          }});
     const sortTools = () => {
       this.props.userTools.map((d) => {
         console.log(d.type);
@@ -87,10 +99,13 @@ class Tools extends React.Component {
     sortTools();
     console.log(externalTools);
 
-    if (bool) {
-      localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr));
-      bool = false;
-    }
+      if(bool){
+        
+        localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr))
+        localStorage.setItem('ActiveToolsName', JSON.stringify(activetools))
+
+        bool= false;
+      }
     return (
       <Wrapper>
         {/* {this.props.userTools ? (
@@ -104,7 +119,6 @@ class Tools extends React.Component {
             let Image;
             if (d.is_active === false) {
               Image = d.disabled_image_icon;
-              toolsArr.push(RemoveBaseUrl(d.url));
             } else if (d.is_active === true) {
               Image = d.active_image_icon;
             }
@@ -153,7 +167,6 @@ class Tools extends React.Component {
             let Image;
             if (d.is_active === false) {
               Image = d.disabled_image_icon;
-              toolsArr.push(RemoveBaseUrl(d.url));
             } else if (d.is_active === true) {
               Image = d.active_image_icon;
             }

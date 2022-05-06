@@ -13,6 +13,9 @@ import {getCookie, removeCookie} from "../../actions/user"
 import {InactiveToolsStorageName} from "../../assets/text"
 
 let bool = true;
+const dashboardTools = ["/dashboard","/hours-logged","/projects","/reports","/resources","/settings","/timesheet"]
+var ActiveTools = JSON.parse(localStorage.getItem('ActiveToolsName'))
+// var ActiveTools=["/dashboard"];
 function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isLoggedIn = getCookie('token');
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
@@ -27,7 +30,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     <Route
       {...restOfProps}
       render={(props) =>
-        isLoggedIn && !restrictedTools.includes(restOfProps.path)? (
+        isLoggedIn && !restrictedTools.includes(restOfProps.path) && Tools(restOfProps.path)? (
           <Component {...props} userData={isAuthenticated} />
         ) : (
           <Redirect to="/" />
@@ -38,3 +41,10 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
 }
 
 export default ProtectedRoute;
+
+function Tools(paths) {
+ if((ActiveTools.includes(paths) && dashboardTools.includes(paths)) || (dashboardTools.includes(paths) && ActiveTools.includes("/dashboard")) || ActiveTools.includes(paths)){
+  return true
+ }
+ return false;
+}
