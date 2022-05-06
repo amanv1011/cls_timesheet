@@ -6,7 +6,7 @@ import React from "react";
 // const rowData = document.getElementById("row");
 
 import moment from "moment";
-export const Logout = (req, res) => { };
+export const Logout = (req, res) => {};
 export const getTools = (req, res) => {
   http
     .get(`/api/auth/getusertools?id=${req}`)
@@ -20,7 +20,12 @@ export const getTools = (req, res) => {
     });
 };
 
-export const getWeeklyStatus = (strtDate, endDate, filter, pageNumber) => {
+export const getWeeklyStatus = async (
+  strtDate,
+  endDate,
+  filter,
+  pageNumber
+) => {
   return http
     .get(
       `/api/projects/status/weekly?startDate=${moment(strtDate).format(
@@ -35,7 +40,7 @@ export const getWeeklyStatus = (strtDate, endDate, filter, pageNumber) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
       return;
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 
 export const updateWeeklyStatus = (data, strtDate, endDate, pageNumber) => {
@@ -49,7 +54,7 @@ export const updateWeeklyStatus = (data, strtDate, endDate, pageNumber) => {
     .then((response) => {
       getWeeklyStatus(strtDate, endDate, "", pageNumber);
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 
 export const getTimeSheet = (date) => {
@@ -64,7 +69,7 @@ export const getTimeSheet = (date) => {
       });
       Store.dispatch(syncActions.getTimeSheet(resp));
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 
 export const getTimesheetResources = (date, id) => {
@@ -78,31 +83,24 @@ export const getTimesheetResources = (date, id) => {
     .catch((err) => console.log(err));
 };
 
-export const getWeeklyStatusProjects = (name, id) => {
-  // let regex = '{"^[A-Z0-9]+@[A-Z]+\\.[A-Z]{2,3}$"}';
-
-  // if (regax.test(name)) {
-  //   console.log(true);
-  // } else {
-  //   console.log(false);
-  // }
-
+export const getWeeklyStatusProjects = async (
+  searchquery,
+  eT,
+  id,
+  pageNumber
+) => {
   http
     .get(
       `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
-        name
-      )}&project_owner_id=${id}`
+        searchquery
+      )}&project_owner_id=${id}&engagement_type=${encodeURIComponent(
+        eT
+      )}&limit=10&pageNumber=${pageNumber}`
     )
     .then((response) => {
-      // console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
-      console.log("@@@@@@@@@@@@@@@", encodeURIComponent(name));
-      if (response.data.projects.length === 0) {
-        console.log("no record found");
-        console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
-      }
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 
 export const get_health_status = () => {
@@ -111,14 +109,13 @@ export const get_health_status = () => {
     .then((response) => {
       Store.dispatch(syncActions.get_health_status(response.data));
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };
 export const get_engagement_types = (id) => {
   http
     .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$", response.data)
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
-    .catch((err) => { });
+    .catch((err) => {});
 };

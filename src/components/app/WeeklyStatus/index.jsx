@@ -18,6 +18,7 @@ import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
+import store from "../../../redux/store";
 // import moment from "moment";
 const { TextArea } = Input;
 
@@ -43,10 +44,15 @@ class WeeklyStatus extends React.Component {
     );
 
     let endDate = this.state.startDt;
-    await getWeeklyStatus(startDate, endDate, "", this.state.currentPage);
+    await getWeeklyStatus(
+      startDate,
+      endDate,
+      this.state.engagementType,
+      this.state.currentPage
+    );
     get_health_status();
     get_engagement_types(this.props.user.userDetails.id);
-    this.updatePagination(this.state.currentPage);
+    this.updatePagination(this.state.currentPage, this.state.engagementType);
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -62,20 +68,44 @@ class WeeklyStatus extends React.Component {
     showHealthOption: null,
     showHealthBox: false,
     healthOption: "",
-    filter_type: "",
     count: 0,
     currentPage: 1,
     totalPages: 1,
     pageNumber: 1,
-    engagementVal: null,
     projectName: "",
     showSearchBar: false,
     resData: false,
+    engagementType: "",
   };
 
   onChangePage = async (page) => {
-    await getWeeklyStatus(this.state.startDt, this.state.endDt, "", page);
-    this.updatePagination(page);
+    // if (this.state.projectName && this.state.engagementType) {
+    //   await getWeeklyStatusProjects(
+    //     this.state.projectName,
+    //     this.state.engagementType,
+    //     this.props.user.userDetails.id,
+    //     page
+    //   );
+    //   this.updatePagination(page, this.state.engagementType);
+    // } else if (this.state.projectName && !this.state.engagementType) {
+    //   await getWeeklyStatusProjects(
+    //     this.state.projectName,
+    //     this.state.engagementType,
+    //     this.props.user.userDetails.id,
+    //     page
+    //   );
+    //   this.updatePagination(page, "");
+    // }
+
+    // else {
+    await getWeeklyStatus(
+      this.state.startDt,
+      this.state.endDt,
+      this.state.engagementType,
+      page
+    );
+    // }
+    this.updatePagination(page, this.state.engagementType);
   };
 
   update = () => {
@@ -124,7 +154,7 @@ class WeeklyStatus extends React.Component {
       e.target.value,
       1
     );
-    this.updatePagination(1);
+    this.updatePagination(1, e.target.value);
   };
 
   weekback = () => {
@@ -202,42 +232,49 @@ class WeeklyStatus extends React.Component {
         ...this.state.projectName,
         projectName: e.target.value,
       },
-      () => {
-        if (e.code === "Backspace") {
-          getWeeklyStatus(
+      async () => {
+        if ((e.code === "Backspace" || e.target.value === "") && !this.state.engagementType) {
+          await getWeeklyStatus(
             this.state.startDt,
             this.state.endDt,
             e.target.value,
             this.state.currentPage
           );
+          // this.updatePagination(1, this.state.engagementType);
         }
-        if (e.target.value === "") {
-          getWeeklyStatus(
+        if (e.target.value === "" && this.state.engagementType) {
+          await getWeeklyStatus(
             this.state.startDt,
             this.state.endDt,
-            e.target.value,
+            this.state.engagementType,
             this.state.currentPage
           );
+          // this.updatePagination(1, this.state.engagementType);
         }
-        if (e.target.value.length >= 2) {
-          getWeeklyStatusProjects(
+       
+        if (e.target.value.length >=2) {
+          await getWeeklyStatusProjects(
             this.state.projectName,
-            this.props.user.userDetails.id
+            this.state.engagementType,
+            this.props.user.userDetails.id,
+            1
           );
-          console.log("calling funvtion");
         }
+        this.updatePagination(1, this.state.engagementType);
       }
     );
   };
 
-  updatePagination = (page) => {
+  updatePagination = (page, eT) => {
     if (this.props.week_status.weeklyStatus.paging.total) {
       this.setState({
         currentPage: page,
+        engagementType: eT,
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 10
-        ),
-      });
+          ),
+        });
+        console.log( this.state.engagementType,">>>>>>>>>>>>>");
     }
   };
 
