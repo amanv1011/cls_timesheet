@@ -4,7 +4,6 @@ import * as syncActions from "../actions/syncActions";
 import { LoginStorageUserDetails } from "../assets/text";
 import { getCookie, removeCookie, deleteUserProfile } from "../actions/user";
 import history from "./history";
-
 let spinnerCount = 0;
 const http = axios.create({
   baseURL: "https://stageapp.api.classicinformatics.net/",
@@ -46,7 +45,8 @@ http.interceptors.response.use(
     // Do something with response error
     spinnerCount = 0
     if (error.response && error.response.status == 503) {
-      deleteUserProfile(LoginStorageUserDetails);
+      // deleteUserProfile(LoginStorageUserDetails);
+      localStorage.clear();
       removeCookie("token");
       Store.dispatch(syncActions.clearError());
       history.push("/");

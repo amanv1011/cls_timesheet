@@ -13,12 +13,14 @@ import {getCookie, removeCookie} from "../../actions/user"
 import {InactiveToolsStorageName} from "../../assets/text"
 
 let bool = true;
+const dashboardTools = ["/dashboard","/hours-logged","/projects","/reports","/resources","/settings","/timesheet"]
+var ActiveTools = JSON.parse(localStorage.getItem('ActiveToolsName'))
+// console.log("a-tools",localStorage.getItem('ActiveToolsName'));
+// var ActiveTools=["/weekly-status"];
 function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isLoggedIn = getCookie('token');
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
   var restrictedTools = JSON.parse(localStorage.getItem(InactiveToolsStorageName))
-  var ActiveTools = JSON.parse(localStorage.getItem('ActiveToolsName'))
-
 
   if (bool) {
     Store.dispatch(syncActions.UserProfile(JSON.parse(isAuthenticated)));
@@ -29,7 +31,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
     <Route
       {...restOfProps}
       render={(props) =>
-        isLoggedIn && !restrictedTools.includes(restOfProps.path) && ActiveTools.includes(restOfProps.path)? (
+        isLoggedIn && !restrictedTools.includes(restOfProps.path) && Tools(restOfProps.path)? (
           <Component {...props} userData={isAuthenticated} />
         ) : (
           <Redirect to="/" />
@@ -40,3 +42,10 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
 }
 
 export default ProtectedRoute;
+
+function Tools(paths) {
+ if((ActiveTools.includes(paths) && dashboardTools.includes(paths)) || (dashboardTools.includes(paths) && ActiveTools.includes("/dashboard")) || ActiveTools.includes(paths)){
+  return true
+ }
+ return false;
+}

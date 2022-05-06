@@ -76,7 +76,8 @@ class Header extends React.Component {
     // console.log("logout", e);
 
     removeCookie("token");
-    deleteUserProfile(LoginStorageUserDetails);
+    // deleteUserProfile(LoginStorageUserDetails);
+    localStorage.clear();
     window.location.reload(true);
   };
   render() {
