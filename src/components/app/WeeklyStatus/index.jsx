@@ -399,7 +399,11 @@ class WeeklyStatus extends React.Component {
                   ? this.props.week_status.engagementType.engagement_types.map(
                       (ele, i) => {
                         if (ele != null) {
-                          return <option value={ele}>{ele}</option>;
+                          return (
+                            <option value={ele} key={ele}>
+                              {ele}
+                            </option>
+                          );
                         }
                       }
                     )
@@ -796,11 +800,15 @@ class WeeklyStatus extends React.Component {
             )}
           </tbody>
           <tfoot className="tfoot">
-            <Pagination
-              page={this.state.currentPage}
-              pages={this.state.totalPages}
-              changePage={this.onChangePage}
-            />
+            <tr>
+              <td>
+                <Pagination
+                  page={this.state.currentPage}
+                  pages={this.state.totalPages}
+                  changePage={this.onChangePage}
+                />
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>
