@@ -21,10 +21,8 @@ import { border } from "@mui/system";
 // import moment from "moment";
 const { TextArea } = Input;
 
-let bool = true;
-
 class WeeklyStatus extends React.Component {
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.setState({
       startDt: new Date(
         this.state.startDt.setDate(
@@ -38,18 +36,17 @@ class WeeklyStatus extends React.Component {
       ),
     });
 
-    // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
-    let dates = {
-      strt: new Date(
-        this.state.endDt.setDate(
-          this.state.endDt.getDate() - this.state.endDt.getDay() + 1
-        )
-      ),
-      end: this.state.startDt,
-    };
-    getWeeklyStatus(dates, "", this.state.currentPage);
+    let startDate = new Date(
+      this.state.endDt.setDate(
+        this.state.endDt.getDate() - this.state.endDt.getDay() + 1
+      )
+    );
+
+    let endDate = this.state.startDt;
+    await getWeeklyStatus(startDate, endDate, "", this.state.currentPage);
     get_health_status();
     get_engagement_types(this.props.user.userDetails.id);
+    this.updatePagination(this.state.currentPage);
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -76,33 +73,9 @@ class WeeklyStatus extends React.Component {
     resData: false,
   };
 
-  onChangePage = (page) => {
-    this.setState(
-      {
-        currentPage: page,
-      },
-      () => {
-        let dates = {
-          strt: this.state.startDt,
-          end: this.state.endDt,
-        };
-        getWeeklyStatus(dates, "", this.state.currentPage);
-      }
-    );
-  };
-
-  dateHandler = (e) => {
-    let a = e.target.value;
-    this.setState({
-      startDt: a[0],
-      endDt: a[1],
-    });
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
-    getWeeklyStatus(dates, this.state.filter_type, this.state.currentPage);
-    // getWeeklyStatus(this.state.startDt, this.state.endDt);
+  onChangePage = async (page) => {
+    await getWeeklyStatus(this.state.startDt, this.state.endDt, "", page);
+    this.updatePagination(page);
   };
 
   update = () => {
@@ -113,10 +86,12 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-
-    // console.log(data);
-    let date_range = { strt: this.state.startDt, end: this.state.endDt };
-    updateWeeklyStatus(data, date_range, this.state.pageNumber);
+    updateWeeklyStatus(
+      data,
+      this.state.startDt,
+      this.state.endDt,
+      this.state.pageNumber
+    );
   };
 
   updateHealth = (e) => {
@@ -130,27 +105,26 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    // console.log(data);
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
     if (data.description) {
-      // console.log(data, dates);
-      updateWeeklyStatus(data, dates, this.state.pageNumber);
+      updateWeeklyStatus(
+        data,
+        this.state.startDt,
+        this.state.endDt,
+        this.state.pageNumber
+      );
     } else {
       alert("Please Update the week status first.");
     }
   };
 
-  filter_by = (e) => {
-    this.setState({ filter_by: e.target.value, currentPage: 1 }, () => {
-      let dates = {
-        strt: this.state.startDt,
-        end: this.state.endDt,
-      };
-      getWeeklyStatus(dates, e.target.value, this.state.currentPage);
-    });
+  filter_by = async (e) => {
+    await getWeeklyStatus(
+      this.state.startDt,
+      this.state.endDt,
+      e.target.value,
+      1
+    );
+    this.updatePagination(1);
   };
 
   weekback = () => {
@@ -169,15 +143,14 @@ class WeeklyStatus extends React.Component {
           7 * 24 * 60 * 60 * 1000
       ),
       count: this.state.count - 1,
-      //new changes
     });
 
-    let dates = {
-      strt: new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
-      end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
-    };
-    console.log(dates);
-    getWeeklyStatus(dates, "", this.state.currentPage);
+    getWeeklyStatus(
+      new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
+      new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
+      "",
+      this.state.currentPage
+    );
   };
 
   weekForword = () => {
@@ -201,13 +174,12 @@ class WeeklyStatus extends React.Component {
     // var endz = new Date(this.state.startDt + 7 * 24 * 3600 * 1000);
     // console.log(this.state.startDt, "hhhhhhhhhhhhhh");
     let date = new Date(this.state.startDt);
-    let dates_ = {
-      strt: new Date(date.setDate(date.getDate() + 3)),
-      end: new Date(date.setDate(date.getDate() + 4)),
-    };
-    // console.log(date);
-    // console.log(dates_);
-    getWeeklyStatus(dates_, "", this.state.currentPage);
+    getWeeklyStatus(
+      new Date(date.setDate(date.getDate() + 3)),
+      new Date(date.setDate(date.getDate() + 4)),
+      "",
+      this.state.currentPage
+    );
   };
 
   handleOk = () => {
@@ -225,19 +197,27 @@ class WeeklyStatus extends React.Component {
   };
 
   handleUpdateSearchState = (e) => {
-    console.log(e.target.value.length);
     this.setState(
       {
         ...this.state.projectName,
         projectName: e.target.value,
       },
       () => {
+        if (e.code === "Backspace") {
+          getWeeklyStatus(
+            this.state.startDt,
+            this.state.endDt,
+            e.target.value,
+            this.state.currentPage
+          );
+        }
         if (e.target.value === "") {
-          let dates = {
-            strt: this.state.startDt,
-            end: this.state.endDt,
-          };
-          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+          getWeeklyStatus(
+            this.state.startDt,
+            this.state.endDt,
+            e.target.value,
+            this.state.currentPage
+          );
         }
         if (e.target.value.length >= 2) {
           getWeeklyStatusProjects(
@@ -250,38 +230,18 @@ class WeeklyStatus extends React.Component {
     );
   };
 
-  render() {
-    if (
-      this.props.week_status.weeklyStatus &&
-      this.props.week_status.weeklyStatus.paging &&
-      this.props.week_status.weeklyStatus.paging.total &&
-      bool
-    ) {
+  updatePagination = (page) => {
+    if (this.props.week_status.weeklyStatus.paging.total) {
       this.setState({
+        currentPage: page,
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 10
         ),
       });
-      bool = false;
     }
+  };
 
-    // if (this.props.week_status.weeklyStatus.projects.length) {
-    //   if (
-    //     this.state.engagementVal !=
-    //     this.props.week_status.weeklyStatus.projects[0].engagement_type
-    //   ) {
-    //     this.setState({
-    //       totalPages: Math.ceil(
-    //         this.props.week_status.weeklyStatus.paging.total / 20
-    //       ),
-    //       engagementVal:
-    //         this.props.week_status.weeklyStatus.projects[0].engagement_type,
-    //     });
-    //   }
-    // }
-
-    // console.log("project name ", this.state.projectName);
-
+  render() {
     return (
       <div style={{ paddingTop: "80px" }}>
         <div className="upperRow">
@@ -785,7 +745,11 @@ class WeeklyStatus extends React.Component {
               <tr>
                 <td
                   colSpan={4}
-                  style={{ textAlign: "center", padding: "20px", fontSize: '14px' }}
+                  style={{
+                    textAlign: "center",
+                    padding: "20px",
+                    fontSize: "14px",
+                  }}
                 >
                   {this.state.projectName !== ""
                     ? "No record found"

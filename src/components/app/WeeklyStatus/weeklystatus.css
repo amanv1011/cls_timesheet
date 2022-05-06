@@ -73,7 +73,45 @@
   align-items: center;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1450px) {
+  .upperRow h3 {
+    font-size: 23px;
+  }
+
+  .thead {
+    padding: 15px 10px;
+    font-size: 15px;
+  }
+
+  .tbody {
+    font-size: 15px;
+    padding: 13px 10px;
+  }
+
+  .tfoot {
+    padding: 10px 0px;
+  }
+
+  .textarea {
+    height: 45px !important;
+  }
+
+  .ant-input-affix-wrapper>input.ant-input {
+    font-size: 14px;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 16px;
+  }
+
+  .healthbtn {
+    font-size: 14px;
+    font-weight: 500 !important;
+  }
+}
+
+
+@media screen and (max-width: 1250px) {
   .upperRow h3 {
     font-size: 22px;
   }
@@ -89,7 +127,7 @@
   }
 
   .tfoot {
-    padding: 5px 0px;
+    padding: 7px 0px;
   }
 
   .textarea {
@@ -221,6 +259,15 @@
   line-height: 17px;
 }
 
+.ant-input-affix-wrapper-borderless,
+.ant-input-affix-wrapper-borderless:hover,
+.ant-input-affix-wrapper-borderless:focus,
+.ant-input-affix-wrapper-borderless-focused,
+.ant-input-affix-wrapper-borderless-disabled,
+.ant-input-affix-wrapper-borderless[disabled] {
+  background-color: #e6e9f0;
+}
+
 .dateFilter {
   display: flex;
   align-items: self-end;
@@ -232,7 +279,7 @@
   text-decoration: none;
 }
 
-.ant-input-affix-wrapper>input.ant-input {
+.ant-input-affix-wrapper > input.ant-input {
   color: grey;
 }
 
@@ -300,7 +347,7 @@
   width: 280px;
 } */
 
-.ant-input-affix-wrapper>input.ant-input {
+.ant-input-affix-wrapper > input.ant-input {
   background: transparent;
 }
 

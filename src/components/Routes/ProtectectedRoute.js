@@ -15,8 +15,7 @@ import {InactiveToolsStorageName} from "../../assets/text"
 let bool = true;
 const dashboardTools = ["/dashboard","/hours-logged","/projects","/reports","/resources","/settings","/timesheet"]
 var ActiveTools = JSON.parse(localStorage.getItem('ActiveToolsName'))
-// console.log("a-tools",localStorage.getItem('ActiveToolsName'));
-// var ActiveTools=["/weekly-status"];
+// var ActiveTools=["/dashboard"];
 function ProtectedRoute({ component: Component, ...restOfProps }) {
   const isLoggedIn = getCookie('token');
   const isAuthenticated = getUserProfile(LoginStorageUserDetails);
