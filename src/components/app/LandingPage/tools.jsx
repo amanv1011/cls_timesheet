@@ -76,16 +76,16 @@ class Tools extends React.Component {
       return <div />;
     }
 
-    const sortTools = () => {
-      this.props.userTools.map((d) => {
-        console.log(d.type);
-        if (d.type === 1) externalTools.push(d);
-        if (d.type === 0) internalTools.push(d);
-      });
-    };
+    // const sortTools = () => {
+    //   this.props.userTools.map((d) => {
+    //     console.log(d.type);
+    //     if (d.type === 1) externalTools.push(d);
+    //     if (d.type === 0) internalTools.push(d);
+    //   });
+    // };
 
-    sortTools();
-    console.log(externalTools);
+    // sortTools();
+    // console.log(externalTools);
 
     if (bool) {
       localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr));
@@ -93,14 +93,13 @@ class Tools extends React.Component {
     }
     return (
       <Wrapper>
-        {/* {this.props.userTools ? (
+        {this.props.userTools ? (
           <Title>Tools and Platforms</Title>
         ) : (
           <div>Data not available</div>
-        )} */}
-        <h6 className="tools-class">External Tools</h6>
+        )}
         <ToolBox className="pt-0">
-          {externalTools.map((d) => {
+          {this.props.userTools.map((d, index) => {
             let Image;
             if (d.is_active === false) {
               Image = d.disabled_image_icon;
@@ -118,55 +117,7 @@ class Tools extends React.Component {
                     window.open(d.url);
                   }
                 }}
-              >
-                <ToolIcon>
-                  <img
-                    className="imagetool"
-                    src={require(`../../../assets/images/icons/${
-                      Image ? Image : hubspot
-                    }`)}
-                    alt=""
-                    style={{
-                      width: "35px",
-                      maxWidth: "40px",
-                      alignSelf: "center",
-                    }}
-                  />
-                </ToolIcon>
-                <ToolBar
-                  style={{
-                    cursor: `${d.is_active === false ? "not-allowed" : ""}`,
-                  }}
-                >
-                  <ToolTitle className="tool-title">{d.name}</ToolTitle>
-                  <ToolDesc className="tool-description">
-                    {d.description}
-                  </ToolDesc>
-                </ToolBar>
-              </ToolsWrapper>
-            );
-          })}
-        </ToolBox>
-        <h6 className="tools-class">Internal Tools</h6>
-        <ToolBox className="pt-0">
-          {internalTools.map((d) => {
-            let Image;
-            if (d.is_active === false) {
-              Image = d.disabled_image_icon;
-              toolsArr.push(RemoveBaseUrl(d.url));
-            } else if (d.is_active === true) {
-              Image = d.active_image_icon;
-            }
-            return (
-              <ToolsWrapper
-                style={{
-                  cursor: `${d.is_active === false ? "not-allowed" : ""}`,
-                }}
-                onClick={() => {
-                  if (d.is_active === true) {
-                    window.open(d.url);
-                  }
-                }}
+                key={index}
               >
                 <ToolIcon>
                   <img
