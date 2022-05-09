@@ -64,6 +64,9 @@ const ToolDesc = styled.div`
 `;
 
 var toolsArr = [];
+var activetools = [];
+var bool = true;
+var toolsArr = [];
 var bool = true;
 
 let externalTools = [];
@@ -78,18 +81,17 @@ class Tools extends React.Component {
 
     const sortTools = () => {
       this.props.userTools.map((d) => {
-        console.log(d.type);
         if (d.type === 1) externalTools.push(d);
         if (d.type === 0) internalTools.push(d);
       });
     };
 
-    sortTools();
-    console.log(externalTools);
-
     if (bool) {
       localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr));
+      localStorage.setItem("ActiveToolsName", JSON.stringify(activetools));
+
       bool = false;
+      sortTools();
     }
     return (
       <Wrapper>
@@ -100,11 +102,10 @@ class Tools extends React.Component {
         )} */}
         <h6 className="tools-class">External Tools</h6>
         <ToolBox className="pt-0">
-          {externalTools.map((d) => {
+          {externalTools.map((d, i) => {
             let Image;
             if (d.is_active === false) {
               Image = d.disabled_image_icon;
-              toolsArr.push(RemoveBaseUrl(d.url));
             } else if (d.is_active === true) {
               Image = d.active_image_icon;
             }
@@ -118,6 +119,7 @@ class Tools extends React.Component {
                     window.open(d.url);
                   }
                 }}
+                key={i}
               >
                 <ToolIcon>
                   <img
@@ -149,11 +151,10 @@ class Tools extends React.Component {
         </ToolBox>
         <h6 className="tools-class">Internal Tools</h6>
         <ToolBox className="pt-0">
-          {internalTools.map((d) => {
+          {internalTools.map((d, i) => {
             let Image;
             if (d.is_active === false) {
               Image = d.disabled_image_icon;
-              toolsArr.push(RemoveBaseUrl(d.url));
             } else if (d.is_active === true) {
               Image = d.active_image_icon;
             }
@@ -167,6 +168,7 @@ class Tools extends React.Component {
                     window.open(d.url);
                   }
                 }}
+                key={i + 20}
               >
                 <ToolIcon>
                   <img
