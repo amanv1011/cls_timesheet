@@ -79,32 +79,30 @@ class WeeklyStatus extends React.Component {
   };
 
   onChangePage = async (page) => {
-    // if (this.state.projectName && this.state.engagementType) {
-    //   await getWeeklyStatusProjects(
-    //     this.state.projectName,
-    //     this.state.engagementType,
-    //     this.props.user.userDetails.id,
-    //     page
-    //   );
-    //   this.updatePagination(page, this.state.engagementType);
-    // } else if (this.state.projectName && !this.state.engagementType) {
-    //   await getWeeklyStatusProjects(
-    //     this.state.projectName,
-    //     this.state.engagementType,
-    //     this.props.user.userDetails.id,
-    //     page
-    //   );
-    //   this.updatePagination(page, "");
-    // }
-
-    // else {
-    await getWeeklyStatus(
-      this.state.startDt,
-      this.state.endDt,
-      this.state.engagementType,
-      page
-    );
-    // }
+    if (this.state.projectName && this.state.engagementType) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        this.state.engagementType,
+        this.props.user.userDetails.id,
+        page
+      );
+      this.updatePagination(page, this.state.engagementType);
+    } else if (this.state.projectName && !this.state.engagementType) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        this.state.engagementType,
+        this.props.user.userDetails.id,
+        page
+      );
+      this.updatePagination(page, "");
+    } else {
+      await getWeeklyStatus(
+        this.state.startDt,
+        this.state.endDt,
+        this.state.engagementType,
+        page
+      );
+    }
     this.updatePagination(page, this.state.engagementType);
   };
 
@@ -148,12 +146,24 @@ class WeeklyStatus extends React.Component {
   };
 
   filter_by = async (e) => {
-    await getWeeklyStatus(
-      this.state.startDt,
-      this.state.endDt,
-      e.target.value,
-      1
-    );
+    this.setState({
+      engagementType: e.target.value,
+    });
+    if (this.state.projectName) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        e.target.value,
+        this.props.user.userDetails.id,
+        1
+      );
+    } else {
+      await getWeeklyStatus(
+        this.state.startDt,
+        this.state.endDt,
+        e.target.value,
+        1
+      );
+    }
     this.updatePagination(1, e.target.value);
   };
 
@@ -233,14 +243,13 @@ class WeeklyStatus extends React.Component {
         projectName: e.target.value,
       },
       async () => {
-        if ((e.code === "Backspace" || e.target.value === "") && !this.state.engagementType) {
+        if (e.target.value === "" && !this.state.engagementType) {
           await getWeeklyStatus(
             this.state.startDt,
             this.state.endDt,
             e.target.value,
             this.state.currentPage
           );
-          // this.updatePagination(1, this.state.engagementType);
         }
         if (e.target.value === "" && this.state.engagementType) {
           await getWeeklyStatus(
@@ -249,10 +258,9 @@ class WeeklyStatus extends React.Component {
             this.state.engagementType,
             this.state.currentPage
           );
-          // this.updatePagination(1, this.state.engagementType);
         }
-       
-        if (e.target.value.length >=2) {
+
+        if (e.target.value.length > 1) {
           await getWeeklyStatusProjects(
             this.state.projectName,
             this.state.engagementType,
@@ -260,21 +268,20 @@ class WeeklyStatus extends React.Component {
             1
           );
         }
-        this.updatePagination(1, this.state.engagementType);
+        await this.updatePagination(1, this.state.engagementType);
       }
     );
   };
 
-  updatePagination = (page, eT) => {
+  updatePagination = async (page, eT) => {
     if (this.props.week_status.weeklyStatus.paging.total) {
       this.setState({
         currentPage: page,
         engagementType: eT,
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 10
-          ),
-        });
-        console.log( this.state.engagementType,">>>>>>>>>>>>>");
+        ),
+      });
     }
   };
 
@@ -376,21 +383,22 @@ class WeeklyStatus extends React.Component {
               <select
                 placeholder="Apply Filter"
                 className="select"
-                style={{
-                  cursor: `${
-                    this.props.week_status.weeklyStatus.projects.length
-                      ? "pointer"
-                      : "not-allowed"
-                  }`,
-                }}
+                // style={{
+                //   cursor: `${
+                //     this.props.week_status.weeklyStatus.projects.length
+                //       ? "pointer"
+                //       : "not-allowed"
+                //   }`,
+                // }}
+                style={{ cursor: "pointer" }}
                 onChange={this.filter_by}
                 name="options"
                 id="options"
-                disabled={
-                  this.props.week_status.weeklyStatus.projects.length
-                    ? false
-                    : true
-                }
+                // disabled={
+                //   this.props.week_status.weeklyStatus.projects.length
+                //     ? false
+                //     : true
+                // }
                 defaultValue=""
               >
                 <option value="">Engagement Type</option>
