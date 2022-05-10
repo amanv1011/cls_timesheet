@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getTools } from "../../../actions/asyncActions";
 import { hubspot } from "../../../assets/images";
 import { Link } from "react-router-dom";
-import { InactiveToolsStorageName } from "../../../assets/text";
+import { InactiveToolsStorageName,ActiveToolsStorageName } from "../../../assets/text";
 const Wrapper = styled.div`
   background: #fff;
   padding: 2em;
@@ -63,10 +63,10 @@ const ToolDesc = styled.div`
   opacity: 0.5;
 `;
 
-var toolsArr = [];
-var activetools = [];
+
+let activetools = [];
 var bool = true;
-var toolsArr = [];
+let inactiveTools = [];
 var bool = true;
 
 let externalTools = [];
@@ -79,17 +79,32 @@ class Tools extends React.Component {
       return <div />;
     }
 
+
+     /* Getting active and inactive tools */
+    this.props.userTools.map((d) => {
+      if(d.type == 0){
+        if(d.is_active == true){
+          activetools.push(RemoveBaseUrl(d.url))
+        } else{
+          inactiveTools.push(RemoveBaseUrl(d.url))
+        }
+       
+      }
+    })
+    /* Getting active and inactive tools */
+
     const sortTools = () => {
       this.props.userTools.map((d) => {
         if (d.type === 1) externalTools.push(d);
-        if (d.type === 0) internalTools.push(d);
+        if (d.type === 0) {
+          internalTools.push(d)
+          };
       });
     };
-
     if (bool) {
-      localStorage.setItem(InactiveToolsStorageName, JSON.stringify(toolsArr));
-      localStorage.setItem("ActiveToolsName", JSON.stringify(activetools));
-
+      localStorage.setItem(InactiveToolsStorageName, JSON.stringify(inactiveTools));
+      localStorage.setItem(ActiveToolsStorageName, JSON.stringify(activetools));
+      
       bool = false;
       sortTools();
     }
