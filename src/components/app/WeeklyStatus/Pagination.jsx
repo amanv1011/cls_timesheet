@@ -20,6 +20,7 @@ const Pagination = ({ page, pages, changePage }) => {
             paddingRight: "10px",
             paddingTop: "1px",
           }}
+          className="pagination_text"
         >{`Page ${page} of ${pages}`}</span>
         <button
           className="pagination__next"

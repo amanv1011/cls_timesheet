@@ -110,6 +110,65 @@
   }
 }
 
+@media screen and (max-width: 1450px) and (max-height: 800px) {
+  .upperRow h3 {
+    font-size: 22px;
+  }
+
+  .thead {
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+
+  .tbody {
+    font-size: 13px;
+    padding: 13px 10px;
+  }
+
+  .tfoot {
+    padding: 10px 0px;
+  }
+
+  .textarea {
+    height: 40px !important;
+  }
+
+  .ant-input-affix-wrapper>input.ant-input {
+    font-size: 12px;
+  }
+
+  .dropdown-toggle.projectHealthSelect {
+    font-size: 13px;
+  }
+
+  .healthbtn {
+    font-size: 14px;
+    font-weight: 500 !important;
+  }
+
+  .status {
+    font-size: 13px !important;
+  }
+
+  .searchLabel {
+    font-size: 12px !important;
+  }
+
+  .optLabel {
+    font-size: 12px !important;
+  }
+
+  .pagination_text {
+    font-size: 13px !important;
+  }
+
+  .pagination button {
+    font-size: 25px !important;
+  }
+}
+
+
+
 
 @media screen and (max-width: 1250px) {
   .upperRow h3 {
@@ -279,7 +338,7 @@
   text-decoration: none;
 }
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   color: grey;
 }
 
@@ -347,7 +406,7 @@
   width: 280px;
 } */
 
-.ant-input-affix-wrapper > input.ant-input {
+.ant-input-affix-wrapper>input.ant-input {
   background: transparent;
 }
 
