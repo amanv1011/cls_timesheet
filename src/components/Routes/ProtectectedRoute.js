@@ -28,7 +28,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
         isLoggedIn
           ? window.location.pathname === '/login'
             ? <Redirect to="/" />
-            : restOfProps.path === '/' || (!restrictedTools.includes(restOfProps.path) && Tools(restOfProps.path))
+            : restOfProps.path === '/' || Tools(restOfProps.path)
               ? <Component {...props} userData={userDetails} />
               : <Redirect to="/" />
           : <Redirect push to="/login" />
@@ -40,7 +40,7 @@ function ProtectedRoute({ component: Component, ...restOfProps }) {
 export default ProtectedRoute;
 
 function Tools(paths) {
-  if ((ActiveTools.includes(paths) && dashboardTools.includes(paths)) || (dashboardTools.includes(paths) && ActiveTools.includes("/dashboard")) || ActiveTools.includes(paths)) {
+  if (!restrictedTools.includes(paths) && ((ActiveTools.includes(paths) && dashboardTools.includes(paths)) || (dashboardTools.includes(paths) && ActiveTools.includes("/dashboard")) || ActiveTools.includes(paths))) {
     return true
   }
   return false;
