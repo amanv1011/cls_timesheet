@@ -17,7 +17,7 @@ import Settings from "../app/Settings";
 import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
-import {getCookie} from "../../actions/user"
+import { getCookie } from "../../actions/user";
 import http from "../../hoc/axiosClient";
 // import {InactiveToolsStorageName} from "../../assets/text"
 function App() {
@@ -25,7 +25,12 @@ function App() {
   return (
     <>
       <Router>
-        <ProtectedRoute path="/weekly-status" exact onEnter={() => console.log("Entered weekly status")} component={WeeklyStatus} />
+        <ProtectedRoute
+          path="/weekly-status"
+          exact
+          onEnter={() => console.log("Entered weekly status")}
+          component={WeeklyStatus}
+        />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
         <ProtectedRoute path="/projects" exact component={Projects} />
@@ -33,11 +38,10 @@ function App() {
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
-        <Route path="/" exact component={ isLoggedIn ? LandingPage : Login} />
+        <Route path="/" exact component={isLoggedIn ? LandingPage : Login} />
       </Router>
     </>
   );
 }
 
 export default App;
-

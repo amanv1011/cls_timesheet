@@ -793,7 +793,11 @@ class WeeklyStatus extends React.Component {
               <tr>
                 <td
                   colSpan={4}
-                  style={{ textAlign: "center", padding: "20px", fontSize: '14px' }}
+                  style={{
+                    textAlign: "center",
+                    padding: "20px",
+                    fontSize: "14px",
+                  }}
                 >
                   {this.state.projectName !== ""
                     ? "No record found"
