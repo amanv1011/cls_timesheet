@@ -18,13 +18,12 @@ import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
 import { border } from "@mui/system";
+import store from "../../../redux/store";
 // import moment from "moment";
 const { TextArea } = Input;
 
-let bool = true;
-
 class WeeklyStatus extends React.Component {
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.setState({
       startDt: new Date(
         this.state.startDt.setDate(
@@ -38,18 +37,22 @@ class WeeklyStatus extends React.Component {
       ),
     });
 
-    // console.log(this.state.startDt, this.state.endDt, "DATESSSSSSSSSSSSS");
-    let dates = {
-      strt: new Date(
-        this.state.endDt.setDate(
-          this.state.endDt.getDate() - this.state.endDt.getDay() + 1
-        )
-      ),
-      end: this.state.startDt,
-    };
-    getWeeklyStatus(dates, "", this.state.currentPage);
+    let startDate = new Date(
+      this.state.endDt.setDate(
+        this.state.endDt.getDate() - this.state.endDt.getDay() + 1
+      )
+    );
+
+    let endDate = this.state.startDt;
+    await getWeeklyStatus(
+      startDate,
+      endDate,
+      this.state.engagementType,
+      this.state.currentPage
+    );
     get_health_status();
     get_engagement_types(this.props.user.userDetails.id);
+    this.updatePagination(this.state.currentPage, this.state.engagementType);
   };
 
   // - 7 * 24 * 60 * 60 * 1000
@@ -65,44 +68,42 @@ class WeeklyStatus extends React.Component {
     showHealthOption: null,
     showHealthBox: false,
     healthOption: "",
-    filter_type: "",
     count: 0,
     currentPage: 1,
     totalPages: 1,
     pageNumber: 1,
-    engagementVal: null,
     projectName: "",
     showSearchBar: false,
     resData: false,
+    engagementType: "",
   };
 
-  onChangePage = (page) => {
-    this.setState(
-      {
-        currentPage: page,
-      },
-      () => {
-        let dates = {
-          strt: this.state.startDt,
-          end: this.state.endDt,
-        };
-        getWeeklyStatus(dates, "", this.state.currentPage);
-      }
-    );
-  };
-
-  dateHandler = (e) => {
-    let a = e.target.value;
-    this.setState({
-      startDt: a[0],
-      endDt: a[1],
-    });
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
-    getWeeklyStatus(dates, this.state.filter_type, this.state.currentPage);
-    // getWeeklyStatus(this.state.startDt, this.state.endDt);
+  onChangePage = async (page) => {
+    if (this.state.projectName && this.state.engagementType) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        this.state.engagementType,
+        this.props.user.userDetails.id,
+        page
+      );
+      this.updatePagination(page, this.state.engagementType);
+    } else if (this.state.projectName && !this.state.engagementType) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        this.state.engagementType,
+        this.props.user.userDetails.id,
+        page
+      );
+      this.updatePagination(page, "");
+    } else {
+      await getWeeklyStatus(
+        this.state.startDt,
+        this.state.endDt,
+        this.state.engagementType,
+        page
+      );
+    }
+    this.updatePagination(page, this.state.engagementType);
   };
 
   update = () => {
@@ -113,10 +114,13 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-
-    // console.log(data);
-    let date_range = { strt: this.state.startDt, end: this.state.endDt };
-    updateWeeklyStatus(data, date_range, this.state.pageNumber);
+    updateWeeklyStatus(
+      data,
+      this.state.startDt,
+      this.state.endDt,
+      this.state.pageNumber
+    );
+    this.updatePagination(1, this.state.engagementType);
   };
 
   updateHealth = (e) => {
@@ -130,27 +134,39 @@ class WeeklyStatus extends React.Component {
       description: this.state.description,
       project_id: this.state.projectId,
     };
-    // console.log(data);
-    let dates = {
-      strt: this.state.startDt,
-      end: this.state.endDt,
-    };
     if (data.description) {
-      // console.log(data, dates);
-      updateWeeklyStatus(data, dates, this.state.pageNumber);
+      updateWeeklyStatus(
+        data,
+        this.state.startDt,
+        this.state.endDt,
+        this.state.pageNumber
+      );
+      this.updatePagination(1, this.state.engagementType);
     } else {
       alert("Please Update the week status first.");
     }
   };
 
-  filter_by = (e) => {
-    this.setState({ filter_by: e.target.value, currentPage: 1 }, () => {
-      let dates = {
-        strt: this.state.startDt,
-        end: this.state.endDt,
-      };
-      getWeeklyStatus(dates, e.target.value, this.state.currentPage);
+  filter_by = async (e) => {
+    this.setState({
+      engagementType: e.target.value,
     });
+    if (this.state.projectName) {
+      await getWeeklyStatusProjects(
+        this.state.projectName,
+        e.target.value,
+        this.props.user.userDetails.id,
+        1
+      );
+    } else {
+      await getWeeklyStatus(
+        this.state.startDt,
+        this.state.endDt,
+        e.target.value,
+        1
+      );
+    }
+    this.updatePagination(1, e.target.value);
   };
 
   weekback = () => {
@@ -169,15 +185,14 @@ class WeeklyStatus extends React.Component {
           7 * 24 * 60 * 60 * 1000
       ),
       count: this.state.count - 1,
-      //new changes
     });
 
-    let dates = {
-      strt: new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
-      end: new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
-    };
-    console.log(dates);
-    getWeeklyStatus(dates, "", this.state.currentPage);
+    getWeeklyStatus(
+      new Date(this.state.startDt - 11 * 24 * 3600 * 1000),
+      new Date(this.state.endDt - 7 * 24 * 3600 * 1000),
+      "",
+      this.state.currentPage
+    );
   };
 
   weekForword = () => {
@@ -201,13 +216,12 @@ class WeeklyStatus extends React.Component {
     // var endz = new Date(this.state.startDt + 7 * 24 * 3600 * 1000);
     // console.log(this.state.startDt, "hhhhhhhhhhhhhh");
     let date = new Date(this.state.startDt);
-    let dates_ = {
-      strt: new Date(date.setDate(date.getDate() + 3)),
-      end: new Date(date.setDate(date.getDate() + 4)),
-    };
-    // console.log(date);
-    // console.log(dates_);
-    getWeeklyStatus(dates_, "", this.state.currentPage);
+    getWeeklyStatus(
+      new Date(date.setDate(date.getDate() + 3)),
+      new Date(date.setDate(date.getDate() + 4)),
+      "",
+      this.state.currentPage
+    );
   };
 
   handleOk = () => {
@@ -225,71 +239,55 @@ class WeeklyStatus extends React.Component {
   };
 
   handleUpdateSearchState = (e) => {
-    console.log("getting value ", e.code);
-    console.log(e.target.value.length);
     this.setState(
       {
         ...this.state.projectName,
         projectName: e.target.value,
       },
-      () => {
-        if (e.code === "Backspace") {
-          let dates = {
-            strt: this.state.startDt,
-            end: this.state.endDt,
-          };
-          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
-        }
-        if (e.target.value === "") {
-          let dates = {
-            strt: this.state.startDt,
-            end: this.state.endDt,
-          };
-          getWeeklyStatus(dates, e.target.value, this.state.currentPage);
-        }
-        if (e.target.value.length >= 2) {
-          getWeeklyStatusProjects(
-            this.state.projectName,
-            this.props.user.userDetails.id
+      async () => {
+        if (e.target.value === "" && !this.state.engagementType) {
+          await getWeeklyStatus(
+            this.state.startDt,
+            this.state.endDt,
+            e.target.value,
+            this.state.currentPage
           );
-          console.log("calling funvtion");
         }
+        if (e.target.value === "" && this.state.engagementType) {
+          await getWeeklyStatus(
+            this.state.startDt,
+            this.state.endDt,
+            this.state.engagementType,
+            this.state.currentPage
+          );
+        }
+
+        if (e.target.value.length > 1) {
+          await getWeeklyStatusProjects(
+            this.state.projectName,
+            this.state.engagementType,
+            this.props.user.userDetails.id,
+            1
+          );
+        }
+        await this.updatePagination(1, this.state.engagementType);
       }
     );
   };
 
-  render() {
-    if (
-      this.props.week_status.weeklyStatus &&
-      this.props.week_status.weeklyStatus.paging &&
-      this.props.week_status.weeklyStatus.paging.total &&
-      bool
-    ) {
+  updatePagination = async (page, eT) => {
+    if (this.props.week_status.weeklyStatus.paging.total) {
       this.setState({
+        currentPage: page,
+        engagementType: eT,
         totalPages: Math.ceil(
           this.props.week_status.weeklyStatus.paging.total / 10
         ),
       });
-      bool = false;
     }
+  };
 
-    // if (this.props.week_status.weeklyStatus.projects.length) {
-    //   if (
-    //     this.state.engagementVal !=
-    //     this.props.week_status.weeklyStatus.projects[0].engagement_type
-    //   ) {
-    //     this.setState({
-    //       totalPages: Math.ceil(
-    //         this.props.week_status.weeklyStatus.paging.total / 20
-    //       ),
-    //       engagementVal:
-    //         this.props.week_status.weeklyStatus.projects[0].engagement_type,
-    //     });
-    //   }
-    // }
-
-    // console.log("project name ", this.state.projectName);
-
+  render() {
     return (
       <div style={{ paddingTop: "80px" }}>
         <div className="upperRow">
@@ -387,21 +385,22 @@ class WeeklyStatus extends React.Component {
               <select
                 placeholder="Apply Filter"
                 className="select"
-                style={{
-                  cursor: `${
-                    this.props.week_status.weeklyStatus.projects.length
-                      ? "pointer"
-                      : "not-allowed"
-                  }`,
-                }}
+                // style={{
+                //   cursor: `${
+                //     this.props.week_status.weeklyStatus.projects.length
+                //       ? "pointer"
+                //       : "not-allowed"
+                //   }`,
+                // }}
+                style={{ cursor: "pointer" }}
                 onChange={this.filter_by}
                 name="options"
                 id="options"
-                disabled={
-                  this.props.week_status.weeklyStatus.projects.length
-                    ? false
-                    : true
-                }
+                // disabled={
+                //   this.props.week_status.weeklyStatus.projects.length
+                //     ? false
+                //     : true
+                // }
                 defaultValue=""
               >
                 <option value="">Engagement Type</option>
@@ -410,7 +409,11 @@ class WeeklyStatus extends React.Component {
                   ? this.props.week_status.engagementType.engagement_types.map(
                       (ele, i) => {
                         if (ele != null) {
-                          return <option value={ele}>{ele}</option>;
+                          return (
+                            <option value={ele} key={ele}>
+                              {ele}
+                            </option>
+                          );
                         }
                       }
                     )
@@ -523,7 +526,6 @@ class WeeklyStatus extends React.Component {
                               this.setState({
                                 description: e.target.value,
                               });
-                              // console.log(this.state.description);
                             }}
                             onBlur={this.update}
                           />
@@ -698,93 +700,6 @@ class WeeklyStatus extends React.Component {
                             : []}
                         </ul>
                       </div>
-
-                      {/* Required in future */}
-
-                      {/* {(this.state.showHealthOption == i &&
-                        this.state.count === 0 &&
-                        (ele.is_email_sent == false ||
-                          ele.is_email_sent == null)) ||
-                      (this.state.showHealthOption == i &&
-                        this.state.count != 0 &&
-                        ele.is_email_sent == false &&
-                        ele.weekly_status_description != null) ? (
-                        <Modal
-                          style={{
-                            position: "absolute",
-                            top: "257px",
-                            right: "37px",
-                          }}
-                          // className="healthSection"
-                          visible={this.state.showHealthBox}
-                          onOk={this.handleOk}
-                          onCancel={this.handleCancel}
-                        >
-                          {this.props.week_status.healthStatus.results.map(
-                            (ele, i) => {
-                              return (
-                                <button
-                                  type="button"
-                                  className="healthbtn"
-                                  onClick={this.updateHealth}
-                                  value={ele.id}
-                                >
-                                  <div
-                                    style={{
-                                      background: `linear-gradient(180deg,${ele.color_code_1} 0%, ${ele.color_code_2} 100%)`,
-                                    }}
-                                    className="square"
-                                  ></div>
-                                  {ele.name}
-                                </button>
-                              );
-                            }
-                          )}
-                        </Modal>
-                      ) : (
-                        <span
-                          style={{ fontWeight: "400", cursor: "pointer" }}
-                          onClick={(e) => {
-                            this.setState({
-                              description: ele.weekly_status_description,
-                              showHealthOption: i,
-                              projectId: ele.project_id,
-                            });
-                          }}
-                        >
-                          <p
-                            onClick={() => {
-                              this.setState({
-                                showHealthBox: true,
-                              });
-                            }}
-                            style={{margin: '0px'}}
-                          >
-                            <div
-                              style={{
-                                background: `${
-                                  ele.project_health == "Poor"
-                                    ? "linear-gradient(180deg, #FF5B5D 10%, #F2383A 90%)"
-                                    : ele.project_health == "Good"
-                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
-                                    : ele.project_health == "Average"
-                                    ? "linear-gradient(180deg, #FFDA70 10%, #FFBD00 90%)"
-                                    : ele.project_health == "Excellent"
-                                    ? "linear-gradient(180deg, #edbb99 10%, #e59866 90%)"
-                                    : ele.project_health == null
-                                    ? "linear-gradient(180deg, #24d6a5 10%, #17c293 90%)"
-                                    : ""
-                                }`,
-                              }}
-                              className="square mainSquare"
-                            ></div>
-
-                            {ele.project_health == null
-                              ? "Good"
-                              : ele.project_health}
-                          </p>
-                        </span>
-                      )} */}
                     </td>
                   </tr>
                 );
@@ -807,11 +722,15 @@ class WeeklyStatus extends React.Component {
             )}
           </tbody>
           <tfoot className="tfoot">
-            <Pagination
-              page={this.state.currentPage}
-              pages={this.state.totalPages}
-              changePage={this.onChangePage}
-            />
+            <tr>
+              <td>
+                <Pagination
+                  page={this.state.currentPage}
+                  pages={this.state.totalPages}
+                  changePage={this.onChangePage}
+                />
+              </td>
+            </tr>
           </tfoot>
         </table>
       </div>

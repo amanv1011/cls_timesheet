@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
-
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectectedRoute";
 import Dashboard from "../app/Dashboard";
 import LandingPage from "../app/LandingPage";
@@ -18,19 +12,16 @@ import Timesheet from "../app/Timesheet";
 import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
 import { getCookie } from "../../actions/user";
-import http from "../../hoc/axiosClient";
-// import {InactiveToolsStorageName} from "../../assets/text"
-function App() {
-  var isLoggedIn = getCookie("token");
+
+function Routes() {
+  const isLoggedIn = getCookie("token");
   return (
-    <>
-      <Router>
-        <ProtectedRoute
-          path="/weekly-status"
-          exact
-          onEnter={() => console.log("Entered weekly status")}
-          component={WeeklyStatus}
-        />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" exact>
+          {isLoggedIn ? <Redirect to="/"></Redirect> : <Login />}
+        </Route>
+        <ProtectedRoute path="/weekly-status" exact component={WeeklyStatus} />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
         <ProtectedRoute path="/projects" exact component={Projects} />
@@ -38,10 +29,11 @@ function App() {
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
-        <Route path="/" exact component={isLoggedIn ? LandingPage : Login} />
-      </Router>
-    </>
+        <ProtectedRoute path="/" exact component={LandingPage} />
+        <ProtectedRoute path="*" component={LandingPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default Routes;

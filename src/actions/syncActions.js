@@ -43,14 +43,6 @@ export const getTimesheetResources = (data) => (
   }
 );
 
-// export const getWeeklyStatusProjects = (data) => (
-//   console.log("data from payload in sync: ", data),
-//   {
-//     type: actionTypes.GET_WEEKLY_STATUS_PROJECT_NAME,
-//     payload: data,
-//   }
-// );
-
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,
   payload: data,

@@ -61,8 +61,8 @@ class Header extends React.Component {
   };
   changeHandler = (e) => {
     removeCookie("token")
-    deleteUserProfile(LoginStorageUserDetails);
-    this.props.history.push("/login");
+    localStorage.clear();
+    window.location.reload(true);
   };
   render() {
     const { name, image } = this.props.user.userDetails;

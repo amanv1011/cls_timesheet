@@ -20,12 +20,17 @@ export const getTools = (req, res) => {
     });
 };
 
-export const getWeeklyStatus = (date, filter, pageNumber) => {
-  http
+export const getWeeklyStatus = async (
+  strtDate,
+  endDate,
+  filter,
+  pageNumber
+) => {
+  return http
     .get(
-      `/api/projects/status/weekly?startDate=${moment(date.strt).format(
+      `/api/projects/status/weekly?startDate=${moment(strtDate).format(
         "YYYY-MM-DD"
-      )}&endDate=${moment(date.end).format(
+      )}&endDate=${moment(endDate).format(
         "YYYY-MM-DD"
       )}&engagement_type=${encodeURIComponent(
         filter
@@ -33,24 +38,21 @@ export const getWeeklyStatus = (date, filter, pageNumber) => {
     )
     .then((response) => {
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
+      return;
     })
     .catch((err) => {});
 };
 
-export const updateWeeklyStatus = (req, res, pageNumber) => {
+export const updateWeeklyStatus = (data, strtDate, endDate, pageNumber) => {
   http
     .put(
-      `/api/projects/${req.project_id}/status/weekly?startDate=${moment(
-        res.strt
-      ).format("YYYY-MM-DD")}&endDate=${moment(res.end).format("YYYY-MM-DD")}`,
-      req
+      `/api/projects/${data.project_id}/status/weekly?startDate=${moment(
+        strtDate
+      ).format("YYYY-MM-DD")}&endDate=${moment(endDate).format("YYYY-MM-DD")}`,
+      data
     )
     .then((response) => {
-      let date = {
-        strt: res.strt,
-        end: res.end,
-      };
-      getWeeklyStatus(date, "", pageNumber);
+      getWeeklyStatus(strtDate, endDate, "", pageNumber);
     })
     .catch((err) => {});
 };
@@ -81,28 +83,21 @@ export const getTimesheetResources = (date, id) => {
     .catch((err) => console.log(err));
 };
 
-export const getWeeklyStatusProjects = (name, id) => {
-  // let regex = '{"^[A-Z0-9]+@[A-Z]+\\.[A-Z]{2,3}$"}';
-
-  // if (regax.test(name)) {
-  //   console.log(true);
-  // } else {
-  //   console.log(false);
-  // }
-
+export const getWeeklyStatusProjects = async (
+  searchquery,
+  eT,
+  id,
+  pageNumber
+) => {
   http
     .get(
       `/api/projects/status/weekly/searchtable?searchquery=${encodeURIComponent(
-        name
-      )}&project_owner_id=${id}`
+        searchquery
+      )}&project_owner_id=${id}&engagement_type=${encodeURIComponent(
+        eT
+      )}&limit=10&pageNumber=${pageNumber}`
     )
     .then((response) => {
-      // console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects);
-      console.log("@@@@@@@@@@@@@@@", encodeURIComponent(name));
-      if (response.data.projects.length === 0) {
-        console.log("no record found");
-        console.log("$$$$$$$$$$$$$$$$$$$$", response.data.projects.length);
-      }
       Store.dispatch(syncActions.getWeeklyStatus(response.data));
     })
     .catch((err) => {});
@@ -120,7 +115,6 @@ export const get_engagement_types = (id) => {
   http
     .get(`/api/table/projects/field/engagement_type?id=${id}`)
     .then((response) => {
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$",response.data)
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
     .catch((err) => {});
