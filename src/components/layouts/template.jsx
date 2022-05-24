@@ -21,8 +21,7 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
+
 `;
 
 const withDashboardTemplate = (WrappedComponent) => {
@@ -31,9 +30,6 @@ const withDashboardTemplate = (WrappedComponent) => {
       collapsible: true,
     };
 
-    state = {
-      collapsible: false,
-    };
 
     toggle = () => {
       this.setState({ collapsible: !this.state.collapsible });
@@ -43,7 +39,6 @@ const withDashboardTemplate = (WrappedComponent) => {
       // console.log(this.props)
       return (
         <Wrapper>
-          <Layout>
             <TopHeader toggle={this.toggle} />
             <Layout>
               <Sider
@@ -52,11 +47,11 @@ const withDashboardTemplate = (WrappedComponent) => {
                 trigger={null}
                 collapsible
                 collapsed={this.state.collapsible}
-                style={{
-                  top: "70px",
-                  position: "fixed",
-                  height: "100%",
-                }}
+                // style={{
+                //   top: "70px",
+                //   position: "fixed",
+                //   height: "100%",
+                // }}
               >
                 {/* style={{ top: "60px" }} */}
                 <Menu
@@ -119,7 +114,7 @@ const withDashboardTemplate = (WrappedComponent) => {
                   </Menu.Item>
                 </Menu>
               </Sider>
-              <Layout style={{ padding: "0 24px 0px" }}>
+              <Layout>
                 {/* <Breadcrumb style={{ margin: "16px 0" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>
                   <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -128,8 +123,7 @@ const withDashboardTemplate = (WrappedComponent) => {
                 <Content
                   className="site-layout-background"
                   style={{
-                    padding: 24,
-                    margin: 0,
+                  
                     minHeight: "100vh",
                   }}
                 >
@@ -137,7 +131,6 @@ const withDashboardTemplate = (WrappedComponent) => {
                 </Content>
               </Layout>
             </Layout>
-          </Layout>
         </Wrapper>
       );
     }

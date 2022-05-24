@@ -8,11 +8,12 @@ import { time, calender, group, bag, arrow } from "../../../assets/images";
 import "./style.css";
 
 const Wrapper = styled.div`
-  position: relative;
-  left: 200px;
-  width: 75vw;
+  /* position: relative; */
+  /* left: 200px; */
+  /* width: 75vw; */
+  padding:2em;
   height: 80vh;
-  top: 70px;
+  /* top: 70px; */
   @media (max-width: 1200px) {
     top: 60px;
   }

@@ -7,11 +7,11 @@ import { Table, Tag, Space } from "antd";
 import { time, calender, group, bag, arrow } from "../../../assets/images";
 
 const Wrapper = styled.div`
-  position: relative;
+  /* position: relative;
   left: 200px;
   width: 75vw;
   height: 80vh;
-  top: 70px;
+  top: 70px; */
   @media (max-width: 1200px) {
     top: 60px;
   }
@@ -20,8 +20,6 @@ const Wrapper = styled.div`
 
 class Dashboard extends React.Component {
   render() {
- 
-
     return (
       <Wrapper>
         Settings

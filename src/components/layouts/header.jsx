@@ -18,6 +18,7 @@ const { Option } = Select;
 const Wrapper = styled.div`
   background: #fff;
   padding: 1em;
+  height: 70px;
   @media only screen and (max-width: 414px) {
     padding: unset;
   }
@@ -67,7 +68,7 @@ class Header extends React.Component {
   render() {
     const { name, image } = this.props.user.userDetails;
     return (
-      <Wrapper style={{ position: "fixed", width: "100%", zIndex: "1" }}>
+      <Wrapper>
         <Container>
           <LeftContainer>
             <MenuUnfoldOutlined
