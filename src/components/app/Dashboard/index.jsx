@@ -1,256 +1,103 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+
 import DashboardTemplate from "../../layouts/template";
-import { withRouter } from "react-router";
-import styled from "styled-components";
-import { Table, Tag, Space } from "antd";
-import { time, calender, group, bag, arrow } from "../../../assets/images";
+
+import { IoIosArrowDown } from "react-icons/io";
+import { DatePicker } from "antd";
+import { RiCalendar2Line } from "react-icons/ri";
+import Today from "../../../assets/dashboardIcons/today";
+import ThisWeek from "../../../assets/dashboardIcons/thisWeek"
+import UserWorked from "../../../assets/dashboardIcons/userWorked";
+import WorkedProject from "../../../assets/dashboardIcons/workedProject"
+import Arrow from "../../../assets/dashboardIcons/Arrow"
+import Table from "../../commonComponents/Table/Table"
+
 import "./style.css";
 
-const Wrapper = styled.div`
-  position: relative;
-  left: 200px;
-  width: 75vw;
-  height: 80vh;
-  top: 70px;
-  @media (max-width: 1200px) {
-    top: 60px;
-  }
-`;
-const Container = styled.div`
-  @media (max-width: 1200px) {
-    height: 200px;
-    width 70vw;
-  }
-`;
-const TimeContainer = styled.div`
-  display: flex;
-  margin-bottom: 1em;
-  gap: 10px;
+const Dashboard = () => {
+  const monthFormat = "MMM YYYY";
 
-  @media (max-width: 1200px) {
-    height: 18vh;
-  }
-`;
-const TimeBoxes = styled.div`
-  background: #fff;
-  width: 25%;
-  border-radius: 15px;
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-  align-items: center;
-`;
-const TableContainer = styled.div`
-  border-radius: 20px;
-`;
-const PageHeader = styled.div``;
-
-class Dashboard extends React.Component {
-  render() {
-    const columns = [
-      {
-        title: "Projects",
-        dataIndex: "project",
-        key: "project",
-        render: (text) => <a>{text}</a>,
-      },
-      {
-        title: "Project Owner",
-        dataIndex: "owner",
-        key: "age",
-      },
-      {
-        title: "Engagement Type",
-        dataIndex: "engagement",
-        key: "address",
-      },
-      {
-        title: "Project Health",
-        key: "tags",
-        dataIndex: "health",
-        // render: tags => (
-        //   <>
-        //     {tags.map(tag => {
-        //       let color = tag.length > 5 ? 'geekblue' : 'green';
-        //       if (tag === 'loser') {
-        //         color = 'volcano';
-        //       }
-        //       return (
-        //         <Tag color={color} key={tag}>
-        //           {tag.toUpperCase()}
-        //         </Tag>
-        //       );
-        //     })}
-        //   </>
-        // ),
-      },
-      {
-        title: "Hours Logged",
-        dataIndex: "hours_logged",
-        key: "address",
-        render: (tags) => <div className="hoursLogged">{tags}</div>,
-      },
-      {
-        title: "Members",
-        dataIndex: "members",
-        key: "address",
-        render: (tags) => (
-          <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? "geekblue" : "green";
-              if (tag === "loser") {
-                color = "volcano";
+  return (
+    <>
+      <div className="dashboard-container">
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            paddingRight: "25px",
+          }}
+        >
+          <div className="dashboard-header">Dashboard</div>
+          <div>
+            <DatePicker
+              className="dashboard-datepicker"
+              picker="month"
+              suffixIcon={
+                <span className="styleDateIcons">
+                  <RiCalendar2Line
+                    style={{
+                      right: "8.33%",
+                      top: "4.17%",
+                      bottom: "12.5%",
+                    }}
+                  />
+                  <IoIosArrowDown />
+                </span>
               }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
-      },
-      // {
-      //   title: 'Members',
-      //   key: 'action',
-      //   render: (text, record) => (
-      //     <Space size="middle">
-      //       <a>Invite {record.name}</a>
-      //       <a>Delete</a>
-      //     </Space>
-      //   ),
-      // },
-    ];
-
-    const data = [
-      {
-        key: "1",
-        project: "John Brown",
-        owner: "John Brown",
-        health: "good",
-        hours_logged: "36h 15m",
-        engagement: "Fixed",
-        members: ["nice", "developer"],
-      },
-      {
-        key: "2",
-        project: "Jim Green",
-        owner: "John Brown",
-        health: "average",
-        hours_logged: "36h 15m",
-        engagement: "Dedicated",
-        members: ["loser"],
-      },
-      {
-        key: "3",
-        project: "Joe Black",
-        owner: "John Brown",
-        health: "bad",
-        hours_logged: "36h 15m",
-        engagement: "Dedicated",
-
-        members: ["cool", "teacher"],
-      },
-    ];
-
-    return (
-      <Wrapper>
-        <Container className="mainDashboard">
-          <PageHeader>
-            <div className="PageHeader-title">Dashboard</div>
-            <div className="calender"></div>
-          </PageHeader>
-          <TimeContainer>
-            <TimeBoxes>
-              <div>
-                <div className="time">8h 15m</div>
-                <p className="description">Today</p>
-              </div>
-              <div>
-                <img src={time} alt="" />
-              </div>
-            </TimeBoxes>
-            <TimeBoxes>
-              <div>
-                <div className="time">17h 15m</div>
-                <p className="description">This Week</p>
-              </div>
-              <div>
-                <img src={calender} alt="" />
-              </div>
-            </TimeBoxes>
-            <TimeBoxes>
-              <div>
-                <div className="time">05</div>
-                <p className="description">User Worked</p>
-              </div>
-              <div>
-                <img src={group} alt="" />
-              </div>
-            </TimeBoxes>
-            <TimeBoxes>
-              <div>
-                <div className="time">02 of 15</div>
-                <p className="description">Worked Projects</p>
-              </div>
-              <div>
-                <img src={bag} alt="" />
-              </div>
-            </TimeBoxes>
-          </TimeContainer>
-          <TableContainer style={{ borderRadius: "20px" }}>
-            <div
-              style={{
-                background: "#fff",
-                width: "100%",
-                padding: "1em 0.5em 1em 1em",
-                borderRadius: "1em 1em 0 0",
-              }}
-            >
-              <h5>Active Projects</h5>
-            </div>
-
-            <Table
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-              scroll={{ y: 500 }}
-              className="styleDashboardTable"
+              format={monthFormat}
             />
-
-            <div
-              align="center"
-              className="footer"
-              style={{
-                background: "#fff",
-                width: "100%",
-                padding: "1em 0.5em 1em 1em",
-                textAlign: "center",
-                borderRadius: "0 0 1em 1em",
-              }}
-            >
-              <a style={{ textAlign: "center" }}>
-                View Projects <img src={arrow} alt="" />
-              </a>
+          </div>
+        </div>
+        <div className="cards-container">
+          <div className="dashboard-cards">
+            <div>
+              <p className="cards-heading">8h 15m</p>
+              <p className="cards-subheading">Today</p>
             </div>
-          </TableContainer>
-        </Container>
-      </Wrapper>
-    );
-  }
-}
+            <div className="dashboard-cards-sub">
+              <Today />
+            </div>
+          </div>
+          <div className="dashboard-cards">
+            <div>
+              <p className="cards-heading">8h 15m</p>
+              <p className="cards-subheading">Today</p>
+            </div>
+            <div className="dashboard-cards-sub">
+              <ThisWeek />
+            </div>
+          </div>
+          <div className="dashboard-cards">
+            <div>
+              <p className="cards-heading">8h 15m</p>
+              <p className="cards-subheading">Today</p>
+            </div>
+            <div className="dashboard-cards-sub">
+              <UserWorked />
+            </div>
+          </div>
+          <div className="dashboard-cards">
+            <div>
+              <p className="cards-heading">8h 15m</p>
+              <p className="cards-subheading">Today</p>
+            </div>
+            <div className="dashboard-cards-sub">
+              <WorkedProject />
+            </div>
+          </div>
 
-const mapStateToProps = (store) => {
-  return {
-    ...store,
-  };
+        </div>
+        <div className="table-container">
+                <Table/>
+                <button className="dashboard-table-button">
+                  <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
+                  
+                  <Arrow/>
+                </button>
+          </div>
+      </div>
+    </>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default DashboardTemplate(
-  connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard))
-);
+export default DashboardTemplate(Dashboard);
