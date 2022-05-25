@@ -31,3 +31,17 @@
   height: 31px;
   width: 118px;
 }
+
+.table-container {
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-right: 23px;
+}
+.dashboard-datepicker {
+  width: 160px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: rgb(231, 231, 231);
+
+}

@@ -2,25 +2,26 @@
 
     margin-top: 50px;
     color: blue;
-
+}
+.filter-by{
+    font-size: 14px;
+    font-weight: 600;
 }
 
-
 .timesheet-tabs {
-    flex-wrap: wrap;
+
     display: flex;
     justify-items: center;
     justify-content: space-between;
     width: 100%;
-    /* max-height: 100px; */
-
-
+    padding-top: 5px;
+    padding-left: 3px;
+    
 }
 
 @media only screen and (max-width: 1452px) {
     .timesheet-tabs {
         justify-content: initial;
-
 
     }
 
@@ -47,6 +48,8 @@
     .button-go {
         margin-right: 10px;
         margin-top: 5px;
+        border: none;
+        box-shadow: none;
     }
 
     .switch-resources {
@@ -57,6 +60,8 @@
     .export-to-excel {
         margin-right: 10px;
         margin-top: 5px;
+        border: none;
+        box-shadow: none;
     }
 
 }
@@ -73,9 +78,12 @@
     font-weight: 600;
     color: #1F4173;
     margin-right: 10px;
-
+    outline: none;
 
 }
+.project-name :focus {
+    border: none;
+} 
 
 .project-owner {
 
@@ -89,6 +97,7 @@
     font-size: 14px;
     font-weight: 600;
     color: #1F4173;
+    outline: none;
 }
 
 .project-engagement {
@@ -103,6 +112,7 @@
     font-size: 14px;
     font-weight: 600;
     color: #1F4173;
+    outline: none;
 }
 
 .project-status {
@@ -117,6 +127,7 @@
     font-size: 14px;
     font-weight: 600;
     color: #1F4173;
+    outline: none;
 }
 
 .button-go {
@@ -128,6 +139,8 @@
     color: #FFFFFF;
     font-size: 14px;
     font-weight: 600;
+    border: none;
+    box-shadow: none;
 
 }
 
@@ -152,5 +165,40 @@
     font-size: 14px;
     font-weight: 600;
     margin-right: 24px;
+    border: none;
+    box-shadow: none;
 
+}
+
+.horizontal-slidder {
+    padding-bottom: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.horizontal-slidder thead th {
+    position: sticky;
+}
+
+.horizontal-slidder::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+.horizontal-slidder::-webkit-scrollbar {
+    height: 10px;
+    width: 6px;
+    border-radius: 15px;
+}
+
+.horizontal-slidder::-webkit-scrollbar-track {
+    background: #FFFFFF;
+    margin-top: 20px;
+    border-radius: 15px;
+    margin-bottom: 1px;
+}
+
+.horizontal-slidder::-webkit-scrollbar-thumb {
+    height: 165px;
+    background: #E6EAF2;
+    border-radius: 20px;
 }

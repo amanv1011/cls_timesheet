@@ -5,48 +5,51 @@ import './timesheetFilter.css';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const TimesheetFilters = () => {
-  return (
-   <>
-   <div className="filterBy">
-          <p>Filter By</p>
+    return (
+        <>
+            <div className="filterBy">
+                <p className='filter-by'>Filter By</p>
 
-        </div>
-        <div className="timesheet-tabs">
-          <div className="project-name-tab">
-            <input className="project-name" placeholder="Project Name" />
+            </div>
+            <div className='horizontal-slidder'>
 
-          </div>
 
-          <div className="project-owner-tab">
-            <input className="project-owner" placeholder="Project Owner" />
+                <div className="timesheet-tabs">
+                    <div className="project-name-tab">
+                        <input className="project-name" placeholder="Project Name" />
 
-          </div>
+                    </div>
 
-          <div className="project-engagement-tab">
-            <input className="project-engagement" placeholder="Engagement Type" />
+                    <div className="project-owner-tab">
+                        <input className="project-owner" placeholder="Project Owner" />
 
-          </div>
+                    </div>
 
-          <div className="project-status-tab">
-            <input className="project-status" placeholder="Status" />
+                    <div className="project-engagement-tab">
+                        <input className="project-engagement" placeholder="Engagement Type" />
 
-          </div>
-          <div className="buttonGo">
-            <button className="button-go"> Go</button>
+                    </div>
 
-          </div>
-          <div className="switch-resource">
+                    <div className="project-status-tab">
+                        <input className="project-status" placeholder="Status" />
 
-            <Switch {...label} defaultChecked color="warning" /><span className="switch-resources">Resources</span>
-          </div>
-          <div >
-            <button className="export-to-excel"> Export to Excel</button>
+                    </div>
+                    <div className="buttonGo">
+                        <button className="button-go"> Go</button>
 
-          </div>
-        </div>
+                    </div>
+                    <div className="switch-resource">
 
-   </>
-  )
+                        <Switch {...label} defaultChecked color="warning" /><span className="switch-resources">Resources</span>
+                    </div>
+                    <div >
+                        <button className="export-to-excel"> Export to Excel</button>
+
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default TimesheetFilters

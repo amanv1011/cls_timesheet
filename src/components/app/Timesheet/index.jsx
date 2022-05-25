@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { RiCalendar2Line } from "react-icons/ri";
 import { DatePicker } from "antd";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
-
+import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
 
 import './timesheetModule.css';
@@ -29,7 +29,8 @@ const Timesheet = () => {
 
           </div>
           <div className="timesheet-heading-date">
-            <DatePicker
+          <DatePicker
+              className="dashboard-datepicker"
               picker="month"
               suffixIcon={
                 <span className="styleDateIcons">
@@ -43,12 +44,6 @@ const Timesheet = () => {
                   <IoIosArrowDown />
                 </span>
               }
-              style={{
-                width: " 140px",
-                height: "40px",
-                borderRadius: "10px",
-                color: "#1f4173",
-              }}
               format={monthFormat}
             />
 
@@ -56,6 +51,14 @@ const Timesheet = () => {
 
         </div>
         <TimesheetFilters />
+
+        {/*Timesheet Table is In Progress */}
+
+        {/* <div className="table-container">
+          
+          <Table />
+
+        </div> */}
 
       </div>
     </>
