@@ -43,7 +43,13 @@ export const getWeeklyStatus = async (
     .catch((err) => {});
 };
 
-export const updateWeeklyStatus = (data, strtDate, endDate, pageNumber) => {
+export const updateWeeklyStatus = (
+  data,
+  strtDate,
+  endDate,
+  pageNumber,
+  engagement_type
+) => {
   http
     .put(
       `/api/projects/${data.project_id}/status/weekly?startDate=${moment(
@@ -52,7 +58,7 @@ export const updateWeeklyStatus = (data, strtDate, endDate, pageNumber) => {
       data
     )
     .then((response) => {
-      getWeeklyStatus(strtDate, endDate, "", pageNumber);
+      getWeeklyStatus(strtDate, endDate, engagement_type, pageNumber);
     })
     .catch((err) => {});
 };
