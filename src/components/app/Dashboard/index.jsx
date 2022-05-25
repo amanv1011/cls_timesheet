@@ -11,8 +11,8 @@ const Wrapper = styled.div`
   /* position: relative; */
   /* left: 200px; */
   /* width: 75vw; */
-  padding:2em;
-  height: 80vh;
+  /* padding:2em;
+  height: 80vh; */
   /* top: 70px; */
   @media (max-width: 1200px) {
     top: 60px;

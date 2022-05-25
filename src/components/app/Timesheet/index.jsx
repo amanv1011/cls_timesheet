@@ -326,12 +326,12 @@ class Timesheet extends React.Component {
 
     return (
       <div
-        style={{
-          position: "relative",
-          left: "200px",
-          width: "75vw",
-          top: "70px",
-        }}
+        // style={{
+        //   position: "relative",
+        //   left: "200px",
+        //   width: "75vw",
+        //   top: "70px",
+        // }}
       >
         {/* <div className={Classes.backBtn}>
           <IoIosArrowBack />

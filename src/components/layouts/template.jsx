@@ -123,7 +123,8 @@ const withDashboardTemplate = (WrappedComponent) => {
                 <Content
                   className="site-layout-background"
                   style={{
-                  
+                    padding:'2em',
+                    height: '80vh',
                     minHeight: "100vh",
                   }}
                 >

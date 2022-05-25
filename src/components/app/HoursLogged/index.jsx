@@ -175,10 +175,10 @@ class HoursLogged extends React.Component {
     return (
       <div
         style={{
-          position: "relative",
-          left: "200px",
-          width: "75vw",
-          top: "70px",
+          // position: "relative",
+          // left: "200px",
+          // width: "75vw",
+          // top: "70px",
         }}
       >
         <div className="header">
