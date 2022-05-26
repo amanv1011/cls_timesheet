@@ -8,7 +8,7 @@ import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetF
 import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
 
-import './timesheetModule.css';
+import './TimesheetModule.css';
 
 const monthFormat = "MMM YYYY";
 
