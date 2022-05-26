@@ -10,7 +10,6 @@ const MembersCircles = () => {
             <div className="circle circle-three">EF</div>
             <div className="circle circle-four">GH</div>
             <div className="circle circle-five">IJ</div>
-            
         </div>
         </>
     )
