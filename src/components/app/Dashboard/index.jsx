@@ -13,6 +13,7 @@ import Arrow from "../../../assets/dashboardIcons/Arrow"
 import Table from "../../commonComponents/Table/Table"
 
 import "./style.css";
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 const Dashboard = () => {
   const monthFormat = "MMM YYYY";
@@ -29,23 +30,7 @@ const Dashboard = () => {
         >
           <div className="dashboard-header">Dashboard</div>
           <div>
-            <DatePicker
-              className="dashboard-datepicker"
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              format={monthFormat}
-            />
+           <DateFilter />
           </div>
         </div>
         <div className="cards-container">
