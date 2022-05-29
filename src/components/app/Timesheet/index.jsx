@@ -1,12 +1,10 @@
 import React from "react";
 import DashboardTemplate from "../../layouts/template";
-
-import { DatePicker } from "antd";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
 
-import './timesheetModule.css';
+import './TimesheetModule.css';
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 
@@ -15,6 +13,8 @@ import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 
 const Timesheet = () => {
+  const TimesheetTable =  ['Projects', 'ProjectOwner','ProjectCode','AccountCode','EngagementType', 'HoursLogged', 'BilledHours'] 
+
   return (
     <>
       <div className="timesheet-container">
@@ -37,11 +37,11 @@ const Timesheet = () => {
 
         {/*Timesheet Table is In Progress */}
 
-        {/* <div className="table-container">
+        <div className="table-container">
           
-          <Table />
+          <Table tableCols={TimesheetTable} />
 
-        </div> */}
+        </div>
 
       </div>
     </>

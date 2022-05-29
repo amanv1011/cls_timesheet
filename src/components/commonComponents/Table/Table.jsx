@@ -5,13 +5,7 @@ import MembersCircles from "./membersCircles";
 import Status from "./status";
 import dummyData from "./dummyData";
 
-const Table = () => {
-  const conditionsColOne =
-    window.location.pathname === "/dashboard" ||
-    window.location.pathname === "/hours-logged";
-  const conditionsColTwo = window.location.pathname === "/dashboard";
-  const conditionsColThree = window.location.pathname === "/hours-logged";
-
+const Table = (props) => {
   return (
     <>
       <div>
@@ -21,59 +15,40 @@ const Table = () => {
         <table className="table-main">
           <thead className="table-head">
             <tr className="table-header-row">
-              {conditionsColOne ? (
-                <>
-                  {" "}
-                  <th
-                    style={{ paddingLeft: "20px" }}
-                    className="table-header-row-data"
-                  >
-                    Projects
-                  </th>
-                </>
+              {props.tableCols.includes("Projects") ? (
+                <th
+                  style={{ paddingLeft: "20px" }}
+                  className="table-header-row-data"
+                >
+                  Projects
+                </th>
               ) : null}
-
-              {conditionsColOne ? (
-                <>
-                  <th className="table-header-row-data">Projects Owner</th>
-                </>
+              {props.tableCols.includes("ProjectOwner") ? (
+                <th className="table-header-row-data">Projects Owner</th>
               ) : null}
-
-              {conditionsColThree ? (
-                <>
-                  <th className="table-header-row-data">Project Code</th>
-                  <th className="table-header-row-data">Account Code</th>
-                </>
+              {props.tableCols.includes("ProjectCode") ? (
+                <th className="table-header-row-data">Project Code</th>
               ) : null}
-
-              {conditionsColOne ? (
-                <>
-                  <th className="table-header-row-data">Engagement Type</th>
-                </>
+              {props.tableCols.includes("AccountCode") ? (
+                <th className="table-header-row-data">Account Code</th>
               ) : null}
-
-              {conditionsColTwo ? (
-                <>
-                  <th className="table-header-row-data">Project Health</th>
-                </>
+              {props.tableCols.includes("EngagementType") ? (
+                <th className="table-header-row-data">Engagement Type</th>
               ) : null}
-              {conditionsColOne ? (
-                <>
-                  <th className="table-header-row-data">Hours Logged</th>
-                </>
+              {props.tableCols.includes("ProjectHealth") ? (
+                <th className="table-header-row-data">Project Health</th>
               ) : null}
-
-              {conditionsColThree ? (
-                <>
-                  <th className="table-header-row-data">Billed Hours</th>
-                  <th className="table-header-row-data">Status </th>
-                </>
+              {props.tableCols.includes("HoursLogged") ? (
+                <th className="table-header-row-data">Hours Logged</th>
               ) : null}
-
-              {conditionsColTwo ? (
-                <>
-                  <th className="table-header-row-data">Members</th>
-                </>
+              {props.tableCols.includes("BilledHours") ? (
+                <th className="table-header-row-data">Billed Hours</th>
+              ) : null}
+              {props.tableCols.includes("Status") ? (
+                <th className="table-header-row-data">Status </th>
+              ) : null}
+              {props.tableCols.includes("Members") ? (
+                <th className="table-header-row-data">Members</th>
               ) : null}
             </tr>
           </thead>
@@ -82,72 +57,55 @@ const Table = () => {
               return (
                 <>
                   <tr className="table-body-row">
-                    {conditionsColOne ? (
-                      <>
-                        <td
-                          style={{ paddingLeft: "20px" }}
-                          className="table-body-row-data table-body-col-first"
-                        >
-                          {ele.Projects}
-                        </td>
-                      </>
+                    {props.tableCols.includes("Projects") ? (
+                      <td
+                        style={{ paddingLeft: "20px" }}
+                        className="table-body-row-data table-body-col-first"
+                      >
+                        {ele.Projects}
+                      </td>
                     ) : null}
-                    {conditionsColOne ? (
-                      <>
-                        <td className="table-body-row-data">
-                          {ele.ProjectOwner}
-                        </td>
-                      </>
+                    {props.tableCols.includes("ProjectOwner") ? (
+                      <td className="table-body-row-data">
+                        {ele.ProjectOwner}
+                      </td>
                     ) : null}
-                    {conditionsColThree ? (
-                      <>
-                        <td className="table-body-row-data">
-                          {ele.ProjectCode}
-                        </td>
-                        <td className="table-body-row-data">
-                          {ele.AccountCode}
-                        </td>
-                      </>
+                    {props.tableCols.includes("ProjectCode") ? (
+                      <td className="table-body-row-data">{ele.ProjectCode}</td>
                     ) : null}
-                    {conditionsColOne ? (
-                      <>
-                        <td className="table-body-row-data">
-                          {ele.EngagementType}
-                        </td>
-                      </>
+                    {props.tableCols.includes("AccountCode") ? (
+                      <td className="table-body-row-data">{ele.AccountCode}</td>
                     ) : null}
-                    {conditionsColTwo ? (
-                      <>
-                        <td className="table-body-row-data">
-                          <ProjectHealth status={ele.ProjectHealth} />
-                        </td>
-                      </>
+                    {props.tableCols.includes("EngagementType") ? (
+                      <td className="table-body-row-data">
+                        {" "}
+                        {ele.EngagementType}
+                      </td>
                     ) : null}
-                    {conditionsColOne ? (
-                      <>
-                        <td className="table-body-row-data">
-                          <div className="table-body-row-data-box">
-                            {ele.HoursLogged}
-                          </div>
-                        </td>
-                      </>
+                    {props.tableCols.includes("ProjectHealth") ? (
+                      <td className="table-body-row-data">
+                        <ProjectHealth status={ele.ProjectHealth} />
+                      </td>
                     ) : null}
-                    {conditionsColThree ? (
-                      <>
-                        <td className="table-body-row-data">
-                          {ele.BilledHours}
-                        </td>
-                        <td className="table-body-row-data">
-                          <Status status={ele.Status} />
-                        </td>
-                      </>
+                    {props.tableCols.includes("HoursLogged") ? (
+                      <td className="table-body-row-data">
+                        <div className="table-body-row-data-box">
+                          {ele.HoursLogged}
+                        </div>
+                      </td>
                     ) : null}
-                    {conditionsColTwo ? (
-                      <>
-                        <td className="table-body-row-data">
-                          <MembersCircles />
-                        </td>
-                      </>
+                    {props.tableCols.includes("BilledHours") ? (
+                      <td className="table-body-row-data">{ele.BilledHours}</td>
+                    ) : null}
+                    {props.tableCols.includes("Status") ? (
+                      <td className="table-body-row-data">
+                        <Status status={ele.Status} />
+                      </td>
+                    ) : null}
+                    {props.tableCols.includes("Members") ? (
+                      <td className="table-body-row-data">
+                        <MembersCircles />
+                      </td>
                     ) : null}
                   </tr>
                 </>

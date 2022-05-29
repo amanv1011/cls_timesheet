@@ -17,6 +17,7 @@ import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 const Dashboard = () => {
   const monthFormat = "MMM YYYY";
+  const tableColArray = ['Projects', 'ProjectOwner', 'EngagementType', 'ProjectHealth', 'HoursLogged', 'Members']
 
   return (
     <>
@@ -46,7 +47,7 @@ const Dashboard = () => {
           <div className="dashboard-cards">
             <div>
               <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-subheading">This Week</p>
             </div>
             <div className="dashboard-cards-sub">
               <ThisWeek />
@@ -54,8 +55,8 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-cards">
             <div>
-              <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-heading">02</p>
+              <p className="cards-subheading">Users Worked</p>
             </div>
             <div className="dashboard-cards-sub">
               <UserWorked />
@@ -63,8 +64,8 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-cards">
             <div>
-              <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-heading">02 of 15</p>
+              <p className="cards-subheading">Worked Projects</p>
             </div>
             <div className="dashboard-cards-sub">
               <WorkedProject />
@@ -73,7 +74,7 @@ const Dashboard = () => {
 
         </div>
         <div className="table-container">
-                <Table/>
+                <Table tableCols={tableColArray}/>
                 <button className="dashboard-table-button">
                   <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
                   
