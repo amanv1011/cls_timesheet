@@ -118,7 +118,8 @@ class WeeklyStatus extends React.Component {
       data,
       this.state.startDt,
       this.state.endDt,
-      this.state.pageNumber
+      this.state.pageNumber,
+      this.state.engagementType
     );
     this.updatePagination(1, this.state.engagementType);
   };
@@ -139,7 +140,8 @@ class WeeklyStatus extends React.Component {
         data,
         this.state.startDt,
         this.state.endDt,
-        this.state.pageNumber
+        this.state.pageNumber,
+        this.state.engagementType
       );
       this.updatePagination(1, this.state.engagementType);
     } else {
@@ -626,6 +628,7 @@ class WeeklyStatus extends React.Component {
                             cursor: `${
                               this.state.count === 0 ? "pointer" : "not-allowed"
                             }`,
+                            paddingLeft: "14px",
                           }}
                           onClick={() => {
                             this.setState({

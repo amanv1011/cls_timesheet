@@ -1,0 +1,47 @@
+.member-circles-container {
+    display: grid;
+    width: 100px;
+    grid-template-columns: 26px 26px 26px 26px 26px;
+
+}
+
+.circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    grid-row: 1;
+    grid-column: 1;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    text-align: center;
+    padding-top: 3.5px;
+}
+
+.circle-one {
+    background: #3C79E6;
+
+}
+
+.circle-two {
+    background: #41E06F;
+    margin-left: 18px;
+
+}
+
+.circle-three {
+    background: #FF6C5F;
+    margin-left: 36px;
+
+}
+
+.circle-four {
+    background: #3BDEC1;
+    margin-left: 54px;
+
+}
+
+.circle-five {
+    background: #293042;
+    margin-left: 72px;
+
+}

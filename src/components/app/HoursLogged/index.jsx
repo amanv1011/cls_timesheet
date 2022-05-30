@@ -5,13 +5,7 @@ import { withRouter } from "react-router";
 import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
 import { RiCalendar2Line } from "react-icons/ri";
 import { DatePicker, Space } from "antd";
-import { Input } from "antd";
-import Form from "antd/lib/form/Form";
-import { Button } from "antd";
-import { Switch } from "antd";
-import { Table } from "antd";
-import { Collapse } from "antd";
-import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
+import Table from "../../commonComponents/Table/Table";
 import "./hoursLogged.css";
 
 const monthFormat = "MMM YYYY";
@@ -176,9 +170,9 @@ class HoursLogged extends React.Component {
       <div
         style={{
           position: "relative",
-          left: "200px",
+          left: "20px",
           width: "75vw",
-          top: "70px",
+          top: "10px",
         }}
       >
         <div className="header">
@@ -202,8 +196,10 @@ class HoursLogged extends React.Component {
                 width: " 140px",
                 height: "40px",
                 borderRadius: "10px",
-                // background: "#1F4173",
+                background: "#EAEEF4",
+                border: "none",
                 // opacity: "0.05",
+                fontSize: "14px",
                 color: "#1f4173",
               }}
               format={monthFormat}
@@ -213,32 +209,23 @@ class HoursLogged extends React.Component {
         <div style={{ marginTop: "1rem" }}>
           <h6 className="filterStyle">Filter by:</h6>
           <div className="filterForm">
-            {/* <Form className="formStyle"> */}
-            <Input placeholder="Project Name" />
-            <Input placeholder="Project Owner" />
-            <Input placeholder="Engagement Type" />
-            <Input placeholder="Status" style={{ width: "130px" }} />
-            <Button className="filterFormBtn">Go</Button>
-            {/* </Form> */}
+            <form className="formStyle">
+              <input placeholder="Project Name" />
+              <input placeholder="Project Owner" />
+              <input placeholder="Engagement Type" />
+              <input placeholder="Status" style={{ width: "130px" }} />
+              <button className="filterFormBtn">Go</button>
+            </form>
+
             <div className="styleRes">
               <span>
-                <Button className="ExportBtn">Export to Excel</Button>
+                <button className="ExportBtn">Export to Excel</button>
               </span>
             </div>
           </div>
         </div>
         <div className="styleDataTable">
-          <Table
-            columns={columns1}
-            dataSource={data}
-            style={{
-              borderRadius: "1rem",
-              overflow: "hidden",
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-            }}
-            pagination={{ pageSize: 20 }}
-            scroll={{ y: 240 }}
-          />
+          <Table />
         </div>
       </div>
     );
