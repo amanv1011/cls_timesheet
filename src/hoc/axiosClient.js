@@ -13,8 +13,9 @@ const http = axios.create({
 http.interceptors.request.use(
   function (config) {
     if (JSON.parse(localStorage.getItem(LoginStorageUserDetails))) {
-      config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
-        }`;
+      config.headers.Authorization = `Bearer ${
+        JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
+      }`;
     }
     if (spinnerCount === 0) {
       Store.dispatch(syncActions.Spinner(true));

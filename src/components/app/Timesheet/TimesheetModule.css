@@ -1,0 +1,40 @@
+.timesheet-container {
+  width: 100%;
+  height: 100%;
+}
+
+.timesheet-back-button {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  color: blue;
+  font-size: 100px;
+
+}
+
+.back-arrow {
+  font-size: small;
+}
+
+.back-to-dashboard {
+  font-size: small;
+}
+
+.timesheet-container-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.timesheet-container-heading-title {
+  height: 31px;
+  width: 118px;
+}
+
+.table-container {
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-right: 23px;
+}
