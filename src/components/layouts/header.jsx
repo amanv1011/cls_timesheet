@@ -67,6 +67,8 @@ class Header extends React.Component {
   };
   render() {
     const { name, image } = this.props.user.userDetails;
+    // const name ="Snow"
+    // const image = "image"
     return (
       <Wrapper>
         <Container>

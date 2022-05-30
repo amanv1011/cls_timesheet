@@ -12,7 +12,7 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Collapse } from "antd";
 import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
-import SearchFilter from "../../reusable/searchFilter"
+import SearchFilter from "../../commonComponents/searchFilter";
 import "./hoursLogged.css";
 import styled from "styled-components";
 

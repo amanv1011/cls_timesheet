@@ -35,6 +35,7 @@
   align-items:center;
 }
 
+
 .cards-heading {
   font-weight: 600;
   font-size: 26px;
@@ -74,4 +75,15 @@
   border-radius:15px;
   margin-top:25px;
   margin-bottom: 14px;
+}
+
+@media only screen and (max-width: 1308px){
+  .dashboard-cards{
+    margin-right: 10px;
+    text-align: center;
+  }
+  .dashboard-cards-sub{
+    margin-left: 1px;
+    width: 100%;
+  }
 }

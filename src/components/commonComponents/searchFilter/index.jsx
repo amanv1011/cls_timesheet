@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
 color: #1F4173;
 flex:1;
+
 /* opacity: 0.05; */
 `;
 const SearchBox = styled.input`
