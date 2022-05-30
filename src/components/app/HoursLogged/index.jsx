@@ -12,7 +12,17 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Collapse } from "antd";
 import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
+import SearchFilter from "../../reusable/searchFilter"
 import "./hoursLogged.css";
+import styled from "styled-components";
+
+const ExportExcel = styled.div`
+color: white;
+background: #003ad2;
+border-radius: 10px;
+text-align: center;
+`;
+// const ExportExcel = styled.div``
 
 const monthFormat = "MMM YYYY";
 
@@ -213,18 +223,16 @@ class HoursLogged extends React.Component {
         <div style={{ marginTop: "1rem" }}>
           <h6 className="filterStyle">Filter by:</h6>
           <div className="filterForm">
-            {/* <Form className="formStyle"> */}
-            <Input placeholder="Project Name" />
-            <Input placeholder="Project Owner" />
-            <Input placeholder="Engagement Type" />
-            <Input placeholder="Status" style={{ width: "130px" }} />
-            <Button className="filterFormBtn">Go</Button>
-            {/* </Form> */}
-            <div className="styleRes">
-              <span>
-                <Button className="ExportBtn">Export to Excel</Button>
-              </span>
-            </div>
+            <Form className="formStyle">
+              <SearchFilter placeholder="Project Name" />
+              <SearchFilter placeholder="Project Owner" />
+              <SearchFilter placeholder="Engagement Type" />
+              <SearchFilter placeholder="Status" style={{ width: "130px" }} />
+              <Button className="filterFormBtn">Go</Button>
+            </Form>
+            <ExportExcel>
+              <Button className="ExportBtn">Export to Excel</Button>
+            </ExportExcel>
           </div>
         </div>
         <div className="styleDataTable">

@@ -21,7 +21,7 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 const Wrapper = styled.div`
-
+  height:100%
 `;
 
 const withDashboardTemplate = (WrappedComponent) => {
@@ -36,7 +36,7 @@ const withDashboardTemplate = (WrappedComponent) => {
     };
 
     render() {
-      // console.log(this.props)
+      
       return (
         <Wrapper>
             <TopHeader toggle={this.toggle} />
@@ -47,22 +47,19 @@ const withDashboardTemplate = (WrappedComponent) => {
                 trigger={null}
                 collapsible
                 collapsed={this.state.collapsible}
-                // style={{
-                //   top: "70px",
-                //   position: "fixed",
-                //   height: "100%",
-                // }}
+                style={{
+                  /* top: "70px", */
+                 
+                  height: `calc(100vh - 77px)`,
+                }}
               >
-                {/* style={{ top: "60px" }} */}
+               
                 <Menu
                   mode="inline"
-                  // defaultSelectedKeys={['1']}
-                  // defaultOpenKeys={['sub1']}
+                  
                   style={{ height: "100%", borderRight: 0 }}
                 >
-                  {/* <SubMenu key="sub1" icon={<UserOutlined />} title="Dashboard">
-                                        <Menu.Item key="1">option1</Menu.Item>
-                                    </SubMenu> */}
+                  
                   <Menu.Item
                     key="1"
                     icon={<UserOutlined />}
@@ -114,21 +111,16 @@ const withDashboardTemplate = (WrappedComponent) => {
                   </Menu.Item>
                 </Menu>
               </Sider>
-              <Layout>
-                {/* <Breadcrumb style={{ margin: "16px 0" }}>
-                  <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>List</Breadcrumb.Item>
-                  <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb> */}
+              <Layout style={{  }}>
+       
                 <Content
                   className="site-layout-background"
                   style={{
-                    padding:'2em',
-                    height: '80vh',
+                    padding:"2em 2em 0 2em",
                     minHeight: "100vh",
                   }}
                 >
-                  <WrappedComponent {...JSON.parse(getUserProfile("user"))} />
+                  <WrappedComponent />
                 </Content>
               </Layout>
             </Layout>
