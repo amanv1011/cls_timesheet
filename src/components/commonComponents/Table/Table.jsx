@@ -6,21 +6,22 @@ import Status from "./status";
 import dummyData from "./dummyData";
 
 const Table = (props) => {
+  console.log(props);
   return (
     <>
       <div
         className={
-          props.page === "timesheet" ? "table-heading-box-another-page" : "table-heading-box"
+          props.tableHeading === "" ? "table-heading-box-another-page" : "table-heading-box"
         }
       >
         <p
           className={
-            props.page === "timesheet"
+            props.tableHeading === ""
               ? "table-heading-another-page"
               : "table-heading"
           }
         >
-          Active Projects
+          {props.tableHeading === "" ? null : props.tableHeading}
         </p>
       </div>
       <div className="table-scroll">
