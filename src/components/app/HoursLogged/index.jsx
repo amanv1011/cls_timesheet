@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
-import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
-import { RiCalendar2Line } from "react-icons/ri";
-import { DatePicker, Space } from "antd";
+import {  Space } from "antd";
 import { Input } from "antd";
 import Form from "antd/lib/form/Form";
 import { Button } from "antd";
@@ -13,6 +11,7 @@ import { Table } from "antd";
 import { Collapse } from "antd";
 import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
 import "./hoursLogged.css";
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 const monthFormat = "MMM YYYY";
 
@@ -184,30 +183,7 @@ class HoursLogged extends React.Component {
         <div className="header">
           <h3>Hours Logged/Project</h3>
           <Space>
-            <DatePicker
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              style={{
-                width: " 140px",
-                height: "40px",
-                borderRadius: "10px",
-                // background: "#1F4173",
-                // opacity: "0.05",
-                color: "#1f4173",
-              }}
-              format={monthFormat}
-            />
+            <DateFilter />
           </Space>
         </div>
         <div style={{ marginTop: "1rem" }}>
