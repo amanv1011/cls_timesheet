@@ -89,7 +89,7 @@ const Dashboard = () => {
 
         </div>
         <div className="table-container">
-                <Table tableCols={tableColArray}/>
+                <Table tableCols={tableColArray} />
                 <button className="dashboard-table-button">
                   <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
                   

@@ -8,8 +8,20 @@ import dummyData from "./dummyData";
 const Table = (props) => {
   return (
     <>
-      <div>
-        <p className="table-header">Active Projects</p>
+      <div
+        className={
+          props.page === "timesheet" ? "table-heading-box-another-page" : "table-heading-box"
+        }
+      >
+        <p
+          className={
+            props.page === "timesheet"
+              ? "table-heading-another-page"
+              : "table-heading"
+          }
+        >
+          Active Projects
+        </p>
       </div>
       <div className="table-scroll">
         <table className="table-main">
@@ -18,37 +30,113 @@ const Table = (props) => {
               {props.tableCols.includes("Projects") ? (
                 <th
                   style={{ paddingLeft: "20px" }}
-                  className="table-header-row-data"
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
                 >
                   Projects
                 </th>
               ) : null}
               {props.tableCols.includes("ProjectOwner") ? (
-                <th className="table-header-row-data">Projects Owner</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Projects Owner
+                </th>
               ) : null}
               {props.tableCols.includes("ProjectCode") ? (
-                <th className="table-header-row-data">Project Code</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Project Code
+                </th>
               ) : null}
               {props.tableCols.includes("AccountCode") ? (
-                <th className="table-header-row-data">Account Code</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Account Code
+                </th>
               ) : null}
               {props.tableCols.includes("EngagementType") ? (
-                <th className="table-header-row-data">Engagement Type</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Engagement Type
+                </th>
               ) : null}
               {props.tableCols.includes("ProjectHealth") ? (
-                <th className="table-header-row-data">Project Health</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Project Health
+                </th>
               ) : null}
               {props.tableCols.includes("HoursLogged") ? (
-                <th className="table-header-row-data">Hours Logged</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Hours Logged
+                </th>
               ) : null}
               {props.tableCols.includes("BilledHours") ? (
-                <th className="table-header-row-data">Billed Hours</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Billed Hours
+                </th>
               ) : null}
               {props.tableCols.includes("Status") ? (
-                <th className="table-header-row-data">Status </th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Status{" "}
+                </th>
               ) : null}
               {props.tableCols.includes("Members") ? (
-                <th className="table-header-row-data">Members</th>
+                <th
+                  className={
+                    props.page === "timesheet"
+                      ? "table-header-row-data-another-page"
+                      : "table-header-row-data"
+                  }
+                >
+                  Members
+                </th>
               ) : null}
             </tr>
           </thead>
@@ -108,6 +196,7 @@ const Table = (props) => {
                       </td>
                     ) : null}
                   </tr>
+                  
                 </>
               );
             })}
