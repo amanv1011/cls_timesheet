@@ -5,8 +5,9 @@ import MembersCircles from "./membersCircles";
 import Status from "./status";
 import dummyData from "./dummyData";
 
+
 const Table = (props) => {
-  console.log(props);
+ 
   return (
     <>
       <div
@@ -142,7 +143,7 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody className="table-body">
-            {dummyData.map((ele) => {
+            {props.tableData.map((ele) => {
               return (
                 <>
                   <tr className="table-body-row">
@@ -203,6 +204,9 @@ const Table = (props) => {
             })}
           </tbody>
         </table>
+      </div>
+      <div>
+            
       </div>
     </>
   );
