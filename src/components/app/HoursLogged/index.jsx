@@ -12,7 +12,7 @@ import { Collapse } from "antd";
 import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
 import "./hoursLogged.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-
+import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 const monthFormat = "MMM YYYY";
 
 const columns = [
@@ -186,22 +186,25 @@ class HoursLogged extends React.Component {
             <DateFilter />
           </Space>
         </div>
-        <div style={{ marginTop: "1rem" }}>
+        {/* <div style={{ marginTop: "1rem" }}>
           <h6 className="filterStyle">Filter by:</h6>
           <div className="filterForm">
-            {/* <Form className="formStyle"> */}
+           
             <Input placeholder="Project Name" />
             <Input placeholder="Project Owner" />
             <Input placeholder="Engagement Type" />
             <Input placeholder="Status" style={{ width: "130px" }} />
             <Button className="filterFormBtn">Go</Button>
-            {/* </Form> */}
+          
             <div className="styleRes">
               <span>
                 <Button className="ExportBtn">Export to Excel</Button>
               </span>
             </div>
           </div>
+        </div> */}
+        <div>
+          < TimesheetFilters />
         </div>
         <div className="styleDataTable">
           <Table

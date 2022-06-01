@@ -1,5 +1,6 @@
 import React from 'react'
 import Switch from '@mui/material/Switch';
+
 import './timesheetFilter.css';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
@@ -9,6 +10,7 @@ const TimesheetFilters = (props) => {
 
     return (
         <>
+           
             <div className="filterBy">
                 <p className='filter-by'>Filter By</p>
 

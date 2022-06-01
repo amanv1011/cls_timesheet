@@ -5,6 +5,7 @@ import WeeklyStatus from "./weeklyStatus";
 import timesheet from "./timesheet";
 import LandingReducer from "./landingReducer";
 import errorReducer from "./errorReducer";
+import paginationReducer from "./paginationReducer"
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   week_status: WeeklyStatus,
   time_sheet: timesheet,
   error: errorReducer,
+  paginationStates: paginationReducer,
   // landing:LandingReducer
 });
