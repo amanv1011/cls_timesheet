@@ -1,64 +1,46 @@
-import React from "react";
 import DashboardTemplate from "../../layouts/template";
-
-import { IoIosArrowDown } from "react-icons/io";
-import { RiCalendar2Line } from "react-icons/ri";
-import { DatePicker } from "antd";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
+import React, { useState } from 'react';
 
 import './TimesheetModule.css';
-
-const monthFormat = "MMM YYYY";
-
-
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 
 const Timesheet = () => {
+  const TimesheetTable =  ['Projects', 'ProjectOwner','ProjectCode','AccountCode','EngagementType', 'HoursLogged', 'BilledHours'] 
+  const ResourceTable = ["ProjectOwner","HoursLogged"]
+  const [showTable2, setshowTable2] = useState(false);
+
   return (
     <>
       <div className="timesheet-container">
-        <div className="timesheet-back-button">
+        <div className="timesheet-back-button" onClick={() => setshowTable2(false)}>
           <p className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back Dashboard</p>
 
         </div>
         <div className="timesheet-container-heading">
           <div className="timesheet-heading-title">
-            <h3 > Timesheet </h3>
+            {/* <h3 > Timesheet </h3> */}
+            {showTable2 ? <h3>Timesheet/Resources</h3> : <h3 > Timesheet </h3>}
 
           </div>
           <div className="timesheet-heading-date">
-          <DatePicker
-              className="dashboard-datepicker"
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              format={monthFormat}
-            />
+          <DateFilter/>
 
           </div>
 
         </div>
-        <TimesheetFilters />
+        <TimesheetFilters  showTable={() => setshowTable2(true)}/>
 
         {/*Timesheet Table is In Progress */}
 
-        {/* <div className="table-container">
+        <div className="table-container">
           
-          <Table />
+          {showTable2 ? <Table tableCols={ResourceTable} /> : <Table tableCols={TimesheetTable} />}
 
-        </div> */}
+        </div>
 
       </div>
     </>

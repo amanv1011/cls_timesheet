@@ -2,9 +2,11 @@ import React from 'react'
 import Switch from '@mui/material/Switch';
 import './timesheetFilter.css';
 
-
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
-const TimesheetFilters = () => {
+const TimesheetFilters = (props) => {
+
+    console.log("props",props)
+
     return (
         <>
             <div className="filterBy">
@@ -35,7 +37,7 @@ const TimesheetFilters = () => {
 
                     </div>
                     <div className="buttonGo">
-                        <button className="button-go"> Go</button>
+                        <button className="button-go" onClick={()=>props.showTable()}> Go</button>
 
                     </div>
                     <div className="switch-resource">

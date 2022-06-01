@@ -9,7 +9,7 @@
   align-items: center;
   color: blue;
   font-size: 100px;
-
+  cursor: pointer;
 }
 
 .back-arrow {
@@ -37,11 +37,4 @@
   border-radius: 15px;
   margin-top: 20px;
   margin-right: 23px;
-}
-.dashboard-datepicker {
-  width: 160px;
-  height: 40px;
-  border-radius: 10px;
-  background-color: rgb(231, 231, 231);
-
 }

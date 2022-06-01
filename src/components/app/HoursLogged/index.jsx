@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
-import { IoIosArrowBack, IoIosArrowDown } from "react-icons/io";
-import { RiCalendar2Line } from "react-icons/ri";
-import { DatePicker, Space } from "antd";
+import {  Space } from "antd";
 import { Input } from "antd";
 import Form from "antd/lib/form/Form";
 import { Button } from "antd";
@@ -12,17 +10,8 @@ import { Switch } from "antd";
 import { Table } from "antd";
 import { Collapse } from "antd";
 import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
-import SearchFilter from "../../commonComponents/searchFilter";
 import "./hoursLogged.css";
-import styled from "styled-components";
-
-const ExportExcel = styled.div`
-color: white;
-background: #003ad2;
-border-radius: 10px;
-text-align: center;
-`;
-// const ExportExcel = styled.div``
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 const monthFormat = "MMM YYYY";
 
@@ -184,55 +173,34 @@ class HoursLogged extends React.Component {
 
     return (
       <div
-        style={{
-          // position: "relative",
-          // left: "200px",
-          // width: "75vw",
-          // top: "70px",
-        }}
+        // style={{
+        //   position: "relative",
+        //   left: "200px",
+        //   width: "75vw",
+        //   top: "70px",
+        // }}
       >
         <div className="header">
           <h3>Hours Logged/Project</h3>
           <Space>
-            <DatePicker
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              style={{
-                width: " 140px",
-                height: "40px",
-                borderRadius: "10px",
-                // background: "#1F4173",
-                // opacity: "0.05",
-                color: "#1f4173",
-              }}
-              format={monthFormat}
-            />
+            <DateFilter />
           </Space>
         </div>
         <div style={{ marginTop: "1rem" }}>
           <h6 className="filterStyle">Filter by:</h6>
           <div className="filterForm">
-            <Form className="formStyle">
-              <SearchFilter placeholder="Project Name" />
-              <SearchFilter placeholder="Project Owner" />
-              <SearchFilter placeholder="Engagement Type" />
-              <SearchFilter placeholder="Status" style={{ width: "130px" }} />
-              <Button className="filterFormBtn">Go</Button>
-            </Form>
-            <ExportExcel>
-              <Button className="ExportBtn">Export to Excel</Button>
-            </ExportExcel>
+            {/* <Form className="formStyle"> */}
+            <Input placeholder="Project Name" />
+            <Input placeholder="Project Owner" />
+            <Input placeholder="Engagement Type" />
+            <Input placeholder="Status" style={{ width: "130px" }} />
+            <Button className="filterFormBtn">Go</Button>
+            {/* </Form> */}
+            <div className="styleRes">
+              <span>
+                <Button className="ExportBtn">Export to Excel</Button>
+              </span>
+            </div>
           </div>
         </div>
         <div className="styleDataTable">
