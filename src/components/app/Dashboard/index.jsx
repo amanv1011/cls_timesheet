@@ -14,7 +14,7 @@ import dummyData from "../../commonComponents/Table/dummyData"
 
 const Dashboard = () => {
   
-  const tableColArray = ['Projects', 'ProjectOwner', 'EngagementType', 'ProjectHealth', 'HoursLogged', 'Members']
+  const tableColArray = ['Projects', 'Project Owner', 'Engagement Type', 'Project Health', 'Hours Logged', 'Members']
 
 
 
