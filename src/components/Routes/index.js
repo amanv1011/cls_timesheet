@@ -28,7 +28,7 @@ function Routes() {
         <ProtectedRoute path="/reports" exact component={Report} />
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
-        <ProtectedRoute path="/timesheet" exact component={Timesheet} />
+        <Route path="/timesheet" exact component={Timesheet} />
         <ProtectedRoute path="/" exact component={LandingPage} />
         <ProtectedRoute path="*" component={LandingPage} />
       </Switch>

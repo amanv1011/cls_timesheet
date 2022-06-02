@@ -3,10 +3,11 @@ import DashboardTemplate from "../../layouts/template";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
-import './TimesheetModule.css';
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import { Button, Modal } from 'react-bootstrap'
 import { useState } from "react";
+import ModalTimesheet from "../../commonComponents/Modal/ModalTimesheet";
+import './TimesheetModule.css';
 
 
 
@@ -28,7 +29,7 @@ const Timesheet = (props) => {
 
 
       <Modal  {...props}
-        dialogClassName="top_modal"
+        className="top_modal"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -140,7 +141,9 @@ const Timesheet = (props) => {
         </div>
       </Modal>
 
-
+{/* <div>
+  <ModalTimesheet />
+</div> */}
 
 
       <div className="timesheet-container">
@@ -161,7 +164,7 @@ const Timesheet = (props) => {
         </div>
         <TimesheetFilters />
         <div>
-          
+
           <button onClick={handleShow}> modal </button>
 
         </div>
