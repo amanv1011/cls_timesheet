@@ -1,17 +1,12 @@
 import React from "react";
-
 import DashboardTemplate from "../../layouts/template";
 import TablePagination from "../../commonComponents/TablePagination/tablePagination"
-import { IoIosArrowDown } from "react-icons/io";
-import { DatePicker } from "antd";
-import { RiCalendar2Line } from "react-icons/ri";
 import Today from "../../../assets/dashboardIcons/today";
 import ThisWeek from "../../../assets/dashboardIcons/thisWeek"
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
 import WorkedProject from "../../../assets/dashboardIcons/workedProject"
 import Arrow from "../../../assets/dashboardIcons/Arrow"
 import Table from "../../commonComponents/Table/Table"
-import {  useSelector } from "react-redux";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import dummyData from "../../commonComponents/Table/dummyData"
@@ -21,12 +16,9 @@ const Dashboard = () => {
   
   const tableColArray = ['Projects', 'ProjectOwner', 'EngagementType', 'ProjectHealth', 'HoursLogged', 'Members']
 
-  const currentPage = useSelector((state) => state.paginationStates.activePage);
-  const dataPerPage = useSelector((state) => state.paginationStates.dataPerPage);
 
-  const indexOfLastData = currentPage * dataPerPage;
-  const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = dummyData.slice(indexOfFirstData, indexOfLastData);
+
+
 
   return (
     <>
@@ -83,7 +75,7 @@ const Dashboard = () => {
 
         </div>
         <div className="table-container">
-                <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={currentData}/>
+                <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData}/>
                 <TablePagination dataLength={dummyData.length} dataLimit={10} pageLimit={3}/>
                 <button className="dashboard-table-button">
                   <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
