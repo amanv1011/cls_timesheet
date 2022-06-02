@@ -3,10 +3,19 @@ import "./table.css";
 import ProjectHealth from "./projectHealth";
 import MembersCircles from "./membersCircles";
 import Status from "./status";
-import dummyData from "./dummyData";
+import {  useSelector } from "react-redux";
+
 
 
 const Table = (props) => {
+
+  const currentPage = useSelector((state) => state.paginationStates.activePage);
+  const dataPerPage = useSelector((state) => state.paginationStates.dataPerPage);
+
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = props.tableData.slice(indexOfFirstData, indexOfLastData);
+ 
   return (
     <>
       <div
@@ -141,8 +150,11 @@ const Table = (props) => {
               ) : null}
             </tr>
           </thead>
+          
+
+         
           <tbody className="table-body">
-            {props.tableData.map((ele) => {
+            {currentData.map((ele) => {
               return (
                 <>
                   <tr className="table-body-row">
@@ -202,6 +214,8 @@ const Table = (props) => {
               );
             })}
           </tbody>
+
+          
         </table>
       </div>
       <div>
