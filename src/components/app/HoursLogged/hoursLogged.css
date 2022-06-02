@@ -1,3 +1,5 @@
+
+
 .backBtn {
   display: flex;
   align-items: center;
@@ -9,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   /* margin-top: 1rem; */
 }
 .header h3 {
@@ -36,17 +39,28 @@
   line-height: 17px;
   text-align: left;
   color: #1f4173;
+  
+}
+.formStyle{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.1em;
 }
 
 .filterForm {
   display: flex;
-  gap: 1em;
+  /* gap: 1em; */
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.2em;
 }
 
+
 .filterForm Input {
-  margin-right: 0.7rem;
-  width: 180px;
+  margin-right: 0.4rem;
+  /* width: 180px; */
   height: 40px;
   border-radius: 10px;
 }
@@ -71,7 +85,7 @@
 }
 
 .ExportBtn {
-  width: 130px;
+  /* width: 130px; */
   height: 40px;
   background: rgba(31, 65, 115, 0.5);
   border-radius: 10px;
