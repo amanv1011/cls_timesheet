@@ -6,6 +6,7 @@ import timesheet from "./timesheet";
 import LandingReducer from "./landingReducer";
 import errorReducer from "./errorReducer";
 import paginationReducer from "./paginationReducer"
+import modalReducer from "./modalReducer";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   time_sheet: timesheet,
   error: errorReducer,
   paginationStates: paginationReducer,
+  modalStates: modalReducer,
   // landing:LandingReducer
 });
