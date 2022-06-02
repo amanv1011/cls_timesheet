@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { RiCalendar2Line } from "react-icons/ri";
 import './DateFilter.css';
 const monthFormat = "MMM YYYY";
-const DateFilter = () => {
+const DateFilter = (props) => {
     return (
         <>
             <DatePicker

@@ -7,7 +7,6 @@ import dummyData from "./dummyData";
 
 
 const Table = (props) => {
- 
   return (
     <>
       <div
