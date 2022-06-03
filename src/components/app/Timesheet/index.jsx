@@ -8,6 +8,7 @@ import ModalTimesheet from "../../commonComponents/Modal/ModalTimesheet";
 import dummyData from "../../commonComponents/Table/dummyData";
 import { useDispatch } from "react-redux";
 import {setModalActive} from "../../../redux/actions/modalAction";
+import TimesheetDummyData from "./TimesheetDummyData";
 
 import './TimesheetModule.css';
 
@@ -19,7 +20,7 @@ const Timesheet = (props) => {
 
 
 
-  const TimesheetTable = ['Projects', 'ProjectOwner', 'ProjectCode', 'AccountCode', 'EngagementType', 'HoursLogged', 'BilledHours']
+  const TimesheetTable = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
 
   return (
     <>
@@ -55,7 +56,7 @@ const Timesheet = (props) => {
 
         <div className="table-container">
 
-          <Table tableCols={TimesheetTable} tableData={dummyData} />
+          <Table tableCols={TimesheetTable} tableData={TimesheetDummyData} />
 
         </div>
 

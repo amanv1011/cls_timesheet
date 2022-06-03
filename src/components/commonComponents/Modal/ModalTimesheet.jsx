@@ -27,11 +27,11 @@ const ModalTimesheet = (props) => {
                         <Modal.Title ><span className="title_name">Rahul Mehra {"- "}</span>  <span className="small_title"> Monthly Timesheet Stats</span> </Modal.Title>
                     </Modal.Header>
                     <Modal.Body  >
-                        <div className="modal_body_container">
+                        <div className="modal_body_container" style={{ height:"62vh", overflow:"auto"}}>
                             <div className="modal_body_time">
                                 <span className="body_hour"> 1 Dec {" - "} 31 Dec 2021 {" - "} Worked Hours </span>
                             </div>
-                            <div className="modal_body_table" style={{ height: "60vh", overflow: "auto" }} >
+                            <div className="modal_body_table" style={{  }} >
                                 <div className="body_table_col1">
                                     <div className="body_table_head1" ><span> {" "} </span></div>
                                     <div style={{ display: "flex", width: " 75%", justifyContent: 'space-around', marginLeft: "16px" }}>
