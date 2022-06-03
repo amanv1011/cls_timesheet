@@ -1,0 +1,159 @@
+.timesheet-container {
+  width: 100%;
+  height: 100%;
+}
+
+.timesheet-back-button {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  color: blue;
+  font-size: 100px;
+  cursor: pointer;
+}
+
+.back-arrow {
+  font-size: small;
+}
+
+.back-to-dashboard {
+  font-size: small;
+}
+
+.timesheet-container-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.timesheet-container-heading-title {
+  height: 31px;
+  width: 118px;
+}
+
+.table-container {
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-right: 23px;
+}
+
+/* //modal css */
+
+.small_title {
+  color: rgba(31, 65, 115, 0.7);
+}
+
+.title_name {
+  color: #1F4173;
+}
+
+.heading_container {
+  background-color: rgba(205, 207, 211, 0.3);
+  width: 100%;
+  box-shadow: inset 0px -1px 3px rgb(0, 0, 0, 0.5);
+
+}
+
+.modal_body_time {
+  background-color: rgba(205, 207, 211, 0.3);
+  height: 44px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: flex-start;
+
+
+}
+
+.body_hour {
+  color: rgba(31, 65, 115, 0.7);
+  margin-left: 20px;
+  margin-top: 8px;
+}
+
+.body_table_col1 {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+}
+
+.body_table_head1 {
+
+  margin-top: 18px;
+  width: 25%;
+
+}
+
+.body_table_head2 {
+  color: rgba(31, 65, 115, 0.7);
+  width: 11%;
+  margin-top: 11px;
+
+}
+
+.body_table_head3 {
+  color: rgba(31, 65, 115, 0.7);
+  width: 45%;
+  margin-top: 11px;
+}
+
+.body_table_row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+}
+.body_table_body1{
+  margin-top: 2px;
+  width: 25%;
+  color: #1F4173;
+
+
+}
+.body_table_body2{
+  margin-top: 2px;
+  width: 11%;
+  color: #1F4173;
+
+}
+.body_table_body3{
+  margin-top: 2px;
+  width: 45%;
+  color: #1F4173;
+
+}
+.line_break{
+  width: 100%;
+  height: 1px;
+  color: rgba(31, 65, 115, 0.25);
+
+}
+
+.footer_table {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: rgba(31, 65, 115, 0.05);
+height: 30px;
+}
+.body_table_detail{
+  height: 33vh;
+  /* position: relative; */
+  z-index: 1000;
+  overflow: auto;
+
+}
+.modal-content{
+  border-radius: 15px;
+}
+.top_modal{
+  flex-wrap: wrap;
+  border-radius: 15px;
+
+}
