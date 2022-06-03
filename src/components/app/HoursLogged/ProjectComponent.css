@@ -1,0 +1,166 @@
+.backBtn {
+  width: 150px;
+  height: 16px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #003ad2;
+  /* opacity: 0.7; */
+}
+
+.heading {
+  width: 50%;
+  height: 31px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 31px;
+  letter-spacing: -0.02em;
+  color: #000000;
+}
+
+.headBox {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 1%;
+  grid-row-gap: 15%;
+  width: 1070px;
+  height: 100px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.headBox label {
+  width: 245px;
+  height: 18px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #1f4173;
+}
+
+.headBox label > span {
+  font-weight: 500;
+}
+
+.resourceTable {
+  width: 1070px;
+  height: 250px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px #d9ebf2;
+  border-radius: 15px;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.tableCaption {
+  background: #fafafa;
+  box-shadow: inset 0px -1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 15px 15px 0px 0px;
+  align-items: center;
+  display: flex;
+  width: 1070px;
+  height: 80px;
+}
+
+.captionLeftArrow {
+  margin-left: 10px;
+  width: 35px;
+  height: 25px;
+  color: #003ad2;
+  border: 1px solid #fafafa;
+}
+
+.tableCalender {
+  color: #1f4173;
+  font-size: 22px;
+}
+
+.tableDate {
+  width: 350px;
+  height: 24px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  color: #1f4173;
+}
+
+.addResourcesBtn {
+  width: 150px;
+  width: 150px;
+  height: 40px;
+  background: #003ad2;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  margin-left: 475px;
+}
+
+.tableHeading {
+  padding: 20px 25px;
+}
+
+.tableHeading > tr > th {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #1f4173;
+}
+
+.tableHeading > tr > th:nth-child(2) {
+  padding: 0 10px;
+}
+
+.tableHeading > tr > th:nth-child(3) {
+  padding-left: 250px;
+}
+
+.tableHeading > tr > th:nth-child(4) {
+  padding-left: 170px;
+}
+
+.tableHeading > tr > th:nth-child(5) {
+  padding-left: 170px;
+}
+
+.resourcesName {
+  padding: 2px 25px;
+}
+.resourcesName > tr > td:nth-child(2) {
+  padding: 0 10px;
+  text-align: left;
+}
+.resourcesName > tr > td:nth-child(3) {
+  padding-left: 250px;
+}
+.resourcesName > tr > td:nth-child(4) {
+  padding-left: 220px;
+}
+.resourcesName > tr > td:nth-child(5) {
+  padding-left: 200px;
+}
+.resourcesName > tr > td:nth-child(2) {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #1f4173;
+}
+
+/* ////////////////////////////////////////// */
+
+/* .build {
+  background-color: lightgray;
+  border-radius: 10px;
+  width: 100px;
+} */
+
+.cancelApproveBtn {
+}

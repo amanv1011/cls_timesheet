@@ -6,16 +6,25 @@ import { IoIosArrowDown } from "react-icons/io";
 import { DatePicker } from "antd";
 import { RiCalendar2Line } from "react-icons/ri";
 import Today from "../../../assets/dashboardIcons/today";
-import ThisWeek from "../../../assets/dashboardIcons/thisWeek"
+import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
-import WorkedProject from "../../../assets/dashboardIcons/workedProject"
-import Arrow from "../../../assets/dashboardIcons/Arrow"
-import Table from "../../commonComponents/Table/Table"
+import WorkedProject from "../../../assets/dashboardIcons/workedProject";
+import Arrow from "../../../assets/dashboardIcons/Arrow";
+import Table from "../../commonComponents/Table/Table";
 
 import "./style.css";
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 
 const Dashboard = () => {
   const monthFormat = "MMM YYYY";
+  const tableColArray = [
+    "Projects",
+    "ProjectOwner",
+    "EngagementType",
+    "ProjectHealth",
+    "HoursLogged",
+    "Members",
+  ];
 
   return (
     <>
@@ -29,23 +38,7 @@ const Dashboard = () => {
         >
           <div className="dashboard-header">Dashboard</div>
           <div>
-            <DatePicker
-              className="dashboard-datepicker"
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              format={monthFormat}
-            />
+            <DateFilter />
           </div>
         </div>
         <div className="cards-container">
@@ -61,7 +54,7 @@ const Dashboard = () => {
           <div className="dashboard-cards">
             <div>
               <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-subheading">This Week</p>
             </div>
             <div className="dashboard-cards-sub">
               <ThisWeek />
@@ -69,8 +62,8 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-cards">
             <div>
-              <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-heading">02</p>
+              <p className="cards-subheading">Users Worked</p>
             </div>
             <div className="dashboard-cards-sub">
               <UserWorked />
@@ -78,23 +71,24 @@ const Dashboard = () => {
           </div>
           <div className="dashboard-cards">
             <div>
-              <p className="cards-heading">8h 15m</p>
-              <p className="cards-subheading">Today</p>
+              <p className="cards-heading">02 of 15</p>
+              <p className="cards-subheading">Worked Projects</p>
             </div>
             <div className="dashboard-cards-sub">
               <WorkedProject />
             </div>
           </div>
-
         </div>
         <div className="table-container">
-                <Table/>
-                <button className="dashboard-table-button">
-                  <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
-                  
-                  <Arrow/>
-                </button>
-          </div>
+          <Table tableCols={tableColArray} />
+          <button className="dashboard-table-button">
+            <span style={{ marginRight: "6px", fontSize: "14px" }}>
+              View Projects{" "}
+            </span>
+
+            <Arrow />
+          </button>
+        </div>
       </div>
     </>
   );

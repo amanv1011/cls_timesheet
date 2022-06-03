@@ -7,148 +7,20 @@ import { RiCalendar2Line } from "react-icons/ri";
 import { DatePicker, Space } from "antd";
 import Table from "../../commonComponents/Table/Table";
 import "./hoursLogged.css";
+import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
+import ProjectComponent from "./ProjectComp";
 
 const monthFormat = "MMM YYYY";
 
-const columns = [
-  {
-    title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
-  },
-  {
-    title: "Resources",
-    dataIndex: "resources",
-    key: "resources",
-  },
-  {
-    title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
-  },
-  {
-    title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
-  },
-  {
-    title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
-  },
-  {
-    title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
-  },
-  {
-    title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
-  },
-  {
-    title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
-  },
-];
-
-const columns1 = [
-  {
-    title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
-    responsive: ["sm"],
-  },
-  {
-    title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
-    responsive: ["sm"],
-  },
-  {
-    title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
-    responsive: ["sm"],
-  },
-  {
-    title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
-    responsive: ["sm"],
-  },
-  {
-    title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
-    responsive: ["sm"],
-  },
-  {
-    title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
-    responsive: ["sm"],
-  },
-  {
-    title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
-    responsive: ["sm"],
-  },
-];
-
-const data = [
-  {
-    key: "1",
-    projects: "Studio a+i Digital Marketing",
-    projectowner: "Rajesh Chandra",
-    projectcode: "PC101",
-    accountcode: "PAC101",
-    engagementtype: "Fixed",
-    hourslogged: "110h 15m",
-    biledhours: "00h",
-  },
-  {
-    key: "2",
-    projects: "MDA Development & Marketing",
-    projectowner: "Rahul Mehra",
-    projectcode: "PC102",
-    accountcode: "PAC102",
-    engagementtype: "Dedicated",
-    hourslogged: "120h 20m",
-    biledhours: "160h",
-  },
-  {
-    key: "3",
-    projects: "HIRED Development & Marketing",
-    projectowner: "Himanshu Jindal",
-    projectcode: "PC103",
-    accountcode: "PAC103",
-    engagementtype: "Fixed",
-    hourslogged: "180h 10m",
-    biledhours: "00h",
-  },
-  {
-    key: "4",
-    projects: "Clock Store Marketing",
-    projectowner: "Amit chaudhary",
-    projectcode: "PC104",
-    accountcode: "PAC104",
-    engagementtype: "Fixed",
-    hourslogged: "75h 30m",
-    biledhours: "190h",
-  },
-  {
-    key: "5",
-    projects: "Upright HC - Digital Marketing",
-    projectowner: "Gagandeep Singh",
-    projectcode: "PC105",
-    accountcode: "PAC105",
-    engagementtype: "Dedicated",
-    hourslogged: "225h 20m",
-    biledhours: "00h",
-  },
+const tableColArray = [
+  "Projects",
+  "ProjectOwner",
+  "ProjectCode",
+  "AccountCode",
+  "EngagementType",
+  "HoursLogged",
+  "BilledHours",
+  "Status",
 ];
 
 class HoursLogged extends React.Component {
@@ -160,6 +32,7 @@ class HoursLogged extends React.Component {
     super(props);
     this.state = {
       show: false,
+      showResources: false,
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
@@ -175,58 +48,67 @@ class HoursLogged extends React.Component {
           top: "10px",
         }}
       >
-        <div className="header">
-          <h3>Hours Logged/Project</h3>
-          <Space>
-            <DatePicker
-              picker="month"
-              suffixIcon={
-                <span className="styleDateIcons">
-                  <RiCalendar2Line
-                    style={{
-                      right: "8.33%",
-                      top: "4.17%",
-                      bottom: "12.5%",
-                    }}
-                  />
-                  <IoIosArrowDown />
-                </span>
-              }
-              style={{
-                width: " 140px",
-                height: "40px",
-                borderRadius: "10px",
-                background: "#EAEEF4",
-                border: "none",
-                // opacity: "0.05",
-                fontSize: "14px",
-                color: "#1f4173",
-              }}
-              format={monthFormat}
-            />
-          </Space>
-        </div>
-        <div style={{ marginTop: "1rem" }}>
-          <h6 className="filterStyle">Filter by:</h6>
-          <div className="filterForm">
-            <form className="formStyle">
-              <input placeholder="Project Name" />
-              <input placeholder="Project Owner" />
-              <input placeholder="Engagement Type" />
-              <input placeholder="Status" style={{ width: "130px" }} />
-              <button className="filterFormBtn">Go</button>
-            </form>
+        {this.state.showResources ? (
+          <ProjectComponent />
+        ) : (
+          <div>
+            <div className="header">
+              <h3>Hours Logged/Project</h3>
+              <Space>
+                <DatePicker
+                  picker="month"
+                  suffixIcon={
+                    <span className="styleDateIcons">
+                      <RiCalendar2Line
+                        style={{
+                          right: "8.33%",
+                          top: "4.17%",
+                          bottom: "12.5%",
+                        }}
+                      />
+                      <IoIosArrowDown />
+                    </span>
+                  }
+                  style={{
+                    width: " 140px",
+                    height: "40px",
+                    borderRadius: "10px",
+                    background: "#EAEEF4",
+                    border: "none",
+                    // opacity: "0.05",
+                    fontSize: "14px",
+                    color: "#1f4173",
+                  }}
+                  format={monthFormat}
+                />
+              </Space>
+            </div>
+            <div style={{ marginTop: "1rem" }}>
+              <h6 className="filterStyle">Filter by:</h6>
+              <div className="filterForm">
+                <form className="formStyle">
+                  <input placeholder="Project Name" />
+                  <input placeholder="Project Owner" />
+                  <input placeholder="Engagement Type" />
+                  <input placeholder="Status" style={{ width: "130px" }} />
+                  <button className="filterFormBtn">Go</button>
+                </form>
 
-            <div className="styleRes">
-              <span>
-                <button className="ExportBtn">Export to Excel</button>
-              </span>
+                <div className="styleRes">
+                  <span>
+                    <button className="ExportBtn">Export to Excel</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="styleDataTable">
+              <Table
+                tableCols={tableColArray}
+                showResources={this.state.showResources}
+              />
             </div>
           </div>
-        </div>
-        <div className="styleDataTable">
-          <Table />
-        </div>
+        )}
       </div>
     );
   }
