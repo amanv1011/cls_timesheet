@@ -45,3 +45,13 @@
     margin-left: 72px;
 
 }
+
+.table-body-row-data-box {
+    background: #F4F5F8;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 10px;
+    width: 82px;
+    height: 32px;
+    padding-top: 7px;
+}
