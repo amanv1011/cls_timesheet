@@ -60,7 +60,7 @@ const ModalTimesheet = (props) => {
                                         )
                                     })}
                                 </div>
-                                    <div className="footer_table">
+                                    <div className="footer_table_foot">
                                         <div className="body_table_body1"> <span className="table_row1"> Total hours </span></div>
                                         <div className="footer_table_table2"><span className="table_row1"> 40:32 </span></div>
                                         <div className="body_table_body3"><span className="table_row1"> {""}</span></div>

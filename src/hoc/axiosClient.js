@@ -6,8 +6,8 @@ import { getCookie, removeCookie, deleteUserProfile } from "../actions/user";
 import history from "./history";
 let spinnerCount = 0;
 const http = axios.create({
-  // baseURL: "http://localhost:3501/",
-  baseURL: "https://stageapp.api.classicinformatics.net/",
+  baseURL: "http://localhost:3501/",
+  // baseURL: "https://stageapp.api.classicinformatics.net/",
 });
 
 http.interceptors.request.use(

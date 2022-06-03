@@ -37,9 +37,6 @@ const withDashboardTemplate = (WrappedComponent) => {
       collapsible: true,
     };
 
-    state = {
-      collapsible: false,
-    };
 
     toggle = () => {
       this.setState({ collapsible: !this.state.collapsible });
@@ -49,8 +46,7 @@ const withDashboardTemplate = (WrappedComponent) => {
 
       return (
         <Wrapper>
-          <Layout>
-            {/* <TopHeader toggle={this.toggle} /> */}
+            <TopHeader toggle={this.toggle} />
             <Layout>
               <Sider
                 width={200}
@@ -59,8 +55,8 @@ const withDashboardTemplate = (WrappedComponent) => {
                 collapsible
                 collapsed={this.state.collapsible}
                 style={{
-                  top: "70px",
-
+                  /* top: "70px", */
+                 
                   height: `calc(100vh - 77px)`,
                 }}
               >
@@ -136,8 +132,7 @@ const withDashboardTemplate = (WrappedComponent) => {
                 <Content
                   className="site-layout-background"
                   style={{
-                    paddingTop: "102px",
-                    paddingLeft: "45px",
+                    padding:"2em 2em 0 2em",
                     minHeight: "100vh",
                   }}
                 >
@@ -145,7 +140,6 @@ const withDashboardTemplate = (WrappedComponent) => {
                 </Content>
               </Layout>
             </Layout>
-          </Layout>
         </Wrapper>
       );
     }

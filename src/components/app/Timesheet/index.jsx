@@ -4,16 +4,12 @@ import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetF
 import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-import { Button, Modal } from 'react-bootstrap'
-import { useState } from "react";
 import ModalTimesheet from "../../commonComponents/Modal/ModalTimesheet";
 import dummyData from "../../commonComponents/Table/dummyData";
 import { useDispatch } from "react-redux";
 import {setModalActive} from "../../../redux/actions/modalAction";
 
 import './TimesheetModule.css';
-
-
 
 
 const Timesheet = (props) => {

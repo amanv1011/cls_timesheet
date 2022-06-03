@@ -173,12 +173,12 @@ class HoursLogged extends React.Component {
 
     return (
       <div
-        style={{
-          position: "relative",
-          left: "200px",
-          width: "75vw",
-          top: "70px",
-        }}
+        // style={{
+        //   position: "relative",
+        //   left: "200px",
+        //   width: "75vw",
+        //   top: "70px",
+        // }}
       >
         <div className="header">
           <h3>Hours Logged/Project</h3>

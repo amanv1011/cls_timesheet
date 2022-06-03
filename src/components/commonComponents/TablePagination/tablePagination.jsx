@@ -29,7 +29,7 @@ const TablePagination = (props) => {
   function changePage(event) {
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
-    dispatch(setActivePage(currentPage + 1))
+    dispatch(setActivePage(pageNumber))
   }
 
   const getPaginationGroup = () => {

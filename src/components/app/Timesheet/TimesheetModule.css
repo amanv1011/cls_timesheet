@@ -9,7 +9,7 @@
   align-items: center;
   color: blue;
   font-size: 100px;
-
+  cursor: pointer;
 }
 
 .back-arrow {
