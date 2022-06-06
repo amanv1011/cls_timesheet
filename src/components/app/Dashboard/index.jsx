@@ -14,7 +14,7 @@ import dummyData from "../../commonComponents/Table/dummyData"
 
 const Dashboard = () => {
   
-  const tableColArray = ['Projects', 'Project Owner', 'Engagement Type', 'Project Health', 'Hours Logged', 'Members']
+  const tableColArray = ['Projects', 'Project Owner', 'Engagement Type', 'Project Health', 'Hours Logged', 'Members', ]
 
 
 
@@ -75,7 +75,7 @@ const Dashboard = () => {
 
         </div>
         <div className="table-container">
-                <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData}/>
+                <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData} tableFun={tempFun}/>
                 <TablePagination dataLength={dummyData.length} dataLimit={10} pageLimit={3}/>
                 <button className="dashboard-table-button">
                   <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>

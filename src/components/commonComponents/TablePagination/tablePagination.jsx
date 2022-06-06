@@ -74,6 +74,7 @@ const TablePagination = (props) => {
                     : {}
                 }
                 className={currentPage === item ? "pagination-btn-active" :"pagination-btn"}
+                disabled={item > pages ? true : false}
               >
                 {item}
               </button>
