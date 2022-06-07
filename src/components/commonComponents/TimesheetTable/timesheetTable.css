@@ -1,0 +1,63 @@
+.timesheet-table-container{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.timesheet-table-head{
+    padding-right: 8px;
+}
+
+.table-head-data{
+    
+    text-align: left;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #1f4173;
+    padding-top:15px;
+    padding-bottom: 15px;
+}
+
+.timesheet-table-body{
+    max-height: 40vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.timesheet-table-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+.timesheet-table-body::-webkit-scrollbar {
+    height: 10px;
+    width: 6px;
+    border-radius: 15px;
+}
+
+.timesheet-table-body::-webkit-scrollbar-track {
+    background: #ffffff;
+    margin-top: 20px;
+    border-radius: 15px;
+    margin-bottom: 1px;
+}
+
+.timesheet-table-body::-webkit-scrollbar-thumb {
+    height: 165px;
+    background: #e6eaf2;
+    border-radius: 20px;
+}
+
+
+.table-body-data{
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #627A9D;
+    padding-top:15px;
+    padding-bottom: 15px;
+}
