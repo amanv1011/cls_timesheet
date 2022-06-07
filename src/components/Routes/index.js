@@ -22,13 +22,13 @@ function Routes() {
           {isLoggedIn ? <Redirect to='/'></Redirect> : <Login />}
         </Route>
         <ProtectedRoute path="/weekly-status" exact component={WeeklyStatus} />
-        <Route path="/dashboard" exact component={Dashboard} />
+        <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
         <ProtectedRoute path="/projects" exact component={Projects} />
         <ProtectedRoute path="/reports" exact component={Report} />
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
-        <Route path="/timesheet" exact component={Timesheet} />
+        <ProtectedRoute path="/timesheet" exact component={Timesheet} />
         <ProtectedRoute path="/" exact component={LandingPage} />
         <ProtectedRoute path="*" component={LandingPage} />
       </Switch>
