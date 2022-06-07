@@ -46,7 +46,7 @@ const withDashboardTemplate = (WrappedComponent) => {
 
       return (
         <Wrapper>
-            <TopHeader toggle={this.toggle} />
+            {/* <TopHeader toggle={this.toggle} /> */}
             <Layout>
               <Sider
                 width={200}
