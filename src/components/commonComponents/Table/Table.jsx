@@ -47,7 +47,12 @@ const Table = (props) => {
               {props.tableCols.map((ele, index) => {
                 return (
                   <>
-                    <th style={index === 0 ? {paddingLeft:'20px' }: null} className="table-header-row-data">{ele}</th>
+                    <th
+                      style={index === 0 ? { paddingLeft: "20px" } : null}
+                      className="table-header-row-data"
+                    >
+                      {ele}
+                    </th>
                   </>
                 );
               })}
@@ -60,18 +65,34 @@ const Table = (props) => {
                 <>
                   <tr className="table-body-row">
                     {Object.entries(elements).map((ele, index) => {
-                      console.log(index);
                       return (
                         <>
                           {tableDataComponents.includes(ele[0]) ? (
-                            <td   className={index === 0 ? "table-body-row-data table-body-col-first" : 'table-body-row-data'}>
+                            <td
+                              className={
+                                index === 0
+                                  ? "table-body-row-data table-body-col-first"
+                                  : "table-body-row-data"
+                              }
+                            >
                               <TableStyledDataComponents
                                 styledComponent={ele[0]}
                                 styledComponentData={ele[1]}
                               />
                             </td>
                           ) : (
-                            <td style={index === 0 ? {paddingLeft:'20px' }: null} className={index === 0 ? "table-body-row-data table-body-col-first" : 'table-body-row-data'}>{ele[1]}</td>
+                            <td
+                              style={
+                                index === 0 ? { paddingLeft: "20px" } : null
+                              }
+                              className={
+                                index === 0
+                                  ? "table-body-row-data table-body-col-first"
+                                  : "table-body-row-data"
+                              }
+                            >
+                              {ele[1]}
+                            </td>
                           )}
                         </>
                       );
@@ -83,7 +104,6 @@ const Table = (props) => {
           </tbody>
         </table>
       </div>
-      <div></div>
     </>
   );
 };
