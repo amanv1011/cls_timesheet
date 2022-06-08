@@ -1,11 +1,12 @@
 import React from "react";
 import DashboardTemplate from "../../layouts/template";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
-import Table from "../../commonComponents/Table/Table";
 import BackArrow from "../../../assets/images/icons/BackArrow";
+
+import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable"
+import './TimesheetModule.css';
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import ModalTimesheet from "../../commonComponents/Modal/ModalTimesheet";
-import dummyData from "../../commonComponents/Table/dummyData";
 import { useDispatch } from "react-redux";
 import {setModalActive} from "../../../redux/actions/modalAction";
 import TimesheetDummyData from "./TimesheetDummyData";
@@ -20,7 +21,7 @@ const Timesheet = (props) => {
 
 
 
-  const TimesheetTable = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
+  const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
 
   return (
     <>
@@ -55,9 +56,8 @@ const Timesheet = (props) => {
         </div>
 
         <div className="table-container">
-
-          <Table tableCols={TimesheetTable} tableData={TimesheetDummyData} />
-
+        <TimesheetTable tableCols={TimesheetTableCols} tableData={TimesheetDummyData}/>
+           
         </div>
 
       </div>
