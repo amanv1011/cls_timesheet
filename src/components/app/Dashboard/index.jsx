@@ -1,28 +1,23 @@
 import React from "react";
-
 import DashboardTemplate from "../../layouts/template";
-
-import { IoIosArrowDown } from "react-icons/io";
-import { DatePicker } from "antd";
-import { RiCalendar2Line } from "react-icons/ri";
+import TablePagination from "../../commonComponents/TablePagination/tablePagination";
 import Today from "../../../assets/dashboardIcons/today";
 import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
 import WorkedProject from "../../../assets/dashboardIcons/workedProject";
 import Arrow from "../../../assets/dashboardIcons/Arrow";
 import Table from "../../commonComponents/Table/Table";
-
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
+import dummyData from "../../commonComponents/Table/dummyData";
 
 const Dashboard = () => {
-  const monthFormat = "MMM YYYY";
   const tableColArray = [
     "Projects",
-    "ProjectOwner",
-    "EngagementType",
-    "ProjectHealth",
-    "HoursLogged",
+    "Project Owner",
+    "Engagement Type",
+    "Project Health",
+    "Hours Logged",
     "Members",
   ];
 
@@ -80,12 +75,20 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="table-container">
-          <Table tableCols={tableColArray} />
+          <Table
+            tableCols={tableColArray}
+            tableHeading={"Active Projects"}
+            tableData={dummyData}
+          />
+          <TablePagination
+            dataLength={dummyData.length}
+            dataLimit={10}
+            pageLimit={3}
+          />
           <button className="dashboard-table-button">
             <span style={{ marginRight: "6px", fontSize: "14px" }}>
               View Projects{" "}
             </span>
-
             <Arrow />
           </button>
         </div>

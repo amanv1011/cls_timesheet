@@ -7,9 +7,10 @@
 
 .header {
   display: flex;
-  align-items: center;
+  /* gap: 29%; */
   justify-content: space-between;
-  /* margin-top: 1rem; */
+  flex-wrap: wrap;
+  margin-right: 15px;
 }
 .header h3 {
   font-style: normal;
@@ -38,16 +39,25 @@
   text-align: left;
   color: #1f4173;
 }
+.formStyle {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.1em;
+}
 
 .filterForm {
   display: flex;
-  gap: 1em;
+  /* gap: 30em;  */
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 0.2em;
 }
 
-.formStyle input {
-  margin-right: 0.7rem;
-  width: 180px;
+.filterForm Input {
+  margin-right: 0.4rem;
+  /* width: 180px; */
   height: 40px;
   border-radius: 10px;
   border: none;
@@ -67,10 +77,10 @@
   outline: none;
   border: none;
 }
-
+/* 
 .styleRes {
   margin-left: 100px;
-}
+} */
 
 .styleRes span {
   display: flex;
@@ -80,7 +90,7 @@
 }
 
 .ExportBtn {
-  width: 130px;
+  /* width: 130px; */
   height: 40px;
   background: rgba(31, 65, 115, 0.5);
   border-radius: 10px;
@@ -89,14 +99,31 @@
   color: #ffffff;
   border: none;
   outline: none;
-  margin-left: 115px;
+  margin-right: 15px;
 }
 
 .styleDataTable {
-  margin-top: 10px;
+  margin-top: 30px;
+  width: 100%;
+  height: 400px;
 }
 .styleDataTable Table {
   border-radius: 1rem;
+}
+
+.table {
+  width: 100%;
+  height: 400px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px #d9ebf2;
+  border-radius: 15px;
+}
+
+.tableHead {
+  display: flex;
+  background: #fafafa;
+  box-shadow: inset 0px -1px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 15px 15px 0px 0px;
 }
 
 .ant-table-thead > tr > th {
@@ -115,3 +142,5 @@
   color: #1f4173;
   opacity: 0.7;
 }
+
+/* table */

@@ -1,0 +1,4 @@
+
+export const GET_TOTAL_COUNT = "GET_TOTAL_COUNT";
+export const GET_DATA_PER_PAGE = " GET_DATA_PER_PAGE";
+export const GET_ACTIVE_COUNT = "GET_ACTIVE_COUNT";

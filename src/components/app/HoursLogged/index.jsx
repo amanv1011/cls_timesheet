@@ -9,7 +9,11 @@ import Table from "../../commonComponents/Table/Table";
 import "./hoursLogged.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import ProjectComponent from "./ProjectComp";
+import { getHoursLogged } from "../../../actions/asyncActions";
+import moment from "moment";
+import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 
+let bool = true;
 const monthFormat = "MMM YYYY";
 
 const tableColArray = [
@@ -24,27 +28,65 @@ const tableColArray = [
 ];
 
 class HoursLogged extends React.Component {
-  handleOnOff() {
-    console.log(this.state.show);
-    this.setState({ show: !this.state.show });
-  }
   constructor(props) {
     super(props);
     this.state = {
       show: false,
       showResources: false,
+      data: [""],
+      tableCols: [""],
+      monthYear: moment(new Date()).format("MM/YYYY"),
     };
     this.handleOnOff = this.handleOnOff.bind(this);
   }
+
+  componentDidMount = async () => {
+    await getHoursLogged(this.state.monthYear);
+    this.setState({
+      data: this.props.hours_logged.hoursLogged,
+      tableCols: Object.keys(this.props.hours_logged.hoursLogged[0]),
+    });
+  };
+
+  //
+
+  handleOnOff() {
+    console.log(this.state.show);
+    this.setState({ show: !this.state.show });
+  }
+
+  resourcesHandler = () => {
+    this.setState({
+      showResources: !this.state.showResources,
+    });
+  };
+
+  dateHandler = (date) => {
+    console.log(moment(date).format("MM/YYYY"), "eeeeeeeeeeeeee");
+    // this.setState({
+    //   monthYear: moment(date).format("MM/YYYY"),
+    // });
+    getHoursLogged(moment(date).format("MM/YYYY"));
+  };
+
   render() {
-    // console.log("dashboard", this.props)
+    console.log(this.state.monthYear, "dateeeeeeeeeeeeeeeee");
+    console.log("heyyyyyyyyyyy", this.props);
+    if (this.props.hours_logged.hoursLogged && bool) {
+      console.log("eehhhhhhhhh");
+      bool = false;
+      this.setState({
+        tableCols: Object.keys(this.props.hours_logged.hoursLogged[0]),
+      });
+    }
 
     return (
       <div
         style={{
           position: "relative",
           left: "20px",
-          width: "75vw",
+          width: "100%",
+          height: "100%",
           top: "10px",
         }}
       >
@@ -54,6 +96,7 @@ class HoursLogged extends React.Component {
           <div>
             <div className="header">
               <h3>Hours Logged/Project</h3>
+              <button onClick={this.resourcesHandler}>go to resources</button>
               <Space>
                 <DatePicker
                   picker="month"
@@ -80,20 +123,23 @@ class HoursLogged extends React.Component {
                     color: "#1f4173",
                   }}
                   format={monthFormat}
+                  selected={this.state.monthYear}
+                  onChange={this.dateHandler}
                 />
               </Space>
             </div>
             <div style={{ marginTop: "1rem" }}>
               <h6 className="filterStyle">Filter by:</h6>
               <div className="filterForm">
-                <form className="formStyle">
-                  <input placeholder="Project Name" />
-                  <input placeholder="Project Owner" />
-                  <input placeholder="Engagement Type" />
-                  <input placeholder="Status" style={{ width: "130px" }} />
-                  <button className="filterFormBtn">Go</button>
-                </form>
-
+                <div>
+                  <form className="formStyle">
+                    <input placeholder="Project Name" />
+                    <input placeholder="Project Owner" />
+                    <input placeholder="Engagement Type" />
+                    <input placeholder="Status" style={{ width: "130px" }} />
+                    <button className="filterFormBtn">Go</button>
+                  </form>
+                </div>
                 <div className="styleRes">
                   <span>
                     <button className="ExportBtn">Export to Excel</button>
@@ -102,10 +148,49 @@ class HoursLogged extends React.Component {
               </div>
             </div>
             <div className="styleDataTable">
-              <Table
-                tableCols={tableColArray}
-                showResources={this.state.showResources}
-              />
+              <table
+                className="table"
+                style={{
+                  display: "block",
+                }}
+              >
+                <thead className="tableHead">
+                  <tr className="">
+                    <th>Projects</th>
+                    <th>Project Owner</th>
+                    <th>Project Code</th>
+                    <th>Account Code</th>
+                    <th>Engagement Type</th>
+                    <th>Hours Logged</th>
+                    <th>Blied Hours</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody
+                  style={{
+                    height: "300px",
+                    overflowY: "scroll",
+                    display: "block",
+                  }}
+                >
+                  {this.props.hours_logged.hoursLogged?.map(
+                    (element, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{element.project_name}</td>
+                          <td>{element.owner_name}</td>
+                          <td>{element.project_code}</td>
+                          <td>{element.account_code}</td>
+                          <td>{element.engagement_type}</td>
+                          <td>{element.logged_time}</td>
+                          <td>{element.logged_time}</td>
+                          <td>{element.health_status_description}</td>
+                        </tr>
+                      );
+                    }
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         )}

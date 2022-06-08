@@ -5,16 +5,55 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import "./ProjectComponent.css";
+import { Modal } from "react-bootstrap";
+import { AiOutlineEdit } from "react-icons/ai";
+import { Input } from "antd";
 
 const monthFormat = "MMM YYYY";
 class ProjectComponent extends React.Component {
   state = {
     date: new Date(),
+    show: false,
+  };
+
+  handleShow = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
+  handleClose = () => {
+    this.setState({
+      show: false,
+    });
   };
 
   render() {
     return (
       <>
+        {" "}
+        <Modal
+          dialogClassName="top_modal"
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={this.state.show}
+          onHide={this.handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <div>
+            <h5>Add New Resources</h5>
+            <h6>New Resources</h6>
+            <div>
+              <input />
+              <div>
+                <button onClick={this.handleClose}>cancel</button>
+                <button onClick={this.handleClose}>add</button>
+              </div>
+            </div>
+          </div>
+        </Modal>
         <div>
           <p className="backBtn">
             <FaAngleLeft /> Back Hour Logged
@@ -38,84 +77,222 @@ class ProjectComponent extends React.Component {
             </label>
           </div>
           <div>
-            <table className="resourceTable">
-              <thead className="tableCaption">
-                <div style={{ display: "flex" }}>
-                  <FaAngleLeft className="captionLeftArrow" />
-                  <span>
-                    <DatePicker
-                      onChange={(d) => {
-                        this.setState({
-                          date: d,
-                        });
+            <table cellSpacing={0} className="loggedHoursResourcesTable">
+              {/* <thead> */}
+              <tr>
+                <th colSpan={4} style={{ textAlign: "center" }}>
+                  {" "}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "10px",
+                      alignItems: "center",
+                      background: "rgb(250 250 250)",
+                      height: "80px",
+                    }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <FaAngleLeft className="captionLeftArrow" />
+                      <span>
+                        <DatePicker
+                          onChange={(d) => {
+                            this.setState({
+                              date: d,
+                            });
+                          }}
+                          customInput={<CustomInput />}
+                        />
+                      </span>
+                      <span className="tableDate">
+                        Weekly Hours Logged{" "}
+                        {moment(this.state.date).format("DD MMM YYYY")}
+                      </span>
+                    </div>
+                    <div>
+                      <button
+                        className="addResourcesBtn"
+                        onClick={this.handleShow}
+                      >
+                        + Add Resources
+                      </button>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+
+              <tr>
+                <th className="loggedHours_tdata">
+                  {" "}
+                  <input type="checkbox" name="" id="" /> Resource
+                </th>
+                <th className="loggedHours_tdata">Hours logged</th>
+                <th className="loggedHours_tdata">Build hours</th>
+                <th
+                  className="loggedHours_tdata"
+                  style={{ textAlign: "center" }}
+                >
+                  Status
+                </th>
+              </tr>
+              {/* </thead> */}
+              <tbody style={{ height: "100px", overflowY: "auto" }}>
+                <tr>
+                  <td
+                    className="loggedHours_tdata "
+                    style={{ fontWeight: "600" }}
+                  >
+                    <input type="checkbox" name="" id="" /> Rahul Mehra
+                  </td>
+                  <td className="loggedHours_tdata">
+                    <div className="centerPadding">40</div>
+                  </td>
+                  <td className="loggedHours_tdata" style={{ width: "397px" }}>
+                    <div>
+                      <Input
+                        className="loggedhourInput"
+                        suffix={<AiOutlineEdit />}
+                        value={20}
+                      />
+                    </div>
+                  </td>
+                  <td className="loggedHours_tdata loggedStatus">
+                    <div
+                      style={{
+                        padding: "13px 4px",
+                        background: "#d4fbd4",
+                        color: "green",
                       }}
-                      customInput={<CustomInput />}
-                    />
-                  </span>
-                  <span className="tableDate">
-                    Weekly Hours Logged{" "}
-                    {moment(this.state.date).format("DD MMM YYYY")}
-                  </span>
-                </div>
-                <div>
-                  <button className="addResourcesBtn">+ Add Resources</button>
-                </div>
-              </thead>
-              <div className="tableHeading">
-                <tr>
-                  <th>
-                    <input type="checkbox" />
-                  </th>
-                  <th>Resources</th>
-                  <th>Hours Logged</th>
-                  <th>Biled Hours</th>
-                  <th>Status</th>
-                </tr>
-              </div>
-              <div className="resourcesName">
-                <tr>
-                  <td style={{ width: "1px" }}>
-                    <input type="checkbox" />
+                      className="centerPadding"
+                    >
+                      Approved
+                    </div>
                   </td>
-                  <td>Rahul Mehra</td>
-                  <td>
-                    <div className="build">40h</div>
-                  </td>
-                  <td>20h</td>
-                  <td>Approved</td>
                 </tr>
+
                 <tr>
-                  <td style={{ width: "1px" }}>
-                    <input type="checkbox" />
+                  <td
+                    className="loggedHours_tdata "
+                    style={{ fontWeight: "600" }}
+                  >
+                    <input type="checkbox" name="" id="" /> Rahul Mehra
                   </td>
-                  <td>Himanshu Jindal</td>
-                  <td>40h</td>
-                  <td>20h</td>
-                  <td>Approved</td>
+                  <td className="loggedHours_tdata">
+                    <div className="centerPadding">40</div>
+                  </td>
+                  <td className="loggedHours_tdata" style={{ width: "397px" }}>
+                    <div>
+                      <Input
+                        className="loggedhourInput"
+                        suffix={<AiOutlineEdit />}
+                        value={20}
+                      />
+                    </div>
+                  </td>
+                  <td className="loggedHours_tdata loggedStatus">
+                    <div
+                      style={{
+                        padding: "13px 4px",
+                        background: "#d4fbd4",
+                        color: "green",
+                      }}
+                      className="centerPadding"
+                    >
+                      Approved
+                    </div>
+                  </td>
                 </tr>
+
                 <tr>
-                  <td style={{ width: "1px" }}>
-                    <input type="checkbox" />
+                  <td
+                    className="loggedHours_tdata "
+                    style={{ fontWeight: "600" }}
+                  >
+                    <input type="checkbox" name="" id="" /> Rahul Mehra
                   </td>
-                  <td>Vineet Jain</td>
-                  <td>40h</td>
-                  <td>20h</td>
-                  <td>Approved</td>
+                  <td className="loggedHours_tdata">
+                    <div className="centerPadding">40</div>
+                  </td>
+                  <td className="loggedHours_tdata" style={{ width: "397px" }}>
+                    <div>
+                      <Input
+                        className="loggedhourInput"
+                        suffix={<AiOutlineEdit />}
+                        value={20}
+                      />
+                    </div>
+                  </td>
+                  <td className="loggedHours_tdata loggedStatus">
+                    <div
+                      style={{
+                        padding: "13px 4px",
+                        background: "#d4fbd4",
+                        color: "green",
+                      }}
+                      className="centerPadding"
+                    >
+                      Approved
+                    </div>
+                  </td>
                 </tr>
+
                 <tr>
-                  <td style={{ width: "1px" }}>
-                    <input type="checkbox" />
+                  <td
+                    className="loggedHours_tdata "
+                    style={{ fontWeight: "600" }}
+                  >
+                    <input type="checkbox" name="" id="" /> Rahul Mehra
                   </td>
-                  <td>Amit Chaudhary</td>
-                  <td>40h</td>
-                  <td>20h</td>
-                  <td>Approved</td>
+                  <td className="loggedHours_tdata">
+                    <div className="centerPadding">40</div>
+                  </td>
+                  <td className="loggedHours_tdata" style={{ width: "397px" }}>
+                    <div>
+                      <Input
+                        className="loggedhourInput"
+                        suffix={<AiOutlineEdit />}
+                        value={20}
+                      />
+                    </div>
+                  </td>
+                  <td className="loggedHours_tdata loggedStatus">
+                    <div
+                      style={{
+                        padding: "13px 4px",
+                        background: "#d4fbd4",
+                        color: "green",
+                      }}
+                      className="centerPadding"
+                    >
+                      Approved
+                    </div>
+                  </td>
                 </tr>
-              </div>
-              <div className="cancelApproveBtn">
-                <button>cancel</button>
-                <button>Approve</button>
-              </div>
+              </tbody>
+              <tfoot>
+                <tr
+                  style={{
+                    background: "#FAFAFA",
+                    boxShadow: "inset 0px 1px 4px rgba(0, 0, 0, 0.07)",
+                    borderRadius: "0px 0px 15px 15px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <td colSpan={4}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "end",
+                        padding: "25px",
+                      }}
+                      className="lastBtn"
+                    >
+                      <button>Cancel</button>
+                      <button>Approve</button>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>

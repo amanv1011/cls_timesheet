@@ -14,12 +14,10 @@ export const getUserTools = (data) => ({
   type: actionTypes.GET_USER_TOOLS,
   payload: data,
 });
-export const getWeeklyStatus = (data) => (
-  {
-    type: actionTypes.GET_WEEKLY_STATUS,
-    payload: data,
-  }
-);
+export const getWeeklyStatus = (data) => ({
+  type: actionTypes.GET_WEEKLY_STATUS,
+  payload: data,
+});
 export const get_health_status = (data) => ({
   type: actionTypes.GET_HEALTH_STATUS,
   payload: data,
@@ -29,19 +27,20 @@ export const get_engagement_types = (data) => ({
   payload: data,
 });
 
-export const getTimeSheet = (data) => (
-  {
-    type: actionTypes.GET_TIME_SHEET,
-    payload: data,
-  }
-);
+export const getTimeSheet = (data) => ({
+  type: actionTypes.GET_TIME_SHEET,
+  payload: data,
+});
 
-export const getTimesheetResources = (data) => (
-  {
-    type: actionTypes.GET_TIME_SHEET_RESOURCES,
-    payload: data,
-  }
-);
+export const getTimesheetResources = (data) => ({
+  type: actionTypes.GET_TIME_SHEET_RESOURCES,
+  payload: data,
+});
+
+export const getHoursLogged = (data) => ({
+  type: actionTypes.GET_HOURS_LOGGED,
+  payload: data,
+});
 
 export const Spinner = (data) => ({
   type: actionTypes.SPINNER,
