@@ -13,4 +13,5 @@ const API_PREFIX = `${BASE_URL}/api`;
 
 export const apiUrls = {
     timesheet:`${API_PREFIX}/projects/timesheet?monthYear=`,
+    hourslogged:`${API_PREFIX}/hourslog/hourslog?monthYear=`,
 }

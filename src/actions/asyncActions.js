@@ -127,11 +127,11 @@ export const get_engagement_types = (id) => {
 
 // hourslogged
 export const getHoursLogged = async (date) => {
-  console.log("&&&&&&&&&", date);
+  
   http
     .get(`/api/hourslog/hourslog?monthYear=${date}&id=18`)
     .then((response) => {
-      console.log("hl response:", response);
+      
       Store.dispatch(syncActions.getHoursLogged(response.data));
     })
     .catch((err) => console.log(err));
