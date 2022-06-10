@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/template";
 import { withRouter } from "react-router";
@@ -11,141 +13,161 @@ import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import ProjectComponent from "./ProjectComp";
 import { getHoursLogged } from "../../../actions/asyncActions";
 import moment from "moment";
+import TempTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 
-let bool = true;
-const monthFormat = "MMM YYYY";
+const HoursLogged = () => {
+  const tableColArray = [
+    "Projects",
+    "Project Owner",
+    "Project Code",
+    "Account Code",
+    "Engagement Type",
+    "Hours Logged",
+    "Billed Hours",
+    "Status",
+  ];
 
-const tableColArray = [
-  "Projects",
-  "ProjectOwner",
-  "ProjectCode",
-  "AccountCode",
-  "EngagementType",
-  "HoursLogged",
-  "BilledHours",
-  "Status",
-];
+  let bool = true;
+  const monthFormat = "MMM YYYY";
+  const filterData = [];
+  const hoursLoggedModuleData = useSelector(
+    (state) => state.hoursLogged.hoursloggedData
+  );
 
-class HoursLogged extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-      showResources: false,
-      data: [""],
-      tableCols: [""],
-      monthYear: moment(new Date()).format("MM/YYYY"),
-    };
-    this.handleOnOff = this.handleOnOff.bind(this);
-  }
+  const dispatch = useDispatch();
 
-  componentDidMount = async () => {
-    await getHoursLogged(this.state.monthYear);
-    this.setState({
-      data: this.props.hours_logged.hoursLogged,
-    });
-  };
+  const [show, setShow] = useState(false);
+  const [showResources, setShowResources] = useState(false);
+  const [data, setData] = useState([""]);
+  const [tableCols, setTableCols] = useState([""]);
+  const [monthYear, setMonthYear] = useState(
+    moment(new Date()).format("MM/YYYY")
+  );
+  const [tableData, setTableData] = useState(null);
 
-  //
+  // useEffect = async () => {
+  //   await getHoursLogged(monthYear);
+  //   this.setState({
+  //     data: this.props.hours_logged.hoursLogged,
+  //   });
+  // };
 
-  handleOnOff() {
-    console.log(this.state.show);
-    this.setState({ show: !this.state.show });
-  }
+  useEffect(() => {
+    dispatch(getHoursLogged(monthYear));
+  }, []);
 
-  resourcesHandler = () => {
-    this.setState({
-      showResources: !this.state.showResources,
-    });
-  };
-
-  dateHandler = (date) => {
-    console.log(moment(date).format("MM/YYYY"), "eeeeeeeeeeeeee");
-
-    getHoursLogged(moment(date).format("MM/YYYY"));
-  };
-
-  render() {
-    console.log(this.state.monthYear, "dateeeeeeeeeeeeeeeee");
-    console.log("heyyyyyyyyyyy", this.props);
-    if (this.props.hours_logged.hoursLogged && bool) {
-      console.log("eehhhhhhhhh");
-      bool = false;
-      this.setState({
-        tableCols: Object.keys(this.props.hours_logged.hoursLogged[0]),
+  useEffect(() => {
+    if (hoursLoggedModuleData !== null) {
+      hoursLoggedModuleData.forEach((ele) => {
+        filterData.push({
+          Projects: ele.project_name,
+          ProjectOwner: ele.project_owner,
+          ProjectCode: ele.project_code,
+          AccountCode: ele.account_code,
+          EngagementType: ele.engagement_type,
+          HoursLogged: ele.hours_logged,
+          BilledHours: ele.billed_hours,
+          Status: ele.status,
+        });
       });
     }
 
-    return (
-      <div
-        style={{
-          position: "relative",
-          left: "20px",
-          width: "100%",
-          height: "100%",
-          top: "10px",
-        }}
-      >
-        {this.state.showResources ? (
-          <ProjectComponent />
-        ) : (
-          <div>
-            <div className="header">
-              <h3>Hours Logged/Project</h3>
-              <button onClick={this.resourcesHandler}>go to resources</button>
-              <Space>
-                <DatePicker
-                  picker="month"
-                  suffixIcon={
-                    <span className="styleDateIcons">
-                      <RiCalendar2Line
-                        style={{
-                          right: "8.33%",
-                          top: "4.17%",
-                          bottom: "12.5%",
-                        }}
-                      />
-                      <IoIosArrowDown />
-                    </span>
-                  }
-                  style={{
-                    width: " 140px",
-                    height: "40px",
-                    borderRadius: "10px",
-                    background: "#EAEEF4",
-                    border: "none",
-                    // opacity: "0.05",
-                    fontSize: "14px",
-                    color: "#1f4173",
-                  }}
-                  format={monthFormat}
-                  selected={this.state.monthYear}
-                  onChange={this.dateHandler}
-                />
-              </Space>
-            </div>
-            <div style={{ marginTop: "1rem" }}>
-              <h6 className="filterStyle">Filter by:</h6>
-              <div className="filterForm">
-                <div>
-                  <form className="formStyle">
-                    <input placeholder="Project Name" />
-                    <input placeholder="Project Owner" />
-                    <input placeholder="Engagement Type" />
-                    <input placeholder="Status" style={{ width: "130px" }} />
-                    <button className="filterFormBtn">Go</button>
-                  </form>
-                </div>
-                <div className="styleRes">
-                  <span>
-                    <button className="ExportBtn">Export to Excel</button>
+    setTableData(filterData);
+  }, [hoursLoggedModuleData]);
+
+  const handleOnOff = () => {
+    setShow(!show);
+  };
+
+  const resourcesHandler = () => {
+    setShowResources(!showResources);
+  };
+
+  const dateHandler = (date) => {
+    console.log(moment(date).format("MM/YYYY"), "eeeeeeeeeeeeee");
+    getHoursLogged(moment(date).format("MM/YYYY"));
+  };
+
+  // console.log(this.state.monthYear, "dateeeeeeeeeeeeeeeee");
+  // console.log("heyyyyyyyyyyy", this.props);
+  // if (this.props.hours_logged.hoursLogged && bool) {
+  //   console.log("eehhhhhhhhh");
+  //   bool = false;
+  //   this.setState({
+  //     tableCols: Object.keys(this.props.hours_logged.hoursLogged[0]),
+  //   });
+  // }
+
+  return (
+    <div
+      style={{
+        position: "relative",
+        left: "20px",
+        width: "100%",
+        height: "100%",
+        top: "10px",
+      }}
+    >
+      {showResources ? (
+        <ProjectComponent />
+      ) : (
+        <div>
+          <div className="header">
+            <h3>Hours Logged/Project</h3>
+            <button onClick={resourcesHandler()}>go to resources</button>
+            <Space>
+              <DatePicker
+                picker="month"
+                suffixIcon={
+                  <span className="styleDateIcons">
+                    <RiCalendar2Line
+                      style={{
+                        right: "8.33%",
+                        top: "4.17%",
+                        bottom: "12.5%",
+                      }}
+                    />
+                    <IoIosArrowDown />
                   </span>
-                </div>
+                }
+                style={{
+                  width: " 140px",
+                  height: "40px",
+                  borderRadius: "10px",
+                  background: "#EAEEF4",
+                  border: "none",
+                  // opacity: "0.05",
+                  fontSize: "14px",
+                  color: "#1f4173",
+                }}
+                format={monthFormat}
+                selected={monthYear}
+                onChange={dateHandler()}
+              />
+            </Space>
+          </div>
+          <div style={{ marginTop: "1rem" }}>
+            <h6 className="filterStyle">Filter by:</h6>
+            <div className="filterForm">
+              <div>
+                <form className="formStyle">
+                  <input placeholder="Project Name" />
+                  <input placeholder="Project Owner" />
+                  <input placeholder="Engagement Type" />
+                  <input placeholder="Status" style={{ width: "130px" }} />
+                  <button className="filterFormBtn">Go</button>
+                </form>
+              </div>
+              <div className="styleRes">
+                <span>
+                  <button className="ExportBtn">Export to Excel</button>
+                </span>
               </div>
             </div>
-            <div className="styleDataTable">
-              <table
+          </div>
+          <div className="styleDataTable">
+            {/* <table
                 className="table"
                 style={{
                   display: "block",
@@ -197,25 +219,26 @@ class HoursLogged extends React.Component {
                     }
                   )}
                 </tbody>
-              </table>
-            </div>
+              </table> */}
+
+            {tableData !== null ? (
+              <TempTable tableCols={tableColArray} tableData={tableData} />
+            ) : null}
           </div>
-        )}
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (store) => {
-  return {
-    ...store,
-  };
+        </div>
+      )}
+    </div>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
+// const mapStateToProps = (store) => {
+//   return {
+//     ...store,
+//   };
+// };
 
-export default DashboardTemplate(
-  connect(mapStateToProps, mapDispatchToProps)(withRouter(HoursLogged))
-);
+// const mapDispatchToProps = (dispatch) => {
+//   return {};
+// };
+
+export default DashboardTemplate(HoursLogged);

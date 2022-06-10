@@ -127,10 +127,6 @@ export const get_engagement_types = (id) => {
 
 // hourslogged
 export const getHoursLogged = async (date) => {
-  // const date = {
-  //   start_date: "2022-02-01",
-  //   end_date: "2022-02-28",
-  // };
   console.log("&&&&&&&&&", date);
   http
     .get(`/api/hourslog/hourslog?monthYear=${date}&id=18`)

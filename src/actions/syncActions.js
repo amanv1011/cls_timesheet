@@ -1,4 +1,5 @@
 import actionTypes from "../redux/actionTypes";
+import { SET_HOURSLOGGED_DATA } from "../redux/type";
 
 // export const Profile = (data) => ({
 //   type: actionTypes.AUTH_RESULT,
@@ -38,7 +39,7 @@ export const getTimesheetResources = (data) => ({
 });
 
 export const getHoursLogged = (data) => ({
-  type: actionTypes.GET_HOURS_LOGGED,
+  type: SET_HOURSLOGGED_DATA,
   payload: data,
 });
 

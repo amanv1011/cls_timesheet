@@ -1,26 +1,27 @@
-import ActionTypes from "../actionTypes";
+import { SET_HOURSLOGGED_DATA, SET_HOURSLOGGED_DATA_ERR } from "../type";
+
 const initialState = {
-  hourslogged: {
-    results: [],
-    count: 0,
-  },
+  hoursloggedData: null,
+  hoursloggedDataErr: null,
 };
-export default (state = initialState, action) => {
-  console.log("action in time sheet reducer", action);
-  switch (action.type) {
-    case ActionTypes.GET_HOURS_LOGGED: {
+const hoursLoggedReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case SET_HOURSLOGGED_DATA: {
       return {
         ...state,
-        hoursLogged: action.payload,
+        hoursloggedData: payload,
       };
     }
-    // case ActionTypes.GET_HOURS_LOGGED: {
-    //   return {
-    //     ...state,
-    //     resources: action.payload,
-    //   };
-    // }
+    case SET_HOURSLOGGED_DATA_ERR: {
+      return {
+        ...state,
+        hoursloggedDataErr: payload,
+      };
+    }
+
     default:
       return state;
   }
 };
+
+export default hoursLoggedReducer;
