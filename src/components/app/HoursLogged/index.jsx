@@ -44,7 +44,6 @@ class HoursLogged extends React.Component {
     await getHoursLogged(this.state.monthYear);
     this.setState({
       data: this.props.hours_logged.hoursLogged,
-      tableCols: Object.keys(this.props.hours_logged.hoursLogged[0]),
     });
   };
 
@@ -63,9 +62,7 @@ class HoursLogged extends React.Component {
 
   dateHandler = (date) => {
     console.log(moment(date).format("MM/YYYY"), "eeeeeeeeeeeeee");
-    // this.setState({
-    //   monthYear: moment(date).format("MM/YYYY"),
-    // });
+
     getHoursLogged(moment(date).format("MM/YYYY"));
   };
 
@@ -155,7 +152,15 @@ class HoursLogged extends React.Component {
                 }}
               >
                 <thead className="tableHead">
-                  <tr className="">
+                  <tr
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: "5em",
+                      padding: "5px 2px",
+                    }}
+                  >
                     <th>Projects</th>
                     <th>Project Owner</th>
                     <th>Project Code</th>
@@ -177,7 +182,9 @@ class HoursLogged extends React.Component {
                     (element, index) => {
                       return (
                         <tr key={index}>
-                          <td>{element.project_name}</td>
+                          <td style={{ width: "50px" }}>
+                            {element.project_name}
+                          </td>
                           <td>{element.owner_name}</td>
                           <td>{element.project_code}</td>
                           <td>{element.account_code}</td>

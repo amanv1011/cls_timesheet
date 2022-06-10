@@ -1,14 +1,9 @@
 import React from "react";
-import "./table.css";
-import TableStyledDataComponents from "./TableStyledDataComponents";
+// import "./table.css";
+// import TableStyledDataComponents from "./TableStyledDataComponents";
 import { useSelector } from "react-redux";
 
 const Table = (props) => {
-  const showResourcesHandler = (props) => {
-    console.log(props.showResources);
-    props.showResources = true;
-    console.log(props.showResources);
-  };
   const currentPage = useSelector((state) => state.paginationStates.activePage);
   const dataPerPage = useSelector(
     (state) => state.paginationStates.dataPerPage
@@ -81,10 +76,10 @@ const Table = (props) => {
                                   : "table-body-row-data"
                               }
                             >
-                              <TableStyledDataComponents
+                              {/* <TableStyledDataComponents
                                 styledComponent={ele[0]}
                                 styledComponentData={ele[1]}
-                              />
+                              /> */}
                             </td>
                           ) : (
                             <td

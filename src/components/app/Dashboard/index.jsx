@@ -6,10 +6,10 @@ import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
 import WorkedProject from "../../../assets/dashboardIcons/workedProject";
 import Arrow from "../../../assets/dashboardIcons/Arrow";
-import Table from "../../commonComponents/Table/Table";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-import dummyData from "../../commonComponents/Table/dummyData";
+import dummyData from "./dummyData";
+import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
   const tableColArray = [
@@ -75,11 +75,8 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="table-container">
-          <Table
-            tableCols={tableColArray}
-            tableHeading={"Active Projects"}
-            tableData={dummyData}
-          />
+          <div className="dashboard-table-heading">Active Projects</div>
+          <TimesheetTable tableCols={tableColArray} tableData={dummyData} />
           <TablePagination
             dataLength={dummyData.length}
             dataLimit={10}
@@ -91,6 +88,9 @@ const Dashboard = () => {
             </span>
             <Arrow />
           </button>
+          {/* <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData}/>
+                // 
+                 */}
         </div>
       </div>
     </>

@@ -126,6 +126,16 @@
   border-radius: 15px 15px 0px 0px;
 }
 
+.tableHead > tr > th {
+  width: 100px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height, or 129% */
+  color: #1f4173;
+}
+
 .ant-table-thead > tr > th {
   font-weight: 600;
   font-size: 14px;

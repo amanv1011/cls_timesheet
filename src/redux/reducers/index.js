@@ -7,6 +7,7 @@ import hoursLogged from "./hoursLogged";
 import LandingReducer from "./landingReducer";
 import errorReducer from "./errorReducer";
 import paginationReducer from "./paginationReducer";
+import modalReducer from "./modalReducer";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   hours_logged: hoursLogged,
   error: errorReducer,
   paginationStates: paginationReducer,
+  modalStates: modalReducer,
   // landing:LandingReducer
 });

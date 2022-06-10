@@ -133,7 +133,7 @@ export const getHoursLogged = async (date) => {
   // };
   console.log("&&&&&&&&&", date);
   http
-    .get(`/api/hourslog/hourslog?monthYear=${date}`)
+    .get(`/api/hourslog/hourslog?monthYear=${date}&id=18`)
     .then((response) => {
       console.log("hl response:", response);
       Store.dispatch(syncActions.getHoursLogged(response.data));
