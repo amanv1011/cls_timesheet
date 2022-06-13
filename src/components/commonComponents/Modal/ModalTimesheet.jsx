@@ -22,12 +22,12 @@ const ModalTimesheet = (props) => {
                 backdrop="static"
                 keyboard={false}
             >
-                <div style={{ height: "72vh" }}>
+                <div >
                     <Modal.Header className="heading_container1" closeButton>
                         <Modal.Title ><span className="title_name">Rahul Mehra {"- "}</span>  <span className="small_title"> Monthly Timesheet Stats</span> </Modal.Title>
                     </Modal.Header>
                     <Modal.Body  >
-                        <div className="modal_body_container" style={{ height:"62vh", overflow:"auto"}}>
+                        <div className="modal_body_container" style={{ overflow:"auto"}}>
                             <div className="modal_body_time">
                                 <span className="body_hour"> 1 Dec {" - "} 31 Dec 2021 {" - "} Worked Hours </span>
                             </div>
