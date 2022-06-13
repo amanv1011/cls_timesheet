@@ -2,7 +2,7 @@ import React from "react";
 const ProjectHealth = (props) => {
   return (
     <>
-      {props.status === 1 ? (
+      {props.status === "Good" ? (
         <>
           <span
             style={{
@@ -16,7 +16,7 @@ const ProjectHealth = (props) => {
           ></span>
           <span style={{fontSize: "14px"}}>Good</span>
         </>
-      ) : props.status === 2 ? (
+      ) : props.status === "Average" ? (
         <>
           <span
             style={{
