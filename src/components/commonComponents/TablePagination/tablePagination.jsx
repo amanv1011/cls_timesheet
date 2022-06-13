@@ -15,7 +15,7 @@ const TablePagination = (props) => {
   
 
   const dispatch = useDispatch();
-  const [pages] = useState(Math.round(dataLength / dataLimit));
+  const pages = Math.round(dataLength / dataLimit)
   const [currentPage, setCurrentPage] = useState(1);
   const activePage = useSelector((state) => state.paginationStates.activePage);
 

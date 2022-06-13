@@ -31,6 +31,9 @@
 }
 
 .pagination-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-align:center;
     border: 2px solid black;
     height: 30px;
@@ -43,6 +46,9 @@
 }
 
 .pagination-btn-active{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     text-align:center;
     border: 2px solid black;
     color: white;
