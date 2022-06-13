@@ -26,14 +26,41 @@ const Dashboard = () => {
     (state) => state.timesheet.timesheetData
   );
 
-  const tableColArray = [
-    "Projects",
-    "Project Owner",
-    "Engagement Type",
-    "Project Health",
-    "Hours Logged",
-    "Members",
+  const tempFunEventHandler = (event) => {
+    console.log(event.target.id);
+  };
+
+  const tempTableColArray = [
+    {
+      columnName: "Projects",
+      columnKeyValue: "ProjectId",
+      keyFunction: tempFunEventHandler,
+    },
+    {
+      columnName: "Project Owner",
+    },
+    {
+      columnName: "Engagement Type",
+    },
+    {
+      columnName: "Project Health",
+    },
+    {
+      columnName: "Hours Logged",
+    },
+    {
+      columnName: "Members",
+    },
   ];
+
+  // const tableColArray = [
+  //   "Projects",
+  //   "Project Owner",
+  //   "Engagement Type",
+  //   "Project Health",
+  //   "Hours Logged",
+  //   "Members",
+  // ];
 
   useEffect(() => {
     dispatch(getTimesheetData(todaysDate));
@@ -45,12 +72,13 @@ const Dashboard = () => {
     if (dashboardModuleData !== null) {
       dashboardModuleData.forEach((ele) => {
         filterData.push({
+          ProjectId: ele.project_id,
           Projects: ele.project_name,
           ProjectOwner: ele.project_owner,
           EngagementType: ele.engagement_type,
-          ProjectHealth:ele.health_status_description,
+          ProjectHealth: ele.health_status_description,
           HoursLogged: ele.hours_logged,
-          Members:1,
+          Members: 1,
         });
       });
     }
@@ -113,7 +141,12 @@ const Dashboard = () => {
         </div>
         <div className="table-container">
           <div className="dashboard-table-heading">Active Projects</div>
-          {dashboardFilterData !== null ? <TimesheetTable tableCols={tableColArray} tableData={dashboardFilterData} /> : null}
+          {dashboardFilterData !== null ? (
+            <TimesheetTable
+              tableCols={tempTableColArray}
+              tableData={dashboardFilterData}
+            />
+          ) : null}
 
           <button className="dashboard-table-button">
             <span style={{ marginRight: "6px", fontSize: "14px" }}>

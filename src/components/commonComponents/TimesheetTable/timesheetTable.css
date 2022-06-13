@@ -61,3 +61,16 @@
     padding-top:15px;
     padding-bottom: 15px;
 }
+
+.table-body-data-clickable{
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #627A9D;
+    padding-top:15px;
+    padding-bottom: 15px;
+}
