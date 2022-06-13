@@ -3,6 +3,7 @@ import gridColumns from "./gridColumns";
 import { useSelector } from "react-redux";
 import TableHorizontalLine from "./tableHorizontalLine";
 import TableStyledDataComponents from "./TableStyledDataComponents";
+import TablePagination from "../../commonComponents/TablePagination/tablePagination";
 import "./timesheetTable.css";
 
 const TempTable = (props) => {
@@ -91,6 +92,12 @@ const TempTable = (props) => {
           })}
         </div>
       </div>
+
+      <TablePagination
+        dataLength={props.tableData.length}
+        dataLimit={10}
+        pageLimit={3}
+      />
     </>
   );
 };
