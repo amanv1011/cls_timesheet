@@ -8,6 +8,7 @@ import "./timesheetTable.css";
 
 const TempTable = (props) => {
   const girdColumnsSize = gridColumns(props.tableCols.length);
+  const tableColumns = props.tableCols;
   const columnStyleHead = {
     display: "grid",
     gridTemplateColumns: girdColumnsSize,
@@ -38,14 +39,14 @@ const TempTable = (props) => {
     <>
       <div className="timesheet-table-container">
         <div style={columnStyleHead} className="timesheet-table-head">
-          {props.tableCols.map((element, index) => {
+          {tableColumns.map((element, index) => {
             return (
               <>
                 <div
                   style={index === 0 ? { paddingLeft: "20px" } : null}
                   className="table-head-data"
                 >
-                  {element}
+                  {element.columnName}
                 </div>
               </>
             );
@@ -62,28 +63,37 @@ const TempTable = (props) => {
                   className="timesheet-table-body-row"
                 >
                   {Object.entries(element).map((ele, index) => {
-                    return (
-                      <>
-                        {tableDataComponents.includes(ele[0]) ? (
-                          <div
-                            style={index === 0 ? { paddingLeft: "20px" } : null}
-                            className="table-body-data"
-                          >
-                            <TableStyledDataComponents
-                              styledComponent={ele[0]}
-                              styledComponentData={ele[1]}
-                            />
-                          </div>
-                        ) : (
-                          <div
-                            style={index === 0 ? { paddingLeft: "20px" } : null}
-                            className="table-body-data"
-                          >
-                            {ele[1]}
-                          </div>
-                        )}
-                      </>
-                    );
+                    if(index > 0) {
+                      
+                      return (
+                        <>
+                          {tableDataComponents.includes(ele[0]) ? (
+                            <div
+                              id={element[tableColumns[index - 1].columnKeyValue]}
+                              onClick={tableColumns[index - 1].keyFunction}
+                              style={index === 1 ? { paddingLeft: "20px" } : null}
+                              className="table-body-data"
+                            >
+                              <TableStyledDataComponents
+                                styledComponent={ele[0]}
+                                styledComponentData={ele[1]}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              id={element[tableColumns[index -1 ].columnKeyValue]}
+                              onClick={tableColumns[index - 1].keyFunction}
+                              style={index === 1 ? { paddingLeft: "20px" } : null}
+                              className={tableColumns[index - 1].keyFunction === undefined ? "table-body-data" : "table-body-data-clickable"}
+                            >
+                              {ele[1]}
+                            </div>
+                          )}
+                        </>
+                      );
+
+                    }
+
                   })}
                 </div>
                 <TableHorizontalLine />
