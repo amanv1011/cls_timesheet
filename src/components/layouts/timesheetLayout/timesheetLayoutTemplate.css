@@ -1,0 +1,34 @@
+.layout-navbar{
+    width: 100%;
+    height:60px;
+    position: fixed;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.layout-body-container{
+    width:100%;
+    height:100%;
+    display:flex;
+    padding-top: 65px;
+}
+
+.layout-sidebar-container{
+    
+    height:100%;
+    position:sticky;
+    top: 0;
+    
+    
+}
+
+
+
+.layout-content-container{
+    width:100%;
+    height:100%;
+    padding-top:30px;
+    padding-left: 25px;
+    background-color:#F5F7FB;
+    overflow:auto;
+}
