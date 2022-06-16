@@ -28,8 +28,39 @@ const Timesheet = (props) => {
 
 
 
-  const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
+  // const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
+  const TimesheetModalCols = [
+    {
+      columnName: 'Projects',
+      keyFunction: handleShow
 
+    },
+    {
+      columnName: 'Project Owner',
+
+    },
+    {
+      columnName: 'Project Code',
+
+    },
+    {
+      columnName: 'Account Code',
+
+    },
+    {
+      columnName: 'Engagement Type',
+
+    },
+    {
+      columnName: 'Hours Logged',
+
+    },
+    {
+      columnName: 'Billed Hours',
+
+    },
+    
+  ]
 
   useEffect(() => {
     dispatch(getTimesheetData(todaysDate))
@@ -41,6 +72,7 @@ const Timesheet = (props) => {
     if (timesheetModuleData !== null) {
       timesheetModuleData.forEach((ele) => {
         filterData.push({
+          projectId: ele.project_id,
           Projects: ele.project_name,
           ProjectOwner: ele.project_owner,
           ProjectCode: ele.project_code,
@@ -89,12 +121,12 @@ const Timesheet = (props) => {
         <TimesheetFilters />
         <div>
 
-          <button onClick={handleShow}> modal </button>
+          {/* <button onClick={handleShow}> modal </button> */}
 
         </div>
 
         <div className="table-container">
-          { timesheetFilterData !== null ?<> <TimesheetTable tableCols={TimesheetTableCols} tableData={timesheetFilterData} /> </> : null  }
+          { timesheetFilterData !== null ?<> <TimesheetTable tableCols={TimesheetModalCols} tableData={timesheetFilterData} /> </> : null  }
           
 
         </div>
