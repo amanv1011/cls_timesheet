@@ -1,6 +1,9 @@
 import React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { getTimesheetData } from "../../../redux/actions/timesheetActions";
 import DashboardTemplate from "../../layouts/template";
-import TablePagination from "../../commonComponents/TablePagination/tablePagination";
 import Today from "../../../assets/dashboardIcons/today";
 import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
@@ -8,18 +11,79 @@ import WorkedProject from "../../../assets/dashboardIcons/workedProject";
 import Arrow from "../../../assets/dashboardIcons/Arrow";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-import dummyData from "./dummyData";
+
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
-  const tableColArray = [
-    "Projects",
-    "Project Owner",
-    "Engagement Type",
-    "Project Health",
-    "Hours Logged",
-    "Members",
+  const dispatch = useDispatch();
+
+  const todaysDate = moment().format("MM/YYYY");
+
+  const [dashboardFilterData, setDashboardFilterData] = useState(null);
+
+  const dashboardModuleData = useSelector(
+    (state) => state.timesheet.timesheetData
+  );
+
+  const tempFunEventHandler = (event) => {
+    console.log(event.target.id);
+  };
+
+  const tempTableColArray = [
+    {
+      columnName: "Projects",
+      columnKeyValue: "ProjectId",
+      keyFunction: tempFunEventHandler,
+    },
+    {
+      columnName: "Project Owner",
+    },
+    {
+      columnName: "Engagement Type",
+    },
+    {
+      columnName: "Project Health",
+    },
+    {
+      columnName: "Hours Logged",
+    },
+    {
+      columnName: "Members",
+    },
   ];
+
+  // const tableColArray = [
+  //   "Projects",
+  //   "Project Owner",
+  //   "Engagement Type",
+  //   "Project Health",
+  //   "Hours Logged",
+  //   "Members",
+  // ];
+
+  useEffect(() => {
+    dispatch(getTimesheetData(todaysDate));
+  }, []);
+
+  useEffect(() => {
+    const filterData = [];
+
+    if (dashboardModuleData !== null) {
+      dashboardModuleData.forEach((ele) => {
+        filterData.push({
+          ProjectId: ele.project_id,
+          Projects: ele.project_name,
+          ProjectOwner: ele.project_owner,
+          EngagementType: ele.engagement_type,
+          ProjectHealth: ele.health_status_description,
+          HoursLogged: ele.hours_logged,
+          Members: 1,
+        });
+      });
+    }
+
+    setDashboardFilterData(filterData);
+  }, [dashboardModuleData]);
 
   return (
     <>
@@ -76,21 +140,19 @@ const Dashboard = () => {
         </div>
         <div className="table-container">
           <div className="dashboard-table-heading">Active Projects</div>
-          <TimesheetTable tableCols={tableColArray} tableData={dummyData} />
-          <TablePagination
-            dataLength={dummyData.length}
-            dataLimit={10}
-            pageLimit={3}
-          />
+          {dashboardFilterData !== null ? (
+            <TimesheetTable
+              tableCols={tempTableColArray}
+              tableData={dashboardFilterData}
+            />
+          ) : null}
+
           <button className="dashboard-table-button">
             <span style={{ marginRight: "6px", fontSize: "14px" }}>
               View Projects{" "}
             </span>
             <Arrow />
           </button>
-          {/* <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData}/>
-                // 
-                 */}
         </div>
       </div>
     </>

@@ -8,7 +8,7 @@ export const getTimesheetData = (localDate) => {
         const requestUrl = `${API_ENDPOINTS.timesheet}${localDate}`;
         try{
             const response = await axios.get(requestUrl);
-            dispatch({type:SET_TIMESHEET_DATA, payload: response})
+            dispatch({type:SET_TIMESHEET_DATA, payload: response.data.projects})
         }catch(err){
             dispatch({type:SET_TIMESHEET_DATA_ERR, payload: err})
         }

@@ -13,14 +13,32 @@ import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetF
 
 const HoursLogged = () => {
   const tableColArray = [
-    "Projects",
-    "Project Owner",
-    "Project Code",
-    "Account Code",
-    "Engagement Type",
-    "Hours Logged",
-    "Billed Hours",
-    "Status",
+    {
+      columnName: "Projects",
+      columnKeyValue: "ProjectId",
+      // keyFunction: tempFunEventHandler,
+    },
+    {
+      columnName: "Project Owner",
+    },
+    {
+      columnName: "Project Code",
+    },
+    {
+      columnName: "Account Code",
+    },
+    {
+      columnName: "Engagement Type",
+    },
+    {
+      columnName: "Hours Logged",
+    },
+    {
+      columnName: "Biled Hours",
+    },
+    {
+      columnName: "Status",
+    },
   ];
 
   const monthFormat = "MMM YYYY";
@@ -46,8 +64,9 @@ const HoursLogged = () => {
     if (hoursLoggedModuleData !== null) {
       hoursLoggedModuleData.forEach((ele) => {
         filterData.push({
+          projecctId: 1,
           Projects: ele.project_name,
-          ProjectOwner: ele.project_owner,
+          ProjectOwner: ele.owner_name,
           ProjectCode: ele.project_code,
           AccountCode: ele.account_code,
           EngagementType: ele.engagement_type,
