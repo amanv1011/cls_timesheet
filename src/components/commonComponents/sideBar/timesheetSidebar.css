@@ -1,0 +1,56 @@
+.sidebar-container {
+    width: 193px;
+    height: 100%;
+    background-color: #FFFFFF;
+}
+.sidebar-container-collaps {
+    width: 84px;
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+.timesheet-sidebar-list {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.timesheet-sidebar-item {
+    display: flex;
+    align-items: center;
+    cursor:pointer;
+    
+
+}
+
+.timesheet-sidebar-active-box{
+    width: 6px;
+    height: 24px;
+    background-color: #003AD2;
+    margin-right: 12px;
+}
+
+.timesheet-sidebar-item-left-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 22px;
+}
+
+.timesheet-sidebar-item-left-box-active{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #F5F7FB;
+border-top-left-radius: 37px;
+border-bottom-left-radius: 37px;
+padding-left: 22px;
+}
+
+.timesheet-sidebar-item-text {
+    color: #1F4173;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 1.5rem;
+}

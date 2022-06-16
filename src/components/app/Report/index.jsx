@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import DashboardTemplate from "../../layouts/template";
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
 import { withRouter } from "react-router";
 import styled from "styled-components";
 import { Table, Tag, Space } from "antd";
@@ -40,6 +40,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default DashboardTemplate(
+export default timesheetLayoutTemplate(
   connect(mapStateToProps, mapDispatchToProps)(withRouter(Dashboard))
 );
