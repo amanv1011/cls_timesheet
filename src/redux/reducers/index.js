@@ -8,7 +8,7 @@ import errorReducer from "./errorReducer";
 import paginationReducer from "./paginationReducer";
 import modalReducer from "./modalReducer";
 import timesheetReducer from "./timesheetReducer";
-import hoursLoggedReducer from "./hoursLogged";
+import sidebarCollapsReducer from "./sidebarCollaps";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -20,5 +20,6 @@ export default combineReducers({
   paginationStates: paginationReducer,
   modalStates: modalReducer,
   timesheet: timesheetReducer,
+  sidebarCollaps: sidebarCollapsReducer,
   // landing:LandingReducer
 });

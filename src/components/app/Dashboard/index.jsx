@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
-import DashboardTemplate from "../../layouts/template";
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
+
 import Today from "../../../assets/dashboardIcons/today";
 import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
@@ -159,4 +160,4 @@ const Dashboard = () => {
   );
 };
 
-export default DashboardTemplate(Dashboard);
+export default timesheetLayoutTemplate(Dashboard);

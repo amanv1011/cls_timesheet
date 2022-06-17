@@ -1,8 +1,15 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import DashboardTemplate from "../../layouts/template";
-import BackArrow from "../../../assets/images/icons/BackArrow";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
+import { withRouter } from "react-router";
+import { Space } from "antd";
+import { Input } from "antd";
+import Form from "antd/lib/form/Form";
+import { Button } from "antd";
+import { Switch } from "antd";
+import { Table } from "antd";
+import { Collapse } from "antd";
+import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
 import "./hoursLogged.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import moment from "moment";
@@ -133,4 +140,10 @@ const HoursLogged = () => {
   );
 };
 
-export default DashboardTemplate(HoursLogged);
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default timesheetLayoutTemplate(
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(HoursLogged))
+);
