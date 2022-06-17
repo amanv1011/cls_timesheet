@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DashboardTemplate from "../../layouts/template";
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import BackArrow from "../../../assets/images/icons/BackArrow";
 
@@ -142,6 +142,6 @@ const Timesheet = (props) => {
 
 
 
-export default DashboardTemplate(
+export default timesheetLayoutTemplate(
   Timesheet
 );
