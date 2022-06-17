@@ -8,15 +8,35 @@ import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import moment from "moment";
 import ProjectComponent from "./ProjectComp";
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
-import { getHoursloggedData } from "../../../redux/actions/hoursloggedAction";
+import {
+  getHoursloggedData,
+  getResourcesHoursloggedData,
+} from "../../../redux/actions/hoursloggedAction";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 
 const HoursLogged = () => {
+  const monthFormat = "MMM YYYY";
+  const filterData = [];
+  const dispatch = useDispatch();
+
+  //to show ProjectComponent
+  const [hoursloggedResources, setHoursloggedResources] = useState(false);
+
+  //to show 2nd screen
+
+  const [tableData, setTableData] = useState(null);
+
+  const ProjectComponentHandler = (event) => {
+    dispatch(getResourcesHoursloggedData(event.target.id));
+    setHoursloggedResources(true);
+    console.log("idddddddddd", event.target.id);
+  };
+
   const tableColArray = [
     {
       columnName: "Projects",
       columnKeyValue: "ProjectId",
-      // keyFunction: tempFunEventHandler,
+      keyFunction: ProjectComponentHandler,
     },
     {
       columnName: "Project Owner",
@@ -41,18 +61,9 @@ const HoursLogged = () => {
     },
   ];
 
-  const monthFormat = "MMM YYYY";
-  const filterData = [];
   const hoursLoggedModuleData = useSelector(
     (state) => state.hoursLogged.hoursloggedData
   );
-
-  const dispatch = useDispatch();
-
-  //to show ProjectComponent
-  const [hoursloggedResources, setHoursloggedResources] = useState(false);
-
-  const [tableData, setTableData] = useState(null);
 
   //dispatches API action
   useEffect(() => {
@@ -64,7 +75,7 @@ const HoursLogged = () => {
     if (hoursLoggedModuleData !== null) {
       hoursLoggedModuleData.forEach((ele) => {
         filterData.push({
-          projecctId: 1,
+          ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
           ProjectOwner: ele.owner_name,
           ProjectCode: ele.project_code,
