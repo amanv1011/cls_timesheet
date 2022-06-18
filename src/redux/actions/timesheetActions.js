@@ -1,4 +1,4 @@
-import axios from "axios"
+import http from "../../hoc/axiosClient"
 import { API_ENDPOINTS } from "../../appConfig"
 import {SET_TIMESHEET_DATA, SET_TIMESHEET_DATA_ERR} from '../type'
 
@@ -7,7 +7,7 @@ export const getTimesheetData = (localDate) => {
         console.log(API_ENDPOINTS.timesheet);
         const requestUrl = `${API_ENDPOINTS.timesheet}${localDate}`;
         try{
-            const response = await axios.get(requestUrl);
+            const response = await http.get(requestUrl);
             dispatch({type:SET_TIMESHEET_DATA, payload: response.data.projects})
         }catch(err){
             dispatch({type:SET_TIMESHEET_DATA_ERR, payload: err})
