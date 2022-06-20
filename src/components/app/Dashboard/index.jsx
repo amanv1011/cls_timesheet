@@ -145,6 +145,7 @@ const Dashboard = () => {
             <TimesheetTable
               tableCols={tempTableColArray}
               tableData={dashboardFilterData}
+              tableHeadingHeight
             />
           ) : null}
 
