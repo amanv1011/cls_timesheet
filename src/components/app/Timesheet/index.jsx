@@ -32,7 +32,9 @@ const Timesheet = (props) => {
 
   // const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
   const backToDashboard = () => {
+    
     history.push("/dashboard")
+  
   }
   const TimesheetModalCols = [
     {

@@ -1,43 +1,72 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {setSidebarDeactive, setSidebarActive} from "../../../redux/actions/sidebarCollapsActions"
+import { useState } from 'react';
+import { setSidebarDeactive, setSidebarActive } from "../../../redux/actions/sidebarCollapsActions"
 import DownArrow from '../../../assets/navbarLogoAndIcons/downArrow';
 import NavbarLogo from '../../../assets/navbarLogoAndIcons/navbarlogo';
 import SidebarToggleIcon from '../../../assets/navbarLogoAndIcons/sidebarToggleIcon';
+import { removeCookie } from '../../../actions/user';
+import Userprofile from '../../../assets/navbarLogoAndIcons/UserprofileLogo';
+import LogoutIcon from '../../../assets/navbarLogoAndIcons/LogoutIcon';
+
+
 import './navbar.css'
+
 const Navbar = () => {
+
+    const getName = useSelector((state) =>  state.user.userDetails.name)
+    const getImage = useSelector((state) => state.user.userDetails.image)
+
     const dispatch = useDispatch()
     const sidebarCollaps = useSelector((state) => state.sidebarCollaps.isSidebarCollaps)
-    
+    const [ openmenu, setOpenMenu] = useState(false);
+
+
+    const logout = () => {
+        removeCookie("token")
+        localStorage.clear();
+        window.location.reload(true);
+    }
+
+
+
+    const showmenu = () => {
+        setOpenMenu(!openmenu)
+
+    }
+
     const toggleSidebar = () => {
-        
-        if(sidebarCollaps === false){
+        if (sidebarCollaps === false) {
             dispatch(setSidebarActive())
-        }else{
+        } else {
             dispatch(setSidebarDeactive())
         }
     }
 
-    return(
+    return (
         <>
-        <div className="navbar-container">
-            <div>
-                <span style={{cursor: "pointer" }} onClick={toggleSidebar}><SidebarToggleIcon /></span>
-                
-                <NavbarLogo />
-            </div>
-            <div className="navbar-user-profile-name-container">
-                <div className="navbar-user-profile">
+            <div className="navbar-container">
+                <div>
+                    <span style={{ cursor: "pointer" }} onClick={toggleSidebar}><SidebarToggleIcon /></span>
+                    <NavbarLogo />
+                </div>
+                <div className="navbar-user-profile-name-container">
+                    <div>
+                        <img className="navbar-user-profile" src={getImage} alt="user-image" />
+                     
+                    </div>
+                    <div onClick={showmenu} className="navbar-user-name"> <span >{getName} <DownArrow /></span>  </div>
+                    <div style={openmenu === true ? { display:"block"} : { display:"none"}} className='custom-dropdown'>
+                       
+                        <div className='menu-profile' > <Userprofile /><span > {getName} </span>  </div>
+                        <div onClick={logout} className='menu-logout' ><LogoutIcon  /><span>  Log Out </span> </div>
+
+                    </div>
 
                 </div>
-                <div className="navbar-user-name">
-                    Sahil Sondawale
-                </div>
-                <div>
-                    <DownArrow/>
-                </div>
+
+
             </div>
-        </div>
         </>
     );
 }
