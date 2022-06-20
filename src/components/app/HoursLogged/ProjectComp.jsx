@@ -23,7 +23,7 @@ const ProjectComponent = (props) => {
   const [show, setShow] = useState();
   const [currDate, setCurrDate] = useState(new Date());
   const [newObj, setObj] = useState({});
-  const [rTableData, setRTData] = useState(null);
+  const [rTableData, setRTData] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -179,7 +179,7 @@ const ProjectComponent = (props) => {
             </tr>
             {/* </thead> */}
             <tbody style={{ height: "100px", overflowY: "auto" }}>
-              {resTableData.map((element, index) => {
+              {rTableData.map((element, index) => {
                 return (
                   <tr>
                     <td

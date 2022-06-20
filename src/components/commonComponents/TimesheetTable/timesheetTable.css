@@ -1,6 +1,21 @@
+.table-container-wrapper{
+    width: 100%;
+    /* border-radius: 15px; */
+    overflow-x: scroll;
+}
+
+@media only screen and (min-width: 980px) {
+    .table-container-wrapper{
+        width: 100%;
+        /* border-radius: 15px; */
+        overflow-x: hidden;
+    }
+  }
+
 .timesheet-table-container{
     width: 100%;
     border-radius: 15px;
+    min-width: 735px;
 }
 
 .timesheet-table-head{
@@ -18,6 +33,9 @@
     color: #1f4173;
     padding-top:15px;
     padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
 }
 
 .timesheet-table-body{
@@ -60,6 +78,7 @@
     color: #627A9D;
     padding-top:15px;
     padding-bottom: 15px;
+    margin-right: 15px;
 }
 
 .table-body-data-clickable{
