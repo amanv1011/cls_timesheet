@@ -9,16 +9,18 @@ import paginationReducer from "./paginationReducer"
 import modalReducer from "./modalReducer";
 import timesheetReducer from "./timesheetReducer"
 import sidebarCollapsReducer from "./sidebarCollaps"
+import dashboardReducer from "./dashboardReducer";
 
 export default combineReducers({
   spin: SpinnerReducer,
   user: LoginReducer,
   week_status: WeeklyStatus,
-  // time_sheet: timesheet,
   error: errorReducer,
   paginationStates: paginationReducer,
   modalStates: modalReducer,
   timesheet: timesheetReducer,
   sidebarCollaps: sidebarCollapsReducer,
+  dashboard: dashboardReducer,
+  // time_sheet: timesheet,
   // landing:LandingReducer
 });
