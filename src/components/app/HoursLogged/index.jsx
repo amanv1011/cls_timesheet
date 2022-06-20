@@ -1,17 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import BackArrow from "../../../assets/images/icons/BackArrow";
 import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
-import { withRouter } from "react-router";
-import { Space } from "antd";
-import { Input } from "antd";
-import Form from "antd/lib/form/Form";
-import { Button } from "antd";
-import { Switch } from "antd";
-import { Table } from "antd";
-import { Collapse } from "antd";
-import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
 import "./hoursLogged.css";
-import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
+import DatePicker from "react-datepicker";
+import { RiCalendar2Line } from "react-icons/ri";
+import { BiChevronDown } from "react-icons/bi";
 import moment from "moment";
 import ProjectComponent from "./ProjectComp";
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
@@ -20,10 +15,12 @@ import {
   getResourcesHoursloggedData,
 } from "../../../redux/actions/hoursloggedAction";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const HoursLogged = () => {
   const monthFormat = "MMM YYYY";
   const filterData = [];
+  const projectData = [];
   const dispatch = useDispatch();
 
   //to show ProjectComponent
@@ -33,9 +30,15 @@ const HoursLogged = () => {
 
   const [tableData, setTableData] = useState(null);
 
+  //date
+  const [date, setDate] = useState(new Date());
+
+  const [id, setId] = useState("");
+
   const ProjectComponentHandler = (event) => {
     dispatch(getResourcesHoursloggedData(event.target.id));
     setHoursloggedResources(true);
+    setId(event.target.id);
     console.log("idddddddddd", event.target.id);
   };
 
@@ -74,8 +77,10 @@ const HoursLogged = () => {
 
   //dispatches API action
   useEffect(() => {
-    dispatch(getHoursloggedData("06/2022"));
+    dispatch(getHoursloggedData(moment(date).format("MM/YYYY")));
   }, []);
+
+  // console.log(date, "ssssssssssssssssssssss");
 
   // sets Hours Logged Data
   useEffect(() => {
@@ -98,10 +103,13 @@ const HoursLogged = () => {
     setTableData(filterData);
   }, [hoursLoggedModuleData]);
 
+  // console.log("dateeeeeeeeeeeeeeeeee", moment(date).format("MMM YYYY"));
+  console.log(tableData, "ttttttttttttttttttttt");
+
   return (
     <>
       {hoursloggedResources ? (
-        <ProjectComponent />
+        <ProjectComponent id={id} />
       ) : (
         <>
           <div className="timesheet-container">
@@ -120,7 +128,13 @@ const HoursLogged = () => {
                 <h3> Hours Logged / Project </h3>
               </div>
               <div className="timesheet-heading-date">
-                <DateFilter />
+                <DatePicker
+                  selected={date}
+                  onChange={(d) => setDate(d)}
+                  dateFormat="MMM yyyy"
+                  showMonthYearPicker
+                  customInput={<CustomInput />}
+                />
               </div>
             </div>
             <TimesheetFilters />
@@ -140,10 +154,18 @@ const HoursLogged = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
+export default timesheetLayoutTemplate(HoursLogged);
 
-export default timesheetLayoutTemplate(
-  connect(mapStateToProps, mapDispatchToProps)(withRouter(HoursLogged))
-);
+const CustomInput = React.forwardRef((props, ref) => {
+  return (
+    <div className="hoursLogCalender">
+      <label onClick={props.onClick} ref={ref}>
+        {props.value || props.placeholder}
+      </label>
+      <div onClick={props.onClick}>
+        <RiCalendar2Line className="tableCalender" />
+        <BiChevronDown style={{ fontSize: "20px", fontWeight: "bold" }} />
+      </div>
+    </div>
+  );
+});

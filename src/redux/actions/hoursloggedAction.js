@@ -11,7 +11,9 @@ export const getHoursloggedData = (localDate) => {
   return async function getHoursloggedDataThunk(dispatch) {
     const requestUrl = `${API_ENDPOINTS.hourslogged}${localDate}&id=18`;
     try {
+      // console.log("getinggggggggggggggg", localDate);
       const response = await axios.get(requestUrl);
+
       dispatch({ type: SET_HOURSLOGGED_DATA, payload: response.data });
     } catch (err) {
       dispatch({ type: SET_HOURSLOGGED_DATA_ERR, payload: err });
@@ -19,9 +21,9 @@ export const getHoursloggedData = (localDate) => {
   };
 };
 
-export const getResourcesHoursloggedData = (id, projectName, data) => {
+export const getResourcesHoursloggedData = (id) => {
   return async function getResourcesHoursloggedDataThunk(dispatch) {
-    console.log("ddddddddddddddddddddd", data, projectName);
+    console.log("iiiiiiiiiiiiiiiiiiiiii", id);
 
     const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}webtracker_project_id=${id}&start_date=2022-06-01&end_date=2022-06-28`;
     try {

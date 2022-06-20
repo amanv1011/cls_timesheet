@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { RiCalendar2Line } from "react-icons/ri";
@@ -9,11 +10,63 @@ import "./ProjectComponent.css";
 import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Input } from "antd";
+import {
+  getHoursloggedData,
+  getResourcesHoursloggedData,
+} from "../../../redux/actions/hoursloggedAction";
 
 const monthFormat = "MMM YYYY";
+const resTableData = [];
+
 const ProjectComponent = (props) => {
   const [date, setDate] = useState();
   const [show, setShow] = useState();
+  const [currDate, setCurrDate] = useState(new Date());
+  const [newObj, setObj] = useState({});
+  const [rTableData, setRTData] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const hoursLoggedModuleData = useSelector(
+    (state) => state.hoursLogged.hoursloggedData
+  );
+
+  const resHoursLoggedTableData = useSelector(
+    (state) => state.hoursLogged.resHoursLoggedData
+  );
+
+  useEffect(() => {
+    dispatch(getHoursloggedData(moment(currDate).format("MM/YYYY")));
+    // dispatch(getResourcesHoursloggedData(props.id));
+    dispatch(getResourcesHoursloggedData("21620"));
+  }, []);
+
+  // const dispatchHandler = () => {
+  //   console.log("runningggggggg");
+  //   dispatch(getResourcesHoursloggedData("21620"));
+  // };
+
+  useEffect(() => {
+    if (hoursLoggedModuleData !== null) {
+      hoursLoggedModuleData.find((obj) => {
+        if (obj.webtracker_project_id == props.id) {
+          setObj(obj);
+        }
+      });
+    }
+  }, [hoursLoggedModuleData]);
+
+  useEffect(() => {
+    if (resHoursLoggedTableData !== null) {
+      resHoursLoggedTableData.forEach((element) => {
+        resTableData.push({
+          LoggedHours: element.loggedhour,
+          Resources: element.resources,
+        });
+      });
+    }
+    setRTData(resTableData);
+  }, [resHoursLoggedTableData]);
 
   const handleShow = () => {
     setShow(true);
@@ -23,27 +76,31 @@ const ProjectComponent = (props) => {
     setShow(false);
   };
 
+  console.log(rTableData, "resources table data");
+
   return (
     <>
       {" "}
       <Modal
-        dialogClassName="top_modal"
         size="sm"
-        aria-labelledby="contained-modal-title-vcenter"
         centered
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
       >
-        <div>
-          <h5>Add New Resources</h5>
-          <h6>New Resources</h6>
-          <div>
-            <input />
+        <div className="resModal">
+          <div className="resModalHead">
+            <h5>Add New Resources</h5>
+          </div>
+          <div className="resModalBody">
+            <h6>New Resources</h6>
             <div>
-              <button onClick={handleClose}>cancel</button>
-              <button onClick={handleClose}>add</button>
+              <input className="resModalInput" />
+              <div className="resModalBtn">
+                <button onClick={handleClose}>Cancel</button>
+                <button onClick={handleClose}>Add</button>
+              </div>
             </div>
           </div>
         </div>
@@ -52,22 +109,22 @@ const ProjectComponent = (props) => {
         <p className="backBtn">
           <FaAngleLeft /> Back Hour Logged
         </p>
-        <h3 className="heading">HIRED Schools Web Design & DM</h3>
+        <h3 className="heading">{newObj.project_name}</h3>
         <div className="headBox" style={{ marginTop: "20px" }}>
           <label>
-            Project Owner: <span>Himanshu Jindal</span>
+            Project Owner: <span>{newObj.owner_name}</span>
           </label>
           <label>
-            Project Code: <span>PC103</span>
+            Project Code: <span>{newObj.project_code}</span>
           </label>
           <label>
-            Account Code: <span>PAC103</span>
+            Account Code: <span>{newObj.account_code}</span>
           </label>
           <label>
-            Engagement Type: <span>Fixed</span>
+            Engagement Type: <span>{newObj.engagement_type}</span>
           </label>
           <label>
-            Hours Logged: <span>125hr 30m</span>
+            Hours Logged: <span>{newObj.logged_time}</span>
           </label>
         </div>
         <div>
@@ -122,137 +179,46 @@ const ProjectComponent = (props) => {
             </tr>
             {/* </thead> */}
             <tbody style={{ height: "100px", overflowY: "auto" }}>
-              <tr>
-                <td
-                  className="loggedHours_tdata "
-                  style={{ fontWeight: "600" }}
-                >
-                  <input type="checkbox" name="" id="" /> Rahul Mehra
-                </td>
-                <td className="loggedHours_tdata">
-                  <div className="centerPadding">40</div>
-                </td>
-                <td className="loggedHours_tdata" style={{ width: "397px" }}>
-                  <div>
-                    <Input
-                      className="loggedhourInput"
-                      suffix={<AiOutlineEdit />}
-                      value={20}
-                    />
-                  </div>
-                </td>
-                <td className="loggedHours_tdata loggedStatus">
-                  <div
-                    style={{
-                      padding: "13px 4px",
-                      background: "#d4fbd4",
-                      color: "green",
-                    }}
-                    className="centerPadding"
-                  >
-                    Approved
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td
-                  className="loggedHours_tdata "
-                  style={{ fontWeight: "600" }}
-                >
-                  <input type="checkbox" name="" id="" /> Rahul Mehra
-                </td>
-                <td className="loggedHours_tdata">
-                  <div className="centerPadding">40</div>
-                </td>
-                <td className="loggedHours_tdata" style={{ width: "397px" }}>
-                  <div>
-                    <Input
-                      className="loggedhourInput"
-                      suffix={<AiOutlineEdit />}
-                      value={20}
-                    />
-                  </div>
-                </td>
-                <td className="loggedHours_tdata loggedStatus">
-                  <div
-                    style={{
-                      padding: "13px 4px",
-                      background: "#d4fbd4",
-                      color: "green",
-                    }}
-                    className="centerPadding"
-                  >
-                    Approved
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td
-                  className="loggedHours_tdata "
-                  style={{ fontWeight: "600" }}
-                >
-                  <input type="checkbox" name="" id="" /> Rahul Mehra
-                </td>
-                <td className="loggedHours_tdata">
-                  <div className="centerPadding">40</div>
-                </td>
-                <td className="loggedHours_tdata" style={{ width: "397px" }}>
-                  <div>
-                    <Input
-                      className="loggedhourInput"
-                      suffix={<AiOutlineEdit />}
-                      value={20}
-                    />
-                  </div>
-                </td>
-                <td className="loggedHours_tdata loggedStatus">
-                  <div
-                    style={{
-                      padding: "13px 4px",
-                      background: "#d4fbd4",
-                      color: "green",
-                    }}
-                    className="centerPadding"
-                  >
-                    Approved
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td
-                  className="loggedHours_tdata "
-                  style={{ fontWeight: "600" }}
-                >
-                  <input type="checkbox" name="" id="" /> Rahul Mehra
-                </td>
-                <td className="loggedHours_tdata">
-                  <div className="centerPadding">40</div>
-                </td>
-                <td className="loggedHours_tdata" style={{ width: "397px" }}>
-                  <div>
-                    <Input
-                      className="loggedhourInput"
-                      suffix={<AiOutlineEdit />}
-                      value={20}
-                    />
-                  </div>
-                </td>
-                <td className="loggedHours_tdata loggedStatus">
-                  <div
-                    style={{
-                      padding: "13px 4px",
-                      background: "#d4fbd4",
-                      color: "green",
-                    }}
-                    className="centerPadding"
-                  >
-                    Approved
-                  </div>
-                </td>
-              </tr>
+              {resTableData.map((element, index) => {
+                return (
+                  <tr>
+                    <td
+                      className="loggedHours_tdata "
+                      style={{ fontWeight: "600" }}
+                    >
+                      <input type="checkbox" name="" id="" />
+                      {element.Resources}
+                    </td>
+                    <td className="loggedHours_tdata">
+                      <div className="centerPadding">{element.LoggedHours}</div>
+                    </td>
+                    <td
+                      className="loggedHours_tdata"
+                      style={{ width: "397px" }}
+                    >
+                      <div>
+                        <Input
+                          className="loggedhourInput"
+                          suffix={<AiOutlineEdit />}
+                          value={20}
+                        />
+                      </div>
+                    </td>
+                    <td className="loggedHours_tdata loggedStatus">
+                      <div
+                        style={{
+                          padding: "13px 4px",
+                          background: "#d4fbd4",
+                          color: "green",
+                        }}
+                        className="centerPadding"
+                      >
+                        Approved
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
             <tfoot>
               <tr
