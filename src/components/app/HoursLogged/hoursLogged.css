@@ -1,117 +1,57 @@
+.timesheet-container {
+  width: 100%;
+  height: 100%;
+}
 
-
-.backBtn {
+.timesheet-back-button {
   display: flex;
+  justify-items: center;
   align-items: center;
   color: blue;
-  font-size: 0.9rem;
+  font-size: 100px;
+  cursor: pointer;
 }
 
-.header {
+.back-arrow {
+  font-size: small;
+}
+
+.back-to-dashboard {
+  font-size: small;
+}
+
+.timesheet-container-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.timesheet-container-heading-title {
+  height: 31px;
+  width: 118px;
+}
+
+.hoursLogCalender {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  /* margin-top: 1rem; */
-}
-.header h3 {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 26px;
-  letter-spacing: -0.02em;
-}
-
-.styleDateIcons {
-  display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 5px;
+  width: 140px;
+  height: 40px;
+  border-radius: 10px;
+  background: #eaeef4;
   color: #1f4173;
-  width: 59px;
-  height: 17px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-}
 
-.filterStyle {
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  text-align: left;
-  color: #1f4173;
-  
-}
-.formStyle{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.1em;
 }
 
-.filterForm {
-  display: flex;
-  /* gap: 1em; */
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  row-gap: 0.2em;
-}
-
-
-.filterForm Input {
-  margin-right: 0.4rem;
-  /* width: 180px; */
-  height: 40px;
-  border-radius: 10px;
-}
-
-.filterFormBtn {
-  width: 60px;
-  height: 40px;
-  color: white;
-  background: #003ad2;
-  border-radius: 10px;
-}
-
-.styleRes {
-  margin-left: 30px;
-}
-
-.styleRes span {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-}
-
-.ExportBtn {
-  /* width: 130px; */
-  height: 40px;
-  background: rgba(31, 65, 115, 0.5);
-  border-radius: 10px;
-  color: #b5c1d3;
-}
-
-.styleDataTable {
-  margin-top: 2rem;
-}
-.styleDataTable Table {
-  border-radius: 1rem;
-}
-
-.ant-table-thead > tr > th {
-  font-weight: 600;
-  font-size: 14px;
-  color: #1f4173;
-}
-
-.ant-table-tbody > tr > td:first-child {
-  opacity: 1;
-}
-.ant-table-tbody > tr > td {
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: #1f4173;
-  opacity: 0.7;
+.table-container {
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-right: 23px;
 }
