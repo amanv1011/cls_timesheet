@@ -45,3 +45,29 @@
     transform: rotate(360deg);
   }
 }
+/* Works on Mozilla */
+
+* {
+  scrollbar-width: thin;
+  
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 8px;
+  border-radius: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+  margin-top: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+*::-webkit-scrollbar-thumb {
+  height: 165px;
+  background: #e6eaf2;
+  border-radius: 15px;
+}
