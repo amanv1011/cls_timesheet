@@ -12,11 +12,13 @@ import { setModalActive } from "../../../redux/actions/modalAction";
 import TimesheetDummyData from "./TimesheetDummyData";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 import './TimesheetModule.css';
 
 
 const Timesheet = (props) => {
 
+  const history = useHistory()
   const todaysDate = moment().format("MM/YYYY");
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData)
@@ -29,6 +31,11 @@ const Timesheet = (props) => {
 
 
   // const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
+  const backToDashboard = () => {
+    
+    history.push("/dashboard")
+  
+  }
   const TimesheetModalCols = [
     {
       columnName: 'Projects',
@@ -94,9 +101,7 @@ const Timesheet = (props) => {
 
   return (
     <>
-      {console.log(timesheetFilterData)}
-
-
+      
       <div>
         <ModalTimesheet />
       </div>
@@ -104,7 +109,7 @@ const Timesheet = (props) => {
 
       <div className="timesheet-container">
         <div className="timesheet-back-button">
-          <p className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back Dashboard</p>
+          <p onClick={backToDashboard} className="back-to-dashboard"> <span  className="back-arrow"> <BackArrow /> </span> Back Dashboard</p>
 
         </div>
         <div className="timesheet-container-heading">
