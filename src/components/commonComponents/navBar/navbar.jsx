@@ -58,7 +58,7 @@ const Navbar = () => {
                     <div onClick={showmenu} className="navbar-user-name"> <span >{getName} <DownArrow /></span>  </div>
                     <div style={openmenu === true ? { display:"block"} : { display:"none"}} className='custom-dropdown'>
                        
-                        <div className='menu-profile' > <Userprofile /><span > {getName} </span>  </div>
+                        <div className='menu-profile' > <Userprofile /><span style={{ marginLeft:"4px"}}> {getName} </span>  </div>
                         <div onClick={logout} className='menu-logout' ><LogoutIcon  /><span>  Log Out </span> </div>
 
                     </div>
