@@ -66,7 +66,7 @@ const TimesheetSidebar = () => {
           </li>
           <li onClick={activeSidebarItem} data-id={2}  className="timesheet-sidebar-item">
           {sidebarActiveItemState === 2 ? <div className="timesheet-sidebar-active-box"></div> : null}
-          <div className={sidebarActiveItemState === '2' ? "timesheet-sidebar-item-left-box-active" : "timesheet-sidebar-item-left-box"}>
+          <div className={sidebarActiveItemState === 2 ? "timesheet-sidebar-item-left-box-active" : "timesheet-sidebar-item-left-box"}>
               <span>
                 <HourLoggedLogo />
               </span>
