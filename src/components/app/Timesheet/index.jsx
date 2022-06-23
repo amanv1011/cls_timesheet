@@ -23,28 +23,18 @@ const Timesheet = (props) => {
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData)
  
-
-
   const dispatch = useDispatch()
   const handleShow = () => { dispatch(setModalActive()) };
-
-
-
-  // const TimesheetTableCols = ['Projects', 'Project Owner', 'Project Code', 'Account Code', 'Engagement Type', 'Hours Logged', 'Billed Hours']
   const backToDashboard = () => {
-    
     history.push("/dashboard")
-  
   }
   const TimesheetModalCols = [
     {
       columnName: 'Projects',
       keyFunction: handleShow
-
     },
     {
       columnName: 'Project Owner',
-
     },
     {
       columnName: 'Project Code',
@@ -52,23 +42,17 @@ const Timesheet = (props) => {
     },
     {
       columnName: 'Account Code',
-
     },
     {
       columnName: 'Engagement Type',
-
     },
     {
       columnName: 'Hours Logged',
-
     },
     {
       columnName: 'Billed Hours',
-
     },
-    
   ]
-
   useEffect(() => {
     dispatch(getTimesheetData(todaysDate))
 
@@ -93,15 +77,10 @@ const Timesheet = (props) => {
       })
     }
     setTimesheetFilterData(filterData)
-
-
   }, [timesheetModuleData])
-
-
 
   return (
     <>
-      
       <div>
         <ModalTimesheet />
       </div>
@@ -126,23 +105,17 @@ const Timesheet = (props) => {
         <TimesheetFilters />
         <div>
 
-          {/* <button onClick={handleShow}> modal </button> */}
-
         </div>
 
         <div className="table-container">
           { timesheetFilterData !== null ?<> <TimesheetTable tableCols={TimesheetModalCols} tableData={timesheetFilterData} /> </> : null  }
           
-
         </div>
         
-
       </div>
     </>
   )
 }
-
-
 
 export default timesheetLayoutTemplate(
   Timesheet

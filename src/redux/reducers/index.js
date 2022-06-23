@@ -10,6 +10,7 @@ import modalReducer from "./modalReducer";
 import timesheetReducer from "./timesheetReducer";
 import sidebarCollapsReducer from "./sidebarCollaps";
 import hoursLoggedReducer from "./hoursLogged";
+import showSwitch from "./resourceSwitchReducer";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -22,5 +23,6 @@ export default combineReducers({
   modalStates: modalReducer,
   timesheet: timesheetReducer,
   sidebarCollaps: sidebarCollapsReducer,
+  timesheetFilterSwitch: showSwitch,
   // landing:LandingReducer
 });
