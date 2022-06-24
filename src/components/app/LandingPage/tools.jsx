@@ -179,7 +179,7 @@ class Tools extends React.Component {
                 }}
                 onClick={() => {
                   if (d.is_active === true) {
-                    let url = d.id == 11 ? 'http://localhost:3333/' + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}` : d.url
+                    let url = d.id == 11 ? d.url + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}` : d.url
                     console.log(url);
                     window.open(url);
                   }
