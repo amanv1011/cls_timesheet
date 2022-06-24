@@ -176,7 +176,7 @@ class Tools extends React.Component {
               <ToolsWrapper
                 style={{
                   cursor: `${d.is_active === false ? "not-allowed" : ""}`,
-                }}
+                }} 
                 onClick={() => {
                   if (d.is_active === true) {
                     let url = d.id == 11 ? d.url + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}` : d.url
