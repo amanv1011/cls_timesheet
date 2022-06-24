@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getTools } from "../../../actions/asyncActions";
 import { hubspot } from "../../../assets/images";
 import { Link } from "react-router-dom";
-import { InactiveToolsStorageName,ActiveToolsStorageName } from "../../../assets/text";
+import { InactiveToolsStorageName, ActiveToolsStorageName, LoginStorageUserDetails } from "../../../assets/text";
 const Wrapper = styled.div`
   background: #fff;
   padding: 2em;
@@ -72,7 +72,7 @@ var bool = true;
 let externalTools = [];
 let internalTools = [];
 class Tools extends React.Component {
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   render() {
     if (!this.props.userTools) {
@@ -80,15 +80,15 @@ class Tools extends React.Component {
     }
 
 
-     /* Getting active and inactive tools */
+    /* Getting active and inactive tools */
     this.props.userTools.map((d) => {
-      if(d.type == 0){
-        if(d.is_active == true){
+      if (d.type == 0) {
+        if (d.is_active == true) {
           activetools.push(RemoveBaseUrl(d.url))
-        } else{
+        } else {
           inactiveTools.push(RemoveBaseUrl(d.url))
         }
-       
+
       }
     })
     /* Getting active and inactive tools */
@@ -98,13 +98,13 @@ class Tools extends React.Component {
         if (d.type === 1) externalTools.push(d);
         if (d.type === 0) {
           internalTools.push(d)
-          };
+        };
       });
     };
     if (bool) {
       localStorage.setItem(InactiveToolsStorageName, JSON.stringify(inactiveTools));
       localStorage.setItem(ActiveToolsStorageName, JSON.stringify(activetools));
-      
+
       bool = false;
       sortTools();
     }
@@ -139,9 +139,8 @@ class Tools extends React.Component {
                 <ToolIcon>
                   <img
                     className="imagetool"
-                    src={require(`../../../assets/images/icons/${
-                      Image ? Image : hubspot
-                    }`)}
+                    src={require(`../../../assets/images/icons/${Image ? Image : hubspot
+                      }`)}
                     alt=""
                     style={{
                       width: "35px",
@@ -180,17 +179,19 @@ class Tools extends React.Component {
                 }}
                 onClick={() => {
                   if (d.is_active === true) {
-                    window.open(d.url);
+                    let url = d.id == 11 ? 'http://localhost:3333/' + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}` : d.url
+                    console.log(url);
+                    window.open(url);
                   }
                 }}
                 key={i + 20}
+                id={d.id}
               >
                 <ToolIcon>
                   <img
                     className="imagetool"
-                    src={require(`../../../assets/images/icons/${
-                      Image ? Image : hubspot
-                    }`)}
+                    src={require(`../../../assets/images/icons/${Image ? Image : hubspot
+                      }`)}
                     alt=""
                     style={{
                       width: "35px",
