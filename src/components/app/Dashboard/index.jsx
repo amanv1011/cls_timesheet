@@ -2,7 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+// import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+import {getDashboardData } from "../../../redux/actions/dashboardActions"
 import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
 
 import Today from "../../../assets/dashboardIcons/today";
@@ -23,7 +24,7 @@ const Dashboard = () => {
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
 
   const dashboardModuleData = useSelector(
-    (state) => state.timesheet.timesheetData
+    (state) => state.dashboard.dashboardData
   );
 
   const tempFunEventHandler = (event) => {
@@ -63,7 +64,7 @@ const Dashboard = () => {
   // ];
 
   useEffect(() => {
-    dispatch(getTimesheetData(todaysDate));
+    dispatch(getDashboardData("2022-05-30", "2022-06-02", "18"))
   }, []);
 
   useEffect(() => {
@@ -72,12 +73,12 @@ const Dashboard = () => {
     if (dashboardModuleData !== null) {
       dashboardModuleData.forEach((ele) => {
         filterData.push({
-          ProjectId: ele.project_id,
+          ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
-          ProjectOwner: ele.project_owner,
+          ProjectOwner: ele.owner_name,
           EngagementType: ele.engagement_type,
           ProjectHealth: ele.health_status_description,
-          HoursLogged: ele.hours_logged,
+          HoursLogged: ele.weekly_logged_time,
           Members: 1,
         });
       });
