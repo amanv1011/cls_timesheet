@@ -13,10 +13,12 @@ import { Input } from "antd";
 import {
   getHoursloggedData,
   getResourcesHoursloggedData,
+  getModalResourcesData,
+  updateResourceName,
 } from "../../../redux/actions/hoursloggedAction";
 
 const monthFormat = "MMM YYYY";
-const resTableData = [];
+// const resTableData = [];
 
 const ProjectComponent = (props) => {
   const [date, setDate] = useState();
@@ -24,6 +26,10 @@ const ProjectComponent = (props) => {
   const [currDate, setCurrDate] = useState(new Date());
   const [newObj, setObj] = useState({});
   const [rTableData, setRTData] = useState([]);
+  const [modalData, setModalData] = useState([]);
+  const [newResId, setID] = useState();
+
+  const project_id = props.id;
 
   const dispatch = useDispatch();
 
@@ -35,16 +41,15 @@ const ProjectComponent = (props) => {
     (state) => state.hoursLogged.resHoursLoggedData
   );
 
+  const modalResourcesData = useSelector(
+    (state) => state.hoursLogged.modalResData
+  );
+
   useEffect(() => {
     dispatch(getHoursloggedData(moment(currDate).format("MM/YYYY")));
-    // dispatch(getResourcesHoursloggedData(props.id));
-    dispatch(getResourcesHoursloggedData("21620"));
+    dispatch(getResourcesHoursloggedData(props.id));
+    // dispatch(getResourcesHoursloggedData("21620"));
   }, []);
-
-  // const dispatchHandler = () => {
-  //   console.log("runningggggggg");
-  //   dispatch(getResourcesHoursloggedData("21620"));
-  // };
 
   useEffect(() => {
     if (hoursLoggedModuleData !== null) {
@@ -58,25 +63,44 @@ const ProjectComponent = (props) => {
 
   useEffect(() => {
     if (resHoursLoggedTableData !== null) {
-      resHoursLoggedTableData.forEach((element) => {
-        resTableData.push({
-          LoggedHours: element.loggedhour,
-          Resources: element.resources,
-        });
-      });
+      setRTData(resHoursLoggedTableData);
     }
-    setRTData(resTableData);
+    // console.log(resHoursLoggedTableData, "hiiiiiii");
   }, [resHoursLoggedTableData]);
+
+  useEffect(() => {
+    if (modalResourcesData !== null) {
+      setModalData(modalResourcesData);
+    }
+  }, [modalResourcesData]);
 
   const handleShow = () => {
     setShow(true);
+    dispatch(getModalResourcesData());
+    console.log(modalResourcesData, "wwwwwwwwwwwwwww");
   };
 
   const handleClose = () => {
     setShow(false);
   };
 
+  const backToHoursLogged = () => {
+    props.onClick(false);
+  };
+
   console.log(rTableData, "resources table data");
+  console.log(props.id, "getttttttttttttttttt");
+  console.log(modalData.result, "mmmmmmmmmmmmmmmm");
+
+  const addResourcesHandler = (e) => {
+    setID(e.target.value);
+  };
+
+  const updateResourcesHandler = () => {
+    dispatch(updateResourceName(newResId, project_id));
+    setShow(false);
+    dispatch(getResourcesHoursloggedData(props.id));
+  };
 
   return (
     <>
@@ -96,17 +120,25 @@ const ProjectComponent = (props) => {
           <div className="resModalBody">
             <h6>New Resources</h6>
             <div>
-              <input className="resModalInput" />
+              {/* <input className="resModalInput" /> */}
+              <select id="" className="" onChange={addResourcesHandler}>
+                <option selected>Resources</option>
+                {modalData.result
+                  ? modalData.result.map((element, index) => {
+                      return <option value={element.id}>{element.name}</option>;
+                    })
+                  : ""}
+              </select>
               <div className="resModalBtn">
                 <button onClick={handleClose}>Cancel</button>
-                <button onClick={handleClose}>Add</button>
+                <button onClick={updateResourcesHandler}>Add</button>
               </div>
             </div>
           </div>
         </div>
       </Modal>
       <div>
-        <p className="backBtn">
+        <p className="backBtn" onClick={backToHoursLogged}>
           <FaAngleLeft /> Back Hour Logged
         </p>
         <h3 className="heading">{newObj.project_name}</h3>
@@ -187,10 +219,11 @@ const ProjectComponent = (props) => {
                       style={{ fontWeight: "600" }}
                     >
                       <input type="checkbox" name="" id="" />
-                      {element.Resources}
+
+                      {element.resources}
                     </td>
                     <td className="loggedHours_tdata">
-                      <div className="centerPadding">{element.LoggedHours}</div>
+                      <div className="centerPadding">{element.loggedhour}</div>
                     </td>
                     <td
                       className="loggedHours_tdata"
@@ -213,7 +246,13 @@ const ProjectComponent = (props) => {
                         }}
                         className="centerPadding"
                       >
-                        Approved
+                        {/* <span
+                          className={`approved ${
+                            newObj.status !== 1 ? "pending" : ""
+                          }`}
+                        ></span> */}
+                        {/* {newObj.status == 1 ? "Approved" : "Pending"} */}
+                        {element.status == 1 ? "Approved" : "Pending"}
                       </div>
                     </td>
                   </tr>

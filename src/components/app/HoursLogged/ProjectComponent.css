@@ -6,6 +6,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #003ad2;
+  cursor: pointer;
   /* opacity: 0.7; */
 }
 
@@ -101,6 +102,17 @@
   line-height: 17px;
   color: #ffffff;
   margin-left: 475px;
+}
+
+.approved {
+  padding: 13px 4px;
+  background: #d4fbd4;
+  color: green;
+}
+.pending {
+  padding: 13px 4px;
+  background: #d4fbd4;
+  color: #ff9900;
 }
 
 /* Modal */

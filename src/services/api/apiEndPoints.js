@@ -14,4 +14,6 @@ export const apiUrls = {
   dashboard: `${API_PREFIX}/dashboard/activeProject?`,
   hourslogged: `${API_PREFIX}/hourslog/hourslog?monthYear=`,
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
+  modalResources: `${API_PREFIX}/hourslog/hourslog/getUsers`,
+  newResources: `${API_PREFIX}/hourslog/hourslog/addUser?`,
 };

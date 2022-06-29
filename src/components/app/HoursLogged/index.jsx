@@ -16,18 +16,18 @@ import {
 } from "../../../redux/actions/hoursloggedAction";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom";
 
 const HoursLogged = () => {
   const monthFormat = "MMM YYYY";
-  const filterData = [];
   const projectData = [];
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //to show ProjectComponent
   const [hoursloggedResources, setHoursloggedResources] = useState(false);
 
   //to show 2nd screen
-
   const [tableData, setTableData] = useState(null);
 
   //date
@@ -84,6 +84,7 @@ const HoursLogged = () => {
 
   // sets Hours Logged Data
   useEffect(() => {
+    const filterData = [];
     if (hoursLoggedModuleData !== null) {
       hoursLoggedModuleData.forEach((ele) => {
         filterData.push({
@@ -106,15 +107,23 @@ const HoursLogged = () => {
   // console.log("dateeeeeeeeeeeeeeeeee", moment(date).format("MMM YYYY"));
   console.log(tableData, "ttttttttttttttttttttt");
 
+  const backToDashboard = () => {
+    history.push("/dashboard");
+  };
+
   return (
     <>
       {hoursloggedResources ? (
-        <ProjectComponent id={id} />
+        <ProjectComponent
+          id={id}
+          hoursloggedResources={hoursloggedResources}
+          onClick={setHoursloggedResources}
+        />
       ) : (
         <>
           <div className="timesheet-container">
             <div className="timesheet-back-button">
-              <p className="back-to-dashboard">
+              <p className="back-to-dashboard" onClick={backToDashboard}>
                 {" "}
                 <span className="back-arrow">
                   {" "}
@@ -140,7 +149,7 @@ const HoursLogged = () => {
             <TimesheetFilters />
 
             <div className="table-container">
-              {hoursLoggedModuleData !== null ? (
+              {tableData !== null ? (
                 <TimesheetTable
                   tableCols={tableColArray}
                   tableData={tableData}
