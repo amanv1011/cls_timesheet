@@ -4,7 +4,6 @@ import http from "../hoc/axiosClient";
 import axios from "axios";
 import React from "react";
 // const rowData = document.getElementById("row");
-
 import moment from "moment";
 export const Logout = (req, res) => {};
 export const getTools = (req, res) => {
@@ -124,4 +123,16 @@ export const get_engagement_types = (id) => {
       Store.dispatch(syncActions.get_engagement_types(response.data));
     })
     .catch((err) => {});
+};
+
+// hourslogged
+export const getHoursLogged = async (date) => {
+  
+  http
+    .get(`/api/hourslog/hourslog?monthYear=${date}&id=18`)
+    .then((response) => {
+      
+      Store.dispatch(syncActions.getHoursLogged(response.data));
+    })
+    .catch((err) => console.log(err));
 };

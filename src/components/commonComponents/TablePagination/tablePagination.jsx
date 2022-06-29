@@ -5,14 +5,17 @@ import LeftArrow from "../../../assets/tablePaginationIcons/leftArrow";
 import RightArrow from "../../../assets/tablePaginationIcons/rightArrow";
 import { setDataPerPage } from "../../../redux/actions/paginationActions";
 import { setActivePage } from "../../../redux/actions/paginationActions";
+import { setTotalCount } from "../../../redux/actions/paginationActions";
 
 const TablePagination = (props) => {
   const dataLength = props.dataLength;
   const dataLimit = props.dataLimit;
   const pageLimit = props.pageLimit;
 
+  
+
   const dispatch = useDispatch();
-  const [pages] = useState(Math.round(dataLength / dataLimit));
+  const pages = Math.round(dataLength / dataLimit)
   const [currentPage, setCurrentPage] = useState(1);
   const activePage = useSelector((state) => state.paginationStates.activePage);
 
@@ -43,6 +46,10 @@ const TablePagination = (props) => {
   useEffect(() => {
     dispatch(setDataPerPage(dataLimit))
   }, [dataLimit])
+  useEffect(() => {
+    dispatch(setTotalCount(dataLength))
+  },[setTotalCount])
+
   return (
     <>
       <div className="pagination-container">
@@ -74,6 +81,7 @@ const TablePagination = (props) => {
                     : {}
                 }
                 className={currentPage === item ? "pagination-btn-active" :"pagination-btn"}
+                disabled={item > pages ? true : false}
               >
                 {item}
               </button>

@@ -1,24 +1,91 @@
 import React from "react";
-import DashboardTemplate from "../../layouts/template";
-import TablePagination from "../../commonComponents/TablePagination/tablePagination"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+// import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+import {getDashboardData } from "../../../redux/actions/dashboardActions"
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
+
 import Today from "../../../assets/dashboardIcons/today";
-import ThisWeek from "../../../assets/dashboardIcons/thisWeek"
+import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
-import WorkedProject from "../../../assets/dashboardIcons/workedProject"
-import Arrow from "../../../assets/dashboardIcons/Arrow"
-import Table from "../../commonComponents/Table/Table"
+import WorkedProject from "../../../assets/dashboardIcons/workedProject";
+import Arrow from "../../../assets/dashboardIcons/Arrow";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-import dummyData from "../../commonComponents/Table/dummyData"
 
+import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
-  
-  const tableColArray = ['Projects', 'ProjectOwner', 'EngagementType', 'ProjectHealth', 'HoursLogged', 'Members']
+  const dispatch = useDispatch();
 
+  const todaysDate = moment().format("MM/YYYY");
 
+  const [dashboardFilterData, setDashboardFilterData] = useState(null);
 
+  const dashboardModuleData = useSelector(
+    (state) => state.dashboard.dashboardData
+  );
 
+  const tempFunEventHandler = (event) => {
+    console.log(event.target.id);
+  };
+
+  const tempTableColArray = [
+    {
+      columnName: "Projects",
+      columnKeyValue: "ProjectId",
+      keyFunction: tempFunEventHandler,
+    },
+    {
+      columnName: "Project Owner",
+    },
+    {
+      columnName: "Engagement Type",
+    },
+    {
+      columnName: "Project Health",
+    },
+    {
+      columnName: "Hours Logged",
+    },
+    {
+      columnName: "Members",
+    },
+  ];
+
+  // const tableColArray = [
+  //   "Projects",
+  //   "Project Owner",
+  //   "Engagement Type",
+  //   "Project Health",
+  //   "Hours Logged",
+  //   "Members",
+  // ];
+
+  useEffect(() => {
+    dispatch(getDashboardData("2022-05-30", "2022-06-02", "18"))
+  }, []);
+
+  useEffect(() => {
+    const filterData = [];
+
+    if (dashboardModuleData !== null) {
+      dashboardModuleData.forEach((ele) => {
+        filterData.push({
+          ProjectId: ele.webtracker_project_id,
+          Projects: ele.project_name,
+          ProjectOwner: ele.owner_name,
+          EngagementType: ele.engagement_type,
+          ProjectHealth: ele.health_status_description,
+          HoursLogged: ele.weekly_logged_time,
+          Members: 1,
+        });
+      });
+    }
+
+    setDashboardFilterData(filterData);
+  }, [dashboardModuleData]);
 
   return (
     <>
@@ -32,7 +99,7 @@ const Dashboard = () => {
         >
           <div className="dashboard-header">Dashboard</div>
           <div>
-           <DateFilter />
+            <DateFilter />
           </div>
         </div>
         <div className="cards-container">
@@ -72,19 +139,27 @@ const Dashboard = () => {
               <WorkedProject />
             </div>
           </div>
-
         </div>
         <div className="table-container">
-                <Table tableCols={tableColArray} tableHeading={"Active Projects"} tableData={dummyData}/>
-                <TablePagination dataLength={dummyData.length} dataLimit={10} pageLimit={3}/>
-                <button className="dashboard-table-button">
-                  <span style={{marginRight:"6px", fontSize:"14px"}}>View Projects  </span>
-                  <Arrow/>
-                </button>
-          </div>
+          <div className="dashboard-table-heading">Active Projects</div>
+          {dashboardFilterData !== null ? (
+            <TimesheetTable
+              tableCols={tempTableColArray}
+              tableData={dashboardFilterData}
+              tableHeadingHeight
+            />
+          ) : null}
+
+          <button className="dashboard-table-button">
+            <span style={{ marginRight: "6px", fontSize: "14px" }}>
+              View Projects{" "}
+            </span>
+            <Arrow />
+          </button>
+        </div>
       </div>
     </>
   );
 };
 
-export default DashboardTemplate(Dashboard);
+export default timesheetLayoutTemplate(Dashboard);

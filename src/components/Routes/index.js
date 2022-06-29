@@ -14,16 +14,17 @@ import WeeklyStatus from "../app/WeeklyStatus";
 import { getCookie } from "../../actions/user";
 
 function Routes() {
-  const isLoggedIn = getCookie('token');
+  const isLoggedIn = getCookie("token");
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/login" exact>
-          {isLoggedIn ? <Redirect to='/'></Redirect> : <Login />}
+          {isLoggedIn ? <Redirect to="/"></Redirect> : <Login />}
         </Route>
         <ProtectedRoute path="/weekly-status" exact component={WeeklyStatus} />
         <ProtectedRoute path="/dashboard" exact component={Dashboard} />
         <ProtectedRoute path="/hours-logged" exact component={HoursLogged} />
+
         <ProtectedRoute path="/projects" exact component={Projects} />
         <ProtectedRoute path="/reports" exact component={Report} />
         <ProtectedRoute path="/resources" exact component={Resource} />

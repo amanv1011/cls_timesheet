@@ -1,239 +1,180 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import DashboardTemplate from "../../layouts/template";
-import { withRouter } from "react-router";
-import {  Space } from "antd";
-import { Input } from "antd";
-import Form from "antd/lib/form/Form";
-import { Button } from "antd";
-import { Switch } from "antd";
-import { Table } from "antd";
-import { Collapse } from "antd";
-import { CollapsePanel } from "antd/lib/collapse/CollapsePanel";
+import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import BackArrow from "../../../assets/images/icons/BackArrow";
+import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
 import "./hoursLogged.css";
-import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
+import DatePicker from "react-datepicker";
+import { RiCalendar2Line } from "react-icons/ri";
+import { BiChevronDown } from "react-icons/bi";
+import moment from "moment";
+import ProjectComponent from "./ProjectComp";
+import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
+import {
+  getHoursloggedData,
+  getResourcesHoursloggedData,
+} from "../../../redux/actions/hoursloggedAction";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
-const monthFormat = "MMM YYYY";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom";
 
-const columns = [
-  {
-    title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
-  },
-  {
-    title: "Resources",
-    dataIndex: "resources",
-    key: "resources",
-  },
-  {
-    title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
-  },
-  {
-    title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
-  },
-  {
-    title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
-  },
-  {
-    title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
-  },
-  {
-    title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
-  },
-  {
-    title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
-  },
-];
+const HoursLogged = () => {
+  const monthFormat = "MMM YYYY";
+  const projectData = [];
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-const columns1 = [
-  {
-    title: "Projects",
-    dataIndex: "projects",
-    key: "projects",
-    responsive: ["sm"],
-  },
-  {
-    title: "Project Owner",
-    dataIndex: "projectowner",
-    key: "projectowner",
-    responsive: ["sm"],
-  },
-  {
-    title: "Project Code",
-    dataIndex: "projectcode",
-    key: "projectcode",
-    responsive: ["sm"],
-  },
-  {
-    title: "Account Code",
-    dataIndex: "accountcode",
-    key: "accountcode",
-    responsive: ["sm"],
-  },
-  {
-    title: "Engagement Type",
-    dataIndex: "engagementtype",
-    key: "engagementtype",
-    responsive: ["sm"],
-  },
-  {
-    title: "Hours Logged",
-    dataIndex: "hourslogged",
-    key: "hourslogged",
-    responsive: ["sm"],
-  },
-  {
-    title: "Biled Hours",
-    dataIndex: "biledhours",
-    key: "biledhours",
-    responsive: ["sm"],
-  },
-];
+  //to show ProjectComponent
+  const [hoursloggedResources, setHoursloggedResources] = useState(false);
 
-const data = [
-  {
-    key: "1",
-    projects: "Studio a+i Digital Marketing",
-    projectowner: "Rajesh Chandra",
-    projectcode: "PC101",
-    accountcode: "PAC101",
-    engagementtype: "Fixed",
-    hourslogged: "110h 15m",
-    biledhours: "00h",
-  },
-  {
-    key: "2",
-    projects: "MDA Development & Marketing",
-    projectowner: "Rahul Mehra",
-    projectcode: "PC102",
-    accountcode: "PAC102",
-    engagementtype: "Dedicated",
-    hourslogged: "120h 20m",
-    biledhours: "160h",
-  },
-  {
-    key: "3",
-    projects: "HIRED Development & Marketing",
-    projectowner: "Himanshu Jindal",
-    projectcode: "PC103",
-    accountcode: "PAC103",
-    engagementtype: "Fixed",
-    hourslogged: "180h 10m",
-    biledhours: "00h",
-  },
-  {
-    key: "4",
-    projects: "Clock Store Marketing",
-    projectowner: "Amit chaudhary",
-    projectcode: "PC104",
-    accountcode: "PAC104",
-    engagementtype: "Fixed",
-    hourslogged: "75h 30m",
-    biledhours: "190h",
-  },
-  {
-    key: "5",
-    projects: "Upright HC - Digital Marketing",
-    projectowner: "Gagandeep Singh",
-    projectcode: "PC105",
-    accountcode: "PAC105",
-    engagementtype: "Dedicated",
-    hourslogged: "225h 20m",
-    biledhours: "00h",
-  },
-];
+  //to show 2nd screen
+  const [tableData, setTableData] = useState(null);
 
-class HoursLogged extends React.Component {
-  handleOnOff() {
-    console.log(this.state.show);
-    this.setState({ show: !this.state.show });
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-    this.handleOnOff = this.handleOnOff.bind(this);
-  }
-  render() {
-    // console.log("dashboard", this.props)
+  //date
+  const [date, setDate] = useState(new Date());
 
-    return (
-      <div
-        // style={{
-        //   position: "relative",
-        //   left: "200px",
-        //   width: "75vw",
-        //   top: "70px",
-        // }}
-      >
-        <div className="header">
-          <h3>Hours Logged/Project</h3>
-          <Space>
-            <DateFilter />
-          </Space>
-        </div>
-        {/* <div style={{ marginTop: "1rem" }}>
-          <h6 className="filterStyle">Filter by:</h6>
-          <div className="filterForm">
-           
-            <Input placeholder="Project Name" />
-            <Input placeholder="Project Owner" />
-            <Input placeholder="Engagement Type" />
-            <Input placeholder="Status" style={{ width: "130px" }} />
-            <Button className="filterFormBtn">Go</Button>
-          
-            <div className="styleRes">
-              <span>
-                <Button className="ExportBtn">Export to Excel</Button>
-              </span>
+  const [id, setId] = useState("");
+
+  const ProjectComponentHandler = (event) => {
+    dispatch(getResourcesHoursloggedData(event.target.id));
+    setHoursloggedResources(true);
+    setId(event.target.id);
+    console.log("idddddddddd", event.target.id);
+  };
+
+  const tableColArray = [
+    {
+      columnName: "Projects",
+      columnKeyValue: "ProjectId",
+      keyFunction: ProjectComponentHandler,
+    },
+    {
+      columnName: "Project Owner",
+    },
+    {
+      columnName: "Project Code",
+    },
+    {
+      columnName: "Account Code",
+    },
+    {
+      columnName: "Engagement Type",
+    },
+    {
+      columnName: "Hours Logged",
+    },
+    {
+      columnName: "Biled Hours",
+    },
+    {
+      columnName: "Status",
+    },
+  ];
+
+  const hoursLoggedModuleData = useSelector(
+    (state) => state.hoursLogged.hoursloggedData
+  );
+
+  //dispatches API action
+  useEffect(() => {
+    dispatch(getHoursloggedData(moment(date).format("MM/YYYY")));
+  }, []);
+
+  // console.log(date, "ssssssssssssssssssssss");
+
+  // sets Hours Logged Data
+  useEffect(() => {
+    const filterData = [];
+    if (hoursLoggedModuleData !== null) {
+      hoursLoggedModuleData.forEach((ele) => {
+        filterData.push({
+          ProjectId: ele.webtracker_project_id,
+          Projects: ele.project_name,
+          ProjectOwner: ele.owner_name,
+          ProjectCode: ele.project_code,
+          AccountCode: ele.account_code,
+          EngagementType: ele.engagement_type,
+          HoursLogged: ele.hours_logged,
+          BilledHours: ele.billed_hours,
+          Status: ele.status,
+        });
+      });
+    }
+
+    setTableData(filterData);
+  }, [hoursLoggedModuleData]);
+
+  // console.log("dateeeeeeeeeeeeeeeeee", moment(date).format("MMM YYYY"));
+  console.log(tableData, "ttttttttttttttttttttt");
+
+  const backToDashboard = () => {
+    history.push("/dashboard");
+  };
+
+  return (
+    <>
+      {hoursloggedResources ? (
+        <ProjectComponent
+          id={id}
+          hoursloggedResources={hoursloggedResources}
+          onClick={setHoursloggedResources}
+        />
+      ) : (
+        <>
+          <div className="timesheet-container">
+            <div className="timesheet-back-button">
+              <p className="back-to-dashboard" onClick={backToDashboard}>
+                {" "}
+                <span className="back-arrow">
+                  {" "}
+                  <BackArrow />{" "}
+                </span>{" "}
+                Back Dashboard
+              </p>
+            </div>
+            <div className="timesheet-container-heading">
+              <div className="timesheet-heading-title">
+                <h3> Hours Logged / Project </h3>
+              </div>
+              <div className="timesheet-heading-date">
+                <DatePicker
+                  selected={date}
+                  onChange={(d) => setDate(d)}
+                  dateFormat="MMM yyyy"
+                  showMonthYearPicker
+                  customInput={<CustomInput />}
+                />
+              </div>
+            </div>
+            <TimesheetFilters />
+
+            <div className="table-container">
+              {tableData !== null ? (
+                <TimesheetTable
+                  tableCols={tableColArray}
+                  tableData={tableData}
+                />
+              ) : null}
             </div>
           </div>
-        </div> */}
-        <div>
-          < TimesheetFilters />
-        </div>
-        <div className="styleDataTable">
-          <Table
-            columns={columns1}
-            dataSource={data}
-            style={{
-              borderRadius: "1rem",
-              overflow: "hidden",
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-            }}
-            pagination={{ pageSize: 20 }}
-            scroll={{ y: 240 }}
-          />
-        </div>
+        </>
+      )}
+    </>
+  );
+};
+
+export default timesheetLayoutTemplate(HoursLogged);
+
+const CustomInput = React.forwardRef((props, ref) => {
+  return (
+    <div className="hoursLogCalender">
+      <label onClick={props.onClick} ref={ref}>
+        {props.value || props.placeholder}
+      </label>
+      <div onClick={props.onClick}>
+        <RiCalendar2Line className="tableCalender" />
+        <BiChevronDown style={{ fontSize: "20px", fontWeight: "bold" }} />
       </div>
-    );
-  }
-}
-
-const mapStateToProps = (store) => {
-  return {
-    ...store,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default DashboardTemplate(
-  connect(mapStateToProps, mapDispatchToProps)(withRouter(HoursLogged))
-);
+    </div>
+  );
+});
