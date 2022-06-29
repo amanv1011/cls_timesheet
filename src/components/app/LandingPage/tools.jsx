@@ -4,6 +4,7 @@ import { getTools } from "../../../actions/asyncActions";
 import { hubspot } from "../../../assets/images";
 import { Link } from "react-router-dom";
 import { InactiveToolsStorageName, ActiveToolsStorageName, LoginStorageUserDetails } from "../../../assets/text";
+import { getUserProfile } from "../../../actions/user";
 const Wrapper = styled.div`
   background: #fff;
   padding: 2em;
@@ -176,10 +177,10 @@ class Tools extends React.Component {
               <ToolsWrapper
                 style={{
                   cursor: `${d.is_active === false ? "not-allowed" : ""}`,
-                }} 
+                }}
                 onClick={() => {
                   if (d.is_active === true) {
-                    let url = d.id == 11 ? d.url + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}` : d.url
+                    let url = d.id == 11 ? d.url + `?token=${JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token}&uname=${JSON.parse(getUserProfile(LoginStorageUserDetails)).name}` : d.url
                     console.log(url);
                     window.open(url);
                   }
