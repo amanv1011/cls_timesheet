@@ -27,6 +27,9 @@ const Dashboard = () => {
     (state) => state.dashboard.dashboardData
   );
 
+  const dashboardStartDate = useSelector((state) => state.dateFilter.filterDateStart)
+  const dashboardEndDate = useSelector((state) => state.dateFilter.filterDateEnd)
+
   const tempFunEventHandler = (event) => {
     console.log(event.target.id);
   };
@@ -64,8 +67,10 @@ const Dashboard = () => {
   // ];
 
   useEffect(() => {
-    dispatch(getDashboardData("2022-05-30", "2022-06-02", "18"))
-  }, []);
+    console.log(dashboardStartDate);
+    console.log(dashboardEndDate);
+    dispatch(getDashboardData(dashboardStartDate, dashboardEndDate, "18"))
+  }, [dashboardStartDate]);
 
   useEffect(() => {
     const filterData = [];

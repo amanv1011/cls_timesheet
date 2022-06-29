@@ -11,6 +11,7 @@ import timesheetReducer from "./timesheetReducer"
 import sidebarCollapsReducer from "./sidebarCollaps"
 import dashboardReducer from "./dashboardReducer";
 import hoursLoggedReducer from "./hoursLogged";
+import dateFilterReducer from "./dateFilterReducer"
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -23,6 +24,7 @@ export default combineReducers({
   timesheet: timesheetReducer,
   sidebarCollaps: sidebarCollapsReducer,
   dashboard: dashboardReducer,
+  dateFilter: dateFilterReducer,
   // time_sheet: timesheet,
   // landing:LandingReducer
 });
