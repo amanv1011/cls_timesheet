@@ -11,6 +11,7 @@ const API_PREFIX = `${BASE_URL}/api`;
 
 export const apiUrls = {
   timesheet: `${API_PREFIX}/projects/timesheet?monthYear=`,
+  dashboard: `${API_PREFIX}/dashboard/activeProject?`,
   hourslogged: `${API_PREFIX}/hourslog/hourslog?monthYear=`,
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
   timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
