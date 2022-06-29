@@ -13,4 +13,6 @@ export const apiUrls = {
   timesheet: `${API_PREFIX}/projects/timesheet?monthYear=`,
   hourslogged: `${API_PREFIX}/hourslog/hourslog?monthYear=`,
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
+  timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
 };
+
