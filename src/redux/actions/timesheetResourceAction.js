@@ -1,5 +1,4 @@
-
-import axios from "axios";
+import http from "../../hoc/axiosClient"
 import { API_ENDPOINTS } from "../../appConfig";
 import {
     SET_TIMESHEET_RESOURCE_DATA,
@@ -8,11 +7,9 @@ import {
 
 export const getTimesheetResourceData = (id) => {
     return async function getTimesheetResourceDataThunk(dispatch) {
-        console.log("IDDDDDDDDDDDDDDDDDDDDDDD", id);
         const requestUrl = `${API_ENDPOINTS.timesheetResource}${id}`;
         try{
-            const response = await axios.get(requestUrl);
-            console.log(response, "rrrrrrrrrrrrrrrrrrrrrr");
+            const response = await http.get(requestUrl);
             dispatch({type:SET_TIMESHEET_RESOURCE_DATA, payload:response.data.result});
         }catch (err) {
             dispatch({ type:SET_TIMESHEET_RESOURCE_DATA_ERR, payload: err });
