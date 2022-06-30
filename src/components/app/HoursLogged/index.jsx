@@ -19,7 +19,7 @@ import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const HoursLogged = () => {
   const monthFormat = "MMM YYYY";
-  const filterData = [];
+  
   const projectData = [];
   const dispatch = useDispatch();
 
@@ -84,6 +84,7 @@ const HoursLogged = () => {
 
   // sets Hours Logged Data
   useEffect(() => {
+    const filterData = [];
     if (hoursLoggedModuleData !== null) {
       hoursLoggedModuleData.forEach((ele) => {
         filterData.push({
@@ -140,7 +141,7 @@ const HoursLogged = () => {
             <TimesheetFilters />
 
             <div className="table-container">
-              {hoursLoggedModuleData !== null ? (
+              {tableData !== null ? (
                 <TimesheetTable
                   tableCols={tableColArray}
                   tableData={tableData}

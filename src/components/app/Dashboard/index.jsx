@@ -1,11 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
-// import { getTimesheetData } from "../../../redux/actions/timesheetActions";
-import {getDashboardData } from "../../../redux/actions/dashboardActions"
+import { getDashboardData } from "../../../redux/actions/dashboardActions";
 import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
-
 import Today from "../../../assets/dashboardIcons/today";
 import ThisWeek from "../../../assets/dashboardIcons/thisWeek";
 import UserWorked from "../../../assets/dashboardIcons/userWorked";
@@ -19,12 +16,17 @@ import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const todaysDate = moment().format("MM/YYYY");
-
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
 
   const dashboardModuleData = useSelector(
     (state) => state.dashboard.dashboardData
+  );
+
+  const dashboardStartDate = useSelector(
+    (state) => state.dateFilter.filterDateStart
+  );
+  const dashboardEndDate = useSelector(
+    (state) => state.dateFilter.filterDateEnd
   );
 
   const tempFunEventHandler = (event) => {
@@ -64,8 +66,8 @@ const Dashboard = () => {
   // ];
 
   useEffect(() => {
-    dispatch(getDashboardData("2022-05-30", "2022-06-02", "18"))
-  }, []);
+    dispatch(getDashboardData(dashboardStartDate, dashboardEndDate, "18"));
+  }, [dashboardStartDate]);
 
   useEffect(() => {
     const filterData = [];
