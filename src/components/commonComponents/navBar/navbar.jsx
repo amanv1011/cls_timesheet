@@ -9,7 +9,6 @@ import { removeCookie } from '../../../actions/user';
 import Userprofile from '../../../assets/navbarLogoAndIcons/UserprofileLogo';
 import LogoutIcon from '../../../assets/navbarLogoAndIcons/LogoutIcon';
 
-
 import './navbar.css'
 
 const Navbar = () => {
@@ -34,6 +33,7 @@ const Navbar = () => {
         setOpenMenu(!openmenu)
 
     }
+
 
     const toggleSidebar = () => {
         if (sidebarCollaps === false) {
@@ -71,4 +71,5 @@ const Navbar = () => {
     );
 }
 
-export default Navbar
+
+export default Navbar;
