@@ -285,7 +285,7 @@ Modal > .modal-content {
 .centerPadding {
   text-align: center;
   width: 82px;
-  height: 36px;
+  /* height: 36px; */
   background: #f0f2f5;
   padding: 10px 4px;
   border-radius: 10px;
@@ -322,6 +322,7 @@ Modal > .modal-content {
 .loggedStatus {
   width: 137px;
   padding: 7px 24px;
+  text-align: center;
 }
 
 .lastBtn {
@@ -356,4 +357,17 @@ Modal > .modal-content {
   outline: none;
   text-align: center;
   color: #ffffff;
+}
+
+.resourceSpan {
+  color: white;
+  background-color: #24d6a5;
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 0px 3px;
+}
+
+.deleteBtn {
+  color: red;
+  font-size: 20px;
 }

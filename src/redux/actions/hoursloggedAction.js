@@ -30,6 +30,7 @@ export const getResourcesHoursloggedData = (id) => {
     console.log("iiiiiiiiiiiiiiiiiiiiii", id);
 
     const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}webtracker_project_id=${id}&start_date=2022-06-15&end_date=2022-06-30`;
+    // const requestUrl = `/api/hourslog/hourslog/data?webtracker_project_id=21562 &start_date=2022-06-15&end_date=2022-06-30`;
     try {
       const response = await axios.get(requestUrl);
       console.log(response.data, "dataaaaaaaaaaaaaaaaaaaaaa");
@@ -67,5 +68,6 @@ export const updateResourceName = (user_id, pro_id) => {
     } catch (err) {
       dispatch({ type: SET_RES_NAME_ERR, payload: err });
     }
+    // getResourcesHoursloggedData(pro_id);
   };
 };

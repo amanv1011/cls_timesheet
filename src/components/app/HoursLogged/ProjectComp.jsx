@@ -9,6 +9,7 @@ import moment from "moment";
 import "./ProjectComponent.css";
 import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { Input } from "antd";
 import {
   getHoursloggedData,
@@ -28,6 +29,7 @@ const ProjectComponent = (props) => {
   const [rTableData, setRTData] = useState([]);
   const [modalData, setModalData] = useState([]);
   const [newResId, setID] = useState();
+  const [hovwr, setHovwr] = useState(false);
 
   const project_id = props.id;
 
@@ -97,11 +99,20 @@ const ProjectComponent = (props) => {
   };
 
   const updateResourcesHandler = () => {
-    dispatch(updateResourceName(newResId, project_id));
+    dispatch(
+      updateResourceName(newResId, project_id),
+      getResourcesHoursloggedData("18")
+    );
     setShow(false);
-    dispatch(getResourcesHoursloggedData(props.id));
+    // getResourcesHoursloggedData(18);
   };
 
+  function console0() {
+    setHovwr(true);
+  }
+  function console1() {
+    setHovwr(false);
+  }
   return (
     <>
       {" "}
@@ -213,14 +224,18 @@ const ProjectComponent = (props) => {
             <tbody style={{ height: "100px", overflowY: "auto" }}>
               {rTableData.map((element, index) => {
                 return (
-                  <tr>
+                  <tr className="projectCompTr">
                     <td
                       className="loggedHours_tdata "
                       style={{ fontWeight: "600" }}
                     >
                       <input type="checkbox" name="" id="" />
-
-                      {element.resources}
+                      {element.resources}{" "}
+                      {element.status == 0 ? (
+                        <span className="resourceSpan">NEW</span>
+                      ) : (
+                        ""
+                      )}
                     </td>
                     <td className="loggedHours_tdata">
                       <div className="centerPadding">{element.loggedhour}</div>
@@ -237,23 +252,31 @@ const ProjectComponent = (props) => {
                         />
                       </div>
                     </td>
-                    <td className="loggedHours_tdata loggedStatus">
-                      <div
-                        style={{
-                          padding: "13px 4px",
-                          background: "#d4fbd4",
-                          color: "green",
-                        }}
-                        className="centerPadding"
-                      >
-                        {/* <span
+                    <td
+                      className="loggedHours_tdata loggedStatus"
+                      onMouseEnter={console0}
+                      onMouseLeave={console1}
+                    >
+                      {hovwr == true ? (
+                        <RiDeleteBinLine className="deleteBtn" />
+                      ) : (
+                        <div
+                          style={{
+                            padding: "13px 4px",
+                            background: "#d4fbd4",
+                            color: "green",
+                          }}
+                          className="centerPadding"
+                        >
+                          {/* <span
                           className={`approved ${
                             newObj.status !== 1 ? "pending" : ""
                           }`}
                         ></span> */}
-                        {/* {newObj.status == 1 ? "Approved" : "Pending"} */}
-                        {element.status == 1 ? "Approved" : "Pending"}
-                      </div>
+                          {/* {newObj.status == 1 ? "Approved" : "Pending"} */}
+                          {element.status == 1 ? "Approved" : "Pending"}
+                        </div>
+                      )}
                     </td>
                   </tr>
                 );
