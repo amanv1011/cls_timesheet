@@ -143,7 +143,7 @@ const Timesheet = (props) => {
 
       <div className="timesheet-container">
         <div className="timesheet-back-button">
-          <p onClick={backToDashboard} className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back Dashboard</p>
+          <p onClick={backToDashboard} className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back to Dashboard</p>
 
         </div>
         <div className="timesheet-container-heading">
