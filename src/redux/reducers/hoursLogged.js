@@ -7,6 +7,8 @@ import {
   SET_MODAL_RES_ERR,
   SET_RES_NAME,
   SET_RES_NAME_ERR,
+  SET_BILL_HOUR,
+  SET_BILL_HOUR_ERR,
 } from "../type";
 
 const initialState = {
@@ -18,6 +20,8 @@ const initialState = {
   modalResDataErr: null,
   newResource: null,
   newResourceErr: null,
+  billHour: null,
+  billHourErr: null,
 };
 const hoursLoggedReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -73,6 +77,20 @@ const hoursLoggedReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         newResourceErr: payload,
+      };
+    }
+
+    case SET_BILL_HOUR: {
+      return {
+        ...state,
+        billHour: payload,
+      };
+    }
+
+    case SET_BILL_HOUR_ERR: {
+      return {
+        ...state,
+        billHourErr: payload,
       };
     }
 

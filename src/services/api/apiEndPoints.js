@@ -16,4 +16,5 @@ export const apiUrls = {
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
   modalResources: `${API_PREFIX}/hourslog/hourslog/getUsers`,
   newResources: `${API_PREFIX}/hourslog/hourslog/addUser?`,
+  billedHours: `${API_PREFIX}/hourslog/hourslog/billedData?`,
 };

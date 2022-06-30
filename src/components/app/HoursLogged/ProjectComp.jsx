@@ -11,11 +11,13 @@ import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { Input } from "antd";
+import { useRef } from "react";
 import {
   getHoursloggedData,
   getResourcesHoursloggedData,
   getModalResourcesData,
   updateResourceName,
+  updateBilledHour,
 } from "../../../redux/actions/hoursloggedAction";
 
 const monthFormat = "MMM YYYY";
@@ -30,6 +32,16 @@ const ProjectComponent = (props) => {
   const [modalData, setModalData] = useState([]);
   const [newResId, setID] = useState();
   const [hovwr, setHovwr] = useState(false);
+  const [disable, setDisable] = useState(true);
+  const [billedHour, setBilledHour] = useState();
+  const [objBilledHour, setObjBL] = useState({
+    project_id: "",
+    // start_date: "",
+    projectName: "",
+    userId: "",
+    logged_time: "",
+    billed_hour: "",
+  });
 
   const project_id = props.id;
 
@@ -79,8 +91,10 @@ const ProjectComponent = (props) => {
   const handleShow = () => {
     setShow(true);
     dispatch(getModalResourcesData());
-    console.log(modalResourcesData, "wwwwwwwwwwwwwww");
+    // console.log(modalResourcesData, "wwwwwwwwwwwwwww");
   };
+
+  //to close
 
   const handleClose = () => {
     setShow(false);
@@ -90,9 +104,9 @@ const ProjectComponent = (props) => {
     props.onClick(false);
   };
 
-  console.log(rTableData, "resources table data");
-  console.log(props.id, "getttttttttttttttttt");
-  console.log(modalData.result, "mmmmmmmmmmmmmmmm");
+  // console.log(rTableData, "resources table data");
+  // console.log(props.id, "getttttttttttttttttt");
+  // console.log(modalData.result, "mmmmmmmmmmmmmmmm");
 
   const addResourcesHandler = (e) => {
     setID(e.target.value);
@@ -113,6 +127,27 @@ const ProjectComponent = (props) => {
   function console1() {
     setHovwr(false);
   }
+
+  // const editHandler = () => {
+  //   setDisable(false);
+  // };
+
+  // const billedHourHandler = (e) => {
+  //   setBilledHour(e.target.value);
+  //   setObjBL({
+  //     ...objBilledHour,
+  //     billed_hour: billedHour,
+  //   });
+  // };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      dispatch(updateBilledHour(objBilledHour));
+      console.log(objBilledHour, "object completed");
+    }
+  };
+
+  console.log(billedHour, "getting billedhour");
   return (
     <>
       {" "}
@@ -247,8 +282,32 @@ const ProjectComponent = (props) => {
                       <div>
                         <Input
                           className="loggedhourInput"
-                          suffix={<AiOutlineEdit />}
-                          value={20}
+                          suffix={
+                            <AiOutlineEdit
+                              onClick={() => {
+                                setDisable(false);
+                                setObjBL({
+                                  ...objBilledHour,
+                                  project_id: element.projectid,
+                                  // start_date: "2022-06-13",
+                                  projectName: element.project_name,
+                                  userId: element.userid,
+                                  logged_time: element.loggedhour,
+                                });
+                              }}
+                              style={{ cursor: "pointer" }}
+                            />
+                          }
+                          value={billedHour}
+                          onChange={(e) => {
+                            setObjBL({
+                              ...objBilledHour,
+                              billed_hour: e.target.value,
+                            });
+                            setBilledHour(e.target.value);
+                          }}
+                          onKeyDown={handleKeyDown}
+                          disabled={disable}
                         />
                       </div>
                     </td>

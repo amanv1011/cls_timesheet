@@ -9,6 +9,8 @@ import {
   SET_MODAL_RES_ERR,
   SET_RES_NAME,
   SET_RES_NAME_ERR,
+  SET_BILL_HOUR,
+  SET_BILL_HOUR_ERR,
 } from "../type";
 
 export const getHoursloggedData = (localDate) => {
@@ -27,7 +29,7 @@ export const getHoursloggedData = (localDate) => {
 
 export const getResourcesHoursloggedData = (id) => {
   return async function getResourcesHoursloggedDataThunk(dispatch) {
-    console.log("iiiiiiiiiiiiiiiiiiiiii", id);
+    // console.log("iiiiiiiiiiiiiiiiiiiiii", id);
 
     const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}webtracker_project_id=${id}&start_date=2022-06-15&end_date=2022-06-30`;
     // const requestUrl = `/api/hourslog/hourslog/data?webtracker_project_id=21562 &start_date=2022-06-15&end_date=2022-06-30`;
@@ -48,7 +50,7 @@ export const getModalResourcesData = (id) => {
     const requestUrl = `${API_ENDPOINTS.modalResources}`;
     try {
       const response = await axios.get(requestUrl);
-      console.log(response.data, "Modalllllllll dataaaaaaaaaaaaaaaaaaaaaa");
+      console.log(response.data, "Modalllllllll");
       dispatch({ type: SET_MODAL_RES_DATA, payload: response.data });
     } catch (err) {
       dispatch({ type: SET_MODAL_RES_ERR, payload: err });
@@ -58,7 +60,7 @@ export const getModalResourcesData = (id) => {
 
 export const updateResourceName = (user_id, pro_id) => {
   return async function updateResourceNameThunk(dispatch) {
-    console.log("iiiiiiiiiiiiiiiiiiiiii", user_id, pro_id);
+    // console.log("iiiiiiiiiiiiiiiiiiiiii", user_id, pro_id);
 
     const requestUrl = `${API_ENDPOINTS.newResources}user_id=${user_id}&project_id=${pro_id}`;
     try {
@@ -67,6 +69,20 @@ export const updateResourceName = (user_id, pro_id) => {
       dispatch({ type: SET_RES_NAME, payload: response.data.message });
     } catch (err) {
       dispatch({ type: SET_RES_NAME_ERR, payload: err });
+    }
+    // getResourcesHoursloggedData(pro_id);
+  };
+};
+
+export const updateBilledHour = (obj) => {
+  return async function updateBilledHourThunk(dispatch) {
+    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}&start_date=2022-06-13&projectName=${obj.projectName}&userId=${obj.userId}&logged_time=${obj.logged_time}&billed_hours=${obj.billed_hour}`;
+    try {
+      const response = await axios.put(requestUrl);
+      console.log(response.data, "billed hour");
+      dispatch({ type: SET_BILL_HOUR, payload: response.data.message });
+    } catch (err) {
+      dispatch({ type: SET_BILL_HOUR_ERR, payload: err });
     }
     // getResourcesHoursloggedData(pro_id);
   };
