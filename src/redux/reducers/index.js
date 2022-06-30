@@ -11,7 +11,12 @@ import timesheetReducer from "./timesheetReducer"
 import sidebarCollapsReducer from "./sidebarCollaps"
 import dashboardReducer from "./dashboardReducer";
 import hoursLoggedReducer from "./hoursLogged";
+<<<<<<< HEAD
 import dateFilterReducer from "./dateFilterReducer"
+=======
+import showSwitch from "./resourceSwitchReducer";
+import timesheetResourceReducer from "./timesheetResourceReducer";
+>>>>>>> 98e1b268f65a63173b6283c0f57eec663da642cf
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -23,6 +28,9 @@ export default combineReducers({
   modalStates: modalReducer,
   timesheet: timesheetReducer,
   sidebarCollaps: sidebarCollapsReducer,
+  timesheetFilterSwitch: showSwitch,
+  timesheetResource: timesheetResourceReducer,
+
   dashboard: dashboardReducer,
   dateFilter: dateFilterReducer,
   // time_sheet: timesheet,
