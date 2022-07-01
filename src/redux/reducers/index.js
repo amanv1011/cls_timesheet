@@ -13,6 +13,7 @@ import dashboardReducer from "./dashboardReducer";
 import hoursLoggedReducer from "./hoursLogged";
 import showSwitch from "./resourceSwitchReducer";
 import timesheetResourceReducer from "./timesheetResourceReducer";
+import timesheetDetailedResource from "./timesheetDetailedResource";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -28,6 +29,7 @@ export default combineReducers({
   timesheetResource: timesheetResourceReducer,
 
   dashboard: dashboardReducer,
+  detailedResource: timesheetDetailedResource,
   // time_sheet: timesheet,
   // landing:LandingReducer
 });

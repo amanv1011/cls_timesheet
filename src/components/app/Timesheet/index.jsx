@@ -25,6 +25,7 @@ const Timesheet = (props) => {
   const dispatch = useDispatch()
   const handleShow = () => { dispatch(setModalActive()) };
   const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData )
+  const [ isActive, setIsActive ] = useState(false);
   const backToDashboard = () => {
     history.push("/dashboard")
   }
@@ -34,11 +35,15 @@ const Timesheet = (props) => {
     dispatch(getTimesheetResourceData(event.target.id));
 
   }
+
+  
+
   const TimesheetSwitchCols = [
     {
       columnName: 'Projects',
       columnKeyValue: "WebTrackerId",
-      keyFunction: setResourcesData
+      keyFunction: setResourcesData,
+      
     },
 
     {
@@ -162,11 +167,12 @@ const Timesheet = (props) => {
 
         </div>
 
-        <div className="table-container" style={timesheetFilterSwitch === true ? { background: "#F5F7FB" } : { background: "#FFF" }}>
+        <div className="table-container"
+         style={timesheetFilterSwitch === true ? { background: "#F5F7FB" } : { background: "#FFF" }}>
 
           {timesheetFilterSwitch === false ? (timesheetFilterData !== null ? <><TimesheetTable tableCols={TimesheetModalCols} tableData={timesheetFilterData} /></> : null) : <>
             <div style={{ display: "flex" }}>
-              <div style={{ width: "50%", borderRadius: "15px", margin: "3px", backgroundColor: "#FFFFFF" }} >
+              <div style={{ width: "50%", borderRadius: "15px", margin: "3px", backgroundColor: "#FFFFFF"}} >
                 {filterDataMini && <TimesheetTable tableCols={TimesheetSwitchCols} tableData={filterDataMini} />}
               </div>
               
