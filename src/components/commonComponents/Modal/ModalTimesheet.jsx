@@ -57,8 +57,8 @@ const ModalTimesheet = (props) => {
                                                     <div className={index % 2 === 0 ? 'body2_table_odd' : 'body2_table_even'} >
 
                                                        
-                                                        <div className="body_table_body2"><span className="table_row3"> {ele} </span></div>
-                                                        <div className="body_table_body3"><span className="table_row4"> {ele}</span></div>
+                                                        <div className="body_table_body2"><span className="table_row3"> {ele.row3} </span></div>
+                                                        <div className="body_table_body3"><span className="table_row4"> {ele.row4}</span></div>
 
                                                     </div>
                                                 </div>
