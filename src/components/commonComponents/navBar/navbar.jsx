@@ -55,7 +55,7 @@ const Navbar = () => {
                         <img className="navbar-user-profile" src={getImage} alt="user-image" />
                      
                     </div>
-                    <div onClick={showmenu} className="navbar-user-name"> <span >{getName} <DownArrow /></span>  </div>
+                    <div  onClick={showmenu} className="navbar-user-name"> <span style={{fontSize: "14px"}}>{getName} <DownArrow /></span>  </div>
                     <div style={openmenu === true ? { display:"block"} : { display:"none"}} className='custom-dropdown'>
                        
                         <div className='menu-profile' > <Userprofile /><span style={{ marginLeft:"4px"}}> {getName} </span>  </div>
