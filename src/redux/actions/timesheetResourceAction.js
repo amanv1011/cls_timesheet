@@ -3,7 +3,10 @@ import { API_ENDPOINTS } from "../../appConfig";
 import {
     SET_TIMESHEET_RESOURCE_DATA,
     SET_TIMESHEET_RESOURCE_DATA_ERR,
+    GET_TIMESHEET_DETAILED_RESOURCE_DATA,
+    GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR
 } from "../type";
+import axios from "axios";
 
 export const getTimesheetResourceData = (id) => {
     return async function getTimesheetResourceDataThunk(dispatch) {
@@ -17,6 +20,20 @@ export const getTimesheetResourceData = (id) => {
         }
     }
 }
+export const getParticularResourceData = (_id, startDate, endDate, userId) => {
+    return async function getParticularResourceDataThunk(dispatch) {
+        const requestUrl = `${API_ENDPOINTS.timesheetDetailedResource}webtracker_project_id=${_id}&start_date=${startDate}&end_date=${endDate}&user_id=${userId}`
+        try{
+            const response = await axios.get(requestUrl);
+            console.log(response);
+            dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: response});
+        }catch (err){
+            dispatch({ type:GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR, payload: err });
+
+        }
+    }
+}
+
 
 
 
