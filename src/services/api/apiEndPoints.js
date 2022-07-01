@@ -20,4 +20,3 @@ export const apiUrls = {
   timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`
 };
 
-//http://localhost:3501/api/projects/detailedResource?webtracker_project_id=22122&start_date=2022-06-13&end_date=2022-06-27&user_id=141
