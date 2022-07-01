@@ -11,7 +11,7 @@ import { setModalActive } from "../../../redux/actions/modalAction";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import { getTimesheetResourceData } from "../../../redux/actions/timesheetResourceAction";
+import { getTimesheetResourceData, getParticularResourceData, setResourceName } from "../../../redux/actions/timesheetResourceAction";
 import './TimesheetModule.css';
 
 const Timesheet = (props) => {
@@ -20,25 +20,47 @@ const Timesheet = (props) => {
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
   const [timesheetResources, setTimesheetResources] = useState();
   const [filterDataMini, setFilterDataMini] = useState(null);
+  const [webtrackerId , setWebtrackerId] = useState(" ");
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData)
   const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
+
+  const timesheetStartDate = useSelector(
+    (state) => state.dateFilter.filterDateStart
+  );
+  const timesheetEndDate = useSelector(
+    (state) => state.dateFilter.filterDateEnd
+  );
+
   const dispatch = useDispatch()
   const handleShow = () => { dispatch(setModalActive()) };
-  const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData )
+  const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData );
+
+
+
   const backToDashboard = () => {
     history.push("/dashboard")
   }
 
   const setResourcesData = (event) => {
-    console.log(event.target.id)
+    setWebtrackerId(event.target.id)
     dispatch(getTimesheetResourceData(event.target.id));
 
   }
+
+
+  const setResourceDetailedData = (event) => {
+    const userID = event.target.id
+    dispatch(setResourceName(event.target.innerText));
+    dispatch(getParticularResourceData(webtrackerId, timesheetStartDate, timesheetEndDate, userID))
+  }
+  
+
   const TimesheetSwitchCols = [
     {
       columnName: 'Projects',
       columnKeyValue: "WebTrackerId",
-      keyFunction: setResourcesData
+      keyFunction: setResourcesData,
+      
     },
 
     {
@@ -48,17 +70,21 @@ const Timesheet = (props) => {
   const TimesheetSwitchCols2 = [
  
     {
-      columnName: 'Resource'
+      columnName: 'Resource',
+      columnKeyValue: "UserId",
+      keyFunction: setResourceDetailedData,
+      
     },
 
     {
-      columnName: 'Hours Logged'
+      columnName: 'Hours Logged',
+      keyFunction: handleShow
     }
   ]
   const TimesheetModalCols = [
     {
       columnName: 'Projects',
-      keyFunction: handleShow
+     
     },
 
     {
@@ -108,6 +134,7 @@ const Timesheet = (props) => {
   useEffect(() => {
     const filterData = [];
     const filterDataMini = [];
+    
 
     if (timesheetModuleData !== null) {
       timesheetModuleData.forEach((ele) => {
@@ -143,7 +170,7 @@ const Timesheet = (props) => {
 
       <div className="timesheet-container">
         <div className="timesheet-back-button">
-          <p onClick={backToDashboard} className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back Dashboard</p>
+          <p onClick={backToDashboard} className="back-to-dashboard"> <span className="back-arrow"> <BackArrow /> </span> Back to Dashboard</p>
 
         </div>
         <div className="timesheet-container-heading">
@@ -162,11 +189,12 @@ const Timesheet = (props) => {
 
         </div>
 
-        <div className="table-container" style={timesheetFilterSwitch === true ? { background: "#F5F7FB" } : { background: "#FFF" }}>
+        <div className="table-container"
+         style={timesheetFilterSwitch === true ? { background: "#F5F7FB" } : { background: "#FFF" }}>
 
           {timesheetFilterSwitch === false ? (timesheetFilterData !== null ? <><TimesheetTable tableCols={TimesheetModalCols} tableData={timesheetFilterData} /></> : null) : <>
             <div style={{ display: "flex" }}>
-              <div style={{ width: "50%", borderRadius: "15px", margin: "3px", backgroundColor: "#FFFFFF" }} >
+              <div style={{ width: "50%", borderRadius: "15px", margin: "3px", backgroundColor: "#FFFFFF"}} >
                 {filterDataMini && <TimesheetTable tableCols={TimesheetSwitchCols} tableData={filterDataMini} />}
               </div>
               

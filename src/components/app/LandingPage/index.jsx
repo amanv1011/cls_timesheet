@@ -7,7 +7,7 @@ import Tools from "./tools";
 import { withRouter } from "react-router";
 import "./index.css";
 const Wrapper = styled.div`
-  margin-top: 70px;
+  margin-top: 15px;
 `;
 
 const Header = styled.div`
