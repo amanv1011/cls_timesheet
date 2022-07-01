@@ -11,7 +11,7 @@ import { setModalActive } from "../../../redux/actions/modalAction";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import { getTimesheetResourceData } from "../../../redux/actions/timesheetResourceAction";
+import { getTimesheetResourceData, getParticularResourceData, setResourceName } from "../../../redux/actions/timesheetResourceAction";
 import './TimesheetModule.css';
 
 const Timesheet = (props) => {
@@ -20,22 +20,39 @@ const Timesheet = (props) => {
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
   const [timesheetResources, setTimesheetResources] = useState();
   const [filterDataMini, setFilterDataMini] = useState(null);
+  const [webtrackerId , setWebtrackerId] = useState(" ");
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData)
   const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
+
+  const timesheetStartDate = useSelector(
+    (state) => state.dateFilter.filterDateStart
+  );
+  const timesheetEndDate = useSelector(
+    (state) => state.dateFilter.filterDateEnd
+  );
+
   const dispatch = useDispatch()
   const handleShow = () => { dispatch(setModalActive()) };
-  const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData )
-  const [ isActive, setIsActive ] = useState(false);
+  const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData );
+
+
+
   const backToDashboard = () => {
     history.push("/dashboard")
   }
 
   const setResourcesData = (event) => {
-    console.log(event.target.id)
+    setWebtrackerId(event.target.id)
     dispatch(getTimesheetResourceData(event.target.id));
 
   }
 
+
+  const setResourceDetailedData = (event) => {
+    const userID = event.target.id
+    dispatch(setResourceName(event.target.innerText));
+    dispatch(getParticularResourceData(webtrackerId, timesheetStartDate, timesheetEndDate, userID))
+  }
   
 
   const TimesheetSwitchCols = [
@@ -53,17 +70,21 @@ const Timesheet = (props) => {
   const TimesheetSwitchCols2 = [
  
     {
-      columnName: 'Resource'
+      columnName: 'Resource',
+      columnKeyValue: "UserId",
+      keyFunction: setResourceDetailedData,
+      
     },
 
     {
-      columnName: 'Hours Logged'
+      columnName: 'Hours Logged',
+      keyFunction: handleShow
     }
   ]
   const TimesheetModalCols = [
     {
       columnName: 'Projects',
-      keyFunction: handleShow
+     
     },
 
     {
@@ -113,6 +134,7 @@ const Timesheet = (props) => {
   useEffect(() => {
     const filterData = [];
     const filterDataMini = [];
+    
 
     if (timesheetModuleData !== null) {
       timesheetModuleData.forEach((ele) => {

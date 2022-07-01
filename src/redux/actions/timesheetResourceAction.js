@@ -4,7 +4,8 @@ import {
     SET_TIMESHEET_RESOURCE_DATA,
     SET_TIMESHEET_RESOURCE_DATA_ERR,
     GET_TIMESHEET_DETAILED_RESOURCE_DATA,
-    GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR
+    GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR,
+    RESOURCE_NAME_TIMELOGGED,
 } from "../type";
 import axios from "axios";
 
@@ -13,7 +14,17 @@ export const getTimesheetResourceData = (id) => {
         const requestUrl = `${API_ENDPOINTS.timesheetResource}${id}`;
         try{
             const response = await http.get(requestUrl);
-            dispatch({type:SET_TIMESHEET_RESOURCE_DATA, payload:response.data.result});
+            const filterData = [];
+            response.data.result.forEach(ele => {
+                filterData.push({
+                   UserId: ele.id,
+                   UserName: ele.name,
+                   Hours_logged: ele.time_logged
+
+                })
+                
+            });
+            dispatch({type:SET_TIMESHEET_RESOURCE_DATA, payload:filterData});
         }catch (err) {
             dispatch({ type:SET_TIMESHEET_RESOURCE_DATA_ERR, payload: err });
 
@@ -26,11 +37,17 @@ export const getParticularResourceData = (_id, startDate, endDate, userId) => {
         try{
             const response = await axios.get(requestUrl);
             console.log(response);
-            dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: response});
+            dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: response.data.projects});
         }catch (err){
             dispatch({ type:GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR, payload: err });
 
         }
+    }
+}
+
+export const setResourceName = (name) => {
+    return async(dispatch) => {
+        dispatch({type:RESOURCE_NAME_TIMELOGGED, payload:name })
     }
 }
 

@@ -1,17 +1,25 @@
-import { GET_TIMESHEET_DETAILED_RESOURCE_DATA, GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR } from "../type";
+import {
+    GET_TIMESHEET_DETAILED_RESOURCE_DATA,
+    GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR,
+    RESOURCE_NAME_TIMELOGGED
+}
+    from "../type";
 
 const initialState = {
-    getTimesheetDetailedResourceData: [],
-    getTimesheetDetailedResourceDataErr: null,
+    TimesheetDetailedResourceData: [],
+    TimesheetDetailedResourceDataErr: null,
+    resourceNameTimeLogged:"",
 }
 
 const timesheetDetailedResource = (state = initialState, { type, payload }) => {
 
     switch (type) {
         case GET_TIMESHEET_DETAILED_RESOURCE_DATA:
-            return { ...state, getTimesheetDetailedResourceData: payload }
+            return { ...state, TimesheetDetailedResourceData: payload }
         case GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR:
-            return { ...state, getTimesheetDetailedResourceDataErr: payload }
+            return { ...state, TimesheetDetailedResourceDataErr: payload }
+        case RESOURCE_NAME_TIMELOGGED:
+            return { ...state, resourceNameTimeLogged: payload }
         default:
             return { ...state }
     }

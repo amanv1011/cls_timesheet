@@ -5,9 +5,12 @@ import { setModalInActive } from "../../../redux/actions/modalAction";
 import DummyDataTimesheetModal from './DummyDataModal';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ModalTimesheet.css";
+import { getTimesheetResourceData } from '../../../redux/actions/timesheetResourceAction';
 
 const ModalTimesheet = (props) => {
     const show = useSelector((state) => state.modalStates.modalState)
+    const resourceData = useSelector((state) => state.detailedResource.TimesheetDetailedResourceData)
+    const resourceName = useSelector((state) => state.detailedResource.resourceNameTimeLogged)
     const dispatch = useDispatch()
     const handleClose = () => { dispatch(setModalInActive()) };
     return (
@@ -44,14 +47,18 @@ const ModalTimesheet = (props) => {
 
                                 <div className="body_table_detail"   >
                                     {DummyDataTimesheetModal.map((ele, index) => {
+                                        
+
                                         return (
+                                            
                                             <>
                                                 <div className="body_table_row_">
                                                     <div className="body_table_body1"> <span className="table_row1"> <span className='table_date'>{ele.date}</span> <span className='table_day'>{ele.day} </span>  </span></div>
                                                     <div className={index % 2 === 0 ? 'body2_table_odd' : 'body2_table_even'} >
 
-                                                        <div className="body_table_body2"><span className="table_row3"> {ele.row3} </span></div>
-                                                        <div className="body_table_body3"><span className="table_row4"> {ele.row4}</span></div>
+                                                       
+                                                        <div className="body_table_body2"><span className="table_row3"> {ele} </span></div>
+                                                        <div className="body_table_body3"><span className="table_row4"> {ele}</span></div>
 
                                                     </div>
                                                 </div>
