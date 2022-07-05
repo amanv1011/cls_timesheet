@@ -20,6 +20,7 @@ import { useHistory } from "react-router-dom";
 
 const HoursLogged = () => {
   const monthFormat = "MMM YYYY";
+
   const projectData = [];
   const dispatch = useDispatch();
   const history = useHistory();

@@ -43,6 +43,8 @@ const ProjectComponent = (props) => {
     billed_hour: "",
   });
 
+  const [reload, setReload] = useState(false);
+
   const project_id = props.id;
 
   const dispatch = useDispatch();
@@ -114,11 +116,14 @@ const ProjectComponent = (props) => {
 
   const updateResourcesHandler = () => {
     dispatch(
-      updateResourceName(newResId, project_id),
-      getResourcesHoursloggedData("18")
+      updateResourceName(newResId, project_id)
+      // getResourcesHoursloggedData("18")
     );
     setShow(false);
     // getResourcesHoursloggedData(18);
+    //to reload the component
+    // window.location.reload(false);
+    // setReload(true);
   };
 
   function console0() {
@@ -247,7 +252,13 @@ const ProjectComponent = (props) => {
             <tr>
               <th className="loggedHours_tdata">
                 {" "}
-                <input type="checkbox" name="" id="" /> Resource
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  style={{ margin: "0px 15px" }}
+                />{" "}
+                Resource
               </th>
               <th className="loggedHours_tdata">Hours logged</th>
               <th className="loggedHours_tdata">Build hours</th>
@@ -264,7 +275,12 @@ const ProjectComponent = (props) => {
                       className="loggedHours_tdata "
                       style={{ fontWeight: "600" }}
                     >
-                      <input type="checkbox" name="" id="" />
+                      <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        style={{ margin: "0px 15px" }}
+                      />
                       {element.resources}{" "}
                       {element.status == 0 ? (
                         <span className="resourceSpan">NEW</span>

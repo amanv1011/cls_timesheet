@@ -3,7 +3,7 @@ let BASE_URL;
 
 if (hostname === "localhost") {
   BASE_URL = "http://localhost:3501";
-} else if (hostname === "https://stagingapp.classicinformatics.net") {
+} else {
   BASE_URL = "https://stageapp.api.classicinformatics.net";
 }
 
@@ -17,4 +17,5 @@ export const apiUrls = {
   modalResources: `${API_PREFIX}/hourslog/hourslog/getUsers`,
   newResources: `${API_PREFIX}/hourslog/hourslog/addUser?`,
   billedHours: `${API_PREFIX}/hourslog/hourslog/billedData?`,
+  timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
 };
