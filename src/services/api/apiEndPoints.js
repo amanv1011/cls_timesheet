@@ -18,4 +18,5 @@ export const apiUrls = {
   newResources: `${API_PREFIX}/hourslog/hourslog/addUser?`,
   billedHours: `${API_PREFIX}/hourslog/hourslog/billedData?`,
   timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
+  timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`
 };

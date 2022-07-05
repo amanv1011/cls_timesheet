@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import Navbar from "../commonComponents/navBar/navbar";
 import {
   storeUserProfile,
   getUserProfile,
@@ -32,7 +33,9 @@ const withHeader = (WrappedComponent) => {
       return (
         <Wrapper>
           <Layout>
-            <TopHeader toggle={this.toggle} />
+            <div style={{ height: "60px", width: "100%" }}>
+              <Navbar />
+            </div>
             <Layout>
               <Layout>
                 <Content

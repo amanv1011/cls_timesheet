@@ -87,6 +87,7 @@ const HoursLogged = () => {
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
+      console.log(hoursLoggedModuleData, "first table data");
       hoursLoggedModuleData.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,

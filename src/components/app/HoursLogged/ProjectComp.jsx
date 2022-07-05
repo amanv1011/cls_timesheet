@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { useReducer } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { RiCalendar2Line } from "react-icons/ri";
 import DatePicker from "react-datepicker";
@@ -42,6 +43,7 @@ const ProjectComponent = (props) => {
     logged_time: "",
     billed_hour: "",
   });
+  const [reduceValue, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const [reload, setReload] = useState(false);
 
@@ -65,8 +67,9 @@ const ProjectComponent = (props) => {
     dispatch(getHoursloggedData(moment(currDate).format("MM/YYYY")));
     dispatch(getResourcesHoursloggedData(props.id));
     // dispatch(getResourcesHoursloggedData("21620"));
-  }, []);
+  }, [reduceValue]);
 
+  //this is for head data
   useEffect(() => {
     if (hoursLoggedModuleData !== null) {
       hoursLoggedModuleData.find((obj) => {
@@ -77,13 +80,15 @@ const ProjectComponent = (props) => {
     }
   }, [hoursLoggedModuleData]);
 
+  //for table data
   useEffect(() => {
     if (resHoursLoggedTableData !== null) {
       setRTData(resHoursLoggedTableData);
     }
     // console.log(resHoursLoggedTableData, "hiiiiiii");
-  }, [resHoursLoggedTableData]);
+  }, [resHoursLoggedTableData, reduceValue]);
 
+  //for modal
   useEffect(() => {
     if (modalResourcesData !== null) {
       setModalData(modalResourcesData);
@@ -106,10 +111,6 @@ const ProjectComponent = (props) => {
     props.onClick(false);
   };
 
-  // console.log(rTableData, "resources table data");
-  // console.log(props.id, "getttttttttttttttttt");
-  // console.log(modalData.result, "mmmmmmmmmmmmmmmm");
-
   const addResourcesHandler = (e) => {
     setID(e.target.value);
   };
@@ -120,10 +121,9 @@ const ProjectComponent = (props) => {
       // getResourcesHoursloggedData("18")
     );
     setShow(false);
-    // getResourcesHoursloggedData(18);
-    //to reload the component
-    // window.location.reload(false);
-    // setReload(true);
+
+    //to forcely refresh
+    forceUpdate();
   };
 
   function console0() {
@@ -132,18 +132,6 @@ const ProjectComponent = (props) => {
   function console1() {
     setHovwr(false);
   }
-
-  // const editHandler = () => {
-  //   setDisable(false);
-  // };
-
-  // const billedHourHandler = (e) => {
-  //   setBilledHour(e.target.value);
-  //   setObjBL({
-  //     ...objBilledHour,
-  //     billed_hour: billedHour,
-  //   });
-  // };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
