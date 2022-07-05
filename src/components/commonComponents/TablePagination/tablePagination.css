@@ -27,6 +27,7 @@
 
 .pagination-content{
     margin-left: 15px;
+    padding-top: 2px;
     
 }
 
@@ -35,9 +36,10 @@
     align-items: center;
     justify-content: center;
     text-align:center;
-    border: 2px solid black;
-    height: 30px;
-    width: 30px;
+    border: 2px solid #4169e1;
+    color: #4169e1;
+    height: 27px;
+    width: 27px;
     border-radius: 50%;
     font: size 15px;
     font-weight:600;
@@ -50,14 +52,14 @@
     align-items: center;
     justify-content: center;
     text-align:center;
-    border: 2px solid black;
+    border: 2px solid #4169e1;
     color: white;
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
     border-radius: 50%;
     font: size 15px;
     font-weight:600;
-    background-color:black;
+    background-color:#4169e1;
     margin-right: 8px;
 }
 

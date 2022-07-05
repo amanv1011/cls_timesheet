@@ -61,11 +61,12 @@ const TablePagination = (props) => {
               disabled={currentPage === 1 ? true : false}
             >
               <LeftArrow
-                btnColor={currentPage === 1 ? "gray" : "currentColor"}
+                btnColor={currentPage === 1 ? "gray" : "#003AD2"}
               />
             </button>
           </div>
           <div className="pagination-content">
+            
             {getPaginationGroup().map((item, index) => (
               <button
                 key={index}
@@ -75,6 +76,7 @@ const TablePagination = (props) => {
                     ? {
                         border: "2px solid gray",
                         color: "gray",
+                        backgroundColor: "white",
                         pointerEvents: "auto",
                         cursor: "not-allowed",
                       }
@@ -94,7 +96,7 @@ const TablePagination = (props) => {
               disabled={currentPage === pages ? true : false}
             >
               <RightArrow
-                btnColor={currentPage === pages ? "gray" : "currentColor"}
+                btnColor={currentPage === pages|| pages < 1 ? "gray" : "#003AD2"}
               />
             </button>
           </div>
