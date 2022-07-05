@@ -32,7 +32,7 @@ const Timesheet = (props) => {
   );
 
   const dispatch = useDispatch()
-  const handleShow = () => { dispatch(setModalActive()) };
+  
   const timesheetResourceData = useSelector((state) =>  state.timesheetResource.timesheetResourceData );
 
 
@@ -52,6 +52,7 @@ const Timesheet = (props) => {
     const userID = event.target.id
     dispatch(setResourceName(event.target.innerText));
     dispatch(getParticularResourceData(webtrackerId, timesheetStartDate, timesheetEndDate, userID))
+    dispatch(setModalActive());
   }
   
 
@@ -78,7 +79,7 @@ const Timesheet = (props) => {
 
     {
       columnName: 'Hours Logged',
-      keyFunction: handleShow
+      
     }
   ]
   const TimesheetModalCols = [
