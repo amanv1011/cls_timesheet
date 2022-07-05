@@ -31,8 +31,8 @@ const ProjectComponent = (props) => {
   const [rTableData, setRTData] = useState([]);
   const [modalData, setModalData] = useState([]);
   const [newResId, setID] = useState();
-  const [hovwr, setHovwr] = useState(false);
-  const [disable, setDisable] = useState(true);
+  const [hovwr, setHovwr] = useState(null);
+  const [selectRow, setSelectRow] = useState(null);
   const [billedHour, setBilledHour] = useState();
   const [objBilledHour, setObjBL] = useState({
     project_id: "",
@@ -126,12 +126,12 @@ const ProjectComponent = (props) => {
     // setReload(true);
   };
 
-  function console0() {
-    setHovwr(true);
-  }
-  function console1() {
-    setHovwr(false);
-  }
+  // function console0() {
+  //   setHovwr(true);
+  // }
+  // function console1() {
+  //   setHovwr(false);
+  // }
 
   // const editHandler = () => {
   //   setDisable(false);
@@ -145,11 +145,9 @@ const ProjectComponent = (props) => {
   //   });
   // };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      dispatch(updateBilledHour(objBilledHour));
-      console.log(objBilledHour, "object completed");
-    }
+  const handleBlur = (event) => {
+    dispatch(updateBilledHour(objBilledHour));
+    console.log(objBilledHour, "object completed");
   };
 
   console.log(billedHour, "getting billedhour");
@@ -268,7 +266,7 @@ const ProjectComponent = (props) => {
             </tr>
             {/* </thead> */}
             <tbody style={{ height: "100px", overflowY: "auto" }}>
-              {rTableData.map((element, index) => {
+              {rTableData.map((element, i) => {
                 return (
                   <tr className="projectCompTr">
                     <td
@@ -289,50 +287,94 @@ const ProjectComponent = (props) => {
                       )}
                     </td>
                     <td className="loggedHours_tdata">
-                      <div className="centerPadding">{element.loggedhour}</div>
+                      <div className="centerPadding">
+                        {element.loggedhour ? element.loggedhour : "NA"}
+                      </div>
                     </td>
                     <td
                       className="loggedHours_tdata"
                       style={{ width: "397px" }}
                     >
                       <div>
-                        <Input
-                          className="loggedhourInput"
-                          suffix={
-                            <AiOutlineEdit
-                              onClick={() => {
-                                setDisable(false);
-                                setObjBL({
-                                  ...objBilledHour,
-                                  project_id: element.projectid,
-                                  // start_date: "2022-06-13",
-                                  projectName: element.project_name,
-                                  userId: element.userid,
-                                  logged_time: element.loggedhour,
-                                });
-                              }}
-                              style={{ cursor: "pointer" }}
-                            />
-                          }
-                          value={billedHour}
-                          onChange={(e) => {
-                            setObjBL({
-                              ...objBilledHour,
-                              billed_hour: e.target.value,
-                            });
-                            setBilledHour(e.target.value);
-                          }}
-                          onKeyDown={handleKeyDown}
-                          disabled={disable}
-                        />
+                        {selectRow == i ? (
+                          //******************Edit true******************
+
+                          <Input
+                            // disabled={selectRow == i ? false : true}
+                            className="loggedhourInput"
+                            suffix={
+                              <AiOutlineEdit
+                                onClick={() => {
+                                  // setDisable(false);
+                                  setSelectRow(i);
+                                  setObjBL({
+                                    ...objBilledHour,
+                                    project_id: element.projectid,
+                                    // start_date: "2022-06-13",
+                                    projectName: element.project_name,
+                                    userId: element.userid,
+                                    logged_time: element.loggedhour,
+                                  });
+                                }}
+                                style={{ cursor: "pointer" }}
+                              />
+                            }
+                            value={billedHour}
+                            onChange={(e) => {
+                              // setObjBL({
+                              //   ...objBilledHour,
+                              //   billed_hour: e.target.value,
+                              // });
+                              setBilledHour(e.target.value);
+                            }}
+                            onBlur={handleBlur}
+                          />
+                        ) : (
+                          // **************** Edit False ********************
+                          <Input
+                            readOnly
+                            // disabled={selectRow == i ? false : true}
+                            className="loggedhourInput"
+                            suffix={
+                              <AiOutlineEdit
+                                onClick={() => {
+                                  // setDisable(false);
+                                  setSelectRow(i);
+                                  setObjBL({
+                                    ...objBilledHour,
+                                    project_id: element.projectid,
+                                    // start_date: "2022-06-13",
+                                    projectName: element.project_name,
+                                    userId: element.userid,
+                                    logged_time: element.loggedhour,
+                                  });
+                                }}
+                                style={{ cursor: "pointer" }}
+                              />
+                            }
+                            value="hekko"
+                            onChange={(e) => {
+                              setObjBL({
+                                ...objBilledHour,
+                                billed_hour: e.target.value,
+                              });
+                              setBilledHour(e.target.value);
+                            }}
+                            onBlur={handleBlur}
+                          />
+                        )}
                       </div>
                     </td>
                     <td
                       className="loggedHours_tdata loggedStatus"
-                      onMouseEnter={console0}
-                      onMouseLeave={console1}
+                      onMouseEnter={() => {
+                        setHovwr(i);
+                      }}
+                      onMouseLeave={() => {
+                        setHovwr(null);
+                      }}
                     >
-                      {hovwr == true ? (
+                      {hovwr == i ? (
                         <RiDeleteBinLine className="deleteBtn" />
                       ) : (
                         <div
