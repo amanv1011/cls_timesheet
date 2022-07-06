@@ -16,7 +16,8 @@
 }
 
 .navigation-btn.prev-disabled{
-    border: 2px solid gray;
+    /* border: 2px solid gray; */
+    border: none;
     
 }
 
@@ -36,8 +37,9 @@
     align-items: center;
     justify-content: center;
     text-align:center;
-    border: 2px solid #4169e1;
-    color: #4169e1;
+    /* border: 2px solid #003AD2; */
+    color: #003AD2;
+    border: none;
     height: 27px;
     width: 27px;
     border-radius: 50%;
@@ -52,14 +54,15 @@
     align-items: center;
     justify-content: center;
     text-align:center;
-    border: 2px solid #4169e1;
+    /* border: 2px solid #003AD2; */
+    border: none;
     color: white;
     height: 27px;
     width: 27px;
     border-radius: 50%;
     font: size 15px;
     font-weight:600;
-    background-color:#4169e1;
+    background-color:#003AD2;
     margin-right: 8px;
 }
 

@@ -52,7 +52,7 @@ const TablePagination = (props) => {
 
   return (
     <>
-      <div className="pagination-container">
+      <div style={props.localPaddingBottom !== undefined ? {paddingBottom: props.localPaddingBottom} : null} className="pagination-container">
         <div className="pagination-container-grid">
           <div className="pagination-prev-button">
             <button
@@ -74,7 +74,8 @@ const TablePagination = (props) => {
                 style={
                   item > pages
                     ? {
-                        border: "2px solid gray",
+                        // border: "2px solid gray",
+                        border: 'none',
                         color: "gray",
                         backgroundColor: "white",
                         pointerEvents: "auto",
