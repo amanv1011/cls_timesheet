@@ -34,7 +34,7 @@ const DateFilter = (props) => {
         onChange={handleChange}
         picker="month"
         suffixIcon={
-          <span className="styleDateIcons">
+          <span style={{display:"flex"}} className="styleDateIcons">
             <RiCalendar2Line
               style={{
                 right: "8.33%",

@@ -57,7 +57,7 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-user-profile-name-container">
                     <div>
-                        <img className="navbar-user-profile" src={getImage} alt="user-image" />
+                        <img className="navbar-user-profile" src={getImage} alt="user" />
                      
                     </div>
                  
