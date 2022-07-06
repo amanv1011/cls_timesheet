@@ -142,6 +142,7 @@ const TempTable = (props) => {
         dataLength={props.tableData.length}
         dataLimit={10}
         pageLimit={3}
+        localPaddingBottom={props.locPaddingBottom}
       />
     </>
   );
