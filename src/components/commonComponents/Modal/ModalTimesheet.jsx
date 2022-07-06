@@ -12,6 +12,17 @@ const ModalTimesheet = (props) => {
     const show = useSelector((state) => state.modalStates.modalState)
     const resourceData = useSelector((state) => state.detailedResource.TimesheetDetailedResourceData)
     const resourceName = useSelector((state) => state.detailedResource.resourceNameTimeLogged)
+    const timesheetStartDate = moment(useSelector((state) => state.dateFilter.filterDateStart)).format("D MMM");
+    const timesheetEndDate = moment(useSelector((state) => state.dateFilter.filterDateEnd)).format("D MMMM YYYY");
+    var totalTime = 0;
+    resourceData.forEach((ele) => {
+        totalTime = totalTime + ele.time_logged;
+    })
+    const totalHours = ~~(totalTime /60);
+    const totalMinutes = totalTime % 60
+    const timeString = `${totalHours} : ${totalMinutes}`
+
+    
     const dispatch = useDispatch()
     const handleClose = () => { dispatch(setModalInActive()) };
     return (
@@ -33,7 +44,7 @@ const ModalTimesheet = (props) => {
                     <Modal.Body  >
                         <div className="modal_body_container" style={{ overflow:"auto"}}>
                             <div className="modal_body_time">
-                                <span className="body_hour"> 1 Dec {" - "} 31 Dec 2021 {" - "} Worked Hours </span>
+                                <span className="body_hour"> {timesheetStartDate} {" - "} {timesheetEndDate} {" - "} Worked Hours </span>
                             </div>
                             <div className="modal_body_table" style={{  }} >
                                 <div className="body_table_col1">
@@ -69,7 +80,7 @@ const ModalTimesheet = (props) => {
                                 </div>
                                     <div className="footer_table_foot">
                                         <div className="body_table_body1"> <span className="table_row1"> Total hours </span></div>
-                                        <div className="footer_table_table2"><span className="table_row1">{``} </span></div>
+                                        <div className="footer_table_table2"><span className="table_row1">{timeString} </span></div>
                                         <div className="body_table_body3"><span className="table_row1"> {""}</span></div>
                                     </div>
 
