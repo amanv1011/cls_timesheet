@@ -22,7 +22,7 @@ const TempTable = (props) => {
     display: "grid",
     gridTemplateColumns: girdColumnsSize,
   };
-
+  
   const tableDataComponents = [
     "ProjectHealth",
     "HoursLogged",
@@ -32,17 +32,24 @@ const TempTable = (props) => {
   ];
 
   const currentPage = useSelector((state) => state.paginationStates.activePage);
-  const dataPerPage = useSelector(
-    (state) => state.paginationStates.dataPerPage
-  );
+  const dataPerPage = useSelector((state) => state.paginationStates.dataPerPage);
 
-  const indexOfLastData = currentPage * dataPerPage;
-  const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentData = props.tableData.slice(indexOfFirstData, indexOfLastData);
+  if(props.locCurrentPage !== undefined ){
+    const indexOfLastData = props.locCurrentPage * dataPerPage ;
+    const indexOfFirstData = indexOfLastData - dataPerPage - dataPerPage;
+    var currentData = props.tableData.slice(indexOfFirstData, indexOfLastData);
+
+  }else{
+    const indexOfLastData = currentPage * dataPerPage;
+    const indexOfFirstData = indexOfLastData - dataPerPage;
+    var currentData = props.tableData.slice(indexOfFirstData, indexOfLastData);
+  }
+
+
 
   return (
     <>
-      <div className="table-container-wrapper">
+      <div style={props.tableHeight === "full" ? {height:"100%"} : null} className="table-container-wrapper">
         <div
           style={
             props.tableMinWidth === undefined ? { minWidth: "735px" } : "auto"
@@ -143,6 +150,10 @@ const TempTable = (props) => {
         dataLimit={10}
         pageLimit={3}
         localPaddingBottom={props.locPaddingBottom}
+        localChangePage={props.locChangePage}
+        localGoToPrevPage={props.locgotoPrevPage}
+        localGoToNextPage={props.locgotoNextPage}
+        localCurrentPage={props.locCurrentPage}
       />
     </>
   );
