@@ -54,7 +54,7 @@ const TimesheetFilters = (props) => {
                         <button className="button-go" onClick={() => props.showTable()}> Go</button>
 
                     </div>
-                    {
+                    {/* {
                         window.location.pathname === '/timesheet' ? <>
                             <div className="switch-resource">
                                 <Switch
@@ -64,7 +64,7 @@ const TimesheetFilters = (props) => {
                                     {...label} defaultChecked color="warning" /><span className="switch-resources">Resources</span>
                             </div>
                         </> : null
-                    }
+                    } */}
                     <div >
                         <button className="export-to-excel"> Export to Excel</button>
                     </div>

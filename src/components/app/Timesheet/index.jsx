@@ -22,7 +22,8 @@ const Timesheet = (props) => {
   const [filterDataMini, setFilterDataMini] = useState(null);
   const [webtrackerId , setWebtrackerId] = useState(" ");
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData)
-  const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
+  const [timesheetFilterSwitch, setTimesheetFilterSwitch]  = useState(false);
+  // const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
 
   const timesheetStartDate = useSelector(
     (state) => state.dateFilter.filterDateStart
@@ -43,8 +44,8 @@ const Timesheet = (props) => {
 
   const setResourcesData = (event) => {
     setWebtrackerId(event.target.id)
-    dispatch(getTimesheetResourceData(event.target.id));
-
+    dispatch(getTimesheetResourceData(event.target.id,timesheetStartDate,timesheetEndDate));
+    setTimesheetFilterSwitch(true);
   }
 
 
@@ -85,7 +86,8 @@ const Timesheet = (props) => {
   const TimesheetModalCols = [
     {
       columnName: 'Projects',
-     
+      columnKeyValue: "WebTrackerId",
+      keyFunction: setResourcesData,
     },
 
     {
@@ -146,7 +148,7 @@ const Timesheet = (props) => {
           ProjectOwner: ele.project_owner,
         })
         filterData.push({
-          projectId: ele.project_id,
+          WebTrackerId: ele.webtracker_project_id,
           Projects: ele.project_name,
           ProjectOwner: ele.project_owner,
           ProjectCode: ele.project_code,

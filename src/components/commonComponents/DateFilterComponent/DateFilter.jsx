@@ -1,6 +1,6 @@
 import React from "react";
 import { DatePicker } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoIosArrowDown } from "react-icons/io";
 import { RiCalendar2Line } from "react-icons/ri";
 import { setFilterDate } from "../../../redux/actions/dateFilterActions";
@@ -9,7 +9,8 @@ import "./DateFilter.css";
 const monthFormat = "MMM YYYY";
 const DateFilter = (props) => {
   const dispatch = useDispatch();
-
+  const placeholderDate = useSelector((state) => state.dateFilter.filterDateStart)
+  
   const handleChange = (date, dateString) => {
     var dateDashboard = moment(date);
     var monthDashboard = parseInt(dateDashboard.month());
@@ -33,6 +34,7 @@ const DateFilter = (props) => {
         className="dashboard-datepicker"
         onChange={handleChange}
         picker="month"
+        defaultValue={moment(placeholderDate)}
         suffixIcon={
           <span style={{display:"flex"}} className="styleDateIcons">
             <RiCalendar2Line

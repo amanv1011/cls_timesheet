@@ -9,9 +9,9 @@ import {
 } from "../type";
 import axios from "axios";
 
-export const getTimesheetResourceData = (id) => {
+export const getTimesheetResourceData = (id,localStartDate, localEndDate) => {
     return async function getTimesheetResourceDataThunk(dispatch) {
-        const requestUrl = `${API_ENDPOINTS.timesheetResource}${id}`;
+        const requestUrl = `${API_ENDPOINTS.timesheetResource}${id}&start_date=${localStartDate}&end_date=${localEndDate}`;
         try{
             const response = await http.get(requestUrl);
             const filterData = [];
