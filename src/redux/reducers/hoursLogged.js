@@ -9,6 +9,8 @@ import {
   SET_RES_NAME_ERR,
   SET_BILL_HOUR,
   SET_BILL_HOUR_ERR,
+  SET_DEL_RES,
+  SET_DEL_RES_ERR,
 } from "../type";
 
 const initialState = {
@@ -22,6 +24,8 @@ const initialState = {
   newResourceErr: null,
   billHour: null,
   billHourErr: null,
+  delRes: null,
+  delResErr: null,
 };
 const hoursLoggedReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -91,6 +95,20 @@ const hoursLoggedReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         billHourErr: payload,
+      };
+    }
+
+    case SET_DEL_RES: {
+      return {
+        ...state,
+        delRes: payload,
+      };
+    }
+
+    case SET_DEL_RES_ERR: {
+      return {
+        ...state,
+        delResErr: payload,
       };
     }
 

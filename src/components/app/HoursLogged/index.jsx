@@ -36,11 +36,18 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
+  const [projectID, setProjectID] = useState("");
+
   const ProjectComponentHandler = (event) => {
+    hoursLoggedModuleData.results.forEach((element) => {
+      if (element.webtracker_project_id == event.target.id) {
+        setProjectID(element.project_id);
+      }
+    });
+
     dispatch(getResourcesHoursloggedData(event.target.id));
     setHoursloggedResources(true);
     setId(event.target.id);
-    console.log("idddddddddd", event.target.id);
   };
 
   const tableColArray = [
@@ -81,18 +88,17 @@ const HoursLogged = () => {
     dispatch(getHoursloggedData(moment(date).format("MM/YYYY")));
   }, []);
 
-  // console.log(date, "ssssssssssssssssssssss");
-
-  // sets Hours Logged Data
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
       console.log(hoursLoggedModuleData, "first table data");
-      hoursLoggedModuleData.forEach((ele) => {
+      console.log(hoursLoggedModuleData.project_id, "first table ID");
+
+      hoursLoggedModuleData.results.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
-          ProjectOwner: ele.owner_name,
+          ProjectOwner: ele.project_owner,
           ProjectCode: ele.project_code,
           AccountCode: ele.account_code,
           EngagementType: ele.engagement_type,
@@ -106,9 +112,6 @@ const HoursLogged = () => {
     setTableData(filterData);
   }, [hoursLoggedModuleData]);
 
-  // console.log("dateeeeeeeeeeeeeeeeee", moment(date).format("MMM YYYY"));
-  console.log(tableData, "ttttttttttttttttttttt");
-
   const backToDashboard = () => {
     history.push("/dashboard");
   };
@@ -118,6 +121,7 @@ const HoursLogged = () => {
       {hoursloggedResources ? (
         <ProjectComponent
           id={id}
+          projectID={projectID}
           hoursloggedResources={hoursloggedResources}
           onClick={setHoursloggedResources}
         />

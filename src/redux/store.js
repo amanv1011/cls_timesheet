@@ -7,13 +7,12 @@ import rootReducer from "./reducers";
 
 const middleware = [thunk];
 middleware.push(createLogger({ collapsed: true }));
-const enhancers =
-  compose();
-  // applyMiddleware(...middleware),
-  // typeof window !== "undefined" && window.devToolsExtension
-  //   ? window.devToolsExtension()
-  //   : (f) => f
-  // composeWithDevTools(applyMiddleware(...middleware))
+const enhancers = compose();
+// applyMiddleware(...middleware),
+// typeof window !== "undefined" && window.devToolsExtension
+//   ? window.devToolsExtension()
+//   : (f) => f
+// composeWithDevTools(applyMiddleware(...middleware))
 const store = createStore(
   rootReducer,
   {},

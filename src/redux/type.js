@@ -26,6 +26,9 @@ export const SET_RES_NAME_ERR = "SET_MODAL_RES_ERR";
 export const SET_BILL_HOUR = "SET_BILL_HOUR";
 export const SET_BILL_HOUR_ERR = "SET_BILL_HOUR_ERR";
 
+export const SET_DEL_RES = "SET_BILL_HOUR";
+export const SET_DEL_RES_ERR = "SET_BILL_HOUR_ERR";
+
 export const SET_TIMESHEET_DATA = "SET_TIMESHEET_DATA";
 export const SET_TIMESHEET_DATA_ERR = "SET_TIMESHEET_DATA_ERR";
 

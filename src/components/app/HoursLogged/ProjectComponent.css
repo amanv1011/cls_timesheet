@@ -371,4 +371,20 @@ Modal > .modal-content {
 .deleteBtn {
   color: red;
   font-size: 20px;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+/* modal */
+.modalSelect {
+  width: 250px;
+  height: 38px;
+  background-color: #f4f5f8;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #8a9bb6;
+  border: none;
+  outline: none;
 }
