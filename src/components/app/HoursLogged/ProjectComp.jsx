@@ -122,16 +122,29 @@ const ProjectComponent = (props) => {
   };
 
   const updateResourcesHandler = () => {
-    dispatch(updateResourceName(newResId, project_id));
-    setShow(false);
-
     dispatch(
+      updateResourceName(
+        newResId,
+        project_id
+        // props.id,
+        // props.projectID,
+        // moment(currDate).format("YYYY-MM-DD")
+      ),
+
       getResourcesHoursloggedData(
         props.id,
         props.projectID,
         moment(currDate).format("YYYY-MM-DD")
       )
     );
+    setShow(false);
+    // dispatch(
+    //   getResourcesHoursloggedData(
+    //     props.id,
+    //     props.projectID,
+    //     moment(currDate).format("YYYY-MM-DD")
+    //   )
+    // );
   };
 
   const handleBlur = (event) => {
