@@ -266,6 +266,7 @@ const Timesheet = (props) => {
                       locgotoNextPage={resGotoNextPage}
                       locgotoPrevPage={resgotoPrevPage}
                       locCurrentPage={resTableActivePage}
+                      tableHeight={"89%"}
                     />
                   )}
                 </div>

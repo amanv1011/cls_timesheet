@@ -49,7 +49,7 @@ const TempTable = (props) => {
 
   return (
     <>
-      <div style={props.tableHeight === "full" ? {height:"100%"} : null} className="table-container-wrapper">
+      <div style={props.tableHeight !== undefined ? {height:props.tableHeight} : null} className="table-container-wrapper">
         <div
           style={
             props.tableMinWidth === undefined ? { minWidth: "735px" } : "auto"
