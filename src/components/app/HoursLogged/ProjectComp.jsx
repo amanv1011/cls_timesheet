@@ -37,11 +37,11 @@ const ProjectComponent = (props) => {
   const [billedHour, setBilledHour] = useState();
   const [objBilledHour, setObjBL] = useState({
     project_id: "",
-    // start_date: "",
+    start_date: "",
     projectName: "",
-    userId: "",
+    user_id: "",
     logged_time: "",
-    billed_hour: "",
+    billed_hours: "",
   });
   // const [reduceValue, forceUpdate] = useReducer((x) => x + 1, 0);
   const [count, setCount] = useState(1);
@@ -125,18 +125,21 @@ const ProjectComponent = (props) => {
     dispatch(updateResourceName(newResId, project_id));
     setShow(false);
 
-    dispatch(
-      getResourcesHoursloggedData(
-        props.id,
-        props.projectID,
-        moment(currDate).format("YYYY-MM-DD")
-      )
-    );
+    // dispatch(
+    //   getResourcesHoursloggedData(
+    //     props.id,
+    //     props.projectID,
+    //     moment(currDate).format("YYYY-MM-DD")
+    //   )
+    // );
   };
 
   const handleBlur = (event) => {
     dispatch(updateBilledHour(objBilledHour));
   };
+
+  console.log(props, "gettting props");
+  console.log(objBilledHour, "gettting object");
 
   return (
     <>
@@ -306,10 +309,16 @@ const ProjectComponent = (props) => {
                                 }
                                 value={billedHour}
                                 onChange={(e) => {
-                                  // setObjBL({
-                                  //   ...objBilledHour,
-                                  //   billed_hour: e.target.value,
-                                  // });
+                                  setObjBL({
+                                    ...objBilledHour,
+                                    project_id: props.projectID,
+                                    start_date:
+                                      moment(currDate).format("YYYY-MM-DD"),
+                                    projectName: props.projectName,
+                                    user_id: element.user_id,
+                                    logged_time: element.logged_time,
+                                    billed_hours: e.target.value,
+                                  });
                                   setBilledHour(e.target.value);
                                 }}
                                 onBlur={handleBlur}
@@ -333,7 +342,13 @@ const ProjectComponent = (props) => {
                                 onChange={(e) => {
                                   setObjBL({
                                     ...objBilledHour,
-                                    billed_hour: e.target.value,
+                                    project_id: props.projectID,
+                                    start_date:
+                                      moment(currDate).format("YYYY-MM-DD"),
+                                    projectName: props.projectName,
+                                    user_id: element.user_id,
+                                    logged_time: element.logged_time,
+                                    billed_hours: e.target.value,
                                   });
                                   setBilledHour(e.target.value);
                                 }}

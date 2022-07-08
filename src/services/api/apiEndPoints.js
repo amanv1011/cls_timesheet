@@ -16,7 +16,7 @@ export const apiUrls = {
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
   modalResources: `${API_PREFIX}/hourslog/hourslog/getUsers`,
   newResources: `${API_PREFIX}/hourslog/hourslog/addUser?`,
-  billedHours: `${API_PREFIX}/hourslog/hourslog/billedData?`,
+  billedHours: `${API_PREFIX}/hourslog/hourslog/addInWeekly?`,
   deleteResources: `${API_PREFIX}/hourslog/hourslog/deleteResource?`,
   timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
   timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`,

@@ -78,10 +78,13 @@ export const updateResourceName = (user_id, pro_id) => {
 
 export const updateBilledHour = (obj) => {
   return async function updateBilledHourThunk(dispatch) {
-    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}&start_date=2022-06-13&projectName=${obj.projectName}&userId=${obj.userId}&logged_time=${obj.logged_time}&billed_hours=${obj.billed_hour}`;
+    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}
+                        &start_date=${obj.start_date}&projectName=${obj.projectName}
+                        &user_id=${obj.user_id}&logged_time=${obj.logged_time}
+                        &billed_hours=${obj.billed_hours}`;
     try {
       const response = await axios.put(requestUrl);
-      console.log(response.data, "billed hour");
+      console.log(response.data, "billed hour updated");
       dispatch({ type: SET_BILL_HOUR, payload: response.data.message });
     } catch (err) {
       dispatch({ type: SET_BILL_HOUR_ERR, payload: err });
