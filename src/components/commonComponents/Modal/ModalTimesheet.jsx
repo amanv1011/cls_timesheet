@@ -2,12 +2,27 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalInActive } from "../../../redux/actions/modalAction";
-import DummyDataTimesheetModal from './DummyDataModal';
+import moment from 'moment';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ModalTimesheet.css";
 
+
 const ModalTimesheet = (props) => {
+
     const show = useSelector((state) => state.modalStates.modalState)
+    const resourceData = useSelector((state) => state.detailedResource.TimesheetDetailedResourceData)
+    const resourceName = useSelector((state) => state.detailedResource.resourceNameTimeLogged)
+    const timesheetStartDate = moment(useSelector((state) => state.dateFilter.filterDateStart)).format("D MMM");
+    const timesheetEndDate = moment(useSelector((state) => state.dateFilter.filterDateEnd)).format("D MMMM YYYY");
+    var totalTime = 0;
+    resourceData.forEach((ele) => {
+        totalTime = totalTime + ele.time_logged;
+    })
+    const totalHours = ~~(totalTime /60);
+    const totalMinutes = totalTime % 60
+    const timeString = `${totalHours} : ${totalMinutes}`
+
+    
     const dispatch = useDispatch()
     const handleClose = () => { dispatch(setModalInActive()) };
     return (
@@ -24,12 +39,12 @@ const ModalTimesheet = (props) => {
             >
                 <div >
                     <Modal.Header className="heading_container1" closeButton>
-                        <Modal.Title ><span className="title_name">Rahul Mehra {"- "}</span>  <span className="small_title"> Monthly Timesheet Stats</span> </Modal.Title>
+                        <Modal.Title ><span className="title_name">{resourceName} {"- "}</span>  <span className="small_title"> Monthly Timesheet Stats</span> </Modal.Title>
                     </Modal.Header>
                     <Modal.Body  >
                         <div className="modal_body_container" style={{ overflow:"auto"}}>
                             <div className="modal_body_time">
-                                <span className="body_hour"> 1 Dec {" - "} 31 Dec 2021 {" - "} Worked Hours </span>
+                                <span className="body_hour"> {timesheetStartDate} {" - "} {timesheetEndDate} {" - "} Worked Hours </span>
                             </div>
                             <div className="modal_body_table" style={{  }} >
                                 <div className="body_table_col1">
@@ -43,26 +58,29 @@ const ModalTimesheet = (props) => {
                                 </div>
 
                                 <div className="body_table_detail"   >
-                                    {DummyDataTimesheetModal.map((ele, index) => {
+                                    {resourceData.map((ele, index) => {
+                                        const localdate = moment(ele.date).format("YYYY-MM-DD")
+                                        const resourceWorkeDate = moment(localdate).format("D MMM");
+                                        const resourceWorkeDay = moment(localdate).format("dddd");
+                                        const minutes = ele.time_logged % 60;
+                                        const hours = Math.floor(ele.time_logged / 60);
+                                
                                         return (
                                             <>
                                                 <div className="body_table_row_">
-                                                    <div className="body_table_body1"> <span className="table_row1"> <span className='table_date'>{ele.date}</span> <span className='table_day'>{ele.day} </span>  </span></div>
+                                                    <div className="body_table_body1"> <span className="table_row1"> <span className='table_date'>{resourceWorkeDate},</span> <span className='table_day'>{resourceWorkeDay} </span>  </span></div>
                                                     <div className={index % 2 === 0 ? 'body2_table_odd' : 'body2_table_even'} >
-
-                                                        <div className="body_table_body2"><span className="table_row3"> {ele.row3} </span></div>
-                                                        <div className="body_table_body3"><span className="table_row4"> {ele.row4}</span></div>
-
+                                                        <div className="body_table_body2"><span className="table_row3"> {`${hours}:${minutes}`} </span></div>
+                                                        <div className="body_table_body3"><span className="table_row4"> {ele.webtracker_task_name} </span></div>
                                                     </div>
                                                 </div>
-
                                             </>
                                         )
                                     })}
                                 </div>
                                     <div className="footer_table_foot">
                                         <div className="body_table_body1"> <span className="table_row1"> Total hours </span></div>
-                                        <div className="footer_table_table2"><span className="table_row1"> 40:32 </span></div>
+                                        <div className="footer_table_table2"><span className="table_row1">{timeString} </span></div>
                                         <div className="body_table_body3"><span className="table_row1"> {""}</span></div>
                                     </div>
 

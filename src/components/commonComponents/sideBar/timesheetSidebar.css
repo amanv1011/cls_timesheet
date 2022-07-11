@@ -12,6 +12,7 @@
 .timesheet-sidebar-list {
     list-style: none;
     padding-left: 0px;
+    padding-top: 8px;
 }
 
 .timesheet-sidebar-item {

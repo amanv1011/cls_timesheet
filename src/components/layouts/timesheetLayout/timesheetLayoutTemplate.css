@@ -4,13 +4,14 @@
     position: fixed;
     z-index: 1;
     box-sizing: border-box;
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 3px 0px;
 }
 
 .layout-body-container{
     width:100%;
     height:100%;
     display:flex;
-    padding-top: 65px;
+    padding-top: 58px;
 }
 
 .layout-sidebar-container{
@@ -18,6 +19,7 @@
     height:100%;
     position:sticky;
     top: 0;
+    box-shadow: rgb(0 0 0 / 15%) 0px 1px 3px 0px;
     
     
 }
