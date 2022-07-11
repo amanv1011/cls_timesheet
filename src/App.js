@@ -21,7 +21,7 @@ function App(state) {
         localStorage.clear();
         window.location.reload(true);
       }
-    }
+    } 
   }, [])
 
   return (
