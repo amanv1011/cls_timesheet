@@ -10,12 +10,12 @@ import WorkedProject from "../../../assets/dashboardIcons/workedProject";
 import Arrow from "../../../assets/dashboardIcons/Arrow";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
-
+import { useHistory } from "react-router-dom";
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
 
   const dashboardModuleData = useSelector(
@@ -29,15 +29,14 @@ const Dashboard = () => {
     (state) => state.dateFilter.filterDateEnd
   );
 
-  const tempFunEventHandler = (event) => {
-    console.log(event.target.id);
-  };
+  const hoursLogRouteButton = () =>{
+    history.push('/hours-logged')
+  }
 
   const tempTableColArray = [
     {
       columnName: "Projects",
       columnKeyValue: "ProjectId",
-      keyFunction: tempFunEventHandler,
     },
     {
       columnName: "Project Owner",
@@ -56,14 +55,6 @@ const Dashboard = () => {
     },
   ];
 
-  // const tableColArray = [
-  //   "Projects",
-  //   "Project Owner",
-  //   "Engagement Type",
-  //   "Project Health",
-  //   "Hours Logged",
-  //   "Members",
-  // ];
 
   useEffect(() => {
     dispatch(getDashboardData(dashboardStartDate, dashboardEndDate, "18"));
@@ -152,7 +143,7 @@ const Dashboard = () => {
             />
           ) : null}
 
-          <button className="dashboard-table-button">
+          <button onClick={hoursLogRouteButton} className="dashboard-table-button">
             <span style={{ marginRight: "6px", fontSize: "14px" }}>
               View Projects{" "}
             </span>
