@@ -37,11 +37,13 @@ const HoursLogged = () => {
   const [id, setId] = useState("");
 
   const [projectID, setProjectID] = useState("");
+  const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {
     hoursLoggedModuleData.results.forEach((element) => {
       if (element.webtracker_project_id == event.target.id) {
         setProjectID(element.project_id);
+        setProjectName(element.project_name);
       }
     });
 
@@ -122,6 +124,7 @@ const HoursLogged = () => {
         <ProjectComponent
           id={id}
           projectID={projectID}
+          projectName={projectName}
           hoursloggedResources={hoursloggedResources}
           onClick={setHoursloggedResources}
         />
