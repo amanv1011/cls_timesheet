@@ -36,7 +36,8 @@ export const getResourcesHoursloggedData = (
   console.log("iiiiiiiiiiiiiiiiiiiiii", webTrackerId, projectID, startDate);
 
   return async function getResourcesHoursloggedDataThunk(dispatch) {
-    const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}project_id=${projectID}&webtracker_project_id=${webTrackerId}&date=${startDate}`;
+    const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}project_id=${projectID}&webtracker_project_id=${webTrackerId}
+    &date=${startDate}`;
     try {
       const response = await axios.get(requestUrl);
       console.log(response.data, "dataaaaaaaaaaaaaaaaaaaaaa");
