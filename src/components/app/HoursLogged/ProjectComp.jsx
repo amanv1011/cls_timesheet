@@ -11,7 +11,7 @@ import "./ProjectComponent.css";
 import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { Input } from "antd";
+import { Checkbox, Input } from "antd";
 import { useRef } from "react";
 import {
   getHoursloggedData,
@@ -44,11 +44,13 @@ const ProjectComponent = (props) => {
     billed_hours: "",
   });
   // const [reduceValue, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
 
   const [reload, setReload] = useState(false);
 
   const [new_user_id, setNewUserId] = useState();
+
+  const [checkBox, setCheckBox] = useState(false);
 
   const project_id = props.id;
 
@@ -67,7 +69,6 @@ const ProjectComponent = (props) => {
   );
 
   useEffect(() => {
-    dispatch(getHoursloggedData(moment(currDate).format("MM/YYYY")));
     dispatch(
       getResourcesHoursloggedData(
         props.id,
@@ -75,6 +76,9 @@ const ProjectComponent = (props) => {
         moment(currDate).format("YYYY-MM-DD")
       )
     );
+
+    // }, []);
+    // ???????? after adding dependency the useEffect is reload in loop ???????
   }, []);
 
   //this is for head data
@@ -138,8 +142,8 @@ const ProjectComponent = (props) => {
     dispatch(updateBilledHour(objBilledHour));
   };
 
-  console.log(props, "gettting props");
-  console.log(objBilledHour, "gettting object");
+  // console.log(props, "gettting props");
+  // console.log(objBilledHour, "gettting object");
 
   return (
     <>
@@ -264,7 +268,7 @@ const ProjectComponent = (props) => {
               {rTableData.result
                 ? rTableData.result.map((element, i) => {
                     return (
-                      <tr className="projectCompTr">
+                      <tr className="projectCompTr" key={i}>
                         <td
                           className="loggedHours_tdata "
                           style={{ fontWeight: "600" }}
@@ -274,6 +278,10 @@ const ProjectComponent = (props) => {
                             name=""
                             id=""
                             style={{ margin: "0px 15px" }}
+                            onClick={() => {
+                              setCheckBox(!checkBox);
+                            }}
+                            checked={checkBox}
                           />
                           {element.member_name}{" "}
                           {element.status == 0 ? (
@@ -369,7 +377,14 @@ const ProjectComponent = (props) => {
                             dispatch(
                               deleteResource(element.user_id, project_id)
                             );
-                            dispatch(getResourcesHoursloggedData(props.id));
+                            dispatch(
+                              getResourcesHoursloggedData(
+                                props.id,
+                                props.projectID,
+                                moment(currDate).format("YYYY-MM-DD")
+                              )
+                            );
+                            props.onClick(true);
                           }}
                         >
                           {hovwr == i ? (
@@ -408,17 +423,25 @@ const ProjectComponent = (props) => {
                 }}
               >
                 <td colSpan={4}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "end",
-                      padding: "25px",
-                    }}
-                    className="lastBtn"
-                  >
-                    <button>Cancel</button>
-                    <button>Approve</button>
-                  </div>
+                  {checkBox ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "end",
+                        padding: "25px",
+                      }}
+                      className="lastBtn"
+                    >
+                      <button
+                        onClick={() => {
+                          setCheckBox(!checkBox);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      <button>Approve</button>
+                    </div>
+                  ) : null}
                 </td>
               </tr>
             </tfoot>
