@@ -36,8 +36,11 @@ export const getParticularResourceData = (_id, startDate, endDate, userId) => {
         const requestUrl = `${API_ENDPOINTS.timesheetDetailedResource}webtracker_project_id=${_id}&start_date=${startDate}&end_date=${endDate}&user_id=${userId}`
         try{
             const response = await axios.get(requestUrl);
-            console.log(response);
-            dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: response.data.projects});
+            if( response.data.projects === []){
+                dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: null});
+            }else{
+                dispatch({type:GET_TIMESHEET_DETAILED_RESOURCE_DATA, payload: response.data.projects});
+            } 
         }catch (err){
             dispatch({ type:GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR, payload: err });
 

@@ -193,3 +193,9 @@
   font-size: 14px;
   line-height: 17px;
 }
+.show-no-data-found{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #627A9D;
+}

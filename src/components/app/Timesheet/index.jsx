@@ -43,6 +43,18 @@ const Timesheet = (props) => {
     (state) => state.timesheetResource.timesheetResourceData
   );
 
+  useEffect(() => {
+    dispatch(
+      getTimesheetResourceData(
+        webtrackerId,
+        timesheetStartDate,
+        timesheetEndDate
+      )
+    );
+
+  }, [timesheetStartDate, timesheetEndDate])
+
+
   // pagination functions
 
   const resGotoNextPage = () => {
@@ -73,6 +85,8 @@ const Timesheet = (props) => {
     );
     setTimesheetFilterSwitch(true);
   };
+
+
 
   const setResourceDetailedData = (event) => {
     const userID = event.target.id;
@@ -155,7 +169,7 @@ const Timesheet = (props) => {
       });
     }
     setTimesheetResources(filterData);
-    return () => {};
+    return () => { };
   }, [timesheetResourceData]);
 
   useEffect(() => {
@@ -187,6 +201,7 @@ const Timesheet = (props) => {
 
   return (
     <>
+
       <div>
         <ModalTimesheet />
       </div>
