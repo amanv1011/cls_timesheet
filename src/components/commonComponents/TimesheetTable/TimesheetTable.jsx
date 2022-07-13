@@ -129,7 +129,7 @@ const TempTable = (props) => {
                                     : "table-body-data-clickable"
                                 }
                               >
-                                {ele[1]}
+                                {ele[1] === null || ele[1] === " " ? "NA" : ele[1]}
                               </div>
                             )}
                           </>
