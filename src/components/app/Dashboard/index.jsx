@@ -11,12 +11,14 @@ import Arrow from "../../../assets/dashboardIcons/Arrow";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import { useHistory } from "react-router-dom";
+import { setActivePage } from "../../../redux/actions/paginationActions"
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
+  const dashActivePage = useSelector((state) => state.paginationStates.activePage)
 
   const dashboardModuleData = useSelector(
     (state) => state.dashboard.dashboardData
@@ -79,6 +81,10 @@ const Dashboard = () => {
 
     setDashboardFilterData(filterData);
   }, [dashboardModuleData]);
+
+  useEffect(() => {
+    dispatch(setActivePage(1))
+  },[])
 
   return (
     <>
