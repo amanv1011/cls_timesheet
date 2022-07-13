@@ -46,7 +46,7 @@ const ModalTimesheet = (props) => {
                             <div className="modal_body_time">
                                 <span className="body_hour"> {timesheetStartDate} {" - "} {timesheetEndDate} {" - "} Worked Hours </span>
                             </div>
-                            {resourceData.length === 0 ? <h2 className='show-no-data-found'>No Data Found</h2> : <> <div className="modal_body_table" style={{}} >
+                            {resourceData.length === 0 ? <p className='show-no-data-found'>No Data Found</p> : <> <div className="modal_body_table" style={{}} >
                                 <div className="body_table_col1">
                                     <div className="body_table_head1" ><span> {" "} </span></div>
                                     <div style={{ display: "flex", width: " 75%", justifyContent: 'space-around', marginLeft: "16px" }}>
