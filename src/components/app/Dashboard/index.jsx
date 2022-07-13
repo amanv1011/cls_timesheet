@@ -18,7 +18,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
-  const dashActivePage = useSelector((state) => state.paginationStates.activePage)
+  
 
   const dashboardModuleData = useSelector(
     (state) => state.dashboard.dashboardData
@@ -64,7 +64,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     const filterData = [];
-
     if (dashboardModuleData !== null) {
       dashboardModuleData.forEach((ele) => {
         filterData.push({
