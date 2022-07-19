@@ -1,7 +1,9 @@
 import React from "react";
 import "./memberCircles.css"
 
-const MembersCircles = () => {
+const MembersCircles = (props) => {
+    console.log(props.members)
+
     return(
         <>
         <div className="member-circles-container">
