@@ -36,7 +36,7 @@ export const getResourcesHoursloggedData = (
   console.log("iiiiiiiiiiiiiiiiiiiiii", webTrackerId, projectID, startDate);
 
   return async function getResourcesHoursloggedDataThunk(dispatch) {
-    const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}project_id=${projectID}&webtracker_project_id=${webTrackerId}
+    const requestUrl = `${API_ENDPOINTS.resourceHoursLogged}project_id=25&webtracker_project_id=21620
     &date=${startDate}`;
     try {
       const response = await axios.get(requestUrl);
@@ -66,10 +66,11 @@ export const updateResourceName = (user_id, pro_id) => {
   return async function updateResourceNameThunk(dispatch) {
     console.log("@@@@@@@@@@@", user_id, pro_id);
 
-    const requestUrl = `${API_ENDPOINTS.newResources}user_id=${user_id}&webtracker_project_id=${pro_id}`;
+    const requestUrl = `${API_ENDPOINTS.newResources}user_id=${user_id}&webtracker_project_id=21620`;
     try {
       const response = await axios.put(requestUrl);
       console.log(response.data.message, "new user updated");
+
       dispatch({ type: SET_RES_NAME, payload: response.data.message });
     } catch (err) {
       dispatch({ type: SET_RES_NAME_ERR, payload: err });
@@ -79,7 +80,7 @@ export const updateResourceName = (user_id, pro_id) => {
 
 export const updateBilledHour = (obj) => {
   return async function updateBilledHourThunk(dispatch) {
-    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}
+    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=25
                         &start_date=${obj.start_date}&projectName=${obj.projectName}
                         &user_id=${obj.user_id}&logged_time=${obj.logged_time}
                         &billed_hours=${obj.billed_hours}`;
@@ -98,7 +99,7 @@ export const deleteResource = (userId, webtracker_project_id) => {
   return async function deleteResourceThunk(dispatch) {
     console.log("###########", userId, webtracker_project_id);
 
-    const requestUrl = `${API_ENDPOINTS.deleteResources}userId=${userId}&webtracker_project_id=${webtracker_project_id}`;
+    const requestUrl = `${API_ENDPOINTS.deleteResources}userId=${userId}&webtracker_project_id=21620`;
     try {
       const response = await axios.delete(requestUrl);
       console.log(response.data.message, "confirm");

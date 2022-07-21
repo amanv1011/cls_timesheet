@@ -50,6 +50,7 @@ const HoursLogged = () => {
     dispatch(getResourcesHoursloggedData(event.target.id));
     setHoursloggedResources(true);
     setId(event.target.id);
+    console.log(event.target);
   };
 
   const tableColArray = [
@@ -117,6 +118,8 @@ const HoursLogged = () => {
   const backToDashboard = () => {
     history.push("/dashboard");
   };
+
+  console.log(id, projectID);
 
   return (
     <>

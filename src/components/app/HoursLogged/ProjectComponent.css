@@ -283,6 +283,7 @@ Modal > .modal-content {
   padding: 10px 15px;
 }
 
+/* for status text */
 .centerPadding {
   text-align: center;
   width: 82px;
@@ -298,6 +299,17 @@ Modal > .modal-content {
 
   color: #1f4173;
   opacity: 0.7;
+}
+
+.green {
+  padding: 13px 4px;
+  background: #d4fbd4;
+  color: #16c31e;
+}
+.orange {
+  padding: 13px 4px;
+  background: #d4fbd4;
+  color: #ff9900;
 }
 
 .loggedhourInput {

@@ -30,7 +30,7 @@ const ProjectComponent = (props) => {
   const [newResId, setID] = useState();
   const [hovwr, setHovwr] = useState(null);
   const [selectRow, setSelectRow] = useState(null);
-  const [billedHour, setBilledHour] = useState();
+  const [billedHour, setBilledHour] = useState(0);
   const [objBilledHour, setObjBL] = useState({
     project_id: "",
     start_date: "",
@@ -40,7 +40,11 @@ const ProjectComponent = (props) => {
     billed_hours: "",
   });
 
+  const WeeklyHoursLogged = "";
+
   const [checkBox, setCheckBox] = useState(false);
+  const [selectedArray, setselectedArray] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   const project_id = props.id;
 
@@ -67,7 +71,7 @@ const ProjectComponent = (props) => {
         moment(currDate).format("YYYY-MM-DD")
       )
     );
-  }, []);
+  }, [currDate]);
 
   // for table data and runs after update
   useEffect(() => {
@@ -75,6 +79,7 @@ const ProjectComponent = (props) => {
       setRTData(resHoursLoggedTableData);
       console.log("updating");
     }
+    console.log(resHoursLoggedTableData, "111111111111");
   }, [resHoursLoggedTableData]);
 
   //this is for head data
@@ -113,14 +118,69 @@ const ProjectComponent = (props) => {
     setID(e.target.value);
   };
 
-  const updateResourcesHandler = () => {
-    dispatch(updateResourceName(newResId, project_id)); //calling PUT method to update from Modal
+  const updateResourcesHandler = async () => {
+    const obj = {
+      webID: props.id,
+      proID: props.projectID,
+      date: moment(currDate).format("YYYY-MM-DD"),
+    };
+
+    await dispatch(updateResourceName(newResId, project_id, obj)); //calling PUT method to update from Modal
+    dispatch(
+      getResourcesHoursloggedData(
+        props.id,
+        props.projectID,
+        moment(currDate).format("YYYY-MM-DD")
+      )
+    );
     setShow(false);
+    console.log(rTableData.result);
+    console.log(props);
   };
 
   const handleBlur = (event) => {
     dispatch(updateBilledHour(objBilledHour)); //calling PUT method to update billed hour
   };
+
+  const deleteHandler = async (element) => {
+    await dispatch(deleteResource(element.user_id, project_id));
+    dispatch(
+      getResourcesHoursloggedData(
+        props.id,
+        props.projectID,
+        moment(currDate).format("YYYY-MM-DD")
+      )
+    );
+    props.onClick(true);
+  };
+
+  //for checkbox
+
+  const handleAllCheck = (e) => {
+    setIsChecked(!isChecked);
+    if (e.target.checked) {
+      let arr = [];
+      rTableData.result.forEach((element) => {
+        arr.push(element.user_id);
+      });
+      setselectedArray(arr);
+    } else {
+      setselectedArray([]);
+    }
+  };
+
+  const handleOnCheckboxChange = (event) => {
+    if (event.target.checked) {
+      setselectedArray([...selectedArray, event.target.value]);
+    } else {
+      const filtered = selectedArray.filter(
+        (item) => item !== event.target.value
+      );
+      setselectedArray(filtered);
+    }
+  };
+
+  console.log(moment(currDate).format("YYYY-MM-DD"));
 
   return (
     <>
@@ -218,19 +278,26 @@ const ProjectComponent = (props) => {
                 </div>
               </th>
             </tr>
-
             <tr>
               <th className="loggedHours_tdata">
                 {" "}
                 <input
                   type="checkbox"
-                  name="allSelect"
+                  name="allCheck"
                   style={{ margin: "0px 15px" }}
-                />{" "}
+                  checked={
+                    rTableData.result &&
+                    selectedArray.length !== rTableData.result.length
+                      ? false
+                      : true
+                  }
+                  onChange={handleAllCheck}
+                  className="campaign-checkbox"
+                />
                 Resource
               </th>
               <th className="loggedHours_tdata">Hours logged</th>
-              <th className="loggedHours_tdata">Build hours</th>
+              <th className="loggedHours_tdata">Biled hours</th>
               <th className="loggedHours_tdata" style={{ textAlign: "center" }}>
                 Status
               </th>
@@ -247,16 +314,18 @@ const ProjectComponent = (props) => {
                         >
                           <input
                             type="checkbox"
-                            style={{ margin: "0px 15px" }}
-                            onClick={() => {
-                              setCheckBox(!checkBox);
-                            }}
-                            // onChange={checkBoxHandler}
-                            checked={checkBox}
-                            id={i}
                             name={element.member_name}
-                            // checked={element?.isChecked || false}
-                            // onChange={handleChange}
+                            value={element.user_id}
+                            checked={
+                              selectedArray &&
+                              selectedArray.filter(
+                                (it) => it === element.user_id
+                              ).length > 0
+                                ? true
+                                : false
+                            }
+                            onChange={handleOnCheckboxChange}
+                            style={{ margin: "0px 15px" }}
                           />
                           {element.member_name}{" "}
                           {element.status == 0 ? (
@@ -267,7 +336,9 @@ const ProjectComponent = (props) => {
                         </td>
                         <td className="loggedHours_tdata">
                           <div className="centerPadding">
-                            {element.logged_time ? element.logged_time : "NA"}
+                            {element.logged_time
+                              ? `${Math.floor(element.logged_time / 60)}h`
+                              : "0h"}
                           </div>
                         </td>
                         <td
@@ -277,7 +348,6 @@ const ProjectComponent = (props) => {
                           <div>
                             {selectRow == i ? (
                               //******************Edit true******************
-
                               <Input
                                 // disabled={selectRow == i ? false : true}
                                 className="loggedhourInput"
@@ -291,6 +361,7 @@ const ProjectComponent = (props) => {
                                   />
                                 }
                                 value={billedHour}
+                                // value={billedHour !== 0 ? `${billedHour}hr` : 0}
                                 onChange={(e) => {
                                   setObjBL({
                                     ...objBilledHour,
@@ -310,7 +381,7 @@ const ProjectComponent = (props) => {
                               // **************** Edit False ********************
                               <Input
                                 readOnly
-                                // disabled={selectRow == i ? false : true}
+                                // disabled={true}
                                 className="loggedhourInput"
                                 suffix={
                                   <AiOutlineEdit
@@ -321,7 +392,12 @@ const ProjectComponent = (props) => {
                                     style={{ cursor: "pointer" }}
                                   />
                                 }
-                                value={element.billed_hours}
+                                // value={element.billed_hours}
+                                value={
+                                  element.billed_hours !== null
+                                    ? `${element.billed_hours}hr`
+                                    : 0
+                                }
                                 onChange={(e) => {
                                   setObjBL({
                                     ...objBilledHour,
@@ -348,30 +424,21 @@ const ProjectComponent = (props) => {
                           onMouseLeave={() => {
                             setHovwr(null);
                           }}
-                          onClick={() => {
-                            dispatch(
-                              deleteResource(element.user_id, project_id)
-                            );
-                            dispatch(
-                              getResourcesHoursloggedData(
-                                props.id,
-                                props.projectID,
-                                moment(currDate).format("YYYY-MM-DD")
-                              )
-                            );
-                            props.onClick(true);
-                          }}
+                          onClick={() => deleteHandler(element)}
                         >
                           {hovwr == i ? (
                             <RiDeleteBinLine className="deleteBtn" />
                           ) : (
                             <div
-                              style={{
-                                padding: "13px 4px",
-                                background: "#d4fbd4",
-                                color: "green",
-                              }}
-                              className="centerPadding"
+                              // style={{
+                              //   padding: "13px 4px",
+                              //   background: "#d4fbd4",
+                              //   color: "green",
+                              // }}
+                              // className="centerPadding"
+                              className={`centerPadding  ${
+                                element.status == 1 ? "green" : "orange"
+                              }`}
                             >
                               {/* <span
                           className={`approved ${
@@ -398,7 +465,7 @@ const ProjectComponent = (props) => {
                 }}
               >
                 <td colSpan={4}>
-                  {checkBox ? (
+                  {selectedArray.length > 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -409,7 +476,7 @@ const ProjectComponent = (props) => {
                     >
                       <button
                         onClick={() => {
-                          setCheckBox(!checkBox);
+                          setselectedArray([]);
                         }}
                       >
                         Cancel
