@@ -49,6 +49,7 @@ const TimesheetFilters = (props) => {
             />
           </div>
 
+<<<<<<< HEAD
           <div className="project-status-tab">
             <input className="project-status" placeholder="Status" />
           </div>
@@ -82,3 +83,40 @@ const TimesheetFilters = (props) => {
   );
 };
 export default TimesheetFilters;
+=======
+
+                <div className="timesheet-tabs">
+                    <div className="project-name-tab">
+                        <input className="project-name" placeholder="Project Name" />
+
+                    </div>
+
+                    <div className="project-owner-tab">
+                        <input className="project-owner" placeholder="Project Owner" />
+
+                    </div>
+
+                    <div className="project-engagement-tab">
+                        <input className="project-engagement" placeholder="Engagement Type" />
+
+                    </div>
+
+                    <div className="project-status-tab">
+                        <input className="project-status" placeholder="Status" />
+
+                    </div>
+                    <div className="buttonGo">
+                        <button className="button-go" onClick={() => props.showTable()}> Go</button>
+
+                    </div>
+                    
+                    <div >
+                        <button className="export-to-excel"> Export to Excel</button>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+export default TimesheetFilters
+>>>>>>> 77aaa114517a68f48b00ab5729f791ad8c1ef924

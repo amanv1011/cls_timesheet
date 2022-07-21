@@ -1,8 +1,17 @@
 import {SET_DATA_DATE_FILTER} from '../type'
+import moment from 'moment'
+
+const localDate = moment()
+
+var monthDashboard = localDate.month() + 1;
+var yearDashboard = localDate.year();
+const lastDateMonth = moment(new Date(yearDashboard, monthDashboard , 0)).format("DD");
+const startDate = `${yearDashboard}-${monthDashboard}-01`;
+const endDate = `${yearDashboard}-${monthDashboard}-${lastDateMonth}`;
 
 const initialState = {
-    filterDateStart:"2022-05-01",
-    filterDateEnd: "2022-05-31"
+    filterDateStart:startDate,
+    filterDateEnd: endDate
 }
 
 const dateFilterReducer = (state = initialState , {type, payload}) =>{
