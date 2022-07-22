@@ -73,7 +73,7 @@ const Dashboard = () => {
           EngagementType: ele.engagement_type,
           ProjectHealth: ele.health_status_description,
           HoursLogged: ele.weekly_logged_time,
-          Members: 1,
+          Members: ele.members,
         });
       });
     }
