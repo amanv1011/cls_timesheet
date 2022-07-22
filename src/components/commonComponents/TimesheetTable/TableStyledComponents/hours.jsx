@@ -4,7 +4,7 @@ import "./memberCircles.css";
 const Hours = (props) => {
   return (
     <>
-      <div className="table-body-row-data-box">{props.hours}</div>
+      <div className="table-body-row-data-box">{props.hours === null ? 0 : props.hours}</div>
     </>
   );
 };
