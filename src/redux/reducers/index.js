@@ -15,6 +15,7 @@ import dateFilterReducer from "./dateFilterReducer"
 import showSwitch from "./resourceSwitchReducer";
 import timesheetResourceReducer from "./timesheetResourceReducer";
 import timesheetDetailedResource from "./timesheetDetailedResource";
+import timesheetFilterReducer from "./timesheetFilterReducer";
 
 export default combineReducers({
   spin: SpinnerReducer,
@@ -32,6 +33,7 @@ export default combineReducers({
   dashboard: dashboardReducer,
   detailedResource: timesheetDetailedResource,
   dateFilter: dateFilterReducer,
+  timesheetFilter:timesheetFilterReducer,
   // time_sheet: timesheet,
   // landing:LandingReducer
 });

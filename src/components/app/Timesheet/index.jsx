@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import timesheetLayoutTemplate from "../../layouts/timesheetLayout/timesheetLayoutTemplate";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import BackArrow from "../../../assets/images/icons/BackArrow";
+import nodataFound from "../../../assets/images/disabled_icon/nodataFound.png"
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 import "./TimesheetModule.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
@@ -9,6 +10,7 @@ import ModalTimesheet from "../../commonComponents/Modal/ModalTimesheet";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalActive } from "../../../redux/actions/modalAction";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+import { getTimesheetFilterData } from "../../../redux/actions/timesheetFilterAction";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import {
@@ -17,6 +19,7 @@ import {
   setResourceName,
 } from "../../../redux/actions/timesheetResourceAction";
 import "./TimesheetModule.css";
+import { style } from "@mui/system";
 
 const Timesheet = (props) => {
   const history = useHistory();
@@ -48,7 +51,8 @@ const Timesheet = (props) => {
       getTimesheetResourceData(
         webtrackerId,
         timesheetStartDate,
-        timesheetEndDate
+        timesheetEndDate,
+        
       )
     );
 
@@ -70,10 +74,6 @@ const Timesheet = (props) => {
     setResTableActivePage(pageNumber);
   };
 
-  const backToDashboard = () => {
-    history.push("/dashboard");
-  };
-
   const setResourcesData = (event) => {
     setWebtrackerId(event.target.id);
     dispatch(
@@ -85,8 +85,6 @@ const Timesheet = (props) => {
     );
     setTimesheetFilterSwitch(true);
   };
-
-
 
   const setResourceDetailedData = (event) => {
     const userID = event.target.id;
@@ -158,6 +156,7 @@ const Timesheet = (props) => {
     dispatch(getTimesheetData(todaysDate));
   }, []);
 
+
   useEffect(() => {
     const filterData = [];
     if (timesheetResourceData.length >= 1) {
@@ -165,9 +164,12 @@ const Timesheet = (props) => {
         filterData.push({
           ResourceName: ele.name,
           TimeLog: parseInt(ele.time_logged) / 60,
-        });
+        });    
       });
     }
+  
+    
+      
     setTimesheetResources(filterData);
     return () => { };
   }, [timesheetResourceData]);
@@ -205,18 +207,8 @@ const Timesheet = (props) => {
       <div>
         <ModalTimesheet />
       </div>
-
+     
       <div className="timesheet-container">
-        <div className="timesheet-back-button">
-          <p onClick={backToDashboard} className="back-to-dashboard">
-            {" "}
-            <span className="back-arrow">
-              {" "}
-              <BackArrow />{" "}
-            </span>{" "}
-            Back to Dashboard
-          </p>
-        </div>
         <div className="timesheet-container-heading">
           <div className="timesheet-heading-title">
             <h3> Timesheet </h3>
@@ -226,10 +218,23 @@ const Timesheet = (props) => {
           </div>
         </div>
         <TimesheetFilters />
-        <div></div>
+        <div>{""}</div>
+        {/* <div className="timesheet-back-button"> */}
+        
+        <div className="timesheet-back-button">
+          <p  className="back-to-dashboard">
+            {" "}
+            <span className="back-arrow">
+              {" "}
+              <BackArrow />{" "}
+            </span>{" "}
+            Back to Table
+          </p>
+        </div>
 
         <div
-          className="table-container"
+        
+          className= {window.location.pathname === "/timesheet" ? "table-container-custom" : "table-container"}  
           style={
             timesheetFilterSwitch === true
               ? { background: "#F5F7FB" }
