@@ -98,7 +98,7 @@ const TimesheetFilters = (props) => {
 
                     </div>
                     <div className="buttonGo">
-                        <Tooltip placement="top" title={"Clear Filter"}>
+                        <Tooltip placement="top" title={"Clear all Filter"}>
                             <Button className="button-clear" type="primary" onClick={clearFilter} shape="circle"><RiFilterOffFill /></Button>
                         </Tooltip>
 
