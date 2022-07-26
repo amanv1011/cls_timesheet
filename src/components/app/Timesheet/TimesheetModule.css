@@ -163,3 +163,13 @@ height: 30px;
   width: 100%;
 
 }
+
+.table-project-name{
+ 
+color: #1f4173;
+
+font-weight: 600;
+font-size: 15px;
+padding-left: 20px;
+padding-top: 13px;
+}
