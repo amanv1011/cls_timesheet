@@ -17,6 +17,8 @@ export const apiUrls = {
   hourslogged: `${API_PREFIX}/hourslog/hourslog?monthYear=`,
   resourceHoursLogged: `${API_PREFIX}/hourslog/hourslog/data?`,
   timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
-  timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`
+  timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`,
+  timesheetFilterReducer:`${API_PREFIX}/projects/timesheet/filter?`
 };
 
+//http://localhost:3501/api/projects/timeSheet/filter?monthYear=05-2022&project_owner_id=18&projectName=bloon&engagement_type=Dedicated

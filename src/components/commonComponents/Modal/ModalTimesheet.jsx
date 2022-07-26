@@ -20,7 +20,7 @@ const ModalTimesheet = (props) => {
     })
     const totalHours = ~~(totalTime / 60);
     const totalMinutes = totalTime % 60
-    const timeString = `${totalHours} : ${totalMinutes}`
+    // const timeString = `${totalHours} : ${totalMinutes}`
 
 
     const dispatch = useDispatch()
@@ -48,7 +48,7 @@ const ModalTimesheet = (props) => {
                             </div>
                             {resourceData.length === 0 ? <p className='show-no-data-found'>No Data Found</p> : <> <div className="modal_body_table" style={{}} >
                                 <div className="body_table_col1">
-                                    <div className="body_table_head1" ><span> {" "} </span></div>
+                                    <div className="body_table_head1" ><span className="table_heading_date"> Date </span></div>
                                     <div style={{ display: "flex", width: " 75%", justifyContent: 'space-around', marginLeft: "16px" }}>
 
                                         <div className="body_table_head2"> <span className='table_hours_loged'> Hours </span> </div>
@@ -80,7 +80,8 @@ const ModalTimesheet = (props) => {
                                 </div>
                                 <div className="footer_table_foot">
                                     <div className="body_table_body1"> <span className="table_row1"> Total hours </span></div>
-                                    <div className="footer_table_table2"><span className="table_row1">{timeString} </span></div>
+                                    {/* <div className="footer_table_table2"><span className="table_row1">{timeString} </span></div> */}
+                                    <div className="footer_table_table2"><span className="table_row1">{totalHours} Hrs{" : "}{totalMinutes} Min </span></div>
                                     <div className="body_table_body3"><span className="table_row1"> {""}</span></div>
                                 </div>
 
