@@ -18,6 +18,7 @@ import {
   getParticularResourceData,
   setResourceName,
 } from "../../../redux/actions/timesheetResourceAction";
+import { setActivePage } from "../../../redux/actions/paginationActions"
 import "./TimesheetModule.css";
 import { style } from "@mui/system";
 
@@ -155,6 +156,9 @@ const Timesheet = (props) => {
   useEffect(() => {
     dispatch(getTimesheetData(todaysDate));
   }, []);
+  useEffect(() => {
+    dispatch(setActivePage(1))
+  },[])
 
 
   useEffect(() => {

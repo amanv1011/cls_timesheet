@@ -11,12 +11,14 @@ import Arrow from "../../../assets/dashboardIcons/Arrow";
 import "./style.css";
 import DateFilter from "../../commonComponents/DateFilterComponent/DateFilter";
 import { useHistory } from "react-router-dom";
+import { setActivePage } from "../../../redux/actions/paginationActions"
 import TimesheetTable from "../../commonComponents/TimesheetTable/TimesheetTable";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [dashboardFilterData, setDashboardFilterData] = useState(null);
+  
 
   const dashboardModuleData = useSelector(
     (state) => state.dashboard.dashboardData
@@ -62,7 +64,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     const filterData = [];
-
     if (dashboardModuleData !== null) {
       dashboardModuleData.forEach((ele) => {
         filterData.push({
@@ -72,13 +73,17 @@ const Dashboard = () => {
           EngagementType: ele.engagement_type,
           ProjectHealth: ele.health_status_description,
           HoursLogged: ele.weekly_logged_time,
-          Members: 1,
+          Members: ele.members,
         });
       });
     }
 
     setDashboardFilterData(filterData);
   }, [dashboardModuleData]);
+
+  useEffect(() => {
+    dispatch(setActivePage(1))
+  },[])
 
   return (
     <>
