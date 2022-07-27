@@ -44,6 +44,10 @@
   color: #1f4173;
 }
 
+.headBox label:nth-child(5) {
+  width: 100%;
+}
+
 .headBox label > span {
   font-weight: 500;
 }
