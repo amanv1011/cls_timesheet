@@ -34,7 +34,7 @@ const withHeader = (WrappedComponent) => {
         <Wrapper>
           <Layout>
             <div style={{ height: "60px", width: "100%" }}>
-              <Navbar />
+              <Navbar  />
             </div>
             <Layout>
               <Layout>

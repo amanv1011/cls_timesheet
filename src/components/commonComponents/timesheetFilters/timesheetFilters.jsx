@@ -5,7 +5,7 @@ import { Button, Tooltip } from 'antd';
 import moment from 'moment';
 import { setSwitchActive, setSwitchDeactive } from '../../../redux/actions/timesheetFilterSwitch';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTimesheetFilterData } from '../../../redux/actions/timesheetFilterAction';
 import { getTimesheetData } from '../../../redux/actions/timesheetActions';
 import './timesheetFilter.css';
@@ -20,6 +20,14 @@ const TimesheetFilters = (props) => {
     const [filterProjectOwner, setFilterProjectOwner] = useState("");
     const [filterEngagementType, setFilterEngagementType] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
+
+
+    const timesheetStartDate = useSelector(
+        (state) => state.dateFilter.filterDateStart
+
+    );
+
+    const filterDate = moment(timesheetStartDate).format("MM-YYYY");
 
     const changeProjectName = (event) => {
         event.preventDefault()
@@ -42,7 +50,7 @@ const TimesheetFilters = (props) => {
     }
 
     const filterApiCall = () => {
-        dispatch(getTimesheetFilterData(filterProjectName, filterProjectOwner, filterEngagementType, filterStatus));
+        dispatch(getTimesheetFilterData(filterProjectName, filterProjectOwner, filterEngagementType, filterStatus, filterDate));
     }
 
     const clearFilter = () => {
@@ -50,7 +58,7 @@ const TimesheetFilters = (props) => {
         setFilterProjectOwner("")
         setFilterEngagementType("")
         setFilterStatus("")
-        dispatch(getTimesheetData(todaysDate));
+        dispatch(getTimesheetData(filterDate));
 
     }
 
@@ -102,19 +110,10 @@ const TimesheetFilters = (props) => {
                             <Button className="button-clear" type="primary" onClick={clearFilter} shape="circle"><RiFilterOffFill /></Button>
                         </Tooltip>
 
-
-
                     </div>
-
-
-
-                   
-                        <button  style={{ float: "right", marginTop: "5px" }} className="export-to-excel"> Export to Excel</button>
-                    
+                    <button style={{ float: "right", marginTop: "1px" }} className="export-to-excel"> Export to Excel</button>
 
                 </div>
-
-
 
             </div>
 

@@ -10,10 +10,10 @@ import {
 import axios from "axios";
 
 
-export const getTimesheetFilterData = ( projectName, projectOwner, engagementType, status ) => {
-   
+export const getTimesheetFilterData = ( projectName, projectOwner, engagementType, status, filterDate ) => {
+
     return async function getTimesheetFilterDataThunk(dispatch) {
-        const requestUrl = `${API_ENDPOINTS.timesheetFilterReducer}monthYear=05-2022&project_owner_id=18&${projectName !== "" ? `projectName=${projectName}` : ""}&${projectOwner !== "" ? `projectOwnerName=${projectOwner}` : ""}&${engagementType !== "" ? `engagement_type=${engagementType}` : ""}`
+        const requestUrl = `${API_ENDPOINTS.timesheetFilterReducer}monthYear=${filterDate}&project_owner_id=18&${projectName !== "" ? `projectName=${projectName}` : ""}&${projectOwner !== "" ? `projectOwnerName=${projectOwner}` : ""}&${engagementType !== "" ? `engagement_type=${engagementType}` : ""}`
         
         try {
             const response = await axios.get(requestUrl);
