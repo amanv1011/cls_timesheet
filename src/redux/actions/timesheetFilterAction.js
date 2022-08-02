@@ -2,7 +2,8 @@ import http from "../../hoc/axiosClient"
 import { API_ENDPOINTS } from "../../appConfig";
 import {
     SET_TIMESHEET_DATA,
-    SET_TIMESHEET_DATA_ERR
+    SET_TIMESHEET_DATA_ERR,
+    DISPLAY_TIMESHEET_FILTER_DATA
 
 
 } from "../type";
@@ -28,8 +29,14 @@ export const getTimesheetFilterData = (projectName, projectOwner, engagementType
 
         } catch (error) {
             dispatch({ type: SET_TIMESHEET_DATA_ERR, payload: error });
-            dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA})
+            dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA })
         }
 
     }
 }
+
+export const cardsDisplayAction = (cards) => {
+    return async (dispatch) => {
+        await dispatch({ type: DISPLAY_TIMESHEET_FILTER_DATA, payload: cards });
+    };
+};

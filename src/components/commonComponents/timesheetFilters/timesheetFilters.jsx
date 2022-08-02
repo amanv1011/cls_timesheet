@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTimesheetFilterData } from '../../../redux/actions/timesheetFilterAction';
 import { getTimesheetData } from '../../../redux/actions/timesheetActions';
+import { cardsDisplayAction } from '../../../redux/actions/timesheetFilterAction';
+import { message } from 'antd';
+import * as XLSX from "xlsx";
 import './timesheetFilter.css';
 
 
@@ -20,8 +23,22 @@ const TimesheetFilters = (props) => {
     const [filterProjectOwner, setFilterProjectOwner] = useState("");
     const [filterEngagementType, setFilterEngagementType] = useState("");
     const [filterStatus, setFilterStatus] = useState("");
+    const cardsDisplayAction = useSelector((state) => state.timesheet.timesheetData);
 
+    const downloadLeads = (timeshhetDataList, excelFileName) => {
+        let workBook = XLSX.utils.book_new();
+        let workSheet = XLSX.utils.json_to_sheet(timeshhetDataList);
+        XLSX.utils.book_append_sheet(workBook, workSheet, "Sheet 1");
+        XLSX.writeFile(workBook, `${excelFileName}.xlsx`);
+    };
 
+    const exportDataToExcel = () => {
+        if (window.location.pathname === "/timesheet") {
+            downloadLeads(cardsDisplayAction, "Timesheet Resource")
+            (message.success('Download Successful'))
+        } 
+        
+    }
     const timesheetStartDate = useSelector(
         (state) => state.dateFilter.filterDateStart
 
@@ -111,7 +128,9 @@ const TimesheetFilters = (props) => {
                         </Tooltip>
 
                     </div>
-                    <button style={{ float: "right", marginTop: "1px" }} className="export-to-excel"> Export to Excel</button>
+                    <Tooltip placement="top" title={"Download Resource"}>
+                        <button style={{ float: "right", marginTop: "1px" }} className="export-to-excel" type="primary" onClick={exportDataToExcel} shape="circle"> Export to Excel</button>
+                    </Tooltip>
 
                 </div>
 
@@ -120,4 +139,4 @@ const TimesheetFilters = (props) => {
         </>
     )
 }
-export default TimesheetFilters
+export default TimesheetFilters;
