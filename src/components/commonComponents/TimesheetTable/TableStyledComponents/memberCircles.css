@@ -6,15 +6,16 @@
 }
 
 .circle {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     grid-row: 1;
     grid-column: 1;
     border: 2px solid #FFFFFF;
+    cursor: context-menu;
     color: #FFFFFF;
     text-align: center;
-    padding-top: 3.5px;
+    padding-top: 4.5px;
 }
 
 .circle-one {
@@ -24,25 +25,25 @@
 
 .circle-two {
     background: #41E06F;
-    margin-left: 18px;
+    margin-left: 20px;
 
 }
 
 .circle-three {
     background: #FF6C5F;
-    margin-left: 36px;
+    margin-left: 38px;
 
 }
 
 .circle-four {
     background: #3BDEC1;
-    margin-left: 54px;
+    margin-left: 56px;
 
 }
 
 .circle-five {
     background: #293042;
-    margin-left: 72px;
+    margin-left: 74px;
 
 }
 

@@ -11,6 +11,7 @@ const TablePagination = (props) => {
   const dataLength = props.dataLength;
   const dataLimit = props.dataLimit;
   const pageLimit = props.pageLimit;
+  
 
   
 
@@ -36,13 +37,19 @@ const TablePagination = (props) => {
   }
 
   const getPaginationGroup = () => {
-    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    let superCurrentPage = 0;
+    if(props.localCurrentPage !== undefined){
+      superCurrentPage = props.localCurrentPage
+    } else{superCurrentPage = currentPage} 
+    let start = Math.floor((superCurrentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   };
 
   useEffect(() => {
     setCurrentPage(activePage);
   }, [activePage]);
+  
+
   useEffect(() => {
     dispatch(setDataPerPage(dataLimit))
   }, [dataLimit])
@@ -52,35 +59,41 @@ const TablePagination = (props) => {
 
   return (
     <>
-      <div className="pagination-container">
+    {console.log(props)}
+    {console.log(pages)}
+    {console.log(dataLength)}
+      <div style={props.localPaddingBottom !== undefined ? {paddingBottom: props.localPaddingBottom} : null} className="pagination-container">
         <div className="pagination-container-grid">
           <div className="pagination-prev-button">
             <button
               className="navigation-btn"
-              onClick={goToPreviousPage}
-              disabled={currentPage === 1 ? true : false}
+              onClick={props.localGoToPrevPage !== undefined ? props.localGoToPrevPage : goToPreviousPage}
+              disabled={props.localCurrentPage !== undefined? props.localCurrentPage === 1 ? true : false :currentPage === 1 ? true : false}
             >
               <LeftArrow
-                btnColor={currentPage === 1 ? "gray" : "currentColor"}
+                btnColor={props.localCurrentPage !== undefined ? props.localCurrentPage === 1 ? "gray" : "#003AD2":currentPage === 1 ? "gray" : "#003AD2"}
               />
             </button>
           </div>
           <div className="pagination-content">
+            
             {getPaginationGroup().map((item, index) => (
               <button
                 key={index}
-                onClick={changePage}
+                onClick={props.localChangePage !== undefined ?props.localChangePage:changePage}
                 style={
                   item > pages
                     ? {
-                        border: "2px solid gray",
+                        
+                        border: 'none',
                         color: "gray",
+                        backgroundColor: "white",
                         pointerEvents: "auto",
                         cursor: "not-allowed",
                       }
                     : {}
                 }
-                className={currentPage === item ? "pagination-btn-active" :"pagination-btn"}
+                className={props.localCurrentPage !==undefined ?props.localCurrentPage === item ? "pagination-btn-active" :"pagination-btn":currentPage === item ? "pagination-btn-active" :"pagination-btn"}
                 disabled={item > pages ? true : false}
               >
                 {item}
@@ -90,11 +103,11 @@ const TablePagination = (props) => {
           <div className="pagination-next-button">
             <button
               className="navigation-btn next-btn"
-              onClick={goToNextPage}
-              disabled={currentPage === pages ? true : false}
+              onClick={props.localGoToNextPage !== undefined ? props.localGoToNextPage : goToNextPage}
+              disabled={props.localCurrentPage !== undefined ? props.localCurrentPage  >= pages ? true : false : currentPage === pages ? true : false}
             >
               <RightArrow
-                btnColor={currentPage === pages ? "gray" : "currentColor"}
+                btnColor={props.currentPage !== undefined?props.currentPage === pages|| pages < 1 ? "gray" : "#003AD2":currentPage === pages|| pages < 1 ? "gray" : "#003AD2"}
               />
             </button>
           </div>

@@ -13,7 +13,7 @@
     display: flex;
     justify-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 70%;
     padding-top: 5px;
     padding-left: 3px;
     
@@ -51,6 +51,8 @@
         border: none;
         box-shadow: none;
     }
+
+    
 
     .switch-resources {
         margin-right: 10px;
@@ -134,7 +136,7 @@
     box-sizing: border-box;
     width: 60px;
     height: 40px;
-    background-color: #003AD2;
+    background-color: #1F4173;
     border-radius: 10px;
     color: #FFFFFF;
     font-size: 14px;
@@ -144,6 +146,20 @@
 
 }
 
+.button-clear{
+    box-sizing: border-box;
+    width: 41px;
+    height: 40px;
+    /* background-color: #003AD2; */
+    border-radius: 21px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+   
+
+}
 .switch-resources {
     font-size: 14px;
     font-weight: 600;

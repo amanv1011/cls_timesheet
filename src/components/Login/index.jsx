@@ -10,7 +10,9 @@ import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
 import { LoginStorageUserDetails } from "../../assets/text";
-import {setCookie} from "../../actions/user"
+import { setCookie } from "../../actions/user";
+import UAParser from "ua-parser-js";
+
 const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -44,26 +46,27 @@ const Error = styled.div`
   font-size: 14px;
   margin-top: 10px;
 `;
+let parser;
 class Login extends Component {
   componentDidMount() {
     const imagesToBePreloaded = [logo, mockImage];
     imagesToBePreloaded.forEach((image) => {
       new Image().src = image;
     });
+
+    parser = new UAParser();
   }
 
   responseGoogleSuccess = (response) => {
-    // console.log("1response", response);
     const data = {
       email: response.profileObj.email,
       idToken: response.tokenId,
+      navigator: parser.getBrowser().name,
     };
 
-    // console.log(data, "lllllllllllllllllllls");
     http
       .post(`/api/auth/google`, data)
       .then((res) => {
-        // console.log("2response from", res.data);
         const UserDetails = {
           email: res.data.email,
           name: res.data.name,
@@ -72,7 +75,7 @@ class Login extends Component {
           id: res.data.id,
         };
         // setting cookie token
-        setCookie("token",UserDetails.token)
+        setCookie("token", UserDetails.token);
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
