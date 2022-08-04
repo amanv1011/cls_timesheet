@@ -227,9 +227,6 @@ const ProjectComponent = (props) => {
             Project Owner: <span>{newObj.project_owner}</span>
           </label>
           <label>
-            Project Code: <span>{newObj.project_code}</span>
-          </label>
-          <label>
             Account Code: <span>{newObj.account_code}</span>
           </label>
           <label>
@@ -237,6 +234,9 @@ const ProjectComponent = (props) => {
           </label>
           <label>
             Hours Logged: <span>{newObj.hours_logged}</span>
+          </label>
+          <label>
+            Project Code: <span>{newObj.project_code}</span>
           </label>
         </div>
         <div>
