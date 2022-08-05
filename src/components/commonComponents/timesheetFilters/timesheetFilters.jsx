@@ -15,7 +15,6 @@ import { cardsDisplayAction } from "../../../redux/actions/timesheetFilterAction
 import { message } from "antd";
 import * as XLSX from "xlsx";
 import "./timesheetFilter.css";
-
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const TimesheetFilters = (props) => {
   const dispatch = useDispatch();
@@ -28,14 +27,12 @@ const TimesheetFilters = (props) => {
   const cardsDisplayAction = useSelector(
     (state) => state.timesheet.timesheetData
   );
-
   const downloadLeads = (timeshhetDataList, excelFileName) => {
     let workBook = XLSX.utils.book_new();
     let workSheet = XLSX.utils.json_to_sheet(timeshhetDataList);
     XLSX.utils.book_append_sheet(workBook, workSheet, "Sheet 1");
     XLSX.writeFile(workBook, `${excelFileName}.xlsx`);
   };
-
   const exportDataToExcel = () => {
     if (window.location.pathname === "/timesheet" || "/hours-logged") {
       downloadLeads(
@@ -47,29 +44,23 @@ const TimesheetFilters = (props) => {
   const timesheetStartDate = useSelector(
     (state) => state.dateFilter.filterDateStart
   );
-
   const filterDate = moment(timesheetStartDate).format("MM-YYYY");
-
   const changeProjectName = (event) => {
     event.preventDefault();
     setFilterProjectName(event.target.value);
   };
-
   const changeProjectOwner = (event) => {
     event.preventDefault();
     setFilterProjectOwner(event.target.value);
   };
-
   const changeEngagementType = (event) => {
     event.preventDefault();
     setFilterEngagementType(event.target.value);
   };
-
   const changeStatus = (event) => {
     event.preventDefault();
     setFilterStatus(event.target.value);
   };
-
   const filterApiCall = () => {
     dispatch(
       getTimesheetFilterData(
@@ -81,7 +72,6 @@ const TimesheetFilters = (props) => {
       )
     );
   };
-
   const clearFilter = () => {
     setFilterProjectName("");
     setFilterProjectOwner("");
@@ -89,20 +79,17 @@ const TimesheetFilters = (props) => {
     setFilterStatus("");
     dispatch(getTimesheetData(filterDate));
   };
-
   const handleChange = (event) => {
     checked === true
       ? dispatch(setSwitchActive(event.target.checked))
       : dispatch(setSwitchDeactive(event.target.checked));
     setChecked(event.target.checked);
   };
-
   useEffect(() => {
     checked === true
       ? dispatch(setSwitchActive(checked))
       : dispatch(setSwitchDeactive(checked));
   }, []);
-
   return (
     <>
       <div className="filterBy">
@@ -118,7 +105,6 @@ const TimesheetFilters = (props) => {
               onChange={changeProjectName}
             />
           </div>
-
           <div className="project-owner-tab">
             <input
               value={filterProjectOwner}
@@ -127,7 +113,6 @@ const TimesheetFilters = (props) => {
               onChange={changeProjectOwner}
             />
           </div>
-
           <div className="project-engagement-tab">
             <input
               value={filterEngagementType}
@@ -136,7 +121,6 @@ const TimesheetFilters = (props) => {
               onChange={changeEngagementType}
             />
           </div>
-
           <div className="project-status-tab">
             <input
               value={filterStatus}
@@ -165,7 +149,13 @@ const TimesheetFilters = (props) => {
           </div>
           <Tooltip placement="top" title={"Download Resource"}>
             <button
+              // disabled={cardsDisplayAction === null ? true : false}
               style={{ float: "right", marginTop: "1px" }}
+              // className={
+              //   cardsDisplayAction === null
+              //     ? "disable-export-to-excel"
+              //     : "export-to-excel"
+              // }
               className="export-to-excel"
               type="primary"
               onClick={exportDataToExcel}

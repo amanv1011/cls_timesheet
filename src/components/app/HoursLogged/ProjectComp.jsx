@@ -9,7 +9,9 @@ import moment from "moment";
 import "./ProjectComponent.css";
 import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
-import Input from "antd/lib/input";
+import { GiCancel } from "react-icons/gi";
+import { Input } from "antd";
+import { AiFillCheckCircle } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import {
   getResourcesHoursloggedData,
@@ -45,6 +47,8 @@ const ProjectComponent = (props) => {
   const [checkBox, setCheckBox] = useState(false);
   const [selectedArray, setselectedArray] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
+
+  const [checkindex, setCheckindex] = useState(null);
 
   const project_id = props.id;
 
@@ -141,7 +145,8 @@ const ProjectComponent = (props) => {
   };
 
   const handleBlur = (event) => {
-    dispatch(updateBilledHour(objBilledHour)); //calling PUT method to update billed hour
+    dispatch(updateBilledHour(objBilledHour));
+    setSelectRow(null);
   };
 
   const deleteHandler = async (element) => {
@@ -328,6 +333,11 @@ const ProjectComponent = (props) => {
                             }
                             onChange={handleOnCheckboxChange}
                             style={{ margin: "0px 15px" }}
+                            onClick={() => {
+                              setCheckBox(!checkBox);
+                              setCheckBox(i);
+                            }}
+                            checked={checkindex == i ? checkBox : false}
                           />
                           {element.member_name}{" "}
                           {element.status == 0 ? (
@@ -345,22 +355,28 @@ const ProjectComponent = (props) => {
                         </td>
                         <td
                           className="loggedHours_tdata"
-                          style={{ width: "397px" }}
+                          // style={{ width: "397px" }}
                         >
                           <div>
                             {selectRow == i ? (
-                              //******************Edit true******************
+                              //******************Edit false******************
+
                               <Input
                                 // disabled={selectRow == i ? false : true}
                                 className="loggedhourInput"
+                                autoFocus
                                 suffix={
-                                  <AiOutlineEdit
-                                    onClick={() => {
-                                      // setDisable(false);
-                                      setSelectRow(i);
-                                    }}
-                                    style={{ cursor: "pointer" }}
-                                  />
+                                  // <AiOutlineEdit
+                                  //   onClick={() => {
+                                  //     // setDisable(false);
+                                  //     setSelectRow(i);
+                                  //   }}
+                                  //   style={{ cursor: "pointer" }}
+                                  // />
+                                  <div>
+                                    <AiFillCheckCircle color="green" />
+                                    <GiCancel />
+                                  </div>
                                 }
                                 value={billedHour}
                                 // value={billedHour !== 0 ? `${billedHour}hr` : 0}
@@ -380,7 +396,7 @@ const ProjectComponent = (props) => {
                                 onBlur={handleBlur}
                               />
                             ) : (
-                              // **************** Edit False ********************
+                              // **************** Edit true ********************
                               <Input
                                 readOnly
                                 // disabled={true}

@@ -36,7 +36,7 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
-  const [projectID, setProjectID] = useState("");
+  const [projectID, setProjectID] = useState("hiiProjectID");
   const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {

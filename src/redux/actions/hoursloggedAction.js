@@ -81,7 +81,7 @@ export const updateResourceName = (user_id, pro_id) => {
 
 export const updateBilledHour = (obj) => {
   return async function updateBilledHourThunk(dispatch) {
-    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=25&start_date=${obj.start_date}&projectName=${obj.projectName}&user_id=${obj.user_id}&logged_time=${obj.logged_time}&billed_hours=${obj.billed_hours}`;
+    const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}&start_date=${obj.start_date}&projectName=${obj.projectName}&user_id=${obj.user_id}&logged_time=${obj.logged_time}&billed_hours=${obj.billed_hours}`;
     try {
       const response = await axios.put(requestUrl);
       console.log(response.data, "billed hour updated");
@@ -97,7 +97,7 @@ export const deleteResource = (userId, webtracker_project_id) => {
   return async function deleteResourceThunk(dispatch) {
     console.log("###########", userId, webtracker_project_id);
 
-    const requestUrl = `${API_ENDPOINTS.deleteResources}userId=${userId}&webtracker_project_id=90121`;
+    const requestUrl = `${API_ENDPOINTS.deleteResources}userId=${userId}&webtracker_project_id=${webtracker_project_id}`;
     try {
       const response = await axios.delete(requestUrl);
       console.log(response.data.message, "confirm");
