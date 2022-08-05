@@ -26,6 +26,7 @@ const Timesheet = (props) => {
   const history = useHistory();
   const todaysDate = moment().format("MM/YYYY");
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
+  const [projectNameHeading, setProjectNameHeading] = useState(null);
   const [timesheetResources, setTimesheetResources] = useState();
   const [filterDataMini, setFilterDataMini] = useState(null);
   const [webtrackerId, setWebtrackerId] = useState(" ");
@@ -76,6 +77,7 @@ const Timesheet = (props) => {
   };
 
   const setResourcesData = (event) => {
+    setProjectNameHeading(event.target.innerText);
     setWebtrackerId(event.target.id);
     dispatch(
       getTimesheetResourceData(
@@ -281,7 +283,7 @@ const Timesheet = (props) => {
                     backgroundColor: "#FFFFFF",
                   }}
                 >
-                  <div className="table-project-name"></div>
+                  <div className="table-project-name">{projectNameHeading}</div>
                   {timesheetResourceData && (
                     <TimesheetTable
                       tableCols={TimesheetSwitchCols2}
@@ -290,7 +292,7 @@ const Timesheet = (props) => {
                       locgotoNextPage={resGotoNextPage}
                       locgotoPrevPage={resgotoPrevPage}
                       locCurrentPage={resTableActivePage}
-                      tableHeight={"89%"}
+                      tableHeight={"80%"}
                     />
                   )}
                 </div>
