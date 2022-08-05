@@ -1,4 +1,5 @@
-import { Spin, Alert } from "antd";
+
+import { LoadingOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -47,21 +48,16 @@ const Load = styled.div`
   }
 `;
 
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function Loader(state) {
   console.log("loader", state);
   return (
-    <>
-      <Wrapper>
-        <Container>
-
-          <Spin size="large" style={{ color: "black", fontSize: "20px", fontWeight: "600" }} >
-          </Spin>
-          
-        </Container>
-      </Wrapper>
-
-    </>
+    <Wrapper>
+      <Container>
+        <Load>{/* <Spin size="large"/> */}</Load>
+      </Container>
+    </Wrapper>
   );
 }
 

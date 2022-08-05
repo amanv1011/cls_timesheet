@@ -14,20 +14,20 @@ function App(state) {
   useEffect(() => {
     const parser = new UAParser();
 
-    // if (localStorage.getItem(LoginStorageUserDetails)) {
-    //   const decodedToken = jwt_decode(
-    //     JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
-    //   );
-    //   console.log(
-    //     decodedToken.navigator !== parser.getBrowser().name,
-    //     "main app"
-    //   );
-    //   if (decodedToken.navigator !== parser.getBrowser().name) {
-    //     removeCookie("token");
-    //     localStorage.clear();
-    //     window.location.reload(true);
-    //   }
-    // }
+    if (localStorage.getItem(LoginStorageUserDetails)) {
+      const decodedToken = jwt_decode(
+        JSON.parse(localStorage.getItem(LoginStorageUserDetails)).token
+      );
+      console.log(
+        decodedToken.navigator !== parser.getBrowser().name,
+        "main app"
+      );
+      if (decodedToken.navigator !== parser.getBrowser().name) {
+        removeCookie("token");
+        localStorage.clear();
+        window.location.reload(true);
+      }
+    }
   }, []);
 
   return (

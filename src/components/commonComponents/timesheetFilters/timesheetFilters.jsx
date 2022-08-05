@@ -8,9 +8,12 @@ import {
   setSwitchDeactive,
 } from "../../../redux/actions/timesheetFilterSwitch";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTimesheetFilterData } from "../../../redux/actions/timesheetFilterAction";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+import { cardsDisplayAction } from "../../../redux/actions/timesheetFilterAction";
+import { message } from "antd";
+import * as XLSX from "xlsx";
 import "./timesheetFilter.css";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -22,6 +25,30 @@ const TimesheetFilters = (props) => {
   const [filterProjectOwner, setFilterProjectOwner] = useState("");
   const [filterEngagementType, setFilterEngagementType] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const cardsDisplayAction = useSelector(
+    (state) => state.timesheet.timesheetData
+  );
+
+  const downloadLeads = (timeshhetDataList, excelFileName) => {
+    let workBook = XLSX.utils.book_new();
+    let workSheet = XLSX.utils.json_to_sheet(timeshhetDataList);
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Sheet 1");
+    XLSX.writeFile(workBook, `${excelFileName}.xlsx`);
+  };
+
+  const exportDataToExcel = () => {
+    if (window.location.pathname === "/timesheet" || "/hours-logged") {
+      downloadLeads(
+        cardsDisplayAction,
+        "Timesheet Resource"
+      )(message.success("Download Successful"));
+    }
+  };
+  const timesheetStartDate = useSelector(
+    (state) => state.dateFilter.filterDateStart
+  );
+
+  const filterDate = moment(timesheetStartDate).format("MM-YYYY");
 
   const changeProjectName = (event) => {
     event.preventDefault();
@@ -49,7 +76,8 @@ const TimesheetFilters = (props) => {
         filterProjectName,
         filterProjectOwner,
         filterEngagementType,
-        filterStatus
+        filterStatus,
+        filterDate
       )
     );
   };
@@ -59,7 +87,7 @@ const TimesheetFilters = (props) => {
     setFilterProjectOwner("");
     setFilterEngagementType("");
     setFilterStatus("");
-    dispatch(getTimesheetData(todaysDate));
+    dispatch(getTimesheetData(filterDate));
   };
 
   const handleChange = (event) => {
@@ -81,79 +109,72 @@ const TimesheetFilters = (props) => {
         <p className="filter-by">Filter By</p>
       </div>
       <div className="horizontal-slidder">
-        <div className="timesheet-tabs">
-          {/* <div className="project-name-tab">
-            <input className="project-name" placeholder="Project Name" />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="project-name-tab">
+            <input
+              value={filterProjectName}
+              className="project-name"
+              placeholder="Project Name"
+              onChange={changeProjectName}
+            />
           </div>
 
           <div className="project-owner-tab">
-            <input className="project-owner" placeholder="Project Owner" />
-          </div> */}
-        </div>
-        <div className="horizontal-slidder">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div className="project-name-tab">
-              <input
-                value={filterProjectName}
-                className="project-name"
-                placeholder="Project Name"
-                onChange={changeProjectName}
-              />
-            </div>
+            <input
+              value={filterProjectOwner}
+              className="project-owner"
+              placeholder="Project Owner"
+              onChange={changeProjectOwner}
+            />
+          </div>
 
-            <div className="project-owner-tab">
-              <input
-                value={filterProjectOwner}
-                className="project-owner"
-                placeholder="Project Owner"
-                onChange={changeProjectOwner}
-              />
-            </div>
+          <div className="project-engagement-tab">
+            <input
+              value={filterEngagementType}
+              className="project-engagement"
+              placeholder="Engagement Type"
+              onChange={changeEngagementType}
+            />
+          </div>
 
-            <div className="project-engagement-tab">
-              <input
-                value={filterEngagementType}
-                className="project-engagement"
-                placeholder="Engagement Type"
-                onChange={changeEngagementType}
-              />
-            </div>
-
-            <div className="project-status-tab">
-              <input
-                value={filterStatus}
-                className="project-status"
-                placeholder="Status"
-                onChange={changeStatus}
-              />
-            </div>
-            <div className="buttonGo">
-              <button className="button-go" onClick={filterApiCall}>
-                {" "}
-                Go
-              </button>
-            </div>
-            <div className="buttonGo">
-              <Tooltip placement="top" title={"Clear all Filter"}>
-                <Button
-                  className="button-clear"
-                  type="primary"
-                  onClick={clearFilter}
-                  shape="circle"
-                >
-                  <RiFilterOffFill />
-                </Button>
-              </Tooltip>
-            </div>
-
+          <div className="project-status-tab">
+            <input
+              value={filterStatus}
+              className="project-status"
+              placeholder="Status"
+              onChange={changeStatus}
+            />
+          </div>
+          <div className="buttonGo">
+            <button className="button-go" onClick={filterApiCall}>
+              {" "}
+              Go
+            </button>
+          </div>
+          <div className="buttonGo">
+            <Tooltip placement="top" title={"Clear all Filter"}>
+              <Button
+                className="button-clear"
+                type="primary"
+                onClick={clearFilter}
+                shape="circle"
+              >
+                <RiFilterOffFill />
+              </Button>
+            </Tooltip>
+          </div>
+          <Tooltip placement="top" title={"Download Resource"}>
             <button
-              style={{ float: "right", marginTop: "5px" }}
+              style={{ float: "right", marginTop: "1px" }}
               className="export-to-excel"
+              type="primary"
+              onClick={exportDataToExcel}
+              shape="circle"
             >
               {" "}
               Export to Excel
             </button>
-          </div>
+          </Tooltip>
         </div>
       </div>
     </>

@@ -47,7 +47,13 @@ const HoursLogged = () => {
       }
     });
 
-    dispatch(getResourcesHoursloggedData(event.target.id));
+    dispatch(
+      getResourcesHoursloggedData(
+        event.target.id,
+        projectID,
+        moment(date).format("YYYY-MM-DD")
+      )
+    );
     setHoursloggedResources(true);
     setId(event.target.id);
     console.log(event.target);

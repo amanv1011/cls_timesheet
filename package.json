@@ -40,7 +40,8 @@
     "sass": "^1.49.0",
     "styled-components": "^5.3.3",
     "ua-parser-js": "^1.0.2",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

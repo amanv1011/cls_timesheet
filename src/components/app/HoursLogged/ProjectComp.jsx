@@ -79,7 +79,7 @@ const ProjectComponent = (props) => {
       setRTData(resHoursLoggedTableData);
       console.log("updating");
     }
-    console.log(resHoursLoggedTableData, "111111111111");
+    // console.log(resHoursLoggedTableData, "111111111111");
   }, [resHoursLoggedTableData]);
 
   //this is for head data
@@ -117,6 +117,8 @@ const ProjectComponent = (props) => {
   const ResourcesHandler = (e) => {
     setID(e.target.value);
   };
+
+  // console.log(moment(currDate).format("YYYY-MM-DD"), "ddddddddddddd");
 
   const updateResourcesHandler = async () => {
     const obj = {
