@@ -24,20 +24,37 @@ const TimesheetFilters = (props) => {
   const [filterProjectOwner, setFilterProjectOwner] = useState("");
   const [filterEngagementType, setFilterEngagementType] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+
+  // for timesheet
   const cardsDisplayAction = useSelector(
     (state) => state.timesheet.timesheetData
   );
+
+  // for hourslogged
+  const cardsDisplayActionHoursLog = useSelector(
+    (state) => state.hoursLogged.hoursloggedData
+  );
+
   const downloadLeads = (timeshhetDataList, excelFileName) => {
     let workBook = XLSX.utils.book_new();
     let workSheet = XLSX.utils.json_to_sheet(timeshhetDataList);
     XLSX.utils.book_append_sheet(workBook, workSheet, "Sheet 1");
     XLSX.writeFile(workBook, `${excelFileName}.xlsx`);
   };
+
   const exportDataToExcel = () => {
-    if (window.location.pathname === "/timesheet" || "/hours-logged") {
+    if (window.location.pathname === "/timesheet") {
       downloadLeads(
         cardsDisplayAction,
         "Timesheet Resource"
+      )(message.success("Download Successful"));
+    } else if (
+      window.location.pathname === "/hours-logged" &&
+      cardsDisplayActionHoursLog.results
+    ) {
+      downloadLeads(
+        cardsDisplayActionHoursLog.results,
+        "HoursLogged Resource"
       )(message.success("Download Successful"));
     }
   };
@@ -149,13 +166,7 @@ const TimesheetFilters = (props) => {
           </div>
           <Tooltip placement="top" title={"Download Resource"}>
             <button
-              // disabled={cardsDisplayAction === null ? true : false}
               style={{ float: "right", marginTop: "1px" }}
-              // className={
-              //   cardsDisplayAction === null
-              //     ? "disable-export-to-excel"
-              //     : "export-to-excel"
-              // }
               className="export-to-excel"
               type="primary"
               onClick={exportDataToExcel}
