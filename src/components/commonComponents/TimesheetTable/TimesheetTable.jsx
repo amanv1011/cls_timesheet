@@ -33,6 +33,7 @@ const TempTable = (props) => {
 
   const currentPage = useSelector((state) => state.paginationStates.activePage);
   const dataPerPage = useSelector((state) => state.paginationStates.dataPerPage);
+  const isData = useSelector((state) => state.timesheetTableData.isTableData);
 
   if(props.locCurrentPage !== undefined ){
     const indexOfLastData = props.locCurrentPage * dataPerPage ;
@@ -76,6 +77,7 @@ const TempTable = (props) => {
           </div>
           <TableHorizontalLine />
 
+          {isData === false ? (<div className="table-body-no-data">No Data Found</div>) :
           <div className="timesheet-table-body">
             {currentData.map((element) => {
               return (
@@ -142,6 +144,7 @@ const TempTable = (props) => {
               );
             })}
           </div>
+          }
         </div>
       </div>
 

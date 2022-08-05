@@ -11,7 +11,7 @@
   display: flex;
   justify-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 70%;
   padding-top: 5px;
   padding-left: 3px;
 }
@@ -48,9 +48,23 @@
     box-shadow: none;
   }
 
+  .button-go {
+    margin-right: 10px;
+    margin-top: 5px;
+    border: none;
+    box-shadow: none;
+  }
+
   .switch-resources {
     margin-right: 10px;
     margin-top: 5px;
+  }
+
+  .export-to-excel {
+    margin-right: 10px;
+    margin-top: 5px;
+    border: none;
+    box-shadow: none;
   }
 
   .export-to-excel {
@@ -124,7 +138,7 @@
   box-sizing: border-box;
   width: 60px;
   height: 40px;
-  background-color: #003ad2;
+  background-color: #1f4173;
   border-radius: 10px;
   color: #ffffff;
   font-size: 14px;
@@ -133,6 +147,18 @@
   box-shadow: none;
 }
 
+.button-clear {
+  box-sizing: border-box;
+  width: 41px;
+  height: 40px;
+  /* background-color: #003AD2; */
+  border-radius: 21px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  box-shadow: none;
+}
 .switch-resources {
   font-size: 14px;
   font-weight: 600;
