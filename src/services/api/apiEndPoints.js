@@ -22,5 +22,3 @@ export const apiUrls = {
   timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`,
   timesheetFilterReducer: `${API_PREFIX}/projects/timesheet/filter?`,
 };
-
-//http://localhost:3501/api/projects/timeSheet/filter?monthYear=05-2022&project_owner_id=18&projectName=bloon&engagement_type=Dedicated

@@ -26,17 +26,23 @@ const Timesheet = (props) => {
   const history = useHistory();
   const todaysDate = moment().format("MM/YYYY");
   const [timesheetFilterData, setTimesheetFilterData] = useState(null);
+  const [projectNameHeading, setProjectNameHeading] = useState(null);
   const [timesheetResources, setTimesheetResources] = useState();
   const [filterDataMini, setFilterDataMini] = useState(null);
   const [webtrackerId, setWebtrackerId] = useState(" ");
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData);
   const [timesheetFilterSwitch, setTimesheetFilterSwitch] = useState(false);
   const [resTableActivePage, setResTableActivePage] = useState(1);
-  // const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
+
+
 
   const timesheetStartDate = useSelector(
     (state) => state.dateFilter.filterDateStart
+    
   );
+
+const filterDate = moment(timesheetStartDate).format("MM-YYYY");
+
   const timesheetEndDate = useSelector(
     (state) => state.dateFilter.filterDateEnd
   );
@@ -76,6 +82,7 @@ const Timesheet = (props) => {
   };
 
   const setResourcesData = (event) => {
+    setProjectNameHeading(event.target.innerText);
     setWebtrackerId(event.target.id);
     dispatch(
       getTimesheetResourceData(
@@ -154,7 +161,7 @@ const Timesheet = (props) => {
     },
   ];
   useEffect(() => {
-    dispatch(getTimesheetData(todaysDate));
+    dispatch(getTimesheetData(filterDate));
   }, []);
   useEffect(() => {
     dispatch(setActivePage(1))
@@ -223,9 +230,10 @@ const Timesheet = (props) => {
         </div>
         <TimesheetFilters />
         <div>{""}</div>
-        {/* <div className="timesheet-back-button"> */}
         
-        <div className="timesheet-back-button">
+        
+
+        { timesheetFilterSwitch && <div  onClick={() => { setTimesheetFilterSwitch(false)}} className="timesheet-back-button">
           <p  className="back-to-dashboard">
             {" "}
             <span className="back-arrow">
@@ -234,7 +242,7 @@ const Timesheet = (props) => {
             </span>{" "}
             Back to Table
           </p>
-        </div>
+        </div>}
 
         <div
         
@@ -281,7 +289,7 @@ const Timesheet = (props) => {
                     backgroundColor: "#FFFFFF",
                   }}
                 >
-                  <div className="table-project-name"></div>
+                  <div className="table-project-name">{projectNameHeading}</div>
                   {timesheetResourceData && (
                     <TimesheetTable
                       tableCols={TimesheetSwitchCols2}
@@ -290,7 +298,7 @@ const Timesheet = (props) => {
                       locgotoNextPage={resGotoNextPage}
                       locgotoPrevPage={resgotoPrevPage}
                       locCurrentPage={resTableActivePage}
-                      tableHeight={"89%"}
+                      tableHeight={"80%"}
                     />
                   )}
                 </div>
