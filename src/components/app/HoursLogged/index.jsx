@@ -165,7 +165,6 @@ const HoursLogged = () => {
               </div>
             </div>
             <TimesheetFilters />
-
             <div className="table-container">
               {tableData !== null ? (
                 <TimesheetTable

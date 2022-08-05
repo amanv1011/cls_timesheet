@@ -3,6 +3,7 @@ import { useState } from "react";
 import { RiFilterOffFill } from "react-icons/ri";
 import { Button, Tooltip } from "antd";
 import moment from "moment";
+import Switch from "@mui/material/Switch";
 import {
   setSwitchActive,
   setSwitchDeactive,
