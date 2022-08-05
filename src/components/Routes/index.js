@@ -13,7 +13,7 @@ import Login from "../Login";
 import WeeklyStatus from "../app/WeeklyStatus";
 import { getCookie } from "../../actions/user";
 
-function Routes() {
+function Routes(props) {
   const isLoggedIn = getCookie("token");
   return (
     <BrowserRouter>
@@ -29,7 +29,7 @@ function Routes() {
         <ProtectedRoute path="/resources" exact component={Resource} />
         <ProtectedRoute path="/settings" exact component={Settings} />
         <ProtectedRoute path="/timesheet" exact component={Timesheet} />
-        <ProtectedRoute path="/" exact component={LandingPage} />
+        <ProtectedRoute path="/" exact component={LandingPage}/>
         <ProtectedRoute path="*" component={LandingPage} />
       </Switch>
     </BrowserRouter>

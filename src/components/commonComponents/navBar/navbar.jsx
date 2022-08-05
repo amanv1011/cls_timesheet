@@ -11,6 +11,7 @@ import LogoutIcon from '../../../assets/navbarLogoAndIcons/LogoutIcon';
 import { ClickAwayListener, Box } from '@mui/material';
 
 import './navbar.css'
+import LandingPage from '../../app/LandingPage';
 
 
 const Navbar = () => {
@@ -20,7 +21,7 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
     const sidebarCollaps = useSelector((state) => state.sidebarCollaps.isSidebarCollaps)
-    const [ isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [openmenu, setOpenMenu] = useState(false);
 
 
@@ -52,18 +53,19 @@ const Navbar = () => {
         <>
             <div className="navbar-container">
                 <div>
-                    <span style={{ cursor: "pointer" }} onClick={toggleSidebar}><SidebarToggleIcon /></span>
+
+                    { window.location.pathname === "/" ? null : <span style={{ cursor: "pointer" }} onClick={toggleSidebar}><SidebarToggleIcon /></span> }
                     <NavbarLogo />
                 </div>
                 <div className="navbar-user-profile-name-container">
                     <div>
                         <img className="navbar-user-profile" src={getImage} alt="user" />
-                     
+
                     </div>
-                 
-                    <ClickAwayListener  onClickAway={handleClickAway}>
+
+                    <ClickAwayListener onClickAway={handleClickAway}>
                         <Box>
-                            <div onClick={showmenu} className="navbar-user-name"> <span className={ openmenu === true ? "make-name-blur" : "donot-make-name-blur"} >{getName} <DownArrow /></span>  </div>
+                            <div onClick={showmenu} className="navbar-user-name"> <span className={openmenu === true ? "make-name-blur" : "donot-make-name-blur"} >{getName} <DownArrow /></span>  </div>
                             <div style={openmenu === true ? { display: "block" } : { display: "none" }} className='custom-dropdown'>
                                 <div className='menu-profile' > <Userprofile /><span style={{ marginLeft: "4px" }}> {getName} </span>  </div>
                                 <div onClick={logout} className='menu-logout' ><LogoutIcon /><span>  Log Out </span> </div>

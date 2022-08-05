@@ -33,11 +33,16 @@ const Timesheet = (props) => {
   const timesheetModuleData = useSelector((state) => state.timesheet.timesheetData);
   const [timesheetFilterSwitch, setTimesheetFilterSwitch] = useState(false);
   const [resTableActivePage, setResTableActivePage] = useState(1);
-  // const timesheetFilterSwitch = useSelector((state) => state.timesheetFilterSwitch.showSwitchTab)
+
+
 
   const timesheetStartDate = useSelector(
     (state) => state.dateFilter.filterDateStart
+    
   );
+
+const filterDate = moment(timesheetStartDate).format("MM-YYYY");
+
   const timesheetEndDate = useSelector(
     (state) => state.dateFilter.filterDateEnd
   );
@@ -156,7 +161,7 @@ const Timesheet = (props) => {
     },
   ];
   useEffect(() => {
-    dispatch(getTimesheetData(todaysDate));
+    dispatch(getTimesheetData(filterDate));
   }, []);
   useEffect(() => {
     dispatch(setActivePage(1))
@@ -225,9 +230,10 @@ const Timesheet = (props) => {
         </div>
         <TimesheetFilters />
         <div>{""}</div>
-        {/* <div className="timesheet-back-button"> */}
         
-        <div className="timesheet-back-button">
+        
+
+        { timesheetFilterSwitch && <div  onClick={() => { setTimesheetFilterSwitch(false)}} className="timesheet-back-button">
           <p  className="back-to-dashboard">
             {" "}
             <span className="back-arrow">
@@ -236,7 +242,7 @@ const Timesheet = (props) => {
             </span>{" "}
             Back to Table
           </p>
-        </div>
+        </div>}
 
         <div
         
