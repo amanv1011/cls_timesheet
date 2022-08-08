@@ -35,10 +35,10 @@ const TimesheetFilters = (props) => {
     const exportDataToExcel = () => {
         if (window.location.pathname === "/timesheet") {
             downloadLeads(cardsDisplayAction, "Timesheet Resource")
-            (message.success('Download Successful'))
-        } 
-        
+                (message.success('Download Successful'))
+        }
     }
+
     const timesheetStartDate = useSelector(
         (state) => state.dateFilter.filterDateStart
 
@@ -129,7 +129,10 @@ const TimesheetFilters = (props) => {
 
                     </div>
                     <Tooltip placement="top" title={"Download Resource"}>
-                        <button style={{ float: "right", marginTop: "1px" }} className="export-to-excel" type="primary" onClick={exportDataToExcel} shape="circle"> Export to Excel</button>
+
+                        {cardsDisplayAction !== null ? <><button style={{ float: "right", marginTop: "1px" }} className="export-to-excel" onClick={exportDataToExcel} > Export to Excel</button> </> : <><button style={{ float: "right", marginTop: "1px", cursor:"not-allowed" }} className="disable-export-to-excel" > Export to Excel</button>
+                        </>}
+
                     </Tooltip>
 
                 </div>
