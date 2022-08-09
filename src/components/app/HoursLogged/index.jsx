@@ -16,18 +16,19 @@ import {
 } from "../../../redux/actions/hoursloggedAction";
 import TimesheetFilters from "../../commonComponents/timesheetFilters/timesheetFilters";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom";
 
 const HoursLogged = () => {
   const monthFormat = "MMM YYYY";
-  
+
   const projectData = [];
   const dispatch = useDispatch();
+  const history = useHistory();
 
   //to show ProjectComponent
   const [hoursloggedResources, setHoursloggedResources] = useState(false);
 
   //to show 2nd screen
-
   const [tableData, setTableData] = useState(null);
 
   //date
@@ -35,11 +36,20 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
+  const [projectID, setProjectID] = useState("hiiProjectID");
+  const [projectName, setProjectName] = useState("");
+
   const ProjectComponentHandler = (event) => {
+    hoursLoggedModuleData.results.forEach((element) => {
+      if (element.webtracker_project_id == event.target.id) {
+        setProjectID(element.project_id);
+        setProjectName(element.project_name);
+      }
+    });
+
     dispatch(getResourcesHoursloggedData(event.target.id));
     setHoursloggedResources(true);
     setId(event.target.id);
-    console.log("idddddddddd", event.target.id);
   };
 
   const tableColArray = [
@@ -80,17 +90,17 @@ const HoursLogged = () => {
     dispatch(getHoursloggedData(moment(date).format("MM/YYYY")));
   }, []);
 
-  // console.log(date, "ssssssssssssssssssssss");
-
-  // sets Hours Logged Data
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
-      hoursLoggedModuleData.forEach((ele) => {
+      console.log(hoursLoggedModuleData, "first table data");
+      console.log(hoursLoggedModuleData.project_id, "first table ID");
+
+      hoursLoggedModuleData.results.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
-          ProjectOwner: ele.owner_name,
+          ProjectOwner: ele.project_owner,
           ProjectCode: ele.project_code,
           AccountCode: ele.account_code,
           EngagementType: ele.engagement_type,
@@ -104,18 +114,25 @@ const HoursLogged = () => {
     setTableData(filterData);
   }, [hoursLoggedModuleData]);
 
-  // console.log("dateeeeeeeeeeeeeeeeee", moment(date).format("MMM YYYY"));
-  console.log(tableData, "ttttttttttttttttttttt");
+  const backToDashboard = () => {
+    history.push("/dashboard");
+  };
 
   return (
     <>
       {hoursloggedResources ? (
-        <ProjectComponent id={id} />
+        <ProjectComponent
+          id={id}
+          projectID={projectID}
+          projectName={projectName}
+          hoursloggedResources={hoursloggedResources}
+          onClick={setHoursloggedResources}
+        />
       ) : (
         <>
           <div className="timesheet-container">
             <div className="timesheet-back-button">
-              <p className="back-to-dashboard">
+              <p className="back-to-dashboard" onClick={backToDashboard}>
                 {" "}
                 <span className="back-arrow">
                   {" "}
