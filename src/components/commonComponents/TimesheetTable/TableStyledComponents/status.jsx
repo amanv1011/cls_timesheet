@@ -18,7 +18,7 @@ const Status = (props) => {
           </>
         ) : (
           <>
-            <span style={{ color: "##FF9900", fontSize: "13px" }}>Pending</span>
+            <span style={{ color: "#FF9900", fontSize: "13px" }}>Pending</span>
           </>
         )}
       </div>
