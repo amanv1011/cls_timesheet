@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { useReducer } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { RiCalendar2Line } from "react-icons/ri";
 import DatePicker from "react-datepicker";
@@ -11,12 +10,10 @@ import "./ProjectComponent.css";
 import { Modal } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
 import { GiCancel } from "react-icons/gi";
+import { Input } from "antd";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { Checkbox, Input } from "antd";
-import { useRef } from "react";
 import {
-  getHoursloggedData,
   getResourcesHoursloggedData,
   getModalResourcesData,
   updateResourceName,
@@ -25,7 +22,6 @@ import {
 } from "../../../redux/actions/hoursloggedAction";
 
 const monthFormat = "MMM YYYY";
-// const resTableData = [];
 
 const ProjectComponent = (props) => {
   const [show, setShow] = useState();
@@ -36,7 +32,7 @@ const ProjectComponent = (props) => {
   const [newResId, setID] = useState();
   const [hovwr, setHovwr] = useState(null);
   const [selectRow, setSelectRow] = useState(null);
-  const [billedHour, setBilledHour] = useState();
+  const [billedHour, setBilledHour] = useState(0);
   const [objBilledHour, setObjBL] = useState({
     project_id: "",
     start_date: "",
@@ -45,14 +41,12 @@ const ProjectComponent = (props) => {
     logged_time: "",
     billed_hours: "",
   });
-  // const [reduceValue, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [count, setCount] = useState(0);
 
-  const [reload, setReload] = useState(false);
-
-  const [new_user_id, setNewUserId] = useState();
+  const WeeklyHoursLogged = "";
 
   const [checkBox, setCheckBox] = useState(false);
+  const [selectedArray, setselectedArray] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   const [checkindex, setCheckindex] = useState(null);
 
@@ -64,14 +58,15 @@ const ProjectComponent = (props) => {
     (state) => state.hoursLogged.hoursloggedData
   );
 
-  const resHoursLoggedTableData = useSelector((state) => {
-    return state.hoursLogged.resHoursLoggedData;
-  });
-
   const modalResourcesData = useSelector(
     (state) => state.hoursLogged.modalResData
   );
 
+  const resHoursLoggedTableData = useSelector((state) => {
+    return state.hoursLogged.resHoursLoggedData;
+  });
+
+  //runs first and to get existed data
   useEffect(() => {
     dispatch(
       getResourcesHoursloggedData(
@@ -80,10 +75,16 @@ const ProjectComponent = (props) => {
         moment(currDate).format("YYYY-MM-DD")
       )
     );
+  }, [currDate]);
 
-    // }, []);
-    // ???????? after adding dependency the useEffect is reload in loop ???????
-  }, []);
+  // for table data and runs after update
+  useEffect(() => {
+    if (resHoursLoggedTableData !== null) {
+      setRTData(resHoursLoggedTableData);
+      console.log("updating");
+    }
+    // console.log(resHoursLoggedTableData, "111111111111");
+  }, [resHoursLoggedTableData]);
 
   //this is for head data
   useEffect(() => {
@@ -95,13 +96,6 @@ const ProjectComponent = (props) => {
       });
     }
   }, [hoursLoggedModuleData]);
-
-  //for table data
-  useEffect(() => {
-    if (resHoursLoggedTableData !== null) {
-      setRTData(resHoursLoggedTableData);
-    }
-  }, [resHoursLoggedTableData]);
 
   //for modal
   useEffect(() => {
@@ -116,7 +110,6 @@ const ProjectComponent = (props) => {
   };
 
   //to close
-
   const handleClose = () => {
     setShow(false);
   };
@@ -125,21 +118,30 @@ const ProjectComponent = (props) => {
     props.onClick(false);
   };
 
-  const addResourcesHandler = (e) => {
+  const ResourcesHandler = (e) => {
     setID(e.target.value);
   };
 
-  const updateResourcesHandler = () => {
-    dispatch(updateResourceName(newResId, project_id));
-    setShow(false);
+  // console.log(moment(currDate).format("YYYY-MM-DD"), "ddddddddddddd");
 
-    // dispatch(
-    //   getResourcesHoursloggedData(
-    //     props.id,
-    //     props.projectID,
-    //     moment(currDate).format("YYYY-MM-DD")
-    //   )
-    // );
+  const updateResourcesHandler = async () => {
+    const obj = {
+      webID: props.id,
+      proID: props.projectID,
+      date: moment(currDate).format("YYYY-MM-DD"),
+    };
+
+    await dispatch(updateResourceName(newResId, project_id, obj)); //calling PUT method to update from Modal
+    dispatch(
+      getResourcesHoursloggedData(
+        props.id,
+        props.projectID,
+        moment(currDate).format("YYYY-MM-DD")
+      )
+    );
+    setShow(false);
+    console.log(rTableData.result);
+    console.log(props);
   };
 
   const handleBlur = (event) => {
@@ -147,8 +149,45 @@ const ProjectComponent = (props) => {
     setSelectRow(null);
   };
 
-  // console.log(props, "gettting props");
-  // console.log(objBilledHour, "gettting object");
+  const deleteHandler = async (element) => {
+    await dispatch(deleteResource(element.user_id, project_id));
+    dispatch(
+      getResourcesHoursloggedData(
+        props.id,
+        props.projectID,
+        moment(currDate).format("YYYY-MM-DD")
+      )
+    );
+    props.onClick(true);
+  };
+
+  //for checkbox
+
+  const handleAllCheck = (e) => {
+    setIsChecked(!isChecked);
+    if (e.target.checked) {
+      let arr = [];
+      rTableData.result.forEach((element) => {
+        arr.push(element.user_id);
+      });
+      setselectedArray(arr);
+    } else {
+      setselectedArray([]);
+    }
+  };
+
+  const handleOnCheckboxChange = (event) => {
+    if (event.target.checked) {
+      setselectedArray([...selectedArray, event.target.value]);
+    } else {
+      const filtered = selectedArray.filter(
+        (item) => item !== event.target.value
+      );
+      setselectedArray(filtered);
+    }
+  };
+
+  console.log(moment(currDate).format("YYYY-MM-DD"));
 
   return (
     <>
@@ -169,11 +208,7 @@ const ProjectComponent = (props) => {
             <h6>New Resources</h6>
             <div>
               {/* <input className="resModalInput" /> */}
-              <select
-                id=""
-                className="modalSelect"
-                onChange={addResourcesHandler}
-              >
+              <select id="" className="modalSelect" onChange={ResourcesHandler}>
                 <option selected>Resources</option>
                 {modalData.result
                   ? modalData.result.map((element, index) => {
@@ -199,9 +234,6 @@ const ProjectComponent = (props) => {
             Project Owner: <span>{newObj.project_owner}</span>
           </label>
           <label>
-            Project Code: <span>{newObj.project_code}</span>
-          </label>
-          <label>
             Account Code: <span>{newObj.account_code}</span>
           </label>
           <label>
@@ -209,6 +241,9 @@ const ProjectComponent = (props) => {
           </label>
           <label>
             Hours Logged: <span>{newObj.hours_logged}</span>
+          </label>
+          <label>
+            Project Code: <span>{newObj.project_code}</span>
           </label>
         </div>
         <div>
@@ -250,20 +285,26 @@ const ProjectComponent = (props) => {
                 </div>
               </th>
             </tr>
-
             <tr>
               <th className="loggedHours_tdata">
                 {" "}
                 <input
                   type="checkbox"
-                  name=""
-                  id=""
+                  name="allCheck"
                   style={{ margin: "0px 15px" }}
-                />{" "}
+                  checked={
+                    rTableData.result &&
+                    selectedArray.length !== rTableData.result.length
+                      ? false
+                      : true
+                  }
+                  onChange={handleAllCheck}
+                  className="campaign-checkbox"
+                />
                 Resource
               </th>
               <th className="loggedHours_tdata">Hours logged</th>
-              <th className="loggedHours_tdata">Build hours</th>
+              <th className="loggedHours_tdata">Biled hours</th>
               <th className="loggedHours_tdata" style={{ textAlign: "center" }}>
                 Status
               </th>
@@ -280,8 +321,17 @@ const ProjectComponent = (props) => {
                         >
                           <input
                             type="checkbox"
-                            name=""
-                            id=""
+                            name={element.member_name}
+                            value={element.user_id}
+                            checked={
+                              selectedArray &&
+                              selectedArray.filter(
+                                (it) => it === element.user_id
+                              ).length > 0
+                                ? true
+                                : false
+                            }
+                            onChange={handleOnCheckboxChange}
                             style={{ margin: "0px 15px" }}
                             onClick={() => {
                               setCheckBox(!checkBox);
@@ -298,7 +348,9 @@ const ProjectComponent = (props) => {
                         </td>
                         <td className="loggedHours_tdata">
                           <div className="centerPadding">
-                            {element.logged_time ? element.logged_time : "NA"}
+                            {element.logged_time
+                              ? `${Math.floor(element.logged_time / 60)}h`
+                              : "0h"}
                           </div>
                         </td>
                         <td
@@ -327,6 +379,7 @@ const ProjectComponent = (props) => {
                                   </div>
                                 }
                                 value={billedHour}
+                                // value={billedHour !== 0 ? `${billedHour}hr` : 0}
                                 onChange={(e) => {
                                   setObjBL({
                                     ...objBilledHour,
@@ -346,7 +399,7 @@ const ProjectComponent = (props) => {
                               // **************** Edit true ********************
                               <Input
                                 readOnly
-                                // disabled={selectRow == i ? false : true}
+                                // disabled={true}
                                 className="loggedhourInput"
                                 suffix={
                                   <AiOutlineEdit
@@ -357,7 +410,12 @@ const ProjectComponent = (props) => {
                                     style={{ cursor: "pointer" }}
                                   />
                                 }
-                                value={element.billed_hours}
+                                // value={element.billed_hours}
+                                value={
+                                  element.billed_hours !== null
+                                    ? `${element.billed_hours}hr`
+                                    : 0
+                                }
                                 onChange={(e) => {
                                   setObjBL({
                                     ...objBilledHour,
@@ -384,30 +442,21 @@ const ProjectComponent = (props) => {
                           onMouseLeave={() => {
                             setHovwr(null);
                           }}
-                          onClick={() => {
-                            dispatch(
-                              deleteResource(element.user_id, project_id)
-                            );
-                            dispatch(
-                              getResourcesHoursloggedData(
-                                props.id,
-                                props.projectID,
-                                moment(currDate).format("YYYY-MM-DD")
-                              )
-                            );
-                            props.onClick(true);
-                          }}
+                          onClick={() => deleteHandler(element)}
                         >
                           {hovwr == i ? (
                             <RiDeleteBinLine className="deleteBtn" />
                           ) : (
                             <div
-                              style={{
-                                padding: "13px 4px",
-                                background: "#d4fbd4",
-                                color: "green",
-                              }}
-                              className="centerPadding"
+                              // style={{
+                              //   padding: "13px 4px",
+                              //   background: "#d4fbd4",
+                              //   color: "green",
+                              // }}
+                              // className="centerPadding"
+                              className={`centerPadding  ${
+                                element.status == 1 ? "green" : "orange"
+                              }`}
                             >
                               {/* <span
                           className={`approved ${
@@ -434,7 +483,7 @@ const ProjectComponent = (props) => {
                 }}
               >
                 <td colSpan={4}>
-                  {checkBox ? (
+                  {selectedArray.length > 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -445,7 +494,7 @@ const ProjectComponent = (props) => {
                     >
                       <button
                         onClick={() => {
-                          setCheckBox(!checkBox);
+                          setselectedArray([]);
                         }}
                       >
                         Cancel

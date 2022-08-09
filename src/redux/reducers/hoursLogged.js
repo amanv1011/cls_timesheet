@@ -71,6 +71,7 @@ const hoursLoggedReducer = (state = initialState, { type, payload }) => {
     }
 
     case SET_RES_NAME: {
+      console.log(payload);
       return {
         ...state,
         newResource: payload,

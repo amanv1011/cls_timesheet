@@ -47,9 +47,16 @@ const HoursLogged = () => {
       }
     });
 
-    dispatch(getResourcesHoursloggedData(event.target.id));
+    dispatch(
+      getResourcesHoursloggedData(
+        event.target.id,
+        projectID,
+        moment(date).format("YYYY-MM-DD")
+      )
+    );
     setHoursloggedResources(true);
     setId(event.target.id);
+    console.log(event.target);
   };
 
   const tableColArray = [
@@ -118,6 +125,8 @@ const HoursLogged = () => {
     history.push("/dashboard");
   };
 
+  console.log(id, projectID);
+
   return (
     <>
       {hoursloggedResources ? (
@@ -156,7 +165,6 @@ const HoursLogged = () => {
               </div>
             </div>
             <TimesheetFilters />
-
             <div className="table-container">
               {tableData !== null ? (
                 <TimesheetTable

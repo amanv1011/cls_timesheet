@@ -3,6 +3,7 @@ import { useState } from "react";
 import { RiFilterOffFill } from "react-icons/ri";
 import { Button, Tooltip } from "antd";
 import moment from "moment";
+import Switch from "@mui/material/Switch";
 import {
   setSwitchActive,
   setSwitchDeactive,
@@ -15,7 +16,6 @@ import { cardsDisplayAction } from "../../../redux/actions/timesheetFilterAction
 import { message } from "antd";
 import * as XLSX from "xlsx";
 import "./timesheetFilter.css";
-
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const TimesheetFilters = (props) => {
   const dispatch = useDispatch();
@@ -25,8 +25,15 @@ const TimesheetFilters = (props) => {
   const [filterProjectOwner, setFilterProjectOwner] = useState("");
   const [filterEngagementType, setFilterEngagementType] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+
+  // for timesheet
   const cardsDisplayAction = useSelector(
     (state) => state.timesheet.timesheetData
+  );
+
+  // for hourslogged
+  const cardsDisplayActionHoursLog = useSelector(
+    (state) => state.hoursLogged.hoursloggedData
   );
 
   const downloadLeads = (timeshhetDataList, excelFileName) => {
@@ -42,34 +49,36 @@ const TimesheetFilters = (props) => {
         cardsDisplayAction,
         "Timesheet Resource"
       )(message.success("Download Successful"));
+    } else if (
+      window.location.pathname === "/hours-logged" &&
+      cardsDisplayActionHoursLog.results
+    ) {
+      downloadLeads(
+        cardsDisplayActionHoursLog.results,
+        "HoursLogged Resource"
+      )(message.success("Download Successful"));
     }
   };
   const timesheetStartDate = useSelector(
     (state) => state.dateFilter.filterDateStart
   );
-
   const filterDate = moment(timesheetStartDate).format("MM-YYYY");
-
   const changeProjectName = (event) => {
     event.preventDefault();
     setFilterProjectName(event.target.value);
   };
-
   const changeProjectOwner = (event) => {
     event.preventDefault();
     setFilterProjectOwner(event.target.value);
   };
-
   const changeEngagementType = (event) => {
     event.preventDefault();
     setFilterEngagementType(event.target.value);
   };
-
   const changeStatus = (event) => {
     event.preventDefault();
     setFilterStatus(event.target.value);
   };
-
   const filterApiCall = () => {
     dispatch(
       getTimesheetFilterData(
@@ -81,7 +90,6 @@ const TimesheetFilters = (props) => {
       )
     );
   };
-
   const clearFilter = () => {
     setFilterProjectName("");
     setFilterProjectOwner("");
@@ -89,20 +97,17 @@ const TimesheetFilters = (props) => {
     setFilterStatus("");
     dispatch(getTimesheetData(filterDate));
   };
-
   const handleChange = (event) => {
     checked === true
       ? dispatch(setSwitchActive(event.target.checked))
       : dispatch(setSwitchDeactive(event.target.checked));
     setChecked(event.target.checked);
   };
-
   useEffect(() => {
     checked === true
       ? dispatch(setSwitchActive(checked))
       : dispatch(setSwitchDeactive(checked));
   }, []);
-
   return (
     <>
       <div className="filterBy">
@@ -118,7 +123,6 @@ const TimesheetFilters = (props) => {
               onChange={changeProjectName}
             />
           </div>
-
           <div className="project-owner-tab">
             <input
               value={filterProjectOwner}
@@ -127,7 +131,6 @@ const TimesheetFilters = (props) => {
               onChange={changeProjectOwner}
             />
           </div>
-
           <div className="project-engagement-tab">
             <input
               value={filterEngagementType}
@@ -136,7 +139,6 @@ const TimesheetFilters = (props) => {
               onChange={changeEngagementType}
             />
           </div>
-
           <div className="project-status-tab">
             <input
               value={filterStatus}
