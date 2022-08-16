@@ -28,24 +28,23 @@ export const getTimesheetFilterData = (
       engagementType !== "" ? `engagement_type=${engagementType}` : ""
     }`;
 
-    try {
-      const response = await axios.get(requestUrl);
+        try {
+            const response = await http.get(requestUrl);
 
-      if (response.data.projects.length === 0) {
-        dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA });
-      } else {
-        dispatch({ type: SET_TIMESHEET_DATA, payload: response.data.projects });
-        dispatch({ type: SETTRUE_TIMESHEET_TABLE_DATA });
-      }
-    } catch (error) {
-      dispatch({ type: SET_TIMESHEET_DATA_ERR, payload: error });
-      dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA });
+            if ((response.data.projects).length === 0) {
+                dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA })
+                dispatch({type:SET_TIMESHEET_DATA, payload: null})
+            } else {
+                dispatch({ type: SET_TIMESHEET_DATA, payload: response.data.projects })
+                dispatch({ type: SETTRUE_TIMESHEET_TABLE_DATA })
+                
+            }
+
+        } catch (error) {
+            dispatch({ type: SET_TIMESHEET_DATA_ERR, payload: error });
+            dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA })
+            dispatch({type:SET_TIMESHEET_DATA, payload: null})
+        }
+
     }
-  };
-};
-
-export const cardsDisplayAction = (cards) => {
-  return async (dispatch) => {
-    await dispatch({ type: DISPLAY_TIMESHEET_FILTER_DATA, payload: cards });
-  };
-};
+}

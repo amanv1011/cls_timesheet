@@ -12,12 +12,14 @@ export const getTimesheetData = (localDate) => {
             const response = await http.get(requestUrl);
             
             if((response.data.projects).length === 0 ) {
+                dispatch({type:SET_TIMESHEET_DATA, payload: null})
                 dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA})
             } else {
                 dispatch({type:SET_TIMESHEET_DATA, payload: response.data.projects})
                 dispatch({ type: SETTRUE_TIMESHEET_TABLE_DATA})
             }
         }catch(err){
+            dispatch({type:SET_TIMESHEET_DATA, payload: null})
             dispatch({type:SET_TIMESHEET_DATA_ERR, payload: err})
             dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA})
             
