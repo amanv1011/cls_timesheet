@@ -36,7 +36,7 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
-  const [projectID, setProjectID] = useState("");
+  const [projectID, setProjectID] = useState();
   const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {
@@ -58,6 +58,8 @@ const HoursLogged = () => {
     setId(event.target.id);
     console.log(event.target);
   };
+  
+  console.log(projectID,'TEST');
 
   const tableColArray = [
     {
