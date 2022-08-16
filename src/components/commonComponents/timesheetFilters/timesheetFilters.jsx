@@ -115,7 +115,7 @@ const TimesheetFilters = (props) => {
                     </div>
 
                     <div className="project-status-tab">
-                        <input value={filterStatus} className="project-status" placeholder="Status" onChange={changeStatus} />
+                        <input value={filterStatus} className="project-status" placeholder="Status" onChange={changeStatus}  />
 
                     </div>
                     <div className="buttonGo">
