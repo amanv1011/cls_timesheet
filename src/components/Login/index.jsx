@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import { logo, mockImage } from "../../assets/images";
 import "./login.css";
 import { LoginStorageUserDetails } from "../../assets/text";
-import { setCookie } from "../../actions/user"
+import { setCookie } from "../../actions/user";
 import UAParser from "ua-parser-js";
 
 const Wrapper = styled.div`
@@ -54,14 +54,14 @@ class Login extends Component {
       new Image().src = image;
     });
 
-    parser = new UAParser()
+    parser = new UAParser();
   }
 
   responseGoogleSuccess = (response) => {
     const data = {
       email: response.profileObj.email,
       idToken: response.tokenId,
-      navigator: parser.getBrowser().name
+      navigator: parser.getBrowser().name,
     };
 
     http
@@ -75,7 +75,7 @@ class Login extends Component {
           id: res.data.id,
         };
         // setting cookie token
-        setCookie("token", UserDetails.token)
+        setCookie("token", UserDetails.token);
         storeUserProfile(LoginStorageUserDetails, JSON.stringify(UserDetails));
         Store.dispatch(syncActions.UserProfile(UserDetails));
         Store.dispatch(syncActions.clearError());
@@ -91,7 +91,7 @@ class Login extends Component {
     console.log(response);
   };
 
-  componentWillReceiveProps = (props) => { };
+  componentWillReceiveProps = (props) => {};
 
   render() {
     // console.error("process.env", process.env);

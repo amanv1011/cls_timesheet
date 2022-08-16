@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import DashboardTemplate from "../../layouts/landing_temp";
 import { withRouter } from "react-router";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-// import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "./weeklystatus.css";
 import {
   getWeeklyStatus,
@@ -17,9 +16,6 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import moment from "moment";
 import Pagination from "./Pagination";
-import { border } from "@mui/system";
-import store from "../../../redux/store";
-// import moment from "moment";
 const { TextArea } = Input;
 
 class WeeklyStatus extends React.Component {
@@ -470,7 +466,7 @@ class WeeklyStatus extends React.Component {
                 this.props.week_status.weeklyStatus.projects.length === 0
                   ? "100px"
                   : this.props.week_status.weeklyStatus.projects.length < 5
-                  ? "auto"
+                  ? "200px"
                   : "370px"
               }`,
               overflowY: "auto",
@@ -570,49 +566,7 @@ class WeeklyStatus extends React.Component {
                                 ) : (
                                   ""
                                 )
-                                // ) :
-                                //  this.state.count != 0 &&
-                                //   ele.is_email_sent == false &&
-                                //   ele.weekly_status_description != null ? (
-                                //   <AiOutlineEdit
-                                //     style={{ cursor: "pointer" }}
-                                //     id={ele.project_owner_id}
-                                //     onClick={() => {
-                                //       this.setState({
-                                //         selectorRow: i,
-                                //         description:
-                                //           ele.weekly_status_description,
-                                //         projectId: ele.project_id,
-                                //         statusId:
-                                //           ele.weekly_project_health_status_id,
-                                //       });
-                                //     }}
-                                //   />
-                                // )
-                                //  : (
-                                //   ""
-                                // )
                               }
-                              // suffix={
-                              //   ele.is_email_sent === false ? (
-                              //     <AiOutlineEdit
-                              //       style={{ cursor: "pointer" }}
-                              //       id={ele.project_owner_id}
-                              //       onClick={() => {
-                              //         this.setState({
-                              //           selectorRow: i,
-                              //           description:
-                              //             ele.weekly_status_description,
-                              //           projectId: ele.project_id,
-                              //           statusId:
-                              //             ele.weekly_project_health_status_id,
-                              //         });
-                              //       }}
-                              //     />
-                              //   ) : (
-                              //     ""
-                              //   )
-                              // }
                             />
                           </Tooltip>
                         )}
@@ -628,7 +582,7 @@ class WeeklyStatus extends React.Component {
                             cursor: `${
                               this.state.count === 0 ? "pointer" : "not-allowed"
                             }`,
-                            paddingLeft: "14px",
+                            paddingLeft: "5px",
                           }}
                           onClick={() => {
                             this.setState({

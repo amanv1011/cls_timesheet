@@ -1,16 +1,32 @@
-import http from "../../hoc/axiosClient"
+import http from "../../hoc/axiosClient";
 import { API_ENDPOINTS } from "../../appConfig";
 import {
-    SET_TIMESHEET_DATA,
-    SET_TIMESHEET_DATA_ERR,
-
+  SET_TIMESHEET_DATA,
+  SET_TIMESHEET_DATA_ERR,
+  DISPLAY_TIMESHEET_FILTER_DATA,
 } from "../type";
-import { SETFALSE_TIMESHEET_TABLE_DATA, SETTRUE_TIMESHEET_TABLE_DATA } from '../type'
+import {
+  SETFALSE_TIMESHEET_TABLE_DATA,
+  SETTRUE_TIMESHEET_TABLE_DATA,
+} from "../type";
 
-export const getTimesheetFilterData = (projectName, projectOwner, engagementType, status, filterDate) => {
+import axios from "axios";
 
-    return async function getTimesheetFilterDataThunk(dispatch) {
-        const requestUrl = `${API_ENDPOINTS.timesheetFilterReducer}monthYear=${filterDate}&project_owner_id=18&${projectName !== "" ? `projectName=${projectName}` : ""}&${projectOwner !== "" ? `projectOwnerName=${projectOwner}` : ""}&${engagementType !== "" ? `engagement_type=${engagementType}` : ""}`
+export const getTimesheetFilterData = (
+  projectName,
+  projectOwner,
+  engagementType,
+  status,
+  filterDate
+) => {
+  return async function getTimesheetFilterDataThunk(dispatch) {
+    const requestUrl = `${
+      API_ENDPOINTS.timesheetFilterReducer
+    }monthYear=${filterDate}&project_owner_id=18&${
+      projectName !== "" ? `projectName=${projectName}` : ""
+    }&${projectOwner !== "" ? `projectOwnerName=${projectOwner}` : ""}&${
+      engagementType !== "" ? `engagement_type=${engagementType}` : ""
+    }`;
 
         try {
             const response = await http.get(requestUrl);
