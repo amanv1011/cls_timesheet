@@ -100,9 +100,6 @@ const HoursLogged = () => {
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
-      console.log(hoursLoggedModuleData, "first table data");
-      console.log(hoursLoggedModuleData.project_id, "first table ID");
-
       hoursLoggedModuleData.results.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,
@@ -166,12 +163,12 @@ const HoursLogged = () => {
             </div>
             <TimesheetFilters />
             <div className="table-container">
-              {tableData !== null ? (
+              {tableData && (
                 <TimesheetTable
                   tableCols={tableColArray}
                   tableData={tableData}
                 />
-              ) : null}
+              )}
             </div>
           </div>
         </>

@@ -10,8 +10,12 @@ import {
 } from "../../../redux/actions/timesheetFilterSwitch";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTimesheetFilterData } from "../../../redux/actions/timesheetFilterAction";
+import {
+  getTimesheetFilterData,
+  getHoursLoggedFilterData,
+} from "../../../redux/actions/timesheetFilterAction";
 import { getTimesheetData } from "../../../redux/actions/timesheetActions";
+import { getHoursloggedData } from "../../../redux/actions/hoursloggedAction";
 import { cardsDisplayAction } from "../../../redux/actions/timesheetFilterAction";
 import { message } from "antd";
 import * as XLSX from "xlsx";
@@ -80,15 +84,27 @@ const TimesheetFilters = (props) => {
     setFilterStatus(event.target.value);
   };
   const filterApiCall = () => {
-    dispatch(
-      getTimesheetFilterData(
-        filterProjectName,
-        filterProjectOwner,
-        filterEngagementType,
-        filterStatus,
-        filterDate
-      )
-    );
+    if (window.location.pathname === "/timesheet") {
+      dispatch(
+        getTimesheetFilterData(
+          filterProjectName,
+          filterProjectOwner,
+          filterEngagementType,
+          filterStatus,
+          filterDate
+        )
+      );
+    } else if (window.location.pathname === "/hours-logged") {
+      dispatch(
+        getHoursLoggedFilterData(
+          filterProjectName,
+          filterProjectOwner,
+          filterEngagementType,
+          filterStatus,
+          filterDate
+        )
+      );
+    }
   };
   const clearFilter = () => {
     setFilterProjectName("");
@@ -96,6 +112,7 @@ const TimesheetFilters = (props) => {
     setFilterEngagementType("");
     setFilterStatus("");
     dispatch(getTimesheetData(filterDate));
+    dispatch(getHoursloggedData(filterDate));
   };
   const handleChange = (event) => {
     checked === true
