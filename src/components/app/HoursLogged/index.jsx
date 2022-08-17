@@ -36,7 +36,7 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
-  const [projectID, setProjectID] = useState();
+  const [projectID, setProjectID] = useState("");
   const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {
@@ -47,13 +47,15 @@ const HoursLogged = () => {
       }
     });
 
-    dispatch(
-      getResourcesHoursloggedData(
-        event.target.id,
-        projectID,
-        moment(date).format("YYYY-MM-DD")
-      )
-    );
+    if (projectID) {
+      dispatch(
+        getResourcesHoursloggedData(
+          event.target.id,
+          projectID,
+          moment(date).format("YYYY-MM-DD")
+        )
+      );
+    }
     setHoursloggedResources(true);
     setId(event.target.id);
     console.log(event.target);
