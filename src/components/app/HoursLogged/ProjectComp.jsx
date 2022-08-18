@@ -337,7 +337,7 @@ const ProjectComponent = (props) => {
                               setCheckBox(!checkBox);
                               setCheckBox(i);
                             }}
-                            // checked={checkindex == i ? checkBox : false}
+                            //checked={checkindex == i ? checkBox : false}
                           />
                           {element.member_name}{" "}
                           {element.status == 0 ? (

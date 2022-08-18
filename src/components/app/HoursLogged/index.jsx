@@ -45,12 +45,6 @@ const HoursLogged = () => {
       if (element.webtracker_project_id == event.target.id) {
         setProjectID(element.project_id);
         setProjectName(element.project_name);
-        console.log("getting project id");
-        console.log(
-          element.webtracker_project_id,
-          event.target.id,
-          element.project_id
-        );
       }
     });
 
@@ -63,7 +57,6 @@ const HoursLogged = () => {
         )
       );
     }
-
     setHoursloggedResources(true);
     setId(event.target.id);
     console.log(event.target);

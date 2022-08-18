@@ -31,22 +31,22 @@ export const getTimesheetFilterData = (
     }`;
 
     try {
-      const response = await axios.get(requestUrl);
+      const response = await http.get(requestUrl);
 
       if (response.data.projects.length === 0) {
         dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA });
+        dispatch({ type: SET_TIMESHEET_DATA, payload: null });
       } else {
-        console.log("search results", response.data.projects);
         dispatch({ type: SET_TIMESHEET_DATA, payload: response.data.projects });
         dispatch({ type: SETTRUE_TIMESHEET_TABLE_DATA });
       }
     } catch (error) {
       dispatch({ type: SET_TIMESHEET_DATA_ERR, payload: error });
       dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA });
+      dispatch({ type: SET_TIMESHEET_DATA, payload: null });
     }
   };
 };
-
 //for hourslogged
 export const getHoursLoggedFilterData = (
   projectName,
