@@ -20,5 +20,5 @@ export const apiUrls = {
   deleteResources: `${API_PREFIX}/hourslog/hourslog/deleteResource?`,
   timesheetResource: `${API_PREFIX}/projects/allresource?webtracker_project_id=`,
   timesheetDetailedResource: `${API_PREFIX}/projects/detailedResource?`,
-  timesheetFilterReducer: `${API_PREFIX}/projects/timesheet/filter?`,
+  timesheetFilterReducer: `${API_PREFIX}/projects/timeSheet/filter?`,
 };

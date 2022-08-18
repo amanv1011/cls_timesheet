@@ -89,7 +89,7 @@ const ProjectComponent = (props) => {
   //this is for head data
   useEffect(() => {
     if (hoursLoggedModuleData !== null) {
-      hoursLoggedModuleData.results.find((obj) => {
+      hoursLoggedModuleData.projects.find((obj) => {
         if (obj.webtracker_project_id == props.id) {
           setObj(obj);
         }

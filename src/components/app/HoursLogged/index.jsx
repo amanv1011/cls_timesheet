@@ -40,7 +40,8 @@ const HoursLogged = () => {
   const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {
-    hoursLoggedModuleData.results.forEach((element) => {
+    let projectID = "";
+    hoursLoggedModuleData.projects.forEach((element) => {
       if (element.webtracker_project_id == event.target.id) {
         setProjectID(element.project_id);
         setProjectName(element.project_name);
@@ -60,8 +61,6 @@ const HoursLogged = () => {
     setId(event.target.id);
     console.log(event.target);
   };
-  
-  console.log(projectID,'TEST');
 
   const tableColArray = [
     {
@@ -104,10 +103,7 @@ const HoursLogged = () => {
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
-      console.log(hoursLoggedModuleData, "first table data");
-      console.log(hoursLoggedModuleData.project_id, "first table ID");
-
-      hoursLoggedModuleData.results.forEach((ele) => {
+      hoursLoggedModuleData.projects.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
@@ -128,8 +124,6 @@ const HoursLogged = () => {
   const backToDashboard = () => {
     history.push("/dashboard");
   };
-
-  console.log(id, projectID);
 
   return (
     <>
@@ -170,12 +164,12 @@ const HoursLogged = () => {
             </div>
             <TimesheetFilters />
             <div className="table-container">
-              {tableData !== null ? (
+              {tableData && (
                 <TimesheetTable
                   tableCols={tableColArray}
                   tableData={tableData}
                 />
-              ) : null}
+              )}
             </div>
           </div>
         </>
