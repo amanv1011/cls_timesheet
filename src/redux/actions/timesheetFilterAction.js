@@ -66,11 +66,11 @@ export const getHoursLoggedFilterData = (
 
     try {
       const response = await axios.get(requestUrl);
-      console.log("search results", response.data.results);
-      if (response.data.results.length === 0) {
+      console.log("search results", response.data.projects);
+      if (response.data.projects.length === 0) {
         dispatch({ type: SETFALSE_TIMESHEET_TABLE_DATA });
       } else {
-        console.log("search results", response.data.results);
+        console.log("search results", response.data.projects);
         dispatch({
           type: SET_HOURSLOGGED_DATA,
           payload: response.data,

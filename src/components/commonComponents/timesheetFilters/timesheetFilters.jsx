@@ -55,10 +55,10 @@ const TimesheetFilters = (props) => {
       )(message.success("Download Successful"));
     } else if (
       window.location.pathname === "/hours-logged" &&
-      cardsDisplayActionHoursLog.results
+      cardsDisplayActionHoursLog.projects
     ) {
       downloadLeads(
-        cardsDisplayActionHoursLog.results,
+        cardsDisplayActionHoursLog.projects,
         "HoursLogged Resource"
       )(message.success("Download Successful"));
     }

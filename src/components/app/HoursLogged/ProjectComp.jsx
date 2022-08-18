@@ -89,7 +89,7 @@ const ProjectComponent = (props) => {
   //this is for head data
   useEffect(() => {
     if (hoursLoggedModuleData !== null) {
-      hoursLoggedModuleData.results.find((obj) => {
+      hoursLoggedModuleData.projects.find((obj) => {
         if (obj.webtracker_project_id == props.id) {
           setObj(obj);
         }
@@ -337,7 +337,7 @@ const ProjectComponent = (props) => {
                               setCheckBox(!checkBox);
                               setCheckBox(i);
                             }}
-                            checked={checkindex == i ? checkBox : false}
+                            // checked={checkindex == i ? checkBox : false}
                           />
                           {element.member_name}{" "}
                           {element.status == 0 ? (

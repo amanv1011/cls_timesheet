@@ -36,24 +36,34 @@ const HoursLogged = () => {
 
   const [id, setId] = useState("");
 
-  const [projectID, setProjectID] = useState("hiiProjectID");
+  const [projectID, setProjectID] = useState("");
   const [projectName, setProjectName] = useState("");
 
   const ProjectComponentHandler = (event) => {
-    hoursLoggedModuleData.results.forEach((element) => {
+    let projectID = "";
+    hoursLoggedModuleData.projects.forEach((element) => {
       if (element.webtracker_project_id == event.target.id) {
         setProjectID(element.project_id);
         setProjectName(element.project_name);
+        console.log("getting project id");
+        console.log(
+          element.webtracker_project_id,
+          event.target.id,
+          element.project_id
+        );
       }
     });
 
-    dispatch(
-      getResourcesHoursloggedData(
-        event.target.id,
-        projectID,
-        moment(date).format("YYYY-MM-DD")
-      )
-    );
+    if (projectID) {
+      dispatch(
+        getResourcesHoursloggedData(
+          event.target.id,
+          projectID,
+          moment(date).format("YYYY-MM-DD")
+        )
+      );
+    }
+
     setHoursloggedResources(true);
     setId(event.target.id);
     console.log(event.target);
@@ -100,7 +110,7 @@ const HoursLogged = () => {
   useEffect(() => {
     const filterData = [];
     if (hoursLoggedModuleData !== null) {
-      hoursLoggedModuleData.results.forEach((ele) => {
+      hoursLoggedModuleData.projects.forEach((ele) => {
         filterData.push({
           ProjectId: ele.webtracker_project_id,
           Projects: ele.project_name,
@@ -121,8 +131,6 @@ const HoursLogged = () => {
   const backToDashboard = () => {
     history.push("/dashboard");
   };
-
-  console.log(id, projectID);
 
   return (
     <>
