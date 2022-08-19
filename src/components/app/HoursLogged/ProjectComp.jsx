@@ -229,22 +229,22 @@ const ProjectComponent = (props) => {
           <FaAngleLeft /> Back Hour Logged
         </p>
         <h3 className="heading">{newObj.project_name}</h3>
-        <div className="headBox" style={{ marginTop: "20px" }}>
-          <label>
+        <div className="headBox" style={{ margin: "10px 20px 10px 0" }}>
+          <div className="headDiv">
             Project Owner: <span>{newObj.project_owner}</span>
-          </label>
-          <label>
+          </div>
+          <div className="headDiv">
             Account Code: <span>{newObj.account_code}</span>
-          </label>
-          <label>
+          </div>
+          <div className="headDiv">
             Engagement Type: <span>{newObj.engagement_type}</span>
-          </label>
-          <label>
+          </div>
+          <div className="headDiv">
             Hours Logged: <span>{newObj.hours_logged}</span>
-          </label>
-          <label>
+          </div>
+          <div className="headDiv">
             Project Code: <span>{newObj.project_code}</span>
-          </label>
+          </div>
         </div>
         <div>
           <table cellSpacing={0} className="loggedHoursResourcesTable">

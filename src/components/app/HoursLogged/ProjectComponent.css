@@ -20,8 +20,8 @@
 }
 
 .heading {
-  width: 1110px;
-  height: 31px;
+  /* width: 1110px; */
+  /* height: 31px; */
   font-style: normal;
   font-weight: 600;
   font-size: 26px;
@@ -39,25 +39,26 @@
   background: #ffffff;
   border-radius: 15px;
   padding: 20px;
-  width: 1110px;
-  height: 100px;
+  /* width: 1110px; */
+  /* height: 100; */
 }
 
-.headBox label {
-  width: 245px;
-  height: 18px;
-  font-style: normal;
+.headBox div {
+  /* width: 245px; */
+  /* height: 18px; */
+  /* font-style: normal; */
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   color: #1f4173;
+  margin-bottom: 10px;
 }
 
-.headBox label:nth-child(5) {
+.headBox div:nth-child(5) {
   width: 100%;
 }
 
-.headBox label > span {
+.headBox div > span {
   font-weight: 500;
 }
 
@@ -110,16 +111,15 @@
 
 .addResourcesBtn {
   width: 150px;
-  width: 150px;
   height: 40px;
   background: #003ad2;
   border-radius: 10px;
   border: none;
   outline: none;
   font-size: 14px;
-  line-height: 17px;
+  /* line-height: 17px; */
   color: #ffffff;
-  margin-left: 475px;
+  /* margin-left: 475px; */
 }
 
 .approved {
@@ -289,7 +289,7 @@ Modal > .modal-content {
 
 .loggedHoursResourcesTable {
   background-color: #ffff;
-  width: 1110px;
+  width: 100%;
   margin: 30px 0;
   border-radius: 16px;
   color: #1f4173;
