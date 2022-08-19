@@ -252,12 +252,12 @@ const ProjectComponent = (props) => {
           </div>
         </div>
       </Modal>
-      <div>
+      <div style={{ marginRight: "20px" }}>
         <p className="backBtn" onClick={backToHoursLogged}>
           <FaAngleLeft /> Back Hour Logged
         </p>
         <h3 className="heading">{newObj.project_name}</h3>
-        <div className="headBox" style={{ margin: "10px 20px 10px 0" }}>
+        <div className="headBox" style={{ margin: "10px 0 10px 0" }}>
           <div className="headDiv">
             Project Owner: <span>{newObj.project_owner}</span>
           </div>
