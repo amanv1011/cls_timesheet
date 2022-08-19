@@ -287,7 +287,9 @@ class WeeklyStatus extends React.Component {
 
   render() {
     return (
-      <div style={{ paddingTop: "80px" }}>
+      <div
+      // style={{ paddingTop: "80px" }}
+      >
         <div className="upperRow">
           <h3>Weekly Status</h3>
           <div className="filter">
