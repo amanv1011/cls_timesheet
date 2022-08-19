@@ -6,6 +6,7 @@ if (hostname === "localhost") {
 } else {
   BASE_URL = "https://stageapp.api.classicinformatics.net";
 }
+// BASE_URL = "https://stageapp.api.classicinformatics.net";
 
 const API_PREFIX = `${BASE_URL}/api`;
 
