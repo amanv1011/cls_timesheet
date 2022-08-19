@@ -80,6 +80,7 @@ export const updateResourceName = (user_id, pro_id) => {
 };
 
 export const updateBilledHour = (obj) => {
+  console.log(obj);
   return async function updateBilledHourThunk(dispatch) {
     const requestUrl = `${API_ENDPOINTS.billedHours}project_id=${obj.project_id}&start_date=${obj.start_date}&projectName=${obj.projectName}&user_id=${obj.user_id}&logged_time=${obj.logged_time}&billed_hours=${obj.billed_hours}`;
     try {
