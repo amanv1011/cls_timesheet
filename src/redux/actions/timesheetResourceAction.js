@@ -7,6 +7,7 @@ import {
     GET_TIMESHEET_DETAILED_RESOURCE_DATA_ERR,
     RESOURCE_NAME_TIMELOGGED,
 } from "../type";
+import moment from "moment";
 import axios from "axios";
 
 export const getTimesheetResourceData = (id,localStartDate, localEndDate) => {
@@ -31,9 +32,9 @@ export const getTimesheetResourceData = (id,localStartDate, localEndDate) => {
         }
     }
 }
-export const getParticularResourceData = (_id, startDate, endDate, userId) => {
+export const getParticularResourceData = (_id, startDate, endDate, userId, monthYear) => {
     return async function getParticularResourceDataThunk(dispatch) {
-        const requestUrl = `${API_ENDPOINTS.timesheetDetailedResource}webtracker_project_id=${_id}&start_date=${startDate}&end_date=${endDate}&user_id=${userId}`
+        const requestUrl = `${API_ENDPOINTS.timesheetDetailedResource}webtracker_project_id=${_id}&user_id=${userId}&monthYear=${moment(startDate).format('MM-YYYY')}`
         try{
             const response = await axios.get(requestUrl);
             if( response.data.projects === []){

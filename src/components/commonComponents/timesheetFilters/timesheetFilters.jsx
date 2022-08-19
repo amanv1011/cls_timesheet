@@ -183,16 +183,9 @@ const TimesheetFilters = (props) => {
             </Tooltip>
           </div>
           <Tooltip placement="top" title={"Download Resource"}>
-            <button
-              style={{ float: "right", marginTop: "1px" }}
-              className="export-to-excel"
-              type="primary"
-              onClick={exportDataToExcel}
-              shape="circle"
-            >
-              {" "}
-              Export to Excel
-            </button>
+
+
+            {cardsDisplayAction !== null ? <><button style={{ float: "right", marginTop: "1px" }} className="export-to-excel" onClick={exportDataToExcel} > Export to Excel</button> </> : <><button style={{ float: "right", marginTop: "1px", cursor: "not-allowed" }} className="disable-export-to-excel" > Export to Excel</button> </>}
           </Tooltip>
         </div>
       </div>
