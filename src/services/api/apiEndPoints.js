@@ -1,12 +1,12 @@
 const hostname = window.location.hostname;
 let BASE_URL;
 
-if (hostname === "localhost") {
-  BASE_URL = "http://localhost:3501";
-} else {
-  BASE_URL = "https://stageapp.api.classicinformatics.net";
-}
-// BASE_URL = "https://stageapp.api.classicinformatics.net";
+// if (hostname === "localhost") {
+//   BASE_URL = "http://localhost:3501";
+// } else {
+//   BASE_URL = "https://stageapp.api.classicinformatics.net";
+// }
+BASE_URL = "https://stageapp.api.classicinformatics.net";
 
 const API_PREFIX = `${BASE_URL}/api`;
 
